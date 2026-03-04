@@ -1,0 +1,50 @@
+# ============================================================
+#  קובץ הגדרות - AI Hub
+#  config.yaml
+# ============================================================
+#  ⚠️ הוראות להגדרת Google OAuth:
+#     1. עבור אל Google Cloud Console: https://console.cloud.google.com/
+#     2. צור פרויקט חדש
+#     3. הפעל את Google+ API (או People API)
+#     4. צור OAuth 2.0 Credentials:
+#        - Application type: Web application
+#        - Authorized JavaScript origins:
+#          * http://localhost:8501
+#          * https://your-replit-name.replit.app (בפרודקשן)
+#        - Authorized redirect URIs:
+#          * http://localhost:8501/
+#          * https://your-replit-name.replit.app/
+#     5. העתק את ה-Client ID ו-Client Secret לכאן
+# ============================================================
+
+# הגדרות Google OAuth
+google:
+  client_id: "YOUR_CLIENT_ID.apps.googleusercontent.com"
+  client_secret: "YOUR_CLIENT_SECRET"
+  redirect_uri: "http://localhost:8501/"
+  # לפרודקשן ב-Replit, שנה לכתובת שלך:
+  # redirect_uri: "https://your-app.replit.app/"
+
+# הגדרות משתמשים (סיסמה)
+# ליצירת סיסמה מקודדת, השתמש בקוד:
+# import bcrypt
+# hashed = bcrypt.hashpw("YourPassword".encode(), bcrypt.gensalt())
+credentials:
+  usernames:
+    admin:
+      email: "admin@company.com"
+      name: "מנהל מערכת"
+      # סיסמה: Hub2025! (מקודדת)
+      password: "$2b$12$76tT2eBK09WysAfZApYPzu4cIqLAJl2czJpiciEf8bY6JtSYAcXBC"
+    orben:
+      email: "orben@company.com"
+      name: "אורבן"
+      # סיסמה: orben123 (מקודדת)
+      password: "$2b$12$/j3/9I3R5t6aQwvMKESgxeHTY/y3IDtIFHmW3ywwa5/DYc4R2ptiq"
+
+# הגדרות כלליות
+app:
+  title: "AI Hub - מרכז הכלים הארגוני"
+  logo_emoji: "🏢"
+  # כדי להשתמש בלוגו תמונה, שנה ל-True ושים קובץ logo.png בתיקיית assets/
+  use_image_logo: false
