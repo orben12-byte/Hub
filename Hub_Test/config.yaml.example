@@ -1,0 +1,29 @@
+# ============================================================
+#  קובץ הגדרות לדוגמה - AI Hub
+#  config.yaml.example
+# ============================================================
+#  העתק קובץ זה ל-config.yaml ומלא את הפרטים שלך
+# ============================================================
+
+# הגדרות Google OAuth
+google:
+  client_id: "YOUR_CLIENT_ID.apps.googleusercontent.com"
+  client_secret: "YOUR_CLIENT_SECRET"
+  redirect_uri: "http://localhost:8501/"
+
+# הגדרות משתמשים (סיסמה)
+# ליצירת סיסמה מקודדת:
+# import bcrypt
+# hashed = bcrypt.hashpw("YourPassword".encode(), bcrypt.gensalt())
+credentials:
+  usernames:
+    admin:
+      email: "admin@company.com"
+      name: "מנהל מערכת"
+      password: "$2b$12$..."
+
+# הגדרות כלליות
+app:
+  title: "AI Hub - מרכז הכלים הארגוני"
+  logo_emoji: "🏢"
+  use_image_logo: false
