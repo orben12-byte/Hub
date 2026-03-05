@@ -94,7 +94,7 @@ def render():
         title="📈 הכנסות vs הוצאות — 2025",
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Heebo, Arial", color="rgba(255,255,255,0.7)"),
+        font=dict(family="Rubik, Arial", color="rgba(255,255,255,0.7)"),
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
         xaxis=dict(gridcolor="rgba(255,255,255,0.06)"),
         yaxis=dict(gridcolor="rgba(255,255,255,0.06)", tickprefix="₪"),
@@ -166,7 +166,7 @@ def render():
         )
         fig_pie.update_layout(
             paper_bgcolor="rgba(0,0,0,0)",
-            font=dict(family="Heebo, Arial", color="rgba(255,255,255,0.7)"),
+            font=dict(family="Rubik, Arial", color="rgba(255,255,255,0.7)"),
             showlegend=True,
             legend=dict(orientation="v"),
             margin=dict(l=0, r=0, t=0, b=0),

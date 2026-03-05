@@ -47,10 +47,10 @@ def inject_css():
     """מחדיר CSS מותאם אישית לעיצוב RTL וקורפורטיבי"""
     st.markdown("""
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap');
 
         html, body, [class*="css"] {
-            font-family: 'Heebo', sans-serif !important;
+            font-family: 'Rubik', sans-serif !important;
             direction: rtl;
         }
 
@@ -100,7 +100,7 @@ def inject_css():
             border: none;
             border-radius: 10px;
             color: rgba(255,255,255,0.7);
-            font-family: 'Heebo', sans-serif;
+            font-family: 'Rubik', sans-serif;
             font-size: 15px;
             font-weight: 500;
             text-align: right;
@@ -269,7 +269,7 @@ def inject_css():
             border: 1px solid rgba(99,102,241,0.3) !important;
             border-radius: 10px !important;
             color: white !important;
-            font-family: 'Heebo', sans-serif !important;
+            font-family: 'Rubik', sans-serif !important;
             direction: rtl !important;
             text-align: right !important;
             padding: 12px 16px !important;
@@ -285,7 +285,7 @@ def inject_css():
             color: white !important;
             border: none !important;
             border-radius: 10px !important;
-            font-family: 'Heebo', sans-serif !important;
+            font-family: 'Rubik', sans-serif !important;
             font-weight: 600 !important;
             font-size: 15px !important;
             padding: 12px 28px !important;
@@ -323,7 +323,7 @@ def inject_css():
         }
 
         h1, h2, h3, h4 {
-            font-family: 'Heebo', sans-serif !important;
+            font-family: 'Rubik', sans-serif !important;
             color: white !important;
         }
 
@@ -736,7 +736,7 @@ def main():
             border-radius: 8px;
             padding: 10px 16px;
             cursor: pointer;
-            font-family: 'Heebo', sans-serif;
+            font-family: 'Rubik', sans-serif;
             font-size: 14px;
             font-weight: 600;
         }

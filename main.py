@@ -48,7 +48,7 @@ def inject_css():
     st.markdown("""
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&family=Assistant:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap');
 
         /* איקונים */
         .material-icons {
@@ -66,7 +66,7 @@ def inject_css():
         }
 
         html, body, [class*="css"] {
-            font-family: 'Heebo', 'Assistant', sans-serif !important;
+            font-family: 'Rubik', sans-serif !important;
             direction: rtl;
         }
 
@@ -143,7 +143,9 @@ def inject_css():
 
         /* כותרת ראשית - בסגנון Etsy */
         .main-header {
-            background: white;
+            background: linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('assets/reference.jpg');
+            background-size: cover;
+            background-position: center;
             border-radius: 16px;
             padding: 32px 36px;
             margin-bottom: 28px;
@@ -231,7 +233,7 @@ def inject_css():
             color: white !important;
             border: none !important;
             border-radius: 24px !important;
-            font-family: 'Heebo', sans-serif !important;
+            font-family: 'Rubik', sans-serif !important;
             font-weight: 600 !important;
             font-size: 14px !important;
             padding: 10px 24px !important;
@@ -252,7 +254,7 @@ def inject_css():
             color: white !important;
             border: none !important;
             border-radius: 24px !important;
-            font-family: 'Heebo', sans-serif !important;
+            font-family: 'Rubik', sans-serif !important;
             font-weight: 600 !important;
             font-size: 15px !important;
             padding: 12px 28px !important;
@@ -272,7 +274,7 @@ def inject_css():
             border: 1px solid #e0e0e0 !important;
             border-radius: 12px !important;
             color: #333333 !important;
-            font-family: 'Heebo', sans-serif !important;
+            font-family: 'Rubik', sans-serif !important;
             direction: rtl !important;
             text-align: right !important;
             padding: 14px 18px !important;
@@ -329,7 +331,7 @@ def inject_css():
 
         /* כותרות */
         h1, h2, h3, h4 {
-            font-family: 'Heebo', sans-serif !important;
+            font-family: 'Rubik', sans-serif !important;
             color: #2d2d2d !important;
         }
 
@@ -414,7 +416,7 @@ def inject_css():
             border-radius: 12px;
             padding: 10px 18px;
             cursor: pointer;
-            font-family: 'Heebo', sans-serif;
+            font-family: 'Rubik', sans-serif;
             font-size: 14px;
             font-weight: 600;
             box-shadow: 0 2px 8px rgba(155, 89, 182, 0.3);
@@ -634,6 +636,10 @@ def show_sidebar():
         if use_image and os.path.exists('assets/logo.png'):
             from PIL import Image
             logo = Image.open('assets/logo.png')
+            st.image(logo, use_column_width=True)
+        elif use_image and os.path.exists('assets/reference.jpg'):
+            from PIL import Image
+            logo = Image.open('assets/reference.jpg')
             st.image(logo, use_column_width=True)
         else:
             st.markdown(f"""
