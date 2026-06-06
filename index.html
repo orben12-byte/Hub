@@ -110,21 +110,24 @@
       gap: 8px;
       text-decoration: none;
       color: var(--text);
-      transition: background 150ms ease;
+      transition: background 150ms ease, box-shadow 150ms ease;
       min-height: 160px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
     }
 
-    .card:hover { background: var(--card-hover); }
+    .card:hover {
+      background: var(--card-hover);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+    }
 
     .card-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       flex-shrink: 0;
     }
 
@@ -193,29 +196,13 @@
 
     .archive-link:hover { color: var(--accent-hover); }
 
-    /* Per-card identity — top line accent */
-    .card-moon    { border-top: 3px solid #7C3AED; }
-    .card-calc    { border-top: 3px solid #0891B2; }
-    .card-tools   { border-top: 3px solid #D97706; }
-    .card-weekly  { border-top: 3px solid #2563EB; }
-    .card-monthly { border-top: 3px solid #C45E2A; }
-    .card-alt     { border-top: 3px solid #059669; }
-
-    /* Icon pill colors */
-    .card-moon   .card-icon { background: #EDE9FE; }
-    .card-calc   .card-icon { background: #CCFBF1; }
-    .card-tools  .card-icon { background: #FEF3C7; }
-    .card-weekly .card-icon { background: #DBEAFE; }
-    .card-monthly .card-icon { background: #FFEDD5; }
-    .card-alt    .card-icon { background: #D1FAE5; }
-
-    /* Icon pill — dark mode */
-    [data-theme="dark"] .card-moon   .card-icon { background: #2D1F6E; }
-    [data-theme="dark"] .card-calc   .card-icon { background: #134E4A; }
-    [data-theme="dark"] .card-tools  .card-icon { background: #44280A; }
-    [data-theme="dark"] .card-weekly .card-icon { background: #1D3461; }
-    [data-theme="dark"] .card-monthly .card-icon { background: #4A1F0A; }
-    [data-theme="dark"] .card-alt    .card-icon { background: #134A25; }
+    /* Per-card icon — solid vibrant colors (ilovepdf style) */
+    .card-moon   .card-icon { background: #7C3AED; }
+    .card-calc   .card-icon { background: #0891B2; }
+    .card-tools  .card-icon { background: #D97706; }
+    .card-weekly .card-icon { background: #2563EB; }
+    .card-monthly .card-icon { background: #C45E2A; }
+    .card-alt    .card-icon { background: #059669; }
 
     /* Responsive */
     @media (max-width: 768px) {
@@ -244,33 +231,27 @@
     <div class="grid">
 
       <a class="card col-2 card-moon" href="https://orben12-byte.github.io/moon-phase/" target="_blank" rel="noopener">
-        <div class="card-icon">🌙</div>
+        <div class="card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="rgba(255,255,255,0.95)"><path d="M20.354 15.354A9 9 0 0 1 8.646 3.646 9.003 9.003 0 0 0 12 21a9.003 9.003 0 0 0 8.354-5.646z"/></svg>
+        </div>
         <div class="card-name">Moon Phase</div>
         <div class="card-desc">שלב הירח, לוח חודשי, ספירת ימים לירח המלא הבא, והתראות.</div>
-        <div class="card-footer">
-          <span class="card-cta">פתח</span>
-          <span class="card-arrow">↗</span>
-        </div>
       </a>
 
       <a class="card card-calc" href="https://orben12-byte.github.io/calculator/" target="_blank" rel="noopener">
-        <div class="card-icon">🧮</div>
+        <div class="card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><rect x="8" y="6" width="8" height="3" rx="0.5" fill="rgba(255,255,255,0.9)" stroke="none"/><circle cx="9" cy="13" r="1" fill="rgba(255,255,255,0.95)" stroke="none"/><circle cx="12" cy="13" r="1" fill="rgba(255,255,255,0.95)" stroke="none"/><circle cx="15" cy="13" r="1" fill="rgba(255,255,255,0.95)" stroke="none"/><circle cx="9" cy="17" r="1" fill="rgba(255,255,255,0.95)" stroke="none"/><circle cx="12" cy="17" r="1" fill="rgba(255,255,255,0.95)" stroke="none"/><circle cx="15" cy="17" r="1" fill="rgba(255,255,255,0.95)" stroke="none"/></svg>
+        </div>
         <div class="card-name">Calculator</div>
         <div class="card-desc">מחשבון עם המרת מטבע, טיפ, יחידות ועוד.</div>
-        <div class="card-footer">
-          <span class="card-cta">פתח</span>
-          <span class="card-arrow">↗</span>
-        </div>
       </a>
 
-      <a class="card card-tools" href="#" target="_blank" rel="noopener" id="freeToolsCard">
-        <div class="card-icon">🧰</div>
+      <a class="card card-tools" href="https://orben12-byte.github.io/Free_tools_dashboard/" target="_blank" rel="noopener" id="freeToolsCard">
+        <div class="card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
         <div class="card-name">Free Tools</div>
         <div class="card-desc">כלים חינמיים ומומלצים מ-FMHY לפי קטגוריה.</div>
-        <div class="card-footer">
-          <span class="card-cta">פתח</span>
-          <span class="card-arrow">↗</span>
-        </div>
       </a>
 
     </div>
@@ -279,7 +260,9 @@
     <div class="grid" id="digestsGrid">
 
       <div class="card col-2 card-weekly">
-        <div class="card-icon">📰</div>
+        <div class="card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg>
+        </div>
         <div class="card-name">Weekly AI Digest</div>
         <div class="digest-type">סיכום שבועי: AI, עיצוב, וכלים חדשים</div>
         <div class="digest-empty" id="weeklyEmpty">אין גיליון עדיין</div>
@@ -291,7 +274,9 @@
       </div>
 
       <div class="card card-monthly">
-        <div class="card-icon">📅</div>
+        <div class="card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="8" cy="15" r="1.2" fill="rgba(255,255,255,0.95)" stroke="none"/><circle cx="12" cy="15" r="1.2" fill="rgba(255,255,255,0.95)" stroke="none"/><circle cx="16" cy="15" r="1.2" fill="rgba(255,255,255,0.95)" stroke="none"/></svg>
+        </div>
         <div class="card-name">Monthly Summary</div>
         <div class="digest-type">סיכום חודשי של הפרויקטים והלקחים</div>
         <div class="digest-empty" id="monthlyEmpty">אין גיליון עדיין</div>
@@ -303,7 +288,9 @@
       </div>
 
       <div class="card card-alt">
-        <div class="card-icon">🔍</div>
+        <div class="card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
         <div class="card-name">Alt Hunter</div>
         <div class="digest-type">חיפוש שבועי של אלטרנטיבות לכלים</div>
         <div class="digest-empty" id="altEmpty">אין גיליון עדיין</div>
