@@ -193,22 +193,15 @@
 
     .archive-link:hover { color: var(--accent-hover); }
 
-    /* Per-card color identity — light mode */
-    .card-moon    { background: #F5F3FF; border-color: #DDD6FE; }
-    .card-calc    { background: #F0FDFA; border-color: #99F6E4; }
-    .card-tools   { background: #FFFBEB; border-color: #FDE68A; }
-    .card-weekly  { background: #EFF6FF; border-color: #BFDBFE; }
-    .card-monthly { background: #FFF7F3; border-color: #FDCFB4; }
-    .card-alt     { background: #F0FDF4; border-color: #A7F3D0; }
+    /* Per-card identity — top line accent */
+    .card-moon    { border-top: 3px solid #7C3AED; }
+    .card-calc    { border-top: 3px solid #0891B2; }
+    .card-tools   { border-top: 3px solid #D97706; }
+    .card-weekly  { border-top: 3px solid #2563EB; }
+    .card-monthly { border-top: 3px solid #C45E2A; }
+    .card-alt     { border-top: 3px solid #059669; }
 
-    .card-moon:hover    { background: #EDE9FE; }
-    .card-calc:hover    { background: #CCFBF1; }
-    .card-tools:hover   { background: #FEF3C7; }
-    .card-weekly:hover  { background: #DBEAFE; }
-    .card-monthly:hover { background: #FFEDD5; }
-    .card-alt:hover     { background: #D1FAE5; }
-
-    /* Icon pill colors — light mode */
+    /* Icon pill colors */
     .card-moon   .card-icon { background: #EDE9FE; }
     .card-calc   .card-icon { background: #CCFBF1; }
     .card-tools  .card-icon { background: #FEF3C7; }
@@ -216,21 +209,7 @@
     .card-monthly .card-icon { background: #FFEDD5; }
     .card-alt    .card-icon { background: #D1FAE5; }
 
-    /* Per-card color identity — dark mode */
-    [data-theme="dark"] .card-moon    { background: #1A1629; border-color: #2D1F6E; }
-    [data-theme="dark"] .card-calc    { background: #0D1F1F; border-color: #134E4A; }
-    [data-theme="dark"] .card-tools   { background: #1C1508; border-color: #44280A; }
-    [data-theme="dark"] .card-weekly  { background: #0D1629; border-color: #1D3461; }
-    [data-theme="dark"] .card-monthly { background: #1C0F0A; border-color: #4A1F0A; }
-    [data-theme="dark"] .card-alt     { background: #0A1F12; border-color: #134A25; }
-
-    [data-theme="dark"] .card-moon:hover    { background: #221A36; }
-    [data-theme="dark"] .card-calc:hover    { background: #112626; }
-    [data-theme="dark"] .card-tools:hover   { background: #221A08; }
-    [data-theme="dark"] .card-weekly:hover  { background: #0F1E36; }
-    [data-theme="dark"] .card-monthly:hover { background: #221408; }
-    [data-theme="dark"] .card-alt:hover     { background: #0A2616; }
-
+    /* Icon pill — dark mode */
     [data-theme="dark"] .card-moon   .card-icon { background: #2D1F6E; }
     [data-theme="dark"] .card-calc   .card-icon { background: #134E4A; }
     [data-theme="dark"] .card-tools  .card-icon { background: #44280A; }
