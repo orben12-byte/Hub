@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monthly Summary — Orbit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F5F3F0; --surface: #FFFFFF; --border: #E8E3DC;
+      --text: #111111; --text-muted: #6B6B6B;
+      --accent: #0066CC; --accent-hover: #0052A3; --card-hover: #F0EDE8;
+    }
+    [data-theme="dark"] {
+      --bg: #141414; --surface: #1E1E1E; --border: #2E2E2E;
+      --text: #F0F0F0; --text-muted: #9A9A9A;
+      --accent: #4D9FFF; --accent-hover: #6AAFFF; --card-hover: #242424;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Rubik', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; transition: background 200ms ease, color 200ms ease; }
+    header { display: flex; align-items: center; justify-content: space-between; padding: 24px 32px; border-bottom: 1px solid var(--border); }
+    .logo { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: var(--text); text-decoration: none; }
+    .logo span { color: var(--accent); }
+    .theme-btn { background: none; border: 1px solid var(--border); border-radius: 8px; padding: 7px 11px; cursor: pointer; font-size: 17px; line-height: 1; color: var(--text); transition: background 150ms ease; }
+    .theme-btn:hover { background: var(--card-hover); }
+    main { max-width: 800px; margin: 0 auto; padding: 40px 24px 60px; }
+    .back { font-size: 14px; color: var(--accent); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 28px; }
+    .back:hover { color: var(--accent-hover); }
+    h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
+    .subtitle { font-size: 15px; color: var(--text-muted); margin-bottom: 36px; }
+    .list { display: flex; flex-direction: column; gap: 12px; }
+    .entry { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; color: var(--text); transition: background 150ms ease; }
+    .entry:hover { background: var(--card-hover); }
+    .entry-info { display: flex; flex-direction: column; gap: 4px; }
+    .entry-title { font-size: 16px; font-weight: 600; }
+    .entry-date { font-size: 13px; color: var(--text-muted); }
+    .entry-arrow { font-size: 18px; color: var(--text-muted); }
+    .empty { text-align: center; padding: 60px 0; color: var(--text-muted); font-size: 15px; }
+    @media (max-width: 480px) { header { padding: 16px 20px; } main { padding: 24px 16px 48px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="logo" href="../../">Orbit<span>.</span></a>
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+  </header>
+  <main>
+    <a class="back" href="../../">← חזרה ל-Orbit</a>
+    <h1>📅 Monthly Summary</h1>
+    <p class="subtitle">סיכום חודשי של הפרויקטים, הצוות, והלקחים</p>
+    <div class="list" id="list">
+      <div class="empty" id="emptyState">אין סיכומים עדיין. הסיכום הראשון יופיע כאן ב-1 לחודש.</div>
+    </div>
+  </main>
+  <script>
+    const btn = document.getElementById('themeBtn');
+    function applyTheme(dark) {
+      dark ? document.documentElement.setAttribute('data-theme','dark') : document.documentElement.removeAttribute('data-theme');
+      btn.textContent = dark ? '☀️' : '🌙';
+    }
+    const saved = localStorage.getItem('orbit-theme');
+    applyTheme(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches));
+    function toggleTheme() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      localStorage.setItem('orbit-theme', isDark ? 'light' : 'dark');
+      applyTheme(!isDark);
+    }
+    fetch('manifest.json').then(r => r.json()).then(list => {
+      if (!list.length) return;
+      document.getElementById('emptyState').remove();
+      const container = document.getElementById('list');
+      list.forEach(item => {
+        const a = document.createElement('a');
+        a.className = 'entry';
+        a.href = item.file;
+        a.target = '_blank';
+        a.innerHTML = `<div class="entry-info"><div class="entry-title">${item.title}</div><div class="entry-date">${item.date}</div></div><div class="entry-arrow">↗</div>`;
+        container.appendChild(a);
+      });
+    }).catch(() => {});
+  </script>
+</body>
+</html>

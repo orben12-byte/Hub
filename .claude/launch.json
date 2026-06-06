@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "orbit-hub",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "3335", "--directory", "C:\\Users\\orben\\OneDrive\\Desktop\\DEV\\GitHub\\Hub"],
+      "port": 3335
+    }
+  ]
+}

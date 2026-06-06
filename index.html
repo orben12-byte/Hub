@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orbit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:             #F5F3F0;
+      --surface:        #FFFFFF;
+      --border:         #E8E3DC;
+      --text:           #111111;
+      --text-muted:     #6B6B6B;
+      --accent:         #0066CC;
+      --accent-hover:   #0052A3;
+      --card-hover:     #F0EDE8;
+    }
+
+    [data-theme="dark"] {
+      --bg:             #141414;
+      --surface:        #1E1E1E;
+      --border:         #2E2E2E;
+      --text:           #F0F0F0;
+      --text-muted:     #9A9A9A;
+      --accent:         #4D9FFF;
+      --accent-hover:   #6AAFFF;
+      --card-hover:     #242424;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Rubik', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      transition: background 200ms ease, color 200ms ease;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--text);
+    }
+
+    .logo span { color: var(--accent); }
+
+    .theme-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 11px;
+      cursor: pointer;
+      font-size: 17px;
+      line-height: 1;
+      color: var(--text);
+      transition: background 150ms ease;
+    }
+
+    .theme-btn:hover { background: var(--card-hover); }
+
+    /* Main */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 36px 24px 60px;
+    }
+
+    /* Section label */
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+
+    /* Bento grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .col-2 { grid-column: span 2; }
+
+    /* Card base */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text);
+      transition: background 150ms ease;
+      min-height: 160px;
+    }
+
+    .card:hover { background: var(--card-hover); }
+
+    .card-icon {
+      font-size: 26px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .card-name {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .card-cta {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .card-arrow {
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    /* Digest card extras */
+    .digest-type {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .digest-latest {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .digest-date {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .digest-empty {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .archive-link {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .archive-link:hover { color: var(--accent-hover); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      header { padding: 16px 20px; }
+      main { padding: 24px 16px 48px; }
+    }
+
+    @media (max-width: 480px) {
+      .grid { grid-template-columns: 1fr; }
+      .col-2 { grid-column: span 1; }
+      .card { min-height: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Orbit<span>.</span></div>
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+  </header>
+
+  <main>
+
+    <div class="section-label">כלים</div>
+    <div class="grid">
+
+      <a class="card col-2" href="https://orben12-byte.github.io/moon-phase/" target="_blank" rel="noopener">
+        <div class="card-icon">🌙</div>
+        <div class="card-name">Moon Phase</div>
+        <div class="card-desc">שלב הירח, לוח חודשי, ספירת ימים לירח המלא הבא, והתראות.</div>
+        <div class="card-footer">
+          <span class="card-cta">פתח</span>
+          <span class="card-arrow">↗</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://orben12-byte.github.io/calculator/" target="_blank" rel="noopener">
+        <div class="card-icon">🧮</div>
+        <div class="card-name">Calculator</div>
+        <div class="card-desc">מחשבון עם המרת מטבע, טיפ, יחידות ועוד.</div>
+        <div class="card-footer">
+          <span class="card-cta">פתח</span>
+          <span class="card-arrow">↗</span>
+        </div>
+      </a>
+
+      <a class="card" href="#" target="_blank" rel="noopener" id="freeToolsCard">
+        <div class="card-icon">🧰</div>
+        <div class="card-name">Free Tools</div>
+        <div class="card-desc">כלים חינמיים ומומלצים מ-FMHY לפי קטגוריה.</div>
+        <div class="card-footer">
+          <span class="card-cta">פתח</span>
+          <span class="card-arrow">↗</span>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="section-label">דיגסטים</div>
+    <div class="grid" id="digestsGrid">
+
+      <div class="card col-2">
+        <div class="card-icon">📰</div>
+        <div class="card-name">Weekly AI Digest</div>
+        <div class="digest-type">סיכום שבועי: AI, עיצוב, וכלים חדשים</div>
+        <div class="digest-empty" id="weeklyEmpty">אין גיליון עדיין</div>
+        <div id="weeklyLatest" style="display:none">
+          <div class="digest-latest" id="weeklyTitle"></div>
+          <div class="digest-date" id="weeklyDate"></div>
+        </div>
+        <a class="archive-link" href="digests/weekly/">כל הגיליונות ←</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📅</div>
+        <div class="card-name">Monthly Summary</div>
+        <div class="digest-type">סיכום חודשי של הפרויקטים והלקחים</div>
+        <div class="digest-empty" id="monthlyEmpty">אין גיליון עדיין</div>
+        <div id="monthlyLatest" style="display:none">
+          <div class="digest-latest" id="monthlyTitle"></div>
+          <div class="digest-date" id="monthlyDate"></div>
+        </div>
+        <a class="archive-link" href="digests/monthly/">כל הגיליונות ←</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🔍</div>
+        <div class="card-name">Alt Hunter</div>
+        <div class="digest-type">חיפוש שבועי של אלטרנטיבות לכלים</div>
+        <div class="digest-empty" id="altEmpty">אין גיליון עדיין</div>
+        <div id="altLatest" style="display:none">
+          <div class="digest-latest" id="altTitle"></div>
+          <div class="digest-date" id="altDate"></div>
+        </div>
+        <a class="archive-link" href="digests/alt-hunter/">כל הגיליונות ←</a>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // Dark mode
+    const btn = document.getElementById('themeBtn');
+
+    function applyTheme(dark) {
+      if (dark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        btn.textContent = '☀️';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        btn.textContent = '🌙';
+      }
+    }
+
+    const saved = localStorage.getItem('orbit-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(saved === 'dark' || (!saved && prefersDark));
+
+    function toggleTheme() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      localStorage.setItem('orbit-theme', isDark ? 'light' : 'dark');
+      applyTheme(!isDark);
+    }
+
+    // Load latest digest from manifest.json in each folder
+    async function loadLatest(folder, emptyId, latestId, titleId, dateId) {
+      try {
+        const res = await fetch('digests/' + folder + '/manifest.json');
+        if (!res.ok) return;
+        const list = await res.json();
+        if (!list.length) return;
+        const latest = list[0];
+        document.getElementById(emptyId).style.display = 'none';
+        document.getElementById(latestId).style.display = 'block';
+        const titleEl = document.getElementById(titleId);
+        titleEl.textContent = latest.title;
+        titleEl.style.cursor = 'pointer';
+        titleEl.onclick = () => window.open('digests/' + folder + '/' + latest.file, '_blank');
+        document.getElementById(dateId).textContent = latest.date;
+      } catch (e) {}
+    }
+
+    loadLatest('weekly',     'weeklyEmpty',  'weeklyLatest',  'weeklyTitle',  'weeklyDate');
+    loadLatest('monthly',    'monthlyEmpty', 'monthlyLatest', 'monthlyTitle', 'monthlyDate');
+    loadLatest('alt-hunter', 'altEmpty',     'altLatest',     'altTitle',     'altDate');
+  </script>
+
+</body>
+</html>
