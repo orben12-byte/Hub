@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚓ Odysseus Tracker — 2026-06-13</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #2c2f35;
+      color: #c8ccd4;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      direction: ltr;
+      min-height: 100vh;
+      padding: 32px 16px 64px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .header {
+      padding-bottom: 24px;
+      border-bottom: 1px solid #3a3d44;
+      margin-bottom: 32px;
+    }
+
+    .header-meta {
+      font-size: 11px;
+      color: #6a6d75;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #e07070;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .header .tagline {
+      font-size: 13px;
+      color: #6a6d75;
+      font-style: italic;
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: flex;
+      gap: 0;
+      margin-bottom: 32px;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #252830;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 14px 16px;
+      border-right: 1px solid #3a3d44;
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-val {
+      font-size: 20px;
+      font-weight: 700;
+      color: #e07070;
+      display: block;
+    }
+
+    .stat-key {
+      font-size: 10px;
+      color: #6a6d75;
+      display: block;
+      margin-top: 3px;
+      letter-spacing: 0.08em;
+    }
+
+    .stat-delta {
+      font-size: 10px;
+      color: #70a070;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* SECTIONS */
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #e07070;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: #3a3d44;
+    }
+
+    /* ITEMS */
+    .item {
+      background-color: #252830;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 8px;
+    }
+
+    .item-key {
+      font-size: 10px;
+      font-weight: 600;
+      color: #6a6d75;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .item-val {
+      font-size: 13px;
+      color: #c8ccd4;
+      line-height: 1.7;
+    }
+
+    .item-val a {
+      color: #e07070;
+      text-decoration: none;
+    }
+
+    .item-val a:hover { text-decoration: underline; }
+
+    /* ACCENT VARIANTS */
+    .item.dim {
+      border-color: #32353c;
+      background-color: #222428;
+    }
+
+    .item.warn {
+      border-color: #c0603040;
+      background-color: #2a1f1a;
+    }
+
+    .item.warn .item-key { color: #c06030; }
+    .item.warn .item-val { color: #a08070; }
+
+    .item.highlight {
+      border-color: #e0707040;
+      background-color: #2a1e1e;
+    }
+
+    .item.highlight .item-key { color: #e07070; }
+
+    .item.new {
+      border-color: #70a07040;
+      background-color: #1e2a1e;
+    }
+
+    .item.new .item-key { color: #70a070; }
+
+    /* ADAM BLOCK */
+    .adam-block {
+      background-color: #1e2025;
+      border: 1px solid #3a3d44;
+      border-left: 3px solid #e07070;
+      border-radius: 0 8px 8px 0;
+      padding: 18px 18px 18px 20px;
+    }
+
+    .adam-block p {
+      font-size: 13px;
+      color: #b0b4bc;
+      line-height: 1.8;
+    }
+
+    .adam-block strong { color: #e07070; }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #3a3d44;
+      font-size: 11px;
+      color: #4a4d55;
+    }
+
+    .footer .next {
+      color: #6a6d75;
+      margin-top: 4px;
+    }
+
+    .footer .sources {
+      margin-top: 12px;
+      color: #4a4d55;
+      font-size: 10px;
+      line-height: 1.8;
+    }
+
+    .footer .sources a {
+      color: #5a5d65;
+      text-decoration: none;
+    }
+
+    .footer .sources a:hover { color: #e07070; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-meta">odysseus-tracker · run #2 · 2026-06-13 · researcher agent</div>
+    <h1>⚓ Odysseus Watch</h1>
+    <div class="tagline">Yours for the voyage.</div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-val">62K+</span>
+      <span class="stat-key">github stars</span>
+      <span class="stat-delta">+18K this week</span>
+    </div>
+    <div class="stat">
+      <span class="stat-val">4K+</span>
+      <span class="stat-key">open issues</span>
+      <span class="stat-delta">high velocity</span>
+    </div>
+    <div class="stat">
+      <span class="stat-val">13 days</span>
+      <span class="stat-key">since launch</span>
+    </div>
+    <div class="stat">
+      <span class="stat-val">2</span>
+      <span class="stat-key">active repos</span>
+      <span class="stat-delta">+ dionysus</span>
+    </div>
+  </div>
+
+  <!-- SECTION 1: GITHUB -->
+  <div class="section">
+    <div class="section-label">github pulse</div>
+
+    <div class="item highlight">
+      <span class="item-key">security PR merged — important</span>
+      <span class="item-val">PR #2360 (under review June 8): adds a sensitive-file deny-list to the agent file tools. Files like .env, private keys, and system dirs are now blocked from agent access by default. This is a direct response to community-raised security issues (#991). Agent mode is getting safer.</span>
+    </div>
+
+    <div class="item">
+      <span class="item-key">issue velocity</span>
+      <span class="item-val">Issues #4082, #4085, #4086 all opened June 12 in a single day. Total open issues crossed 4,000. The project is receiving near-daily commits. For a 13-day-old repo this is extreme activity.</span>
+    </div>
+
+    <div class="item new">
+      <span class="item-key">new repo: dionysus</span>
+      <span class="item-val">A second repository appeared under PewDiePie's account: <a href="https://github.com/pewdiepie-archdaemon/dionysus">pewdiepie-archdaemon/dionysus</a> — described as "laptop", written in Shell. No announcement yet. Could be a lightweight local companion to Odysseus, a personal config repo, or the start of something new. Worth watching.</span>
+    </div>
+
+    <div class="item dim">
+      <span class="item-key">criticism thread active</span>
+      <span class="item-val">Issue #1866 "WTF is going on here?" is gaining traction — technical criticism of code quality and architecture. This is normal for a fast-shipped open-source project. The maintainers are actively engaging.</span>
+    </div>
+  </div>
+
+  <!-- SECTION 2: COMMUNITY -->
+  <div class="section">
+    <div class="section-label">community</div>
+
+    <div class="item">
+      <span class="item-key">growth this week</span>
+      <span class="item-val">44K stars on June 6. 62K stars on June 13. That's +18,000 GitHub stars in 7 days — the initial spike did NOT die down. The project is in sustained viral territory, not just a launch bump.</span>
+    </div>
+
+    <div class="item">
+      <span class="item-key">what people are building</span>
+      <span class="item-val">MCP-connected pipelines remain the most popular community experiment: web scraping, browser automation via Playwright, email agents. The file + shell tools are generating the most excitement — people are building local automation workflows that previously required custom Python scripts.</span>
+    </div>
+
+    <div class="item warn">
+      <span class="item-key">⚠ dominant concern: security model</span>
+      <span class="item-val">The biggest community conversation this week is around agent security. Issue #991 (Security Issues) from June 2 surfaced a real concern: agent mode with full file and shell access could be exploited via prompt injection. PR #2360 is the team's response. Community consensus: hold off on full agent mode until the deny-list ships and is confirmed stable.</span>
+    </div>
+  </div>
+
+  <!-- SECTION 3: TUTORIALS -->
+  <div class="section">
+    <div class="section-label">tutorials & builds</div>
+
+    <div class="item">
+      <span class="item-key">guide ecosystem exploded</span>
+      <span class="item-val">An entire ecosystem of third-party guide sites launched this week: <a href="https://odysseusai.net">odysseusai.net</a>, <a href="https://odysseusai.dev">odysseusai.dev</a>, <a href="https://odysseusai.run">odysseusai.run</a>, <a href="https://www.odysseusguide.com">odysseusguide.com</a>. All cover installation across Docker, Windows WSL2, Mac, and Linux. Setup friction is dropping fast.</span>
+    </div>
+
+    <div class="item">
+      <span class="item-key">ollama model matching guide</span>
+      <span class="item-val">"Odysseus AI Ollama Models: Best Local Setup Guide" — covers how to match your hardware to the right Ollama model, when to trust the Cookbook, and when to override it. Directly useful for Or's local setup. <a href="https://odysseusai.run/guides/odysseus-ai-ollama-models/">link</a></span>
+    </div>
+
+    <div class="item dim">
+      <span class="item-key">professional setup gist</span>
+      <span class="item-val">"Professional Odysseus AI Workspace Setup and Support" — a curated GitHub Gist with advanced configuration patterns beyond the basic README. <a href="https://gist.github.com/AnythingLinux/36720f268f8289c9fae0f3356e7565cc">link</a></span>
+    </div>
+  </div>
+
+  <!-- SECTION 4: NEWS -->
+  <div class="section">
+    <div class="section-label">news & signal</div>
+
+    <div class="item">
+      <span class="item-key">narrative shift</span>
+      <span class="item-val">Early coverage (week 1) led with "PewDiePie made an AI thing." Week 2 coverage is shifting to the actual product argument: <a href="https://dev.to/jenueldev/pewdiepie-built-an-open-source-ai-workspace-and-the-point-is-bigger-than-the-hype-579m">DEV Community: "the point is bigger than the hype"</a>. Developers are now taking it seriously on its own merits, not just the celebrity angle.</span>
+    </div>
+
+    <div class="item highlight">
+      <span class="item-key">honest reviews surfacing</span>
+      <span class="item-val">Medium and ChatForest published honest reviews that go beyond the launch excitement. They note real limitations: heavy Docker dependency, model setup friction, no mobile app yet. This is healthy — the project will improve faster with real criticism than with hype.</span>
+    </div>
+
+    <div class="item dim">
+      <span class="item-key">continued international press</span>
+      <span class="item-val">Cybernews, 80.lv, Business Mirror (Philippines), Dhaka Tribune, The Business Standard — coverage is global and sustained. The privacy-first narrative continues to resonate internationally.</span>
+    </div>
+  </div>
+
+  <!-- SECTION 5: ADAM -->
+  <div class="section">
+    <div class="section-label">adam's angle</div>
+
+    <div class="adam-block">
+      <p>
+        The project didn't plateau — +18K stars in week 2 means the audience is still expanding. That's unusual and meaningful.
+        <br><br>
+        <strong>Security update (PR #2360) changes the calculus:</strong> once the sensitive-file deny-list ships and stabilizes, it becomes much safer to test agent mode on Or's machine. Until then: keep experiments in a sandbox folder, not in the system (M-memory, C-core, A-agents are off-limits).
+        <br><br>
+        <strong>Dionysus:</strong> the new "laptop" shell repo is a signal. PewDiePie is building infrastructure, not just one tool. Watch this repo — it may reveal the direction for v2 of Odysseus or a companion lightweight mode.
+        <br><br>
+        <strong>This week's action:</strong> try the Ollama model matching guide. Or already has Ollama models running locally — the guide tells you which one Odysseus will work best with given your hardware. This directly closes the capability gap from run #1.
+        <br><br>
+        <strong>Next week:</strong> check if PR #2360 has merged. If yes, it's time to run the agent mode file creation test.
+      </p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>odysseus-tracker · run #2 · abc-tom system · or ben</div>
+    <div class="next">// next run recommended: 2026-06-20</div>
+    <div class="sources">
+      sources: <a href="https://github.com/pewdiepie-archdaemon/odysseus/issues">github/odysseus/issues</a> ·
+      <a href="https://github.com/pewdiepie-archdaemon/odysseus/discussions">github/discussions</a> ·
+      <a href="https://github.com/pewdiepie-archdaemon/dionysus">github/dionysus</a> ·
+      <a href="https://odysseusai.run/guides/odysseus-ai-ollama-models/">odysseusai.run</a> ·
+      <a href="https://dev.to/jenueldev/pewdiepie-built-an-open-source-ai-workspace-and-the-point-is-bigger-than-the-hype-579m">dev.to</a> ·
+      <a href="https://opentools.ai/tools/odysseus">opentools.ai</a> ·
+      <a href="https://cybernews.com/ai-news/pewdiepie-odysseus-artifcial-intelligence/">cybernews</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
