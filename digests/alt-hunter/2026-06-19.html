@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔍 Alt Hunter — June 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #2c2f35;
+      color: #c8ccd4;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      direction: ltr;
+      min-height: 100vh;
+      padding: 32px 16px 64px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .header {
+      padding-bottom: 24px;
+      border-bottom: 1px solid #3a3d44;
+      margin-bottom: 32px;
+    }
+
+    .header-meta {
+      font-size: 11px;
+      color: #6a6d75;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #70a070;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .header .tagline {
+      font-size: 13px;
+      color: #6a6d75;
+      font-style: italic;
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: flex;
+      gap: 0;
+      margin-bottom: 32px;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #252830;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 14px 16px;
+      border-right: 1px solid #3a3d44;
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-val {
+      font-size: 20px;
+      font-weight: 700;
+      color: #70a070;
+      display: block;
+    }
+
+    .stat-val.warn { color: #e07070; }
+
+    .stat-key {
+      font-size: 10px;
+      color: #6a6d75;
+      display: block;
+      margin-top: 3px;
+      letter-spacing: 0.08em;
+    }
+
+    .stat-delta {
+      font-size: 10px;
+      color: #70a070;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .stat-delta.warn { color: #e07070; }
+
+    /* SECTIONS */
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #70a070;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: #3a3d44;
+    }
+
+    /* ITEMS */
+    .item {
+      background-color: #252830;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 8px;
+    }
+
+    .item-key {
+      font-size: 10px;
+      font-weight: 600;
+      color: #6a6d75;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .item-val {
+      font-size: 13px;
+      color: #c8ccd4;
+      line-height: 1.7;
+    }
+
+    .item-val a {
+      color: #70a070;
+      text-decoration: none;
+    }
+
+    .item-val a:hover { text-decoration: underline; }
+
+    /* TABLE */
+    .item-val table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 12px;
+    }
+
+    .item-val th {
+      text-align: left;
+      color: #6a6d75;
+      font-weight: 600;
+      padding: 6px 8px;
+      border-bottom: 1px solid #3a3d44;
+      letter-spacing: 0.06em;
+    }
+
+    .item-val td {
+      padding: 7px 8px;
+      border-bottom: 1px solid #2a2d33;
+      color: #c8ccd4;
+      vertical-align: top;
+    }
+
+    .item-val tr:last-child td { border-bottom: none; }
+
+    /* ACCENT VARIANTS */
+    .item.dim {
+      border-color: #32353c;
+      background-color: #222428;
+    }
+
+    .item.warn {
+      border-color: #c0603040;
+      background-color: #2a1f1a;
+    }
+
+    .item.warn .item-key { color: #c06030; }
+    .item.warn .item-val { color: #a08070; }
+
+    .item.highlight {
+      border-color: #70a07040;
+      background-color: #1e2a1e;
+    }
+
+    .item.highlight .item-key { color: #70a070; }
+
+    /* VERDICT BLOCK */
+    .verdict-block {
+      background-color: #1e2025;
+      border: 1px solid #3a3d44;
+      border-left: 3px solid #70a070;
+      border-radius: 0 8px 8px 0;
+      padding: 18px 18px 18px 20px;
+    }
+
+    .verdict-block p {
+      font-size: 13px;
+      color: #b0b4bc;
+      line-height: 1.8;
+    }
+
+    .verdict-block strong { color: #70a070; }
+    .verdict-block strong.warn { color: #e07070; }
+
+    /* CODE BLOCK */
+    .code-block {
+      background-color: #1e2025;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 12px;
+      color: #c8ccd4;
+      line-height: 1.8;
+      margin-bottom: 8px;
+    }
+
+    .code-block .comment { color: #6a6d75; }
+    .code-block .step { color: #70a070; }
+    .code-block .result { color: #4d9fff; }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #3a3d44;
+      font-size: 11px;
+      color: #4a4d55;
+    }
+
+    .footer .next {
+      color: #6a6d75;
+      margin-top: 4px;
+    }
+
+    .footer .sources {
+      margin-top: 12px;
+      color: #4a4d55;
+      font-size: 10px;
+      line-height: 1.8;
+    }
+
+    .footer .sources a {
+      color: #5a5d65;
+      text-decoration: none;
+    }
+
+    .footer .sources a:hover { color: #70a070; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-meta">alt-hunter · run #2 · 2026-06-19 · alternative hunter agent</div>
+    <h1>🔍 Alt Hunter</h1>
+    <div class="tagline">June 2026 — The landscape has shifted. Replacements are real.</div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-val">$0</span>
+      <span class="stat-key">monthly cost</span>
+      <span class="stat-delta">with Ollama setup</span>
+    </div>
+    <div class="stat">
+      <span class="stat-val">7+</span>
+      <span class="stat-key">viable options</span>
+      <span class="stat-delta">coding + chat</span>
+    </div>
+    <div class="stat">
+      <span class="stat-val">v0.30.8</span>
+      <span class="stat-key">Ollama latest</span>
+      <span class="stat-delta">Jun 12 2026</span>
+    </div>
+    <div class="stat">
+      <span class="stat-val warn">2</span>
+      <span class="stat-key">avoid list</span>
+      <span class="stat-delta warn">Gemini CLI, Roo</span>
+    </div>
+  </div>
+
+  <!-- SECTION: VERDICT -->
+  <div class="section">
+    <div class="section-label">executive summary</div>
+
+    <div class="verdict-block">
+      <p>
+        The free Claude Pro alternative landscape has <strong>significantly matured</strong> in June 2026.
+        <br><br>
+        <strong>Ollama + Claude Code integration is now production-ready</strong> — Anthropic Messages API support (added Jan 2026) enables zero-cost local coding. Tool call and tokenizer issues from April are resolved.
+        <br><br>
+        <strong>Open WebUI 0.8.8</strong> now ships as a native desktop app with terminal-in-chat file editing — the file operations gap from May's report is closing.
+        <br><br>
+        <strong>New frontier models available locally:</strong> MiniMax M3 (1M context + vision), NVIDIA Nemotron 3 Ultra, DeepSeek V4 Pro, Kimi K2.6.
+        <br><br>
+        Bottom line: you can run a Claude Code-equivalent workflow <strong>100% free and private</strong> today. Multiple YouTube tutorials confirmed working on Windows 11.
+      </p>
+    </div>
+  </div>
+
+  <!-- SECTION: OLLAMA -->
+  <div class="section">
+    <div class="section-label">ollama — june 2026</div>
+
+    <div class="item highlight">
+      <span class="item-key">v0.30.8 — June 12, 2026</span>
+      <span class="item-val">MLX performance boost on Apple Silicon. Multimodal Metal GPU offload. Anthropic Messages API support confirmed stable — Claude Code connects directly to any local Ollama model.</span>
+    </div>
+
+    <div class="item new">
+      <span class="item-key">new models this month</span>
+      <span class="item-val">
+        <table>
+          <tr><th>model</th><th>why it matters</th></tr>
+          <tr><td>Kimi K2.6</td><td>frontier-level coding</td></tr>
+          <tr><td>MiniMax M3</td><td>1M token context + native vision</td></tr>
+          <tr><td>NVIDIA Nemotron 3 Ultra</td><td>high-throughput reasoning, long agent workflows</td></tr>
+          <tr><td>DeepSeek V4 Pro</td><td>latest reasoning model</td></tr>
+          <tr><td>gpt-oss:20b</td><td>best small model for 16 GB RAM</td></tr>
+        </table>
+      </span>
+    </div>
+
+    <div class="item">
+      <span class="item-key">best models for coding right now</span>
+      <span class="item-val">Kimi K2.6 (frontier) · gpt-oss:20b (16GB RAM) · qwen3:30b (balanced) · DeepSeek-R1 (reasoning) · Gemma 4 (vision + tools) · Llama 4 Scout (10M ctx, multimodal)</span>
+    </div>
+  </div>
+
+  <!-- SECTION: OPEN WEBUI -->
+  <div class="section">
+    <div class="section-label">open webui — v0.8.8</div>
+
+    <div class="item highlight">
+      <span class="item-key">file ops gap closing</span>
+      <span class="item-val">Open Terminal integration: browse and edit local files directly in-chat with auto-refresh. HTML file preview with rendered iframe + source toggle. This directly addresses May's main failure point — file operations no longer require a separate Hermes Agent.</span>
+    </div>
+
+    <div class="item">
+      <span class="item-key">other major additions</span>
+      <span class="item-val">Native desktop app (Windows / Mac / Linux) · WebSocket proxy for interactive sessions · Task management in-chat · Calendar workspace with recurring schedules · SBOM attestation + security headers</span>
+    </div>
+  </div>
+
+  <!-- SECTION: CODING ALTERNATIVES -->
+  <div class="section">
+    <div class="section-label">free coding alternatives — status</div>
+
+    <div class="item">
+      <span class="item-key">category 1: local coding agents (BYOK)</span>
+      <span class="item-val">
+        <table>
+          <tr><th>tool</th><th>status</th><th>best for</th></tr>
+          <tr><td>Aider</td><td>✅ stable</td><td>git-centered, terminal</td></tr>
+          <tr><td>Cline</td><td>✅ growing</td><td>VS Code, 58k ⭐</td></tr>
+          <tr><td>Continue.dev</td><td>✅ stable</td><td>IDE integration, 31k ⭐</td></tr>
+          <tr><td>OpenCode</td><td>🆕 new</td><td>Claude Code replacement</td></tr>
+        </table>
+      </span>
+    </div>
+
+    <div class="item">
+      <span class="item-key">category 2: local chat &amp; desktop</span>
+      <span class="item-val">
+        <table>
+          <tr><th>tool</th><th>status</th><th>best for</th></tr>
+          <tr><td>Open WebUI</td><td>✅ feature-rich</td><td>self-hosted full platform</td></tr>
+          <tr><td>Jan.ai</td><td>✅ stable</td><td>privacy-first local chat</td></tr>
+          <tr><td>Cherry Studio</td><td>✅ stable</td><td>cross-platform, BYOK</td></tr>
+        </table>
+      </span>
+    </div>
+
+    <div class="item dim">
+      <span class="item-key">category 3: web free tiers</span>
+      <span class="item-val">HuggingChat ✅ · Open Router ✅ · <span style="color:#e07070">Gemini CLI ⚠️ being sunset</span></span>
+    </div>
+  </div>
+
+  <!-- SECTION: SETUP -->
+  <div class="section">
+    <div class="section-label">recommended setup — june 2026</div>
+
+    <div class="code-block">
+      <span class="comment">// FOR CODING — $0/month, fully private</span><br>
+      <span class="step">1.</span> install Ollama (model runtime)<br>
+      <span class="step">2.</span> ollama pull qwen3:30b  <span class="comment"># or kimi-k2.6 for frontier</span><br>
+      <span class="step">3.</span> use Aider (terminal) or Cline (VS Code)<br>
+      <span class="result">→ Claude Code-equivalent. zero cost. zero data leaving machine.</span>
+    </div>
+
+    <div class="code-block">
+      <span class="comment">// FOR CHAT</span><br>
+      <span class="step">desktop:</span> Open WebUI (self-hosted) OR Cherry Studio<br>
+      <span class="step">web fallback:</span> HuggingChat<br>
+      <span class="step">max privacy:</span> Jan.ai + Continue.dev with local models
+    </div>
+  </div>
+
+  <!-- SECTION: COMMUNITY -->
+  <div class="section">
+    <div class="section-label">community signal</div>
+
+    <div class="item">
+      <span class="item-key">YouTube tutorial explosion</span>
+      <span class="item-val">
+        Multiple tutorials confirming working Windows 11 setup (last 30 days):<br>
+        "Use Claude Code for Free with Ollama on Windows PC" (2 days ago) ·
+        "How To Use Claude Code For FREE with Ollama Cloud" (May 9) ·
+        "Claude Desktop Run ANY Model for FREE" (May 6) ·
+        "Claude Cowork + Ollama = 100% FREE" (Apr 25).<br>
+        Setup is now accessible to non-technical users.
+      </span>
+    </div>
+
+    <div class="item">
+      <span class="item-key">Hacker News</span>
+      <span class="item-val">Active Claude Code + Ollama threads throughout Q1–Q2. Community confirmed: <strong style="color:#70a070">no Claude subscription required</strong>. April tokenizer issues resolved.</span>
+    </div>
+  </div>
+
+  <!-- SECTION: MCP -->
+  <div class="section">
+    <div class="section-label">MCP — model context protocol</div>
+
+    <div class="item highlight">
+      <span class="item-key">became industry standard in 2026</span>
+      <span class="item-val">Adopted by Anthropic, OpenAI, Google DeepMind, Microsoft. "USB-C for AI" — any compliant host works with any compliant server. Growing community server registry. Means free tools can now match Claude Desktop feature-for-feature via standardized integrations.</span>
+    </div>
+  </div>
+
+  <!-- SECTION: AVOID -->
+  <div class="section">
+    <div class="section-label">stability warnings</div>
+
+    <div class="item warn">
+      <span class="item-key">⚠ avoid — Gemini CLI</span>
+      <span class="item-val">Being sunset by Google. Was the best free tier option but free quotas are dropping and Pro went behind paywall in April 2026.</span>
+    </div>
+
+    <div class="item warn">
+      <span class="item-key">⚠ archived — Roo Code</span>
+      <span class="item-val">Project archived. Do not build workflows around it.</span>
+    </div>
+
+    <div class="item dim">
+      <span class="item-key">caution: rapid ecosystem changes</span>
+      <span class="item-val">Multiple open-source AI tools changed governance or auth models in 2026. Stick to projects with 30k+ stars and active maintenance (Aider 41k, Cline 58k, Continue 31k).</span>
+    </div>
+  </div>
+
+  <!-- SECTION: ACTION ITEMS -->
+  <div class="section">
+    <div class="section-label">action items</div>
+
+    <div class="item">
+      <span class="item-key">this week</span>
+      <span class="item-val">
+        [ ] Test Ollama v0.30.8 + Claude Code local setup<br>
+        [ ] Download MiniMax M3 — test the 1M context window<br>
+        [ ] Try Open WebUI 0.8.8 desktop app + Open Terminal
+      </span>
+    </div>
+
+    <div class="item dim">
+      <span class="item-key">this month</span>
+      <span class="item-val">
+        [ ] Benchmark Kimi K2.6 vs qwen3:30b for coding tasks<br>
+        [ ] Set up Aider + Ollama as primary free coding assistant<br>
+        [ ] Explore OpenCode as potential Claude Code replacement
+      </span>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>alt-hunter · run #2 · abc-tom system · or ben</div>
+    <div class="next">// next hunt: 2026-07-19 · focus: new Ollama models, Open WebUI features, coding benchmarks</div>
+    <div class="sources">
+      sources:
+      <a href="https://ollama.com/blog">ollama.com/blog</a> ·
+      <a href="https://releasebot.io/updates/ollama">ollama release notes</a> ·
+      <a href="https://github.com/open-webui/open-webui/releases">open-webui/releases</a> ·
+      <a href="https://news.ycombinator.com/item?id=46722285">HN: claude code + ollama</a> ·
+      <a href="https://infraflowai.substack.com/p/running-claude-code-locally-with">$0/month setup guide</a> ·
+      <a href="https://blog.modelcontextprotocol.io/posts/2026-mcp-roadmap/">MCP 2026 roadmap</a> ·
+      <a href="https://www.augmentcode.com/tools/continue-vs-aider-vs-cline-private-ai-coding-assistants-for-regulated-teams">aider vs cline vs continue</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

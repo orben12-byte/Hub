@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔍 Alt Hunter — מאי 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #2c2f35;
+      color: #c8ccd4;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      direction: rtl;
+      min-height: 100vh;
+      padding: 32px 16px 64px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .header {
+      padding-bottom: 24px;
+      border-bottom: 1px solid #3a3d44;
+      margin-bottom: 32px;
+    }
+
+    .header-meta {
+      font-size: 11px;
+      color: #6a6d75;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #e07070;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .header .tagline {
+      font-size: 13px;
+      color: #6a6d75;
+      font-style: italic;
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: flex;
+      gap: 0;
+      margin-bottom: 32px;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #252830;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 14px 16px;
+      border-left: 1px solid #3a3d44;
+    }
+
+    .stat:last-child { border-left: none; }
+
+    .stat-val {
+      font-size: 20px;
+      font-weight: 700;
+      color: #e07070;
+      display: block;
+    }
+
+    .stat-key {
+      font-size: 10px;
+      color: #6a6d75;
+      display: block;
+      margin-top: 3px;
+      letter-spacing: 0.08em;
+    }
+
+    .stat-delta {
+      font-size: 10px;
+      color: #e07070;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .stat-delta.ok { color: #70a070; }
+
+    /* SECTIONS */
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #e07070;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-label::before {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: #3a3d44;
+    }
+
+    /* ITEMS */
+    .item {
+      background-color: #252830;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 8px;
+    }
+
+    .item-key {
+      font-size: 10px;
+      font-weight: 600;
+      color: #6a6d75;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .item-val {
+      font-size: 13px;
+      color: #c8ccd4;
+      line-height: 1.7;
+    }
+
+    .item-val a {
+      color: #e07070;
+      text-decoration: none;
+    }
+
+    .item-val a:hover { text-decoration: underline; }
+
+    .item-val ul {
+      padding-right: 18px;
+      margin-top: 4px;
+    }
+
+    .item-val li { margin-bottom: 3px; }
+
+    /* ACCENT VARIANTS */
+    .item.dim {
+      border-color: #32353c;
+      background-color: #222428;
+    }
+
+    .item.warn {
+      border-color: #c0603040;
+      background-color: #2a1f1a;
+    }
+
+    .item.warn .item-key { color: #c06030; }
+    .item.warn .item-val { color: #a08070; }
+
+    .item.highlight {
+      border-color: #e0707040;
+      background-color: #2a1e1e;
+    }
+
+    .item.highlight .item-key { color: #e07070; }
+
+    .item.new {
+      border-color: #70a07040;
+      background-color: #1e2a1e;
+    }
+
+    .item.new .item-key { color: #70a070; }
+
+    /* VERDICT BLOCK */
+    .verdict-block {
+      background-color: #1e2025;
+      border: 1px solid #3a3d44;
+      border-right: 3px solid #e07070;
+      border-radius: 8px 0 0 8px;
+      padding: 18px 18px 18px 20px;
+    }
+
+    .verdict-block p {
+      font-size: 13px;
+      color: #b0b4bc;
+      line-height: 1.8;
+    }
+
+    .verdict-block strong { color: #e07070; }
+    .verdict-block strong.ok { color: #70a070; }
+
+    /* CANDIDATE */
+    .candidate {
+      background-color: #252830;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .candidate-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #e07070;
+      margin-bottom: 4px;
+    }
+
+    .candidate-desc {
+      font-size: 12px;
+      color: #6a6d75;
+      margin-bottom: 12px;
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.06em;
+    }
+
+    .badge.pass { background: #1e2a1e; color: #70a070; border: 1px solid #70a07040; }
+    .badge.fail { background: #2a1e1e; color: #e07070; border: 1px solid #e0707040; }
+    .badge.partial { background: #2a2210; color: #c09040; border: 1px solid #c0904040; }
+
+    .candidate-conclusion {
+      font-size: 12px;
+      color: #a08070;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #3a3d44;
+    }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #3a3d44;
+      font-size: 11px;
+      color: #4a4d55;
+    }
+
+    .footer .next {
+      color: #6a6d75;
+      margin-top: 4px;
+    }
+
+    .footer .sources {
+      margin-top: 12px;
+      color: #4a4d55;
+      font-size: 10px;
+      line-height: 1.8;
+    }
+
+    .footer .sources a {
+      color: #5a5d65;
+      text-decoration: none;
+    }
+
+    .footer .sources a:hover { color: #e07070; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-meta">alt-hunter · run #1 · 2026-05-15 · alternative hunter v2 (strict criteria)</div>
+    <h1>🔍 Alt Hunter</h1>
+    <div class="tagline">מאי 2026 — ציד חלופות ל-Claude Pro</div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-val">5</span>
+      <span class="stat-key">מועמדים נבדקו</span>
+    </div>
+    <div class="stat">
+      <span class="stat-val">0</span>
+      <span class="stat-key">עברו מסננות</span>
+      <span class="stat-delta">לא הפסד</span>
+    </div>
+    <div class="stat">
+      <span class="stat-val">3</span>
+      <span class="stat-key">לעקוב ביוני</span>
+      <span class="stat-delta ok">+מבטיחים</span>
+    </div>
+    <div class="stat">
+      <span class="stat-val">Claude</span>
+      <span class="stat-key">המלצה</span>
+      <span class="stat-delta">להמשיך</span>
+    </div>
+  </div>
+
+  <!-- SECTION: VERDICT -->
+  <div class="section">
+    <div class="section-label">מסקנה ראשית</div>
+
+    <div class="verdict-block">
+      <p>
+        לאחר סריקה מקיפה של כל המקורות הרלוונטיים, <strong>אין כרגע חלופה שעומדת בשלושת המסננות הקריטיות.</strong>
+        <br><br>
+        המלצה: <strong class="ok">להמשיך עם Claude Pro</strong> ולבצע ציד נוסף ביוני 2026.
+        <br><br>
+        הפרויקט הכי קרוב לציפיות הוא <strong>Open WebUI Desktop</strong> — תיעוד טוב, אפליקציה native, אבל עדיין דורש agent נוסף ל-file operations.
+      </p>
+    </div>
+  </div>
+
+  <!-- SECTION: CANDIDATES -->
+  <div class="section">
+    <div class="section-label">מועמדים שנבדקו</div>
+
+    <!-- 1. Open WebUI -->
+    <div class="candidate">
+      <div class="candidate-title">1. Open WebUI Desktop (v0.9.5)</div>
+      <div class="candidate-desc">אפליקציית desktop מקומית לרצת AI עם Ollama — Windows / Mac / Linux</div>
+      <div class="filter-row">
+        <span class="badge fail">מסנן 1: file ops — נכשל</span>
+        <span class="badge fail">מסנן 2: 6+ שלבים — נכשל</span>
+        <span class="badge pass">מסנן 3: תיעוד — עבר</span>
+      </div>
+      <div class="candidate-conclusion">
+        ❌ <strong>נפסל</strong> — כדי לקרוא/לכתוב קבצים צריך Hermes Agent נפרד. זה 6+ שלבי התקנה = פסילה אוטומטית.
+        אבל: אחד הפרויקטים הכי מבטיחים לעתיד אם יוסיפו file access built-in.
+      </div>
+    </div>
+
+    <!-- 2. OpenWork -->
+    <div class="candidate">
+      <div class="candidate-title">2. OpenWork</div>
+      <div class="candidate-desc">Open-source alternative ל-Claude Cowork, מבוסס OpenCode</div>
+      <div class="filter-row">
+        <span class="badge fail">מסנן 1: Windows בתשלום — נכשל</span>
+        <span class="badge fail">מסנן 2: 6+ שלבים — נכשל</span>
+        <span class="badge partial">מסנן 3: תיעוד — חלקי</span>
+      </div>
+      <div class="candidate-conclusion">
+        ❌ <strong>נפסל</strong> — Windows support דורש paid plan. דורש Node.js + pnpm + Rust toolchain. אין tutorial ל-Windows.
+      </div>
+    </div>
+
+    <!-- 3. Kuse Cowork -->
+    <div class="candidate">
+      <div class="candidate-title">3. Kuse Cowork</div>
+      <div class="candidate-desc">Open-source, Rust-based alternative עם BYOK</div>
+      <div class="filter-row">
+        <span class="badge fail">מסנן 1: Docker — נכשל מיד</span>
+        <span class="badge fail">מסנן 2: Docker — פסילה אוטומטית</span>
+        <span class="badge partial">מסנן 3: תיעוד — חלקי (v0.0.2)</span>
+      </div>
+      <div class="candidate-conclusion">
+        ❌ <strong>נפסל</strong> — Docker = קו אדום. גם דורש API keys = לא חינמי. פרויקט מוקדם מדי (v0.0.2).
+      </div>
+    </div>
+
+    <!-- 4. Gemini CLI -->
+    <div class="candidate">
+      <div class="candidate-title">4. Gemini CLI</div>
+      <div class="candidate-desc">CLI רשמי של Google עם Gemini models</div>
+      <div class="filter-row">
+        <span class="badge fail">מסנן 1: Pro behind paywall — נכשל</span>
+        <span class="badge pass">מסנן 2: 3 שלבים — עבר</span>
+        <span class="badge pass">מסנן 3: תיעוד — עבר</span>
+      </div>
+      <div class="candidate-conclusion">
+        ❌ <strong>נפסל</strong> — אפריל 2026: Pro models הועברו מאחורי paywall. Free tier: 1,500 RPD Flash / 50 RPD Pro. לא מספיק לשימוש אינטנסיבי.
+      </div>
+    </div>
+
+    <!-- 5. Claude Code + Ollama -->
+    <div class="candidate dim">
+      <div class="candidate-title">5. Claude Code + Ollama (via LiteLLM)</div>
+      <div class="candidate-desc">שימוש ב-Claude Code עצמו עם models מקומיים דרך proxy</div>
+      <div class="filter-row">
+        <span class="badge fail">לא חלופה — זה עדיין Claude Code</span>
+      </div>
+      <div class="candidate-conclusion">
+        ❌ <strong>לא רלוונטי</strong> — זה לא alternative, זה שימוש ב-Claude Code עם models אחרים. דורש LiteLLM proxy + 15-20 דק' setup.
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION: UPDATES -->
+  <div class="section">
+    <div class="section-label">עדכונים מעניינים — לא עברו, שווה לעקוב</div>
+
+    <div class="item new">
+      <span class="item-key">Ollama v0.24.0-rc0 — 14 מאי 2026</span>
+      <span class="item-val">תמיכה משופרת ב-vision models. Qwen 3.6 ו-Kimi K2.6 נוספו. Llama 3.2 3B הכי פופולרי.</span>
+    </div>
+
+    <div class="item new">
+      <span class="item-key">Open WebUI v0.9.5 — 10 מאי 2026</span>
+      <span class="item-val">
+        <ul>
+          <li>Scheduled Chat Automations — משימות אוטומטיות בזמנים קבועים</li>
+          <li>אפליקציית Desktop native (Windows/Mac/Linux)</li>
+          <li>Floating chat bar (Shift+Ctrl+I)</li>
+          <li>Zero telemetry</li>
+        </ul>
+      </span>
+    </div>
+
+    <div class="item dim">
+      <span class="item-key">MCP Ecosystem</span>
+      <span class="item-val">יותר מ-500 MCP servers קיימים. SDKs רשמיים: TypeScript, Python, C#, Java, Swift. אבל עדיין דורש setup מורכב מדי ל-ABC-TOM.</span>
+    </div>
+  </div>
+
+  <!-- SECTION: WHY NO REPLACEMENT -->
+  <div class="section">
+    <div class="section-label">למה אין עדיין חלופה בשלה?</div>
+
+    <div class="item warn">
+      <span class="item-key">הפער המרכזי</span>
+      <span class="item-val">
+        כלים קיימים נופלים בשתי קטגוריות:
+        <ul>
+          <li><strong>פשוטים אבל חסרים</strong> — Open WebUI Desktop: קל להתקנה, אבל לא קורא/כותב קבצים ישירות</li>
+          <li><strong>חזקים אבל מורכבים</strong> — OpenWork, Kuse Cowork: יכולים file ops, אבל Docker/6+ שלבים/API keys</li>
+        </ul>
+        <br>מה חסר: פשוטה + חזקה + חינמית + מתועדת. שלושת אלו ביחד עדיין לא קיימים.
+      </span>
+    </div>
+
+    <div class="item">
+      <span class="item-key">⚠ שינוי קריטי באפריל 2026</span>
+      <span class="item-val">Gemini CLI: Pro models עברו לתשלום. זה סגר אפשרות שנראתה מבטיחה. Docker = קו אדום. Windows support עדיין בעייתי ברוב הכלים.</span>
+    </div>
+  </div>
+
+  <!-- SECTION: WATCH LIST -->
+  <div class="section">
+    <div class="section-label">לעקוב ביוני 2026</div>
+
+    <div class="item">
+      <span class="item-key">Open WebUI Desktop</span>
+      <span class="item-val">האם יוסיפו file operations native? האם Hermes Agent יהפוך פשוט יותר?</span>
+    </div>
+
+    <div class="item">
+      <span class="item-key">Ollama 0.24.x</span>
+      <span class="item-val">האם יוסיפו native desktop app עם file access?</span>
+    </div>
+
+    <div class="item">
+      <span class="item-key">OpenWork</span>
+      <span class="item-val">האם Windows support יהפוך חינמי?</span>
+    </div>
+
+    <div class="item dim">
+      <span class="item-key">MCP Ecosystem</span>
+      <span class="item-val">האם מישהו יבנה "ABC-TOM MCP server" שעובד out-of-the-box? לחפש: "ABC-TOM", "Obsidian AI agent", "local file access AI".</span>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>alt-hunter · run #1 · abc-tom system · or ben</div>
+    <div class="next">// ציד הבא: יוני 2026</div>
+    <div class="sources">
+      sources:
+      <a href="https://github.com/open-webui/desktop">github/open-webui/desktop</a> ·
+      <a href="https://github.com/open-webui/open-webui/releases">open-webui/releases</a> ·
+      <a href="https://docs.openwebui.com/getting-started/quick-start/connect-an-agent/hermes-agent/">hermes-agent docs</a> ·
+      <a href="https://github.com/different-ai/openwork">github/openwork</a> ·
+      <a href="https://github.com/kuse-ai/kuse_cowork">github/kuse-cowork</a> ·
+      <a href="https://geminicli.com/docs/resources/quota-and-pricing/">gemini pricing</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
