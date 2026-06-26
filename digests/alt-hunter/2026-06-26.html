@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔍 Alt Hunter — 26 June 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #2c2f35;
+      color: #c8ccd4;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      direction: ltr;
+      min-height: 100vh;
+      padding: 32px 16px 64px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .header {
+      padding-bottom: 24px;
+      border-bottom: 1px solid #3a3d44;
+      margin-bottom: 32px;
+    }
+
+    .header-meta {
+      font-size: 11px;
+      color: #6a6d75;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #70a070;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .header .tagline {
+      font-size: 13px;
+      color: #6a6d75;
+      font-style: italic;
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: flex;
+      gap: 0;
+      margin-bottom: 32px;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #252830;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 14px 16px;
+      border-right: 1px solid #3a3d44;
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-val {
+      font-size: 20px;
+      font-weight: 700;
+      color: #70a070;
+      display: block;
+    }
+
+    .stat-val.warn { color: #e07070; }
+
+    .stat-key {
+      font-size: 10px;
+      color: #6a6d75;
+      display: block;
+      margin-top: 3px;
+      letter-spacing: 0.08em;
+    }
+
+    .stat-delta {
+      font-size: 10px;
+      color: #70a070;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .stat-delta.warn { color: #e07070; }
+
+    /* SECTIONS */
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #70a070;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: #3a3d44;
+    }
+
+    /* ITEMS */
+    .item {
+      background-color: #252830;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 8px;
+    }
+
+    .item-key {
+      font-size: 10px;
+      font-weight: 600;
+      color: #6a6d75;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .item-val {
+      font-size: 13px;
+      color: #c8ccd4;
+      line-height: 1.7;
+    }
+
+    .item-val a {
+      color: #70a070;
+      text-decoration: none;
+    }
+
+    .item-val a:hover { text-decoration: underline; }
+
+    /* TABLE */
+    .item-val table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 12px;
+    }
+
+    .item-val th {
+      text-align: left;
+      color: #6a6d75;
+      font-weight: 600;
+      padding: 6px 8px;
+      border-bottom: 1px solid #3a3d44;
+      letter-spacing: 0.06em;
+    }
+
+    .item-val td {
+      padding: 7px 8px;
+      border-bottom: 1px solid #2a2d33;
+      color: #c8ccd4;
+      vertical-align: top;
+    }
+
+    .item-val tr:last-child td { border-bottom: none; }
+
+    /* ACCENT VARIANTS */
+    .item.dim {
+      border-color: #32353c;
+      background-color: #222428;
+    }
+
+    .item.warn {
+      border-color: #c0603040;
+      background-color: #2a1f1a;
+    }
+
+    .item.warn .item-key { color: #c06030; }
+    .item.warn .item-val { color: #a08070; }
+
+    .item.highlight {
+      border-color: #70a07040;
+      background-color: #1e2a1e;
+    }
+
+    .item.highlight .item-key { color: #70a070; }
+
+    /* VERDICT BLOCK */
+    .verdict-block {
+      background-color: #1e2025;
+      border: 1px solid #3a3d44;
+      border-left: 3px solid #70a070;
+      border-radius: 0 8px 8px 0;
+      padding: 18px 18px 18px 20px;
+    }
+
+    .verdict-block p {
+      font-size: 13px;
+      color: #b0b4bc;
+      line-height: 1.8;
+    }
+
+    .verdict-block strong { color: #70a070; }
+    .verdict-block strong.warn { color: #e07070; }
+
+    /* CODE BLOCK */
+    .code-block {
+      background-color: #1e2025;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 12px;
+      color: #c8ccd4;
+      line-height: 1.8;
+      margin-bottom: 8px;
+    }
+
+    .code-block .comment { color: #6a6d75; }
+    .code-block .step { color: #70a070; }
+    .code-block .result { color: #4d9fff; }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #3a3d44;
+      font-size: 11px;
+      color: #4a4d55;
+    }
+
+    .footer .next {
+      color: #6a6d75;
+      margin-top: 4px;
+    }
+
+    .footer .sources {
+      margin-top: 12px;
+      color: #4a4d55;
+      font-size: 10px;
+      line-height: 1.8;
+    }
+
+    .footer .sources a {
+      color: #5a5d65;
+      text-decoration: none;
+    }
+
+    .footer .sources a:hover { color: #70a070; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-meta">alt-hunter · run #4 · 2026-06-26 · alternative hunter agent</div>
+    <h1>🔍 Alt Hunter</h1>
+    <div class="tagline">26 June 2026 — Major updates: Hermes Desktop, thinking detection, MCP evolution.</div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-val">$0</span>
+      <span class="stat-key">monthly cost</span>
+      <span class="stat-delta">Ollama + Claude Code</span>
+    </div>
+    <div class="stat">
+      <span class="stat-val">v0.30.11</span>
+      <span class="stat-key">Ollama latest</span>
+      <span class="stat-delta">Jun 25 2026</span>
+    </div>
+    <div class="stat">
+      <span class="stat-val">v0.9.6</span>
+      <span class="stat-key">Open WebUI</span>
+      <span class="stat-delta">Jun 1 2026</span>
+    </div>
+    <div class="stat">
+      <span class="stat-val">Jul 28</span>
+      <span class="stat-key">MCP spec release</span>
+      <span class="stat-delta">stateless + apps</span>
+    </div>
+  </div>
+
+  <!-- SECTION: VERDICT -->
+  <div class="section">
+    <div class="section-label">executive summary</div>
+
+    <div class="verdict-block">
+      <p>
+        <strong>Multiple viable free alternatives to Claude Pro continue to mature.</strong>
+        <br><br>
+        Ollama v0.30.11 (yesterday) added <strong>thinking capability detection</strong> and auto-installation of Claude Code. New <strong>Hermes Desktop</strong> interface (v0.30.7) provides native desktop UX via <code>ollama launch hermes-desktop</code>.
+        <br><br>
+        Open WebUI v0.9.6 shipped with <strong>knowledge base sync tools</strong> and filesystem browsing capabilities using familiar commands like <code>ls</code> and <code>grep</code>.
+        <br><br>
+        MCP ecosystem evolving toward enterprise readiness — major spec release scheduled <strong>July 28, 2026</strong> with stateless protocol core, MCP Apps (interactive HTML UIs), and authorization hardening.
+        <br><br>
+        Bottom line: <strong>Ollama + Claude Code remains the best free coding alternative.</strong> Community validation via multiple YouTube tutorials, Hacker News threads, and performance benchmarks (Qwen3.6:27b hits 77.2% on SWE-Bench Verified).
+      </p>
+    </div>
+  </div>
+
+  <!-- SECTION: OLLAMA -->
+  <div class="section">
+    <div class="section-label">ollama — june 2026 releases</div>
+
+    <div class="item highlight">
+      <span class="item-key">🆕 v0.30.11 — June 25, 2026 (pre-release)</span>
+      <span class="item-val">
+        <strong>Thinking capability detection</strong> for Claude Code integration · Auto-installation of Claude Code · Improved GPU classification on Windows · MLX inference enhancements · Stabilized speculative decoding
+      </span>
+    </div>
+
+    <div class="item highlight">
+      <span class="item-key">v0.30.10 — June 17, 2026</span>
+      <span class="item-val">Command A and North family models now work on Apple Silicon with MLX engine · Updated llama.cpp engine to build 9672 · Fixed MLX build artifacts</span>
+    </div>
+
+    <div class="item">
+      <span class="item-key">v0.30.9 — June 15, 2026</span>
+      <span class="item-val">Added Cohere2Moe architecture support · <strong>Fixed critical bug</strong> where "ollama launch claude" would only output one token · Returns errors when messages exceed context window</span>
+    </div>
+
+    <div class="item">
+      <span class="item-key">v0.30.8 — June 12, 2026</span>
+      <span class="item-val">Improved prompt caching decoupled from context shifting · Enhanced MLX inference stability · Fixed provider selection in ollama launch</span>
+    </div>
+
+    <div class="item highlight">
+      <span class="item-key">🆕 v0.30.7 — June 7, 2026</span>
+      <span class="item-val">
+        <strong>Hermes Desktop</strong> — Native desktop interface accessible via <code>ollama launch hermes-desktop</code> · OpenAI-compatible API model listings aligned with available tags
+      </span>
+    </div>
+  </div>
+
+  <!-- SECTION: CLAUDE CODE + OLLAMA -->
+  <div class="section">
+    <div class="section-label">claude code + ollama integration</div>
+
+    <div class="item">
+      <span class="item-key">performance benchmarks</span>
+      <span class="item-val">
+        <table>
+          <tr><th>model</th><th>benchmark</th><th>hardware</th></tr>
+          <tr><td>Qwen3.6:27b</td><td>77.2% SWE-Bench Verified</td><td>Default model (April 2026)</td></tr>
+          <tr><td>Qwen 3.5 (9B)</td><td>Good for most tasks</td><td>16GB RAM minimum</td></tr>
+        </table>
+      </span>
+    </div>
+
+    <div class="item">
+      <span class="item-key">setup method</span>
+      <span class="item-val">Point Claude Code at local Ollama server via environment variables instead of Anthropic's API. No subscription required. Works as fallback when hitting API limits on paid tiers.</span>
+    </div>
+
+    <div class="item">
+      <span class="item-key">hardware requirements</span>
+      <span class="item-val">
+        16GB RAM: usable but limited ·
+        <strong>Apple Silicon: best experience</strong> with MLX engine ·
+        Dedicated GPU recommended for non-Apple hardware
+      </span>
+    </div>
+  </div>
+
+  <!-- SECTION: OPEN WEBUI -->
+  <div class="section">
+    <div class="section-label">open webui — v0.9.6</div>
+
+    <div class="item highlight">
+      <span class="item-key">major features (June 1, 2026)</span>
+      <span class="item-val">
+        Official knowledge base sync tool · Smart directory sync with incremental uploads · Knowledge base folders with breadcrumb navigation · <strong>Filesystem tool</strong> enabling AI models to browse knowledge using <code>ls</code>, <code>grep</code>, etc.
+      </span>
+    </div>
+
+    <div class="item">
+      <span class="item-key">desktop application</span>
+      <span class="item-val">Native desktop app for Mac, Windows, and Linux · No Docker, terminal, or setup required · Can run locally without server setup · Can connect to existing remote instances</span>
+    </div>
+
+    <div class="item">
+      <span class="item-key">recent additions (May 2026)</span>
+      <span class="item-val">
+        v0.9.5: Redirect-based SSRF protection · Iframe CSP · Granular markdown rendering controls<br>
+        v0.9.3: Voice Mode mute control with "M" shortcut · Faster prompt loading · Calendar creation · Assistant response editing
+      </span>
+    </div>
+  </div>
+
+  <!-- SECTION: FREE DESKTOP ALTERNATIVES -->
+  <div class="section">
+    <div class="section-label">free desktop alternatives</div>
+
+    <div class="item">
+      <span class="item-key">open source options</span>
+      <span class="item-val">
+        <table>
+          <tr><th>tool</th><th>platforms</th><th>key feature</th></tr>
+          <tr><td><strong>Vellum</strong></td><td>cross-platform</td><td>MIT license, persistent memory, skill system</td></tr>
+          <tr><td>OpenWork</td><td>Mac/Win/Linux</td><td>Free desktop app, local files</td></tr>
+          <tr><td>Cherry Studio</td><td>Mac/Win/Linux</td><td>BYOK or bundled free models, no account</td></tr>
+          <tr><td>Jan</td><td>Mac/Win/Linux</td><td>100% local execution, open-source models</td></tr>
+          <tr><td>AnythingLLM</td><td>cross-platform</td><td>Document ingestion, agent support, multi-user</td></tr>
+        </table>
+      </span>
+    </div>
+
+    <div class="item">
+      <span class="item-key">free coding alternatives (BYOK)</span>
+      <span class="item-val">
+        Aider · Cline · Continue.dev · OpenCode<br>
+        <strong>Gemini CLI:</strong> Open source with 1,000 free requests/day via personal Google account
+      </span>
+    </div>
+  </div>
+
+  <!-- SECTION: MCP -->
+  <div class="section">
+    <div class="section-label">MCP — model context protocol</div>
+
+    <div class="item highlight">
+      <span class="item-key">🗓️ major spec release — July 28, 2026</span>
+      <span class="item-val">
+        <strong>Stateless protocol core</strong> · Extensions framework · Tasks · <strong>MCP Apps</strong> (servers ship interactive HTML UIs rendered in sandboxed iframes) · Authorization hardening · Formal deprecation policy
+      </span>
+    </div>
+
+    <div class="item">
+      <span class="item-key">2026 roadmap priorities</span>
+      <span class="item-val">
+        <table>
+          <tr><th>area</th><th>focus</th></tr>
+          <tr><td>Transport Scalability</td><td>Streamable HTTP evolution, horizontal scaling, .well-known metadata</td></tr>
+          <tr><td>Enterprise Readiness</td><td>Audit trails, SSO auth, gateway behavior, config portability</td></tr>
+          <tr><td>Governance</td><td>Working/Interest Groups driving development, priority-based roadmap</td></tr>
+        </table>
+      </span>
+    </div>
+  </div>
+
+  <!-- SECTION: COMMUNITY -->
+  <div class="section">
+    <div class="section-label">community validation</div>
+
+    <div class="item">
+      <span class="item-key">YouTube tutorials (recent)</span>
+      <span class="item-val">
+        "Claude Code FREE on VS Code: Ollama Setup for Beginners (Windows 11) 2026" (May 24) ·
+        "Use Claude Code FREE Forever [Ollama Setup]" (2 weeks ago) ·
+        "Claude Code is Now FREE with Ollama + Gemma 4" (April 20) ·
+        "Claude Desktop Just Got CRAZY — Run ANY Model for FREE" (May 6) ·
+        "Claude Cowork + Ollama = 100% FREE & PRIVATE" (April 25)
+      </span>
+    </div>
+
+    <div class="item">
+      <span class="item-key">Hacker News discussions</span>
+      <span class="item-val">
+        Active threads: "First Claude Code client for Ollama local models" (Jan 27) ·
+        "Ask HN: A good Model to choose in Ollama to run on Claude Code" ·
+        "April 2026 TLDR Setup for Ollama and Gemma 4 26B on a Mac mini" ·
+        "Running Gemma 4 locally with LM Studio's new headless CLI and Claude Code" ·
+        "Anthropic, please ship an official Claude Desktop for Linux" (2 weeks ago) ·
+        "Running local models is good now" (3 days ago)
+      </span>
+    </div>
+
+    <div class="item">
+      <span class="item-key">community consensus</span>
+      <span class="item-val">XDA Developers article: "I used Claude Code with a local LLM on Ollama, and it's surprisingly capable for something that's free" · Performance viable for real work despite not matching Opus/Sonnet · Practical fallback when hitting API limits</span>
+    </div>
+  </div>
+
+  <!-- SECTION: RECOMMENDATION -->
+  <div class="section">
+    <div class="section-label">recommended setup</div>
+
+    <div class="code-block">
+      <span class="comment">// PRIMARY RECOMMENDATION — Coding</span><br>
+      <span class="step">tool:</span> Ollama + Claude Code<br>
+      <span class="step">model:</span> Qwen3.6:27b (default) or Qwen 3.5 (9B for 16GB RAM)<br>
+      <span class="step">cost:</span> $0/month<br>
+      <span class="result">→ 77.2% SWE-Bench Verified · Active community · Continued investment</span>
+    </div>
+
+    <div class="code-block">
+      <span class="comment">// DESKTOP ALTERNATIVE — General Chat</span><br>
+      <span class="step">tool:</span> Open WebUI v0.9.6 desktop app<br>
+      <span class="step">features:</span> Knowledge base sync · Filesystem browsing · Voice mode<br>
+      <span class="result">→ Strong native experience for chat + knowledge management</span>
+    </div>
+
+    <div class="code-block">
+      <span class="comment">// WATCH — Enterprise/Advanced</span><br>
+      <span class="step">date:</span> July 28, 2026<br>
+      <span class="step">event:</span> MCP specification release<br>
+      <span class="result">→ Stateless protocol + MCP Apps = potential enterprise-grade alternatives</span>
+    </div>
+  </div>
+
+  <!-- SECTION: HARDWARE NOTE -->
+  <div class="section">
+    <div class="section-label">hardware considerations</div>
+
+    <div class="item">
+      <span class="item-key">optimal setup</span>
+      <span class="item-val">
+        <strong>Apple Silicon:</strong> Best local experience with MLX engine<br>
+        <strong>Others:</strong> Dedicated GPU recommended for optimal performance<br>
+        <strong>Minimum:</strong> 16GB RAM (usable but limited)
+      </span>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>alt-hunter · run #4 · abc-tom system · or ben</div>
+    <div class="next">// next hunt: 2026-07-03 · focus: MCP spec release prep, new Ollama models, desktop alternatives</div>
+    <div class="sources">
+      sources:
+      <a href="https://github.com/ollama/ollama/releases">ollama/releases</a> ·
+      <a href="https://localaimaster.com/blog/ollama-version-history">ollama history</a> ·
+      <a href="https://releasebot.io/updates/ollama">ollama release notes</a> ·
+      <a href="https://github.com/open-webui/open-webui/releases">open-webui/releases</a> ·
+      <a href="https://blog.modelcontextprotocol.io/posts/2026-mcp-roadmap/">MCP 2026 roadmap</a> ·
+      <a href="https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/">MCP spec RC</a> ·
+      <a href="https://news.ycombinator.com/item?id=46722285">HN: ollama + claude</a> ·
+      <a href="https://www.youtube.com/watch?v=GeJd0dAw3uw">YT: free forever</a> ·
+      <a href="https://www.xda-developers.com/claude-code-local-llm-ollama-capable-costs-nothing/">XDA: surprisingly capable</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
