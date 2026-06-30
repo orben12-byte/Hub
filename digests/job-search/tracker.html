@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מעקב משרות — אור בן-סניור</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #0d0d1a; color: #d4d4e8;
+    max-width: 760px; margin: 0 auto; padding: 32px 20px;
+    line-height: 1.6; direction: rtl; text-align: right;
+  }
+  .header { text-align: center; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #1e1e3a; }
+  .header h1 { font-size: 24px; color: #FFD60A; margin-bottom: 6px; }
+  .header .meta { font-size: 13px; color: #666; }
+
+  .notice {
+    background: rgba(74,158,255,0.08); border: 1px solid rgba(74,158,255,0.3);
+    border-radius: 10px; padding: 14px 16px; margin-bottom: 20px;
+    font-size: 12px; color: #9ec5ff; line-height: 1.7;
+  }
+  .notice b { color: #4a9eff; }
+
+  .status-summary { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; justify-content: center; }
+  .status-pill { border-radius: 100px; padding: 8px 16px; font-size: 13px; display: flex; align-items: center; gap: 6px; }
+  .status-pill b { font-size: 15px; }
+  .status-pill.s-new { background: #16162c; border: 1px solid #2a2a50; color: #c4c4e0; }
+  .status-pill.s-sent { background: rgba(74,158,255,0.1); border: 1px solid rgba(74,158,255,0.3); color: #9ec5ff; }
+  .status-pill.s-interview { background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.3); color: #4ade80; }
+  .status-pill.s-rejected { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #f87171; }
+
+  .filters {
+    display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-end;
+    background: #14142a; border: 1px solid #232345; border-radius: 10px;
+    padding: 16px; margin-bottom: 10px; position: sticky; top: 12px; z-index: 5;
+  }
+  .filter-group { display: flex; flex-direction: column; gap: 4px; }
+  .filter-group label { font-size: 11px; color: #888; }
+  .filter-group select {
+    background: #0d0d1a; color: #fff; border: 1px solid #2a2a50;
+    border-radius: 6px; padding: 7px 10px; font-size: 13px; font-family: inherit;
+  }
+  .filters button {
+    background: #232345; color: #c4c4e0; border: 1px solid #2a2a50;
+    border-radius: 6px; padding: 8px 14px; font-size: 12px; cursor: pointer;
+    font-family: inherit;
+  }
+  .filters button:hover { background: #2a2a50; }
+  .filter-result-count { text-align: center; font-size: 12px; color: #666; margin-bottom: 24px; }
+  .filter-result-count b { color: #FFD60A; }
+
+  .summary { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 32px; justify-content: center; }
+  .summary-pill { background: #16162c; border: 1px solid #2a2a50; border-radius: 100px; padding: 8px 16px; font-size: 13px; color: #c4c4e0; }
+  .summary-pill b { color: #FFD60A; }
+
+  .section { margin-bottom: 32px; }
+  .section-title {
+    font-size: 13px; font-weight: 700; color: #111; background: #FFD60A;
+    display: inline-block; padding: 5px 14px; border-radius: 20px; margin-bottom: 14px;
+  }
+
+  .job {
+    background: #14142a; border: 1px solid #232345; border-radius: 10px;
+    padding: 14px 16px; margin-bottom: 8px; transition: opacity 0.15s, border-color 0.15s;
+  }
+  .job.status-sent { border-color: #4a9eff; }
+  .job.status-interview { border-color: #4ade80; }
+  .job.status-rejected { opacity: 0.5; }
+  .job.highlight { border-color: #FFD60A; }
+  .job-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 4px; }
+  .job-title { font-size: 14px; font-weight: 700; color: #fff; }
+  .job-badges { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+  .job-star { font-size: 11px; color: #FFD60A; font-weight: 700; white-space: nowrap; }
+  .job-score { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 100px; white-space: nowrap; }
+  .score-high { background: rgba(34,197,94,0.15); color: #4ade80; }
+  .score-mid { background: rgba(234,179,8,0.15); color: #facc15; }
+  .score-low { background: rgba(239,68,68,0.15); color: #f87171; }
+  .job-company { font-size: 12px; color: #FFD60A; margin-bottom: 3px; }
+  .job-meta { font-size: 11px; color: #777; margin-bottom: 6px; }
+  .job-sources { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
+  .job-source-tag { font-size: 10px; background: #232345; color: #999; padding: 2px 8px; border-radius: 8px; }
+  .job-actions { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .job-link { font-size: 12px; color: #4a9eff; text-decoration: none; font-weight: 600; }
+  .status-select {
+    background: #0d0d1a; color: #fff; border: 1px solid #2a2a50;
+    border-radius: 6px; padding: 4px 8px; font-size: 11px; font-family: inherit; cursor: pointer;
+  }
+  .job-note { font-size: 11px; color: #d97706; margin-top: 6px; }
+
+  .empty { font-size: 13px; color: #555; text-align: center; padding: 20px; }
+  .empty-filtered { font-size: 12px; color: #444; text-align: center; padding: 14px; display: none; }
+  .footer { text-align: center; margin-top: 24px; font-size: 11px; color: #333; padding-top: 16px; border-top: 1px solid #1a1a2e; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🔍 מעקב משרות</h1>
+  <div class="meta">עדכון אחרון: 30 ביוני 2026 · 4 אתרים</div>
+</div>
+
+<div class="notice">
+  <b>איך חושב "ציון התאמה":</b> זה לא ניתוח תוכן מלא מול קו"ח (רוב המשרות לא כוללות תיאור תפקיד מלא שנאסף). הציון מבוסס על: שנות ניסיון נדרשות מול ~4 שנים שלך (מאז 2022), התאמת כותרת תפקיד, מיקום (בונוס לחיפה/צפון), ודגלים אדומים (קבלן/פרילנס, Founding role, דירוג חברה נמוך, Director/Team Lead). 🟢 65%+ · 🟡 45-64% · 🔴 מתחת ל-45%.
+  <br><b>סטטוס נשמר בדפדפן הזה בלבד</b> (localStorage) — אם תפתח את הקובץ בדפדפן אחר או תנקה היסטוריה, הסטטוסים יתאפסו.
+</div>
+
+<div class="status-summary">
+  <div class="status-pill s-new">🆕 <b id="countNew">0</b> חדש</div>
+  <div class="status-pill s-sent">📤 <b id="countSent">0</b> נשלח</div>
+  <div class="status-pill s-interview">🎤 <b id="countInterview">0</b> ראיון</div>
+  <div class="status-pill s-rejected">❌ <b id="countRejected">0</b> סירוב</div>
+</div>
+
+<div class="filters">
+  <div class="filter-group">
+    <label>סינון לפי התאמה</label>
+    <select id="filterScore" onchange="applyFilters()">
+      <option value="all">הכל</option>
+      <option value="high">🟢 גבוהה (65%+)</option>
+      <option value="mid">🟡 בינונית (45-64%)</option>
+      <option value="low">🔴 נמוכה (מתחת ל-45%)</option>
+    </select>
+  </div>
+  <div class="filter-group">
+    <label>סינון לפי מיקום</label>
+    <select id="filterLoc" onchange="applyFilters()">
+      <option value="all">הכל</option>
+      <option value="haifa">חיפה / צפון</option>
+      <option value="tel-aviv">תל אביב</option>
+      <option value="herzliya">הרצליה</option>
+      <option value="center">מרכז</option>
+      <option value="jerusalem">ירושלים</option>
+      <option value="remote">Remote</option>
+      <option value="other">ישראל (לא צוין)</option>
+    </select>
+  </div>
+  <div class="filter-group">
+    <label>סינון לפי סטטוס</label>
+    <select id="filterStatus" onchange="applyFilters()">
+      <option value="all">הכל</option>
+      <option value="new">🆕 חדש</option>
+      <option value="sent">📤 נשלח</option>
+      <option value="interview">🎤 ראיון</option>
+      <option value="rejected">❌ סירוב</option>
+    </select>
+  </div>
+  <button onclick="resetFilters()">נקה סינון</button>
+</div>
+<div class="filter-result-count">מציג <b id="resultCount">57</b> מתוך 57 משרות</div>
+
+<div class="summary">
+  <div class="summary-pill"><b>41</b> Product Designer</div>
+  <div class="summary-pill"><b>9</b> UX/UI Designer</div>
+  <div class="summary-pill"><b>5</b> Graphic & Visual</div>
+  <div class="summary-pill"><b>2</b> אחר</div>
+</div>
+
+<!-- SECTION: Product Designer -->
+<div class="section">
+  <div class="section-title">Product Designer (41)</div>
+
+  <div class="job highlight" data-score="85" data-loc="haifa">
+    <div class="job-top"><div class="job-title">Senior Product Designer</div>
+      <div class="job-badges"><div class="job-star">⭐ חיפה</div><div class="job-score score-high">85%</div></div>
+    </div>
+    <div class="job-company">OMC שירותי מיחשוב ותקשורת</div>
+    <div class="job-meta">חיפה · 3+ שנים · לפני יומיים</div>
+    <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8642911">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job highlight" data-score="70" data-loc="haifa">
+    <div class="job-top"><div class="job-title">User Experience / Product Designer — Hadera</div>
+      <div class="job-badges"><div class="job-star">⭐ אזור חיפה</div><div class="job-score score-high">70%</div></div>
+    </div>
+    <div class="job-company">Mobile Group Ltd.</div>
+    <div class="job-meta">חדרה, מחוז חיפה · On-site</div>
+    <div class="job-sources"><span class="job-source-tag">LinkedIn</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.linkedin.com/jobs/view/4431496315/">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ מוצג כ-UX אבל קרוב לתפקיד Product — לבדוק תיאור מלא</div>
+  </div>
+
+  <div class="job" data-score="55" data-loc="tel-aviv">
+    <div class="job-top"><div class="job-title">Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">55%</div></div>
+    </div>
+    <div class="job-company">Duve</div>
+    <div class="job-meta">רמת גן, מחוז תל אביב · On-site</div>
+    <div class="job-sources"><span class="job-source-tag">LinkedIn</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.linkedin.com/jobs/view/4417050711/">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="50" data-loc="other">
+    <div class="job-top"><div class="job-title">Senior Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">50%</div></div>
+    </div>
+    <div class="job-company">Alta | AI GTM System of Actions</div>
+    <div class="job-meta">ישראל · On-site · 5+ שנים, B2B SaaS · פורסם מחדש לפני חודש</div>
+    <div class="job-sources"><span class="job-source-tag">LinkedIn</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.linkedin.com/jobs/view/4408178858/">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="45" data-loc="tel-aviv">
+    <div class="job-top"><div class="job-title">Senior Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">45%</div></div>
+    </div>
+    <div class="job-company">Melio</div>
+    <div class="job-meta">תל אביב-יפו · Hybrid</div>
+    <div class="job-sources"><span class="job-source-tag">LinkedIn</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.linkedin.com/jobs/view/4376722508/">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="70" data-loc="tel-aviv">
+    <div class="job-top"><div class="job-title">Product Designer</div>
+      <div class="job-badges"><div class="job-score score-high">70%</div></div>
+    </div>
+    <div class="job-company">FORTVISION <span style="color:#FFD60A">3.6★</span></div>
+    <div class="job-meta">תל אביב / Remote · 3+ שנים, B2B/SaaS · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/product-designer-fortvision-JV_KO0,16_KE17,27.htm?jl=1010133290169">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="55" data-loc="other">
+    <div class="job-top"><div class="job-title">Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">55%</div></div>
+    </div>
+    <div class="job-company">Shapes <span style="color:#FFD60A">3.0★</span></div>
+    <div class="job-meta">ישראל · Easy Apply · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/product-designer-shapes-JV_KO0,16_KE17,23.htm?jl=1009964016810">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="55" data-loc="other">
+    <div class="job-top"><div class="job-title">Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">55%</div></div>
+    </div>
+    <div class="job-company">365Scores <span style="color:#FFD60A">4.5★</span></div>
+    <div class="job-meta">ישראל · Easy Apply · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/product-designer-365scores-JV_KO0,16_KE17,26.htm?jl=1010015084195">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="55" data-loc="other">
+    <div class="job-top"><div class="job-title">Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">55%</div></div>
+    </div>
+    <div class="job-company">hypercore</div>
+    <div class="job-meta">ישראל · Easy Apply · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/product-designer-hypercore-inc-JV_KO0,16_KE17,30.htm?jl=1010106455207">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="50" data-loc="other">
+    <div class="job-top"><div class="job-title">Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">50%</div></div>
+    </div>
+    <div class="job-company">Qodo <span style="color:#FFD60A">4.8★</span></div>
+    <div class="job-meta">ישראל · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/product-designer-qodo-JV_KO0,16_KE17,21.htm?jl=1010138946679">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ מוצר AI מתקדם — בלי ניסיון AI מתועד בקו"ח</div>
+  </div>
+
+  <div class="job" data-score="55" data-loc="other">
+    <div class="job-top"><div class="job-title">Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">55%</div></div>
+    </div>
+    <div class="job-company">Viber <span style="color:#FFD60A">4.5★</span></div>
+    <div class="job-meta">ישראל · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/product-designer-viber-JV_KO0,16_KE17,22.htm?jl=1009613918535">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="55" data-loc="other">
+    <div class="job-top"><div class="job-title">Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">55%</div></div>
+    </div>
+    <div class="job-company">Empathy (Colombia) <span style="color:#FFD60A">4.7★</span></div>
+    <div class="job-meta">ישראל · Easy Apply · 15 יום</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/product-designer-empathy-colombia-JV_KO0,16_KE17,33.htm?jl=1010167948241">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="55" data-loc="other">
+    <div class="job-top"><div class="job-title">Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">55%</div></div>
+    </div>
+    <div class="job-company">BALANCE <span style="color:#FFD60A">3.7★</span></div>
+    <div class="job-meta">ישראל · Easy Apply · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/product-designer-balance-JV_KO0,16_KE17,24.htm?jl=1010106562371">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="45" data-loc="center">
+    <div class="job-top"><div class="job-title">Product Designer - Beach Bum</div>
+      <div class="job-badges"><div class="job-score score-mid">45%</div></div>
+    </div>
+    <div class="job-company">Voodoo <span style="color:#FFD60A">4.3★</span></div>
+    <div class="job-meta">רעננה, מחוז המרכז · Hybrid · 8 ימים</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span><span class="job-source-tag">LinkedIn</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/product-designer-beach-bum-voodoo-JV_KO0,26_KE27,33.htm?jl=1010175477604">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ עיצוב גיימינג — לא בפורטפוליו שלך</div>
+  </div>
+
+  <div class="job" data-score="50" data-loc="other">
+    <div class="job-top"><div class="job-title">Product Designer (AI-Native Mindset)</div>
+      <div class="job-badges"><div class="job-score score-mid">50%</div></div>
+    </div>
+    <div class="job-company">Zemingo <span style="color:#FFD60A">4.3★</span></div>
+    <div class="job-meta">ישראל · Easy Apply · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/product-designer-ai-native-mindset-zemingo-JV_KO0,34_KE35,42.htm?jl=1009991581414">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="55" data-loc="other">
+    <div class="job-top"><div class="job-title">Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">55%</div></div>
+    </div>
+    <div class="job-company">Wiz Co <span style="color:#FFD60A">3.5★</span></div>
+    <div class="job-meta">ישראל · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/product-designer-wiz-co-JV_KO0,16_KE17,23.htm?jl=1009870652585">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="55" data-loc="other">
+    <div class="job-top"><div class="job-title">Product Design</div>
+      <div class="job-badges"><div class="job-score score-mid">55%</div></div>
+    </div>
+    <div class="job-company">Kela <span style="color:#FFD60A">3.0★</span></div>
+    <div class="job-meta">ישראל · Easy Apply · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/product-design-kela-technologies-JV_KO0,14_KE15,32.htm?jl=1010133825278">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="50" data-loc="other">
+    <div class="job-top"><div class="job-title">Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">50%</div></div>
+    </div>
+    <div class="job-company">Rakuten <span style="color:#FFD60A">3.6★</span></div>
+    <div class="job-meta">ישראל · Easy Apply · 6 ימים</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/product-designer-rakuten-JV_KO0,16_KE17,24.htm?jl=1010177399172">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ חברה גלובלית גדולה — עשויה לדרוש יותר ניסיון ממה שמופיע</div>
+  </div>
+
+  <div class="job" data-score="30" data-loc="other">
+    <div class="job-top"><div class="job-title">Product Designer Team Lead</div>
+      <div class="job-badges"><div class="job-score score-low">30%</div></div>
+    </div>
+    <div class="job-company">Workiz <span style="color:#FFD60A">3.7★</span></div>
+    <div class="job-meta">ישראל · Easy Apply · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/product-designer-team-lead-workiz-JV_KO0,26_KE27,33.htm?jl=1010034175573">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ Team Lead — רמת ניהול, מעל הניסיון שלך</div>
+  </div>
+
+  <div class="job" data-score="45" data-loc="other">
+    <div class="job-top"><div class="job-title">Senior Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">45%</div></div>
+    </div>
+    <div class="job-company">Ingenio <span style="color:#FFD60A">3.1★</span></div>
+    <div class="job-meta">ישראל · 15 יום</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/senior-product-designer-ingenio-JV_KO0,23_KE24,31.htm?jl=1010168537691">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="45" data-loc="other">
+    <div class="job-top"><div class="job-title">Senior Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">45%</div></div>
+    </div>
+    <div class="job-company">Ravin AI <span style="color:#FFD60A">4.0★</span></div>
+    <div class="job-meta">ישראל · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/senior-product-designer-ravin-ai-JV_KO0,23_KE24,32.htm?jl=1008813213299">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="45" data-loc="other">
+    <div class="job-top"><div class="job-title">Senior Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">45%</div></div>
+    </div>
+    <div class="job-company">Coralogix <span style="color:#FFD60A">3.5★</span></div>
+    <div class="job-meta">ישראל · 13 יום</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/senior-product-designer-coralogix-JV_KO0,23_KE24,33.htm?jl=1010170014315">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="45" data-loc="other">
+    <div class="job-top"><div class="job-title">Senior Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">45%</div></div>
+    </div>
+    <div class="job-company">SAR Technologies <span style="color:#FFD60A">4.2★</span></div>
+    <div class="job-meta">ישראל · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/senior-product-designer-sar-technologies-JV_KO0,23_KE24,40.htm?jl=1009393515369">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="45" data-loc="other">
+    <div class="job-top"><div class="job-title">Senior Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">45%</div></div>
+    </div>
+    <div class="job-company">Riverside.FM <span style="color:#FFD60A">4.3★</span></div>
+    <div class="job-meta">ישראל · Easy Apply · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/senior-product-designer-riverside-fm-JV_KO0,23_KE24,36.htm?jl=1010024743843">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="35" data-loc="other">
+    <div class="job-top"><div class="job-title">Senior Product Designer</div>
+      <div class="job-badges"><div class="job-score score-low">35%</div></div>
+    </div>
+    <div class="job-company">Overwolf <span style="color:#FFD60A">4.7★</span></div>
+    <div class="job-meta">ישראל · Easy Apply · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/senior-product-designer-overwolf-JV_KO0,23_KE24,32.htm?jl=1009927670287">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ סניור + עיצוב גיימינג</div>
+  </div>
+
+  <div class="job" data-score="30" data-loc="other">
+    <div class="job-top"><div class="job-title">Solid-Senior Product Designer (UX/UI) — B2B Platform</div>
+      <div class="job-badges"><div class="job-score score-low">30%</div></div>
+    </div>
+    <div class="job-company">Team8 <span style="color:#FFD60A">4.4★</span></div>
+    <div class="job-meta">ישראל · Easy Apply · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/solid-senior-product-designer-ux-ui-for-complex-b2b-platform-team8-JV_KO0,60_KE61,66.htm?jl=1010145735220">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ "Solid-Senior" — רף גבוה מפורש</div>
+  </div>
+
+  <div class="job" data-score="45" data-loc="other">
+    <div class="job-top"><div class="job-title">Senior Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">45%</div></div>
+    </div>
+    <div class="job-company">Finonex <span style="color:#FFD60A">4.0★</span></div>
+    <div class="job-meta">ישראל · Easy Apply · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/senior-product-designer-finonex-JV_KO0,23_KE24,31.htm?jl=1009393528315">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="30" data-loc="other">
+    <div class="job-top"><div class="job-title">Senior Product Designer</div>
+      <div class="job-badges"><div class="job-score score-low">30%</div></div>
+    </div>
+    <div class="job-company">simply mac <span style="color:#FFD60A">2.4★</span></div>
+    <div class="job-meta">ישראל · 30 יום</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/senior-product-designer-simply-mac-JV_KO0,23_KE24,34.htm?jl=1010151228232">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ דירוג נמוך (2.4★) + סניור</div>
+  </div>
+
+  <div class="job" data-score="45" data-loc="other">
+    <div class="job-top"><div class="job-title">Senior Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">45%</div></div>
+    </div>
+    <div class="job-company">JFrog <span style="color:#FFD60A">4.3★</span></div>
+    <div class="job-meta">ישראל · Easy Apply · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/senior-product-designer-jfrog-JV_KO0,23_KE24,29.htm?jl=1010122081551">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="75" data-loc="tel-aviv">
+    <div class="job-top"><div class="job-title">Product Designer</div>
+      <div class="job-badges"><div class="job-score score-high">75%</div></div>
+    </div>
+    <div class="job-company">- חסוי -</div>
+    <div class="job-meta">תל אביב · 3+ שנים · 04/06/2026</div>
+    <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8681246">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="75" data-loc="tel-aviv">
+    <div class="job-top"><div class="job-title">Product Designer</div>
+      <div class="job-badges"><div class="job-score score-high">75%</div></div>
+    </div>
+    <div class="job-company">- חסוי -</div>
+    <div class="job-meta">תל אביב · 2+ שנים · לפני יומיים</div>
+    <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8712954">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="85" data-loc="herzliya">
+    <div class="job-top"><div class="job-title">Product Designer</div>
+      <div class="job-badges"><div class="job-score score-high">85%</div></div>
+    </div>
+    <div class="job-company">- חסוי -</div>
+    <div class="job-meta">הרצליה · 3-5 שנים · 24/05/2026</div>
+    <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8663197">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="55" data-loc="tel-aviv">
+    <div class="job-top"><div class="job-title">Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">55%</div></div>
+    </div>
+    <div class="job-company">- חסוי -</div>
+    <div class="job-meta">תל אביב · 4-7+ שנים · 24/05/2026</div>
+    <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8662784">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ טווח רחב — ייתכן שמתאים גם לסניור</div>
+  </div>
+
+  <div class="job" data-score="75" data-loc="tel-aviv">
+    <div class="job-top"><div class="job-title">Product Designer</div>
+      <div class="job-badges"><div class="job-score score-high">75%</div></div>
+    </div>
+    <div class="job-company">- חסוי -</div>
+    <div class="job-meta">תל אביב · 4+ שנים · 03/06/2026</div>
+    <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8679324">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="55" data-loc="tel-aviv">
+    <div class="job-top"><div class="job-title">Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">55%</div></div>
+    </div>
+    <div class="job-company">- חסוי -</div>
+    <div class="job-meta">תל אביב · 5+ שנים · 08/06/2026</div>
+    <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8685186">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="55" data-loc="tel-aviv">
+    <div class="job-top"><div class="job-title">Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">55%</div></div>
+    </div>
+    <div class="job-company">- חסוי -</div>
+    <div class="job-meta">תל אביב · 5+ שנים · 04/06/2026</div>
+    <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8681214">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="85" data-loc="tel-aviv">
+    <div class="job-top"><div class="job-title">Product Designer</div>
+      <div class="job-badges"><div class="job-score score-high">85%</div></div>
+    </div>
+    <div class="job-company">- חסוי -</div>
+    <div class="job-meta">תל אביב · 3-5 שנים · לפני 4 ימים</div>
+    <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8711447">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="50" data-loc="tel-aviv">
+    <div class="job-top"><div class="job-title">Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">50%</div></div>
+    </div>
+    <div class="job-company">- חסוי -</div>
+    <div class="job-meta">תל אביב · 1-2 שנים · 07/06/2026</div>
+    <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8682847">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ נמוך מהטווח — אתה עלול להיות overqualified</div>
+  </div>
+
+  <div class="job" data-score="25" data-loc="tel-aviv">
+    <div class="job-top"><div class="job-title">Senior Product Designer</div>
+      <div class="job-badges"><div class="job-score score-low">25%</div></div>
+    </div>
+    <div class="job-company">- חסוי -</div>
+    <div class="job-meta">תל אביב · 7+ שנים · 27/05/2026</div>
+    <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8668413">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ 7+ שנים — כפול מהניסיון שלך</div>
+  </div>
+
+  <div class="job" data-score="30" data-loc="jerusalem">
+    <div class="job-top"><div class="job-title">Senior Product Designer</div>
+      <div class="job-badges"><div class="job-score score-low">30%</div></div>
+    </div>
+    <div class="job-company">- חסוי -</div>
+    <div class="job-meta">ירושלים · לא צוין ניסיון · 15/06/2026</div>
+    <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8630447">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ ירושלים — רחוק מחיפה</div>
+  </div>
+
+  <div class="job" data-score="45" data-loc="tel-aviv">
+    <div class="job-top"><div class="job-title">Senior Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">45%</div></div>
+    </div>
+    <div class="job-company">- חסוי -</div>
+    <div class="job-meta">תל אביב · 5+ שנים · 25/05/2026</div>
+    <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8664727">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="45" data-loc="tel-aviv">
+    <div class="job-top"><div class="job-title">Senior Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">45%</div></div>
+    </div>
+    <div class="job-company">- חסוי -</div>
+    <div class="job-meta">תל אביב · 5+ שנים · לפני 5 ימים</div>
+    <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8709525">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="empty-filtered">אין משרות בקטגוריה זו עם הסינון הנוכחי</div>
+</div>
+
+<!-- SECTION: UX/UI Designer -->
+<div class="section">
+  <div class="section-title">UX/UI Designer (9)</div>
+
+  <div class="job highlight" data-score="75" data-loc="center">
+    <div class="job-top"><div class="job-title">UI/UX Designer</div>
+      <div class="job-badges"><div class="job-star">⭐ לקוח קיים</div><div class="job-score score-high">75%</div></div>
+    </div>
+    <div class="job-company">קבוצת לובינסקי</div>
+    <div class="job-meta">ראשון לציון · 1-2 שנים · לפני 6 שעות</div>
+    <div class="job-sources"><span class="job-source-tag">Drushim</span><span class="job-source-tag">AllJobs</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.drushim.co.il/job/37370799/99067029/">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ קבוצת לובינסקי כבר ברשימת הלקוחות שלך — קשר קיים, שווה פנייה ישירה</div>
+  </div>
+
+  <div class="job" data-score="60" data-loc="other">
+    <div class="job-top"><div class="job-title">UX UI Product Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">60%</div></div>
+    </div>
+    <div class="job-company">Datarails <span style="color:#FFD60A">3.6★</span></div>
+    <div class="job-meta">ישראל · Easy Apply · 3 ימים</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/ux-ui-product-designer-datarails-JV_KO0,22_KE23,32.htm?jl=1010180863910">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="55" data-loc="center">
+    <div class="job-top"><div class="job-title">Product / UX Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">55%</div></div>
+    </div>
+    <div class="job-company">Aman Group <span style="color:#FFD60A">3.5★</span></div>
+    <div class="job-meta">מחוז המרכז · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/product-ux-designer-aman-group-JV_KO0,19_KE20,30.htm?jl=1010058682174">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="50" data-loc="other">
+    <div class="job-top"><div class="job-title">UI designer</div>
+      <div class="job-badges"><div class="job-score score-mid">50%</div></div>
+    </div>
+    <div class="job-company">Autodesk <span style="color:#FFD60A">4.0★</span></div>
+    <div class="job-meta">ישראל · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/ui-designer-autodesk-JV_KO0,11_KE12,20.htm?jl=1010103210283">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ חברה גלובלית גדולה — תהליך גיוס תחרותי</div>
+  </div>
+
+  <div class="job" data-score="75" data-loc="other">
+    <div class="job-top"><div class="job-title">UX Designer</div>
+      <div class="job-badges"><div class="job-score score-high">75%</div></div>
+    </div>
+    <div class="job-company">Nishapro</div>
+    <div class="job-meta">4+ שנים · לפני יומיים</div>
+    <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8708311">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="30" data-loc="remote">
+    <div class="job-top"><div class="job-title">UI Designer (Remote, Contractor)</div>
+      <div class="job-badges"><div class="job-score score-low">30%</div></div>
+    </div>
+    <div class="job-company">Techbiz Global <span style="color:#FFD60A">4.8★</span></div>
+    <div class="job-meta">Remote · Easy Apply · 12 ימים</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/ui-designer-remote-contractor-techbiz-global-JV_KO0,29_KE30,44.htm?jl=1010172320290">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ קבלן/פרילנס, לא משרה מן המניין</div>
+  </div>
+
+  <div class="job" data-score="30" data-loc="remote">
+    <div class="job-top"><div class="job-title">UX/UI Designer | $85/hr Remote</div>
+      <div class="job-badges"><div class="job-score score-low">30%</div></div>
+    </div>
+    <div class="job-company">Crossing Hurdles</div>
+    <div class="job-meta">EMEA · Remote · $15-85/hr · Easy Apply · 4 ימים</div>
+    <div class="job-sources"><span class="job-source-tag">LinkedIn</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.linkedin.com/jobs/view/4422515411/">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ פרילנס לפי שעה, לא משרה קבועה</div>
+  </div>
+
+  <div class="job" data-score="55" data-loc="center">
+    <div class="job-top"><div class="job-title">מעצב/ת מוצר דיגיטל</div>
+      <div class="job-badges"><div class="job-score score-mid">55%</div></div>
+    </div>
+    <div class="job-company">G-NESS</div>
+    <div class="job-meta">כפר סבא · שנה-שנתיים · לפני יומיים</div>
+    <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8560448">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ נמוך מהטווח — ייתכן junior</div>
+  </div>
+
+  <div class="empty-filtered">אין משרות בקטגוריה זו עם הסינון הנוכחי</div>
+</div>
+
+<!-- SECTION: Graphic & Visual -->
+<div class="section">
+  <div class="section-title">Graphic & Visual (5)</div>
+
+  <div class="job" data-score="45" data-loc="tel-aviv">
+    <div class="job-top"><div class="job-title">Graphic Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">45%</div></div>
+    </div>
+    <div class="job-company">DiploAct</div>
+    <div class="job-meta">מחוז תל אביב · Hybrid · Easy Apply</div>
+    <div class="job-sources"><span class="job-source-tag">LinkedIn</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.linkedin.com/jobs/view/4431052039/">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ צעד אחורה ממיצוב Product Designer</div>
+  </div>
+
+  <div class="job" data-score="45" data-loc="center">
+    <div class="job-top"><div class="job-title">Graphic Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">45%</div></div>
+    </div>
+    <div class="job-company">Klydoclock</div>
+    <div class="job-meta">רינתיה, מחוז המרכז · On-site · Easy Apply</div>
+    <div class="job-sources"><span class="job-source-tag">LinkedIn</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.linkedin.com/jobs/view/4425074219/">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ צעד אחורה ממיצוב Product Designer</div>
+  </div>
+
+  <div class="job" data-score="55" data-loc="tel-aviv">
+    <div class="job-top"><div class="job-title">Marketing Graphic Designer for High Tech Company</div>
+      <div class="job-badges"><div class="job-score score-mid">55%</div></div>
+    </div>
+    <div class="job-company">Manpower</div>
+    <div class="job-meta">תל אביב · 3-5 שנים · לפני יום</div>
+    <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8706218">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="job" data-score="40" data-loc="tel-aviv">
+    <div class="job-top"><div class="job-title">Senior Marketing Designer</div>
+      <div class="job-badges"><div class="job-score score-mid">40%</div></div>
+    </div>
+    <div class="job-company">- חסוי -</div>
+    <div class="job-meta">תל אביב · 5-6 שנים · לפני 19 שעות</div>
+    <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.drushim.co.il/job/37300461/14deb591/">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ שיווק לא הליבה שלך, ושנים מעט מעל</div>
+  </div>
+
+  <div class="job" data-score="35" data-loc="herzliya">
+    <div class="job-top"><div class="job-title">גרפיקאי/ת וביצועיסט/ית דיגיטל</div>
+      <div class="job-badges"><div class="job-score score-low">35%</div></div>
+    </div>
+    <div class="job-company">הביטאט — מותגי העיצוב המובילים בעולם</div>
+    <div class="job-meta">הרצליה · ללא ניסיון · לפני שעתיים</div>
+    <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.drushim.co.il/job/37524129/f66e7b54/">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ ללא ניסיון — junior מובהק, צעד אחורה</div>
+  </div>
+
+  <div class="empty-filtered">אין משרות בקטגוריה זו עם הסינון הנוכחי</div>
+</div>
+
+<!-- SECTION: אחר -->
+<div class="section">
+  <div class="section-title">תפקידי עיצוב אחרים (2)</div>
+
+  <div class="job" data-score="30" data-loc="tel-aviv">
+    <div class="job-top"><div class="job-title">Founding Designer לחברת סטארטאפ מבוססת AI</div>
+      <div class="job-badges"><div class="job-score score-low">30%</div></div>
+    </div>
+    <div class="job-company">TechTalent</div>
+    <div class="job-meta">תל אביב · לפני יומיים</div>
+    <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8689349">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ תפקיד מייסד/ת — סיכון/הון עצמי גבוה, לא חברה מבוססת</div>
+  </div>
+
+  <div class="job" data-score="30" data-loc="other">
+    <div class="job-top"><div class="job-title">AI Product Builder</div>
+      <div class="job-badges"><div class="job-score score-low">30%</div></div>
+    </div>
+    <div class="job-company">Arpeely <span style="color:#FFD60A">4.8★</span></div>
+    <div class="job-meta">ישראל · Easy Apply · 30 יום+</div>
+    <div class="job-sources"><span class="job-source-tag">Glassdoor</span></div>
+    <div class="job-actions">
+      <a class="job-link" href="https://www.glassdoor.com/job-listing/ai-product-builder-arpeely-JV_KO0,18_KE19,26.htm?jl=1010124024958">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)">
+        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      </select>
+    </div>
+    <div class="job-note">⚠ תואר לא סטנדרטי — לא ברור אם זה תפקיד עיצוב מוצר קלאסי</div>
+  </div>
+
+  <div class="empty-filtered">אין משרות בקטגוריה זו עם הסינון הנוכחי</div>
+</div>
+
+<div class="footer">
+  נוצר ע"י job-search-agent · עדכון אחרון 30.06.2026 · יד2 דרושים = Drushim (אותו מאגר) · "- חסוי -" = מעסיק לא חשוף · ציוני התאמה הם הערכה היוריסטית, לא ניתוח תוכן מלא
+</div>
+
+<script>
+  function jobIdFor(jobEl) {
+    var link = jobEl.querySelector('.job-link');
+    return link ? link.getAttribute('href') : null;
+  }
+  function loadStatuses() {
+    document.querySelectorAll('.job').forEach(function(job) {
+      var id = jobIdFor(job);
+      var status = id ? (localStorage.getItem('jobstatus:' + id) || 'new') : 'new';
+      job.dataset.status = status;
+      var select = job.querySelector('.status-select');
+      if (select) select.value = status;
+      job.classList.remove('status-sent', 'status-interview', 'status-rejected');
+      if (status !== 'new') job.classList.add('status-' + status);
+    });
+    updateStatusSummary();
+  }
+  function updateStatus(select) {
+    var job = select.closest('.job');
+    var id = jobIdFor(job);
+    var status = select.value;
+    if (id) localStorage.setItem('jobstatus:' + id, status);
+    job.dataset.status = status;
+    job.classList.remove('status-sent', 'status-interview', 'status-rejected');
+    if (status !== 'new') job.classList.add('status-' + status);
+    updateStatusSummary();
+    applyFilters();
+  }
+  function updateStatusSummary() {
+    var counts = { new: 0, sent: 0, interview: 0, rejected: 0 };
+    document.querySelectorAll('.job').forEach(function(job) {
+      var s = job.dataset.status || 'new';
+      counts[s] = (counts[s] || 0) + 1;
+    });
+    document.getElementById('countNew').textContent = counts.new;
+    document.getElementById('countSent').textContent = counts.sent;
+    document.getElementById('countInterview').textContent = counts.interview;
+    document.getElementById('countRejected').textContent = counts.rejected;
+  }
+  function applyFilters() {
+    var scoreFilter = document.getElementById('filterScore').value;
+    var locFilter = document.getElementById('filterLoc').value;
+    var statusFilter = document.getElementById('filterStatus').value;
+    var totalVisible = 0;
+    document.querySelectorAll('.section').forEach(function(section) {
+      var sectionVisible = 0;
+      section.querySelectorAll('.job').forEach(function(job) {
+        var score = parseInt(job.dataset.score, 10);
+        if (isNaN(score)) score = 0;
+        var loc = job.dataset.loc || 'other';
+        var status = job.dataset.status || 'new';
+        var show = true;
+        if (scoreFilter === 'high' && score < 65) show = false;
+        if (scoreFilter === 'mid' && (score < 45 || score >= 65)) show = false;
+        if (scoreFilter === 'low' && score >= 45) show = false;
+        if (locFilter !== 'all' && loc !== locFilter) show = false;
+        if (statusFilter !== 'all' && status !== statusFilter) show = false;
+        job.style.display = show ? '' : 'none';
+        if (show) { sectionVisible++; totalVisible++; }
+      });
+      var emptyMsg = section.querySelector('.empty-filtered');
+      if (emptyMsg) emptyMsg.style.display = sectionVisible === 0 ? 'block' : 'none';
+    });
+    document.getElementById('resultCount').textContent = totalVisible;
+  }
+  function resetFilters() {
+    document.getElementById('filterScore').value = 'all';
+    document.getElementById('filterLoc').value = 'all';
+    document.getElementById('filterStatus').value = 'all';
+    applyFilters();
+  }
+  window.addEventListener('DOMContentLoaded', function() {
+    loadStatuses();
+    applyFilters();
+  });
+</script>
+
+</body>
+</html>
