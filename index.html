@@ -89,6 +89,86 @@
       margin-bottom: 14px;
     }
 
+    /* ===== Cockpit strip — "השבוע במערכת" ===== */
+    .cockpit {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 22px;
+      margin-bottom: 36px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    }
+
+    .cockpit-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .cockpit-sub {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .cp-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 10px;
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text);
+      border-top: 1px solid var(--border);
+      transition: background 130ms ease;
+    }
+
+    .cp-row:first-of-type { border-top: none; }
+    .cp-row:hover { background: var(--card-hover); }
+
+    .cp-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .cp-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      width: 92px;
+      flex-shrink: 0;
+    }
+
+    .cp-headline {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text);
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cp-headline.empty { font-weight: 400; color: var(--text-muted); }
+
+    .cp-date {
+      font-size: 12px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      margin-inline-start: auto;
+    }
+
+    .cp-arrow {
+      color: var(--text-muted);
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
     /* Bento grid */
     .grid {
       display: grid;
@@ -189,6 +269,8 @@
     .card-weekly .card-icon { background: #2563EB; }
     .card-monthly .card-icon { background: #C45E2A; }
     .card-alt    .card-icon { background: #059669; }
+    .card-eff    .card-icon { background: #DB2777; }
+    .card-job    .card-icon { background: #4F46E5; }
     .card-necro  .card-icon { background: linear-gradient(135deg, #34D08C 0 50%, #9B51E0 50% 100%); }
 
     /* Responsive */
@@ -196,12 +278,15 @@
       .grid { grid-template-columns: repeat(2, 1fr); }
       header { padding: 16px 20px; }
       main { padding: 24px 16px 48px; }
+      .cp-name { width: 70px; }
     }
 
     @media (max-width: 480px) {
       .grid { grid-template-columns: 1fr; }
       .col-2 { grid-column: span 1; }
       .card { min-height: auto; }
+      .cp-date { display: none; }
+      .cp-name { display: none; }
     }
   </style>
 </head>
@@ -213,6 +298,52 @@
   </header>
 
   <main>
+
+    <!-- ===== Cockpit: one glance at every report ===== -->
+    <div class="cockpit" id="cockpit">
+      <div class="cockpit-head">🗓️ השבוע במערכת</div>
+      <div class="cockpit-sub">הכותרת האחרונה מכל דוח. לחיצה פותחת את הדוח המלא.</div>
+
+      <a class="cp-row" id="cpWeekly" href="digests/weekly/">
+        <span class="cp-dot" style="background:#2563EB"></span>
+        <span class="cp-name">AI Digest</span>
+        <span class="cp-headline empty" id="cpWeeklyH">אין גיליון עדיין</span>
+        <span class="cp-date" id="cpWeeklyD"></span>
+        <span class="cp-arrow">←</span>
+      </a>
+
+      <a class="cp-row" id="cpJob" href="digests/job-search/">
+        <span class="cp-dot" style="background:#4F46E5"></span>
+        <span class="cp-name">Job Search</span>
+        <span class="cp-headline empty" id="cpJobH">אין גיליון עדיין</span>
+        <span class="cp-date" id="cpJobD"></span>
+        <span class="cp-arrow">←</span>
+      </a>
+
+      <a class="cp-row" id="cpEff" href="digests/efficiency/">
+        <span class="cp-dot" style="background:#DB2777"></span>
+        <span class="cp-name">Efficiency</span>
+        <span class="cp-headline empty" id="cpEffH">אין גיליון עדיין</span>
+        <span class="cp-date" id="cpEffD"></span>
+        <span class="cp-arrow">←</span>
+      </a>
+
+      <a class="cp-row" id="cpAlt" href="digests/alt-hunter/">
+        <span class="cp-dot" style="background:#059669"></span>
+        <span class="cp-name">Alt Hunter</span>
+        <span class="cp-headline empty" id="cpAltH">אין גיליון עדיין</span>
+        <span class="cp-date" id="cpAltD"></span>
+        <span class="cp-arrow">←</span>
+      </a>
+
+      <a class="cp-row" id="cpMonthly" href="digests/monthly/">
+        <span class="cp-dot" style="background:#C45E2A"></span>
+        <span class="cp-name">Monthly</span>
+        <span class="cp-headline empty" id="cpMonthlyH">אין גיליון עדיין</span>
+        <span class="cp-date" id="cpMonthlyD"></span>
+        <span class="cp-arrow">←</span>
+      </a>
+    </div>
 
     <div class="section-label">כלים</div>
     <div class="grid">
@@ -300,6 +431,34 @@
         <a class="archive-link" href="digests/weekly/">כל הגיליונות ←</a>
       </div>
 
+      <div class="card card-job">
+        <div class="card-icon">
+          <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><circle cx="12" cy="13" r="3"/><line x1="14.2" y1="15.2" x2="17" y2="18"/></svg>
+        </div>
+        <div class="card-name">Job Search</div>
+        <div class="digest-type">משרות עיצוב חדשות מאתרי הדרושים</div>
+        <div class="digest-empty" id="jobEmpty">אין גיליון עדיין</div>
+        <div id="jobLatest" style="display:none">
+          <div class="digest-latest" id="jobTitle"></div>
+          <div class="digest-date" id="jobDate"></div>
+        </div>
+        <a class="archive-link" href="digests/job-search/">כל הגיליונות ←</a>
+      </div>
+
+      <div class="card card-eff">
+        <div class="card-icon">
+          <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 4 14 12 14 11 22 20 10 12 10 13 2"/></svg>
+        </div>
+        <div class="card-name">Efficiency Audit</div>
+        <div class="digest-type">ייעול שבועי של העבודה בקלוד קוד</div>
+        <div class="digest-empty" id="effEmpty">אין גיליון עדיין</div>
+        <div id="effLatest" style="display:none">
+          <div class="digest-latest" id="effTitle"></div>
+          <div class="digest-date" id="effDate"></div>
+        </div>
+        <a class="archive-link" href="digests/efficiency/">כל הגיליונות ←</a>
+      </div>
+
       <div class="card card-monthly">
         <div class="card-icon">
           <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="8" cy="15" r="1.2" fill="rgba(255,255,255,0.95)" stroke="none"/><circle cx="12" cy="15" r="1.2" fill="rgba(255,255,255,0.95)" stroke="none"/><circle cx="16" cy="15" r="1.2" fill="rgba(255,255,255,0.95)" stroke="none"/></svg>
@@ -355,31 +514,53 @@
       applyTheme(!isDark);
     }
 
-    // Load latest digest from manifest.json in each folder
-    async function loadLatest(folder, emptyId, latestId, titleId, dateId) {
+    // Feed one stream into BOTH the cockpit row and its bento card.
+    // Manifest entries may include an optional "headline" (the single takeaway);
+    // when absent we fall back to "title" so older issues still render.
+    async function feedStream(cfg) {
       try {
-        const res = await fetch('digests/' + folder + '/manifest.json');
+        const res = await fetch('digests/' + cfg.folder + '/manifest.json');
         if (!res.ok) return;
         const list = await res.json();
-        if (!list.length) return;
+        if (!Array.isArray(list) || !list.length) return;
+
         const latest = list[0];
-        document.getElementById(emptyId).style.display = 'none';
-        document.getElementById(latestId).style.display = 'block';
-        const titleEl = document.getElementById(titleId);
-        const url = 'digests/' + folder + '/' + latest.file;
-        titleEl.textContent = latest.title;
-        titleEl.style.cursor = 'pointer';
-        titleEl.setAttribute('tabindex', '0');
-        titleEl.setAttribute('role', 'button');
-        titleEl.onclick = () => window.open(url, '_blank');
-        titleEl.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.open(url, '_blank'); } };
-        document.getElementById(dateId).textContent = latest.date;
-      } catch (e) { console.warn('[Orbit] loadLatest failed for', folder, e); }
+        const url = 'digests/' + cfg.folder + '/' + latest.file;
+        const headline = (latest.headline && latest.headline.trim()) ? latest.headline : latest.title;
+
+        // --- cockpit row ---
+        const rowH = document.getElementById(cfg.rowHeadlineId);
+        if (rowH) { rowH.textContent = headline; rowH.classList.remove('empty'); }
+        const rowD = document.getElementById(cfg.rowDateId);
+        if (rowD) rowD.textContent = latest.date || '';
+        const row = document.getElementById(cfg.rowId);
+        if (row) row.setAttribute('href', url);
+
+        // --- bento card ---
+        const empty = document.getElementById(cfg.emptyId);
+        const block = document.getElementById(cfg.latestId);
+        if (empty && block) {
+          empty.style.display = 'none';
+          block.style.display = 'block';
+          const titleEl = document.getElementById(cfg.titleId);
+          titleEl.textContent = headline;
+          titleEl.style.cursor = 'pointer';
+          titleEl.setAttribute('tabindex', '0');
+          titleEl.setAttribute('role', 'button');
+          titleEl.onclick = () => window.open(url, '_blank');
+          titleEl.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.open(url, '_blank'); } };
+          document.getElementById(cfg.dateId).textContent = latest.date || '';
+        }
+      } catch (e) { console.warn('[Orbit] feedStream failed for', cfg.folder, e); }
     }
 
-    loadLatest('weekly',     'weeklyEmpty',  'weeklyLatest',  'weeklyTitle',  'weeklyDate');
-    loadLatest('monthly',    'monthlyEmpty', 'monthlyLatest', 'monthlyTitle', 'monthlyDate');
-    loadLatest('alt-hunter', 'altEmpty',     'altLatest',     'altTitle',     'altDate');
+    [
+      { folder: 'weekly',     rowId: 'cpWeekly',  rowHeadlineId: 'cpWeeklyH',  rowDateId: 'cpWeeklyD',  emptyId: 'weeklyEmpty',  latestId: 'weeklyLatest',  titleId: 'weeklyTitle',  dateId: 'weeklyDate'  },
+      { folder: 'job-search', rowId: 'cpJob',     rowHeadlineId: 'cpJobH',     rowDateId: 'cpJobD',     emptyId: 'jobEmpty',     latestId: 'jobLatest',     titleId: 'jobTitle',     dateId: 'jobDate'     },
+      { folder: 'efficiency', rowId: 'cpEff',     rowHeadlineId: 'cpEffH',     rowDateId: 'cpEffD',     emptyId: 'effEmpty',     latestId: 'effLatest',     titleId: 'effTitle',     dateId: 'effDate'     },
+      { folder: 'alt-hunter', rowId: 'cpAlt',     rowHeadlineId: 'cpAltH',     rowDateId: 'cpAltD',     emptyId: 'altEmpty',     latestId: 'altLatest',     titleId: 'altTitle',     dateId: 'altDate'     },
+      { folder: 'monthly',    rowId: 'cpMonthly', rowHeadlineId: 'cpMonthlyH', rowDateId: 'cpMonthlyD', emptyId: 'monthlyEmpty', latestId: 'monthlyLatest', titleId: 'monthlyTitle', dateId: 'monthlyDate' }
+    ].forEach(feedStream);
   </script>
 
 </body>
