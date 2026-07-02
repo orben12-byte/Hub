@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Podcast — Orbit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#F5F3F0; --surface:#FFFFFF; --border:#E8E3DC; --text:#111; --muted:#6B6B6B; --accent:#8B5CF6; }
+    @media (prefers-color-scheme: dark) { :root { --bg:#141414; --surface:#1E1E1E; --border:#2E2E2E; --text:#F0F0F0; --muted:#9A9A9A; --accent:#A78BFA; } }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Rubik',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+    main{max-width:720px;margin:0 auto;padding:36px 24px 60px;}
+    .back{font-size:13px;font-weight:600;color:var(--accent);text-decoration:none;}
+    h1{font-size:26px;margin:18px 0 4px;}
+    .sub{font-size:14px;color:var(--muted);margin-bottom:28px;}
+    .hero{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:26px;}
+    .hero-title{font-size:18px;font-weight:600;margin-bottom:4px;}
+    .hero-date{font-size:13px;color:var(--muted);margin-bottom:16px;}
+    audio{width:100%;}
+    .label{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 2px 12px;}
+    .item{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 18px;margin-bottom:10px;text-decoration:none;color:var(--text);}
+    .item:hover{background:var(--border);}
+    .item-play{width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;}
+    .item-title{font-size:14.5px;font-weight:600;}
+    .item-date{font-size:12px;color:var(--muted);margin-top:2px;}
+    .empty{font-size:14px;color:var(--muted);padding:24px 4px;}
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="../../">← Orbit</a>
+    <h1>🎧 השבוע במערכת</h1>
+    <div class="sub">סקירה שבועית מדוברת — AI, עיצוב, המערכת וחיפוש העבודה. גרסת האוזניים של הקוקפיט.</div>
+
+    <div id="hero"></div>
+    <div class="label">כל הפרקים</div>
+    <div id="list"><div class="empty">אין פרקים עדיין.</div></div>
+  </main>
+  <script>
+    fetch('manifest.json').then(r => r.ok ? r.json() : []).then(list => {
+      if (!Array.isArray(list) || !list.length) return;
+      const latest = list[0];
+      document.getElementById('hero').innerHTML =
+        '<div class="hero"><div class="hero-title">' + (latest.headline || latest.title) + '</div>' +
+        '<div class="hero-date">' + (latest.date || '') + '</div>' +
+        '<audio controls preload="metadata" src="' + latest.file + '"></audio></div>';
+      document.getElementById('list').innerHTML = list.map(it =>
+        '<a class="item" href="' + it.file + '"><span class="item-play">▶</span>' +
+        '<span><span class="item-title">' + (it.headline || it.title) + '</span>' +
+        '<div class="item-date">' + (it.date || '') + '</div></span></a>'
+      ).join('');
+    }).catch(e => console.warn('[Orbit] podcast archive', e));
+  </script>
+</body>
+</html>

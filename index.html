@@ -271,6 +271,7 @@
     .card-alt    .card-icon { background: #059669; }
     .card-eff    .card-icon { background: #DB2777; }
     .card-job    .card-icon { background: #4F46E5; }
+    .card-pod    .card-icon { background: #8B5CF6; }
     .card-necro  .card-icon { background: linear-gradient(135deg, #34D08C 0 50%, #9B51E0 50% 100%); }
 
     /* Responsive */
@@ -303,6 +304,14 @@
     <div class="cockpit" id="cockpit">
       <div class="cockpit-head">🗓️ השבוע במערכת</div>
       <div class="cockpit-sub">הכותרת האחרונה מכל דוח. לחיצה פותחת את הדוח המלא.</div>
+
+      <a class="cp-row" id="cpPod" href="digests/podcast/">
+        <span class="cp-dot" style="background:#8B5CF6"></span>
+        <span class="cp-name">🎧 Podcast</span>
+        <span class="cp-headline empty" id="cpPodH">אין פרק עדיין</span>
+        <span class="cp-date" id="cpPodD"></span>
+        <span class="cp-arrow">←</span>
+      </a>
 
       <a class="cp-row" id="cpWeekly" href="digests/weekly/">
         <span class="cp-dot" style="background:#2563EB"></span>
@@ -416,6 +425,21 @@
 
     <div class="section-label">דיגסטים</div>
     <div class="grid" id="digestsGrid">
+
+      <div class="card col-2 card-pod">
+        <div class="card-icon">
+          <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></svg>
+        </div>
+        <div class="card-name">Podcast — השבוע במערכת</div>
+        <div class="digest-type">סקירה שבועית מדוברת · גרסת האוזניים</div>
+        <div class="digest-empty" id="podEmpty">אין פרק עדיין</div>
+        <div id="podLatest" style="display:none">
+          <div class="digest-latest" id="podTitle"></div>
+          <div class="digest-date" id="podDate"></div>
+          <audio id="podAudio" controls preload="none" style="width:100%;margin-top:12px;"></audio>
+        </div>
+        <a class="archive-link" href="digests/podcast/">כל הפרקים ←</a>
+      </div>
 
       <div class="card col-2 card-weekly">
         <div class="card-icon">
@@ -550,11 +574,16 @@
           titleEl.onclick = () => window.open(url, '_blank');
           titleEl.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.open(url, '_blank'); } };
           document.getElementById(cfg.dateId).textContent = latest.date || '';
+          if (cfg.audioId) {
+            const audio = document.getElementById(cfg.audioId);
+            if (audio) audio.src = url;
+          }
         }
       } catch (e) { console.warn('[Orbit] feedStream failed for', cfg.folder, e); }
     }
 
     [
+      { folder: 'podcast',    rowId: 'cpPod',     rowHeadlineId: 'cpPodH',     rowDateId: 'cpPodD',     emptyId: 'podEmpty',     latestId: 'podLatest',     titleId: 'podTitle',     dateId: 'podDate', audioId: 'podAudio' },
       { folder: 'weekly',     rowId: 'cpWeekly',  rowHeadlineId: 'cpWeeklyH',  rowDateId: 'cpWeeklyD',  emptyId: 'weeklyEmpty',  latestId: 'weeklyLatest',  titleId: 'weeklyTitle',  dateId: 'weeklyDate'  },
       { folder: 'job-search', rowId: 'cpJob',     rowHeadlineId: 'cpJobH',     rowDateId: 'cpJobD',     emptyId: 'jobEmpty',     latestId: 'jobLatest',     titleId: 'jobTitle',     dateId: 'jobDate'     },
       { folder: 'efficiency', rowId: 'cpEff',     rowHeadlineId: 'cpEffH',     rowDateId: 'cpEffD',     emptyId: 'effEmpty',     latestId: 'effLatest',     titleId: 'effTitle',     dateId: 'effDate'     },
