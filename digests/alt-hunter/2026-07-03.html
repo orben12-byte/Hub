@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔍 Alt Hunter — 03 July 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #2c2f35;
+      color: #c8ccd4;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      direction: ltr;
+      min-height: 100vh;
+      padding: 32px 16px 64px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .header {
+      padding-bottom: 24px;
+      border-bottom: 1px solid #3a3d44;
+      margin-bottom: 32px;
+    }
+
+    .header-meta {
+      font-size: 11px;
+      color: #6a6d75;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #70a070;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .header .tagline {
+      font-size: 13px;
+      color: #6a6d75;
+      font-style: italic;
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: flex;
+      gap: 0;
+      margin-bottom: 32px;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #252830;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 14px 16px;
+      border-right: 1px solid #3a3d44;
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-val {
+      font-size: 20px;
+      font-weight: 700;
+      color: #70a070;
+      display: block;
+    }
+
+    .stat-val.warn { color: #e07070; }
+
+    .stat-key {
+      font-size: 10px;
+      color: #6a6d75;
+      display: block;
+      margin-top: 3px;
+      letter-spacing: 0.08em;
+    }
+
+    .stat-delta {
+      font-size: 10px;
+      color: #70a070;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* SECTIONS */
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #70a070;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: #3a3d44;
+    }
+
+    /* ITEMS */
+    .item {
+      background-color: #252830;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 8px;
+    }
+
+    .item-key {
+      font-size: 10px;
+      font-weight: 600;
+      color: #6a6d75;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .item-val {
+      font-size: 13px;
+      color: #c8ccd4;
+      line-height: 1.7;
+    }
+
+    .item-val a {
+      color: #70a070;
+      text-decoration: none;
+    }
+
+    .item-val a:hover { text-decoration: underline; }
+
+    .item-val ul {
+      margin: 8px 0 0 20px;
+    }
+
+    .item-val li {
+      margin-bottom: 6px;
+    }
+
+    .item-val strong {
+      color: #d8dce4;
+      font-weight: 600;
+    }
+
+    .item-val code {
+      background-color: #1a1d22;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #70a070;
+    }
+
+    /* ACCENT VARIANTS */
+    .item.highlight {
+      border-color: #70a07040;
+      background-color: #1e2a1e;
+    }
+
+    .item.highlight .item-key { color: #70a070; }
+
+    .item.dim {
+      border-color: #32353c;
+      background-color: #222428;
+    }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid #3a3d44;
+      text-align: center;
+      font-size: 11px;
+      color: #6a6d75;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <div class="header-meta">AUTOMATED WEEKLY SCAN</div>
+      <h1>🔍 Alternative Hunter</h1>
+      <div class="tagline">Free alternatives to Claude Pro — July 3, 2026</div>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <span class="stat-val">10</span>
+        <span class="stat-key">FREE ALTERNATIVES</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">✅</span>
+        <span class="stat-key">STATUS</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">5</span>
+        <span class="stat-key">NEW RELEASES</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🔥 HOT FINDINGS</div>
+
+      <div class="item highlight">
+        <span class="item-key">CLAUDE CODE + OLLAMA (MAJOR)</span>
+        <div class="item-val">
+          Claude Code can now run <strong>completely free</strong> using Ollama's local models. Just two environment variables to connect. Active throughout 2026 with extensive community support on Hacker News and YouTube.<br><br>
+          <strong>Impact:</strong> Eliminates need for Claude Pro subscription for code work if you have sufficient local hardware.<br><br>
+          Resources:
+          <ul>
+            <li><a href="https://www.youtube.com/watch?v=7L_iDpcMLjc" target="_blank">YouTube: Free Local AI Setup</a></li>
+            <li><a href="https://www.youtube.com/watch?v=UDP_BNYYrog" target="_blank">YouTube: Windows PC Setup</a></li>
+            <li><a href="https://news.ycombinator.com/item?id=46722285" target="_blank">HN: First Claude Code Client for Ollama</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="item highlight">
+        <span class="item-key">MINIMAX M3 — NEW OPEN-WEIGHT FLAGSHIP</span>
+        <div class="item-val">
+          First open-weight model with <strong>frontier coding (SWE-Bench Pro 59.0)</strong>, 1M-token context, and native vision. Released June 2026, available through Ollama.<br><br>
+          <strong>Significance:</strong> Combines multiple capabilities previously requiring separate models or paid APIs.
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🖥️ DESKTOP APPLICATIONS</div>
+
+      <div class="item">
+        <span class="item-key">OPENWORK ⭐ TOP PICK</span>
+        <div class="item-val">
+          <strong>License:</strong> MIT (free, open-source)<br>
+          <strong>Platforms:</strong> macOS, Windows, Linux<br><br>
+          <strong>Features:</strong>
+          <ul>
+            <li>Local-first architecture (runs on your machine)</li>
+            <li>50+ LLM support with BYOK (bring your own keys)</li>
+            <li>Extensible via skills, plugins, MCP servers</li>
+            <li>Team collaboration through shareable setup links</li>
+            <li>Multiple interfaces (desktop, Slack/Telegram, CLI)</li>
+          </ul>
+          <a href="https://github.com/different-ai/openwork" target="_blank">→ GitHub: different-ai/openwork</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">OPEN WEBUI v0.10.2 (JULY 1, 2026)</span>
+        <div class="item-val">
+          Self-hosted AI platform with native desktop apps for Mac/Windows/Linux (no Docker required).<br><br>
+          <strong>Latest Features:</strong>
+          <ul>
+            <li>Streamed reasoning display</li>
+            <li>Folder uploads to knowledge bases with subfolder structure</li>
+            <li>Share folders with granular access controls</li>
+            <li>Computer agent support</li>
+            <li>Hybrid search for large knowledge bases</li>
+            <li>External knowledge base connections</li>
+            <li>Complete memory system overhaul</li>
+            <li>Event system with webhooks</li>
+          </ul>
+          <a href="https://github.com/open-webui/open-webui" target="_blank">→ GitHub: open-webui/open-webui</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">CHERRY STUDIO</span>
+        <div class="item-val">
+          Cross-platform desktop client (Windows, macOS, Linux) with local data storage. BYOK or use bundled free models. No account setup required.
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">JAN</span>
+        <div class="item-val">
+          Desktop AI chat app that runs entirely on your machine using open-source models. Privacy-focused with no cloud dependency. Can connect to hosted providers when needed.
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">💻 CODING TOOLS</div>
+
+      <div class="item">
+        <span class="item-key">AIDER / OPENHANDS / CLINE</span>
+        <div class="item-val">
+          Three mature open-source coding assistants, all production-ready and <strong>free to use</strong>. Competitive with Claude Code.
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">GOOGLE GEMINI CLI</span>
+        <div class="item-val">
+          <strong>License:</strong> Apache 2.0 (open-source)<br>
+          <strong>Free Tier:</strong> 1,000 model requests/day with personal Google account (OAuth)<br>
+          Available now.
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">ANYTHINGLLM</span>
+        <div class="item-val">
+          Full local AI workspace with document ingestion, RAG (Retrieval Augmented Generation), agent support, and multi-user access. Free.
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🚀 OLLAMA UPDATES (JUNE 2026)</div>
+
+      <div class="item">
+        <span class="item-key">v0.31.1 (JUNE 30, 2026)</span>
+        <div class="item-val">
+          <strong>Major:</strong> 90% faster Gemma 4 on Apple Silicon via multi-token prediction (MTP). MLX engine improvements, llama.cpp backend updates.
+        </div>
+      </div>
+
+      <div class="item dim">
+        <span class="item-key">TOP MODELS AVAILABLE</span>
+        <div class="item-val">
+          <strong>MiniMax M3</strong> — 1M context + vision + frontier coding (SWE-Bench Pro 59.0)<br>
+          <strong>NVIDIA Nemotron 3 Ultra</strong> — High-throughput reasoning, long-running agents<br>
+          <strong>DeepSeek V4 Pro</strong> — Advanced reasoning<br>
+          <strong>Qwen 3.6 27B</strong> — 77.2% SWE-bench, fits 24GB at Q4<br>
+          <strong>Kimi K2.6</strong> — Frontier coding<br>
+          <strong>DeepSeek-R1</strong> — Reasoning specialist<br>
+          <strong>Gemma 4</strong> — Vision + tool calling<br>
+          <strong>Llama 4 Scout</strong> — Long-context 10M + multimodal
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🔌 MCP UPDATES</div>
+
+      <div class="item">
+        <span class="item-key">2026-07-28 RELEASE CANDIDATE (UPCOMING)</span>
+        <div class="item-val">
+          Next MCP specification scheduled for <strong>July 28, 2026</strong>.<br><br>
+          <strong>Major Changes:</strong>
+          <ul>
+            <li><strong>Stateless protocol core</strong> — Servers can scale horizontally</li>
+            <li><strong>Extensions framework</strong> — Modular capability expansion</li>
+            <li><strong>Tasks extension</strong> — New lifecycle (tasks/get, tasks/update, tasks/cancel)</li>
+            <li><strong>MCP Apps</strong> — Interactive HTML UIs in sandboxed iframes</li>
+            <li>Authorization hardening + formal deprecation policy</li>
+          </ul>
+          <strong>Enterprise Focus:</strong> Audit trails, SSO-integrated auth, gateway behavior, configuration portability<br><br>
+          <a href="https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/" target="_blank">→ Read Full Release Notes</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🤖 ANTHROPIC UPDATES (2026)</div>
+
+      <div class="item">
+        <span class="item-key">CLAUDE SONNET 5</span>
+        <div class="item-val">
+          Most agentic Sonnet model yet. Native 1M-token context window. Promotional pricing: $2/$10 per Mtok through August 31. Default model in Claude Code. Improvements in reasoning, tool use, coding, knowledge work.
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">⚠️ CLAUDE FABLE 5 (SUSPENDED)</span>
+        <div class="item-val">
+          State-of-the-art on nearly all benchmarks with always-on adaptive thinking, 1M context, 128K output.<br><br>
+          <strong>Status:</strong> <span style="color: #e07070">Suspended June 12, 2026</span> due to US government export-control directive (along with Claude Mythos 5).
+        </div>
+      </div>
+
+      <div class="item dim">
+        <span class="item-key">PLATFORM UPDATES</span>
+        <div class="item-val">
+          <strong>Claude managed agents</strong> — Anthropic-hosted agent runtimes (no infrastructure needed)<br>
+          <strong>Slack integration</strong> — Tag Claude in conversations (Team/Enterprise plans)<br>
+          <strong>Azure availability</strong> — Generally available in Microsoft Foundry with data residency options
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">💬 COMMUNITY INSIGHTS</div>
+
+      <div class="item">
+        <span class="item-key">r/LOCALLLAMA RECOMMENDATIONS</span>
+        <div class="item-val">
+          <strong>Top Tool:</strong> Ollama (100+ models: Llama, Mistral, Qwen, DeepSeek, Phi)<br>
+          <strong>Top RAG Tool:</strong> AnythingLLM<br>
+          <strong>Recommended Starter:</strong> Llama 3.1 8B<br>
+          <strong>Minimum Hardware:</strong> Standard modern computer (Llama 3.2 3B on CPU: 2-5 tokens/sec)
+        </div>
+      </div>
+
+      <div class="item dim">
+        <span class="item-key">HACKER NEWS ACTIVITY (2026)</span>
+        <div class="item-val">
+          Active discussions throughout the year:
+          <ul>
+            <li>"First Claude Code client for Ollama local models" (Jan 27)</li>
+            <li>"Ask HN: A good Model to choose in Ollama to run on Claude Code" (Jan 27)</li>
+            <li>"April 2026 TLDR Setup for Ollama and Gemma 4 26B on a Mac mini" (Apr 11)</li>
+            <li>"Running Gemma 4 locally with LM Studio's new headless CLI and Claude Code" (Apr 12)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🎯 RECOMMENDATIONS</div>
+
+      <div class="item highlight">
+        <span class="item-key">FOR CODE WORK</span>
+        <div class="item-val">
+          <strong>Best:</strong> Claude Code + Ollama (completely free, local, private)<br>
+          <strong>Alternatives:</strong> Aider, OpenHands, Cline
+        </div>
+      </div>
+
+      <div class="item highlight">
+        <span class="item-key">FOR GENERAL AI WORKSPACE</span>
+        <div class="item-val">
+          <strong>Best:</strong> OpenWork (MIT license, 50+ LLMs, MCP support)<br>
+          <strong>Alternatives:</strong> Open WebUI (more features), Jan (simplest)
+        </div>
+      </div>
+
+      <div class="item highlight">
+        <span class="item-key">FOR DOCUMENT Q&A / RAG</span>
+        <div class="item-val">
+          <strong>Best:</strong> AnythingLLM
+        </div>
+      </div>
+
+      <div class="item highlight">
+        <span class="item-key">FOR MAXIMUM PRIVACY</span>
+        <div class="item-val">
+          <strong>Best:</strong> Jan or Cherry Studio (fully local, no cloud dependencies)
+        </div>
+      </div>
+
+      <div class="item dim">
+        <span class="item-key">RECOMMENDED MODELS (VIA OLLAMA)</span>
+        <div class="item-val">
+          <strong>Starter:</strong> Llama 3.1 8B (test your use cases first)<br>
+          <strong>Best New:</strong> MiniMax M3 (1M context + vision + coding)<br>
+          <strong>Coding:</strong> Qwen 3.6 27B (77.2% SWE-bench)<br>
+          <strong>Reasoning:</strong> DeepSeek-R1
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">📊 SUMMARY</div>
+
+      <div class="item">
+        <span class="item-key">STATUS</span>
+        <div class="item-val">
+          ✅ <strong>Multiple free alternatives available</strong><br><br>
+          <strong>Best New Finding:</strong> Claude Code + Ollama integration (completely free local setup)<br>
+          <strong>Most Exciting Model:</strong> MiniMax M3 (1M context + vision + frontier coding)<br>
+          <strong>Ecosystem Health:</strong> Strong — active development across all major open-source projects<br>
+          <strong>Recommendation:</strong> Try Claude Code + Ollama first; if you need more features, explore OpenWork or Open WebUI<br><br>
+          <strong>Next Scan:</strong> July 10, 2026
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Automated by Alternative Hunter Agent — Generated July 3, 2026
+    </div>
+
+  </div>
+</body>
+</html>
