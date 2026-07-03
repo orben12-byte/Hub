@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Efficiency Audit — 03.07.2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0E0E10; --surface:#1A1A1E; --surface-2:#232328; --border:#2E2E34;
+      --text:#F0F0F0; --muted:#9A9A9A; --accent:#F472B6; --accent-deep:#DB2777;
+      --green:#34D399; --amber:#FBBF24; --red:#F87171;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Rubik',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+    main{max-width:760px;margin:0 auto;padding:40px 22px 70px;}
+    .back{font-size:13px;font-weight:600;color:var(--accent);text-decoration:none;}
+    .eyebrow{display:inline-flex;align-items:center;gap:7px;margin-top:22px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);}
+    .eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent-deep);}
+    h1{font-size:30px;font-weight:700;margin:10px 0 6px;letter-spacing:-0.5px;}
+    .date{font-size:14px;color:var(--muted);margin-bottom:6px;}
+    .verdict{display:inline-block;margin-top:14px;background:rgba(251,191,36,0.12);color:var(--amber);border:1px solid rgba(251,191,36,0.3);font-weight:600;font-size:14px;padding:8px 16px;border-radius:999px;}
+
+    .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:30px 0 36px;}
+    .metric{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;}
+    .metric-label{font-size:12px;color:var(--muted);margin-bottom:8px;}
+    .metric-val{font-size:26px;font-weight:700;letter-spacing:-0.5px;}
+    .metric-val small{font-size:13px;font-weight:500;color:var(--muted);}
+    .metric-delta{font-size:12px;font-weight:600;margin-top:4px;color:var(--amber);}
+
+    .section-label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:34px 0 14px;}
+
+    .finding{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:14px;border-inline-start:3px solid var(--border);}
+    .finding.good{border-inline-start-color:var(--green);}
+    .finding.warn{border-inline-start-color:var(--amber);}
+    .finding.bad{border-inline-start-color:var(--red);}
+    .f-head{display:flex;align-items:center;gap:9px;font-size:16px;font-weight:600;margin-bottom:4px;}
+    .f-axis{font-size:11px;font-weight:600;color:var(--muted);background:var(--surface-2);padding:2px 9px;border-radius:6px;}
+    .f-body{font-size:14.5px;color:#D8D8D8;margin-top:8px;}
+    .f-action{font-size:14px;font-weight:600;margin-top:10px;color:var(--text);}
+    .f-action span{color:var(--accent);}
+
+    table{width:100%;border-collapse:collapse;margin:8px 0 30px;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+    th,td{text-align:right;padding:12px 16px;font-size:14px;border-bottom:1px solid var(--border);}
+    th{background:var(--surface-2);font-weight:600;color:var(--muted);font-size:12px;letter-spacing:.04em;}
+    tr:last-child td{border-bottom:none;}
+
+    .steps{counter-reset:s;list-style:none;}
+    .steps li{counter-increment:s;position:relative;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px 16px 18px;padding-inline-start:54px;margin-bottom:10px;font-size:15px;}
+    .steps li::before{content:counter(s);position:absolute;inset-inline-start:16px;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;background:var(--accent-deep);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;}
+    .foot{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);font-size:12.5px;color:var(--muted);}
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="../../">← Orbit</a>
+
+    <div class="eyebrow">Efficiency Audit</div>
+    <h1>ייעול שבועי של המערכת</h1>
+    <div class="date">3 ביולי 2026 · Efficiency Agent</div>
+    <div class="verdict">🟡 נמצאו 3 הזדמנויות ייעול</div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-label">learning-log.md</div>
+        <div class="metric-val">50.3K <small>bytes</small></div>
+        <div class="metric-delta">כבר 60% מהגודל שהצדיק ארכוב שבוע קודם</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">decisions.md</div>
+        <div class="metric-val">19K <small>bytes</small></div>
+        <div class="metric-delta">מטפס, אותו דפוס</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">settings.local.json</div>
+        <div class="metric-val">271 <small>שורות</small></div>
+        <div class="metric-delta">רוב ה-permissions חד-פעמיים, לא ניתנים לשימוש חוזר</div>
+      </div>
+    </div>
+
+    <div class="section-label">ממצאים (3)</div>
+
+    <div class="finding warn">
+      <div class="f-head">🟡 ה-learning-log חזר לטפס — מהר יותר מהצפוי <span class="f-axis">טוקנים / context</span></div>
+      <div class="f-body">הארכוב מ-30.06 חתך את הקובץ החי בחדות. שלושה ימים בלבד אחר כך הוא כבר ב-50,342 bytes (27 ערכים) — 60% מהגודל (82,914 bytes) שהצדיק את הארכוב הקודם מלכתחילה. decisions.md מציג אותו דפוס (19,035 bytes, 21 ערכים). אין כרגע כלל אוטומטי שמפעיל ארכוב — זו הייתה פעולה ידנית חד-פעמית, לא הרגל חוזר.</div>
+      <div class="f-action">מה לעשות עכשיו: <span>לקבוע תקרה קשיחה (למשל 20 ערכים / ~25K bytes) ולחבר בדיקת ארכוב אוטומטית לריצת ה-Efficiency Agent השבועית עצמה, כדי שזה לא יחכה לגילוי ידני שוב.</span></div>
+    </div>
+
+    <div class="finding bad">
+      <div class="f-head">🔴 טבלת המודלים בקובץ הסוכן הייתה שגויה — תוקן <span class="f-axis">בחירת מודל</span></div>
+      <div class="f-body">efficiency-agent.md הפנה סוכנים ל"Sonnet 4.6" — מודל שכבר לא קיים בסביבה הנוכחית. המודל הפעיל בפועל הוא <strong>Sonnet 5</strong> (`claude-sonnet-5`), כולל תמחור מבצע $2/$10 למיליון טוקן עד 31.08.2026 (אח"כ $3/$15) וחלון קונטקסט נטיבי של 1M. אומת מול הכרזת Anthropic הרשמית ומקורות תמחור עצמאיים.</div>
+      <div class="f-action">מה לעשות עכשיו: <span>בוצע באותה ריצה — הטבלה ב-A-agents/efficiency-agent.md עודכנה עם המודל והמחירים הנכונים.</span></div>
+    </div>
+
+    <div class="finding warn">
+      <div class="f-head">🟡 settings.local.json מתנפח בפרומפטים חד-פעמיים <span class="f-axis">כלים והגדרות</span></div>
+      <div class="f-body">271 שורות של permissions, רובן פקודות עם PID/תאריך/נתיב מדויקים (למשל taskkill על PID ספציפי, curl עם timestamp) שלא יתאימו שוב לעולם. זה לא רק בלגן — זה סותר את המטרה של allowlist: אור עדיין ייתקל בבקשות אישור על אותה משפחת פעולות כי הכלל מדויק מדי.</div>
+      <div class="f-action">מה לעשות עכשיו: <span>להריץ את skill fewer-permission-prompts כדי לאחד לחוקי pattern רחבים יותר במקום פקודות מדויקות.</span></div>
+    </div>
+
+    <div class="section-label">מה חדש בחוץ (ציר 5)</div>
+    <div class="finding good">
+      <div class="f-head">🟢 פקודת <code>/context</code> — במקום לספור bytes ידנית</div>
+      <div class="f-body">Claude Code כולל פקודת <code>/context</code> מובנית: תצוגה חזותית קרוא-בלבד של פילוח הטוקנים בסשן חי (system prompt / כלים / memory files / היסטוריית שיחה / פנוי). לא מדויקת כמו ספירת תווים, אבל טובה בהרבה להבנת "לאן הטוקנים הולכים" באמצע עבודה — בלי להריץ סוכן ייעול נפרד.</div>
+      <div class="f-action">מה לעשות עכשיו: <span>להשתמש ב-/context כבדיקה מהירה עצמאית בין ריצות ה-Efficiency Agent, לא כתחליף להן.</span></div>
+    </div>
+
+    <div class="section-label">סיכום צירים</div>
+    <table>
+      <tr><th>ציר</th><th>מצב</th></tr>
+      <tr><td>🪙 טוקנים / context</td><td>🟡 learning-log/decisions מטפסים בחזרה</td></tr>
+      <tr><td>⚙️ שיטת עבודה</td><td>🟢 close-the-loop קיים בכל 3 המסלולים, אין כפילויות scheduled tasks</td></tr>
+      <tr><td>🧠 בחירת מודל</td><td>🔴→🟢 טבלה שגויה, תוקנה באותה ריצה</td></tr>
+      <tr><td>🔧 כלים והגדרות</td><td>🟡 permissions allowlist זקוק לאיחוד</td></tr>
+      <tr><td>🌐 מה חדש בחוץ</td><td>🟡 /context שווה לאמץ</td></tr>
+    </table>
+
+    <div class="section-label">3 הצעדים המשתלמים</div>
+    <ol class="steps">
+      <li><strong>תקרת ארכוב אוטומטית ל-learning-log + decisions</strong> — לא לחכות לגילוי ידני. לחבר לריצה השבועית של Efficiency Agent עצמה.</li>
+      <li><strong>להריץ fewer-permission-prompts</strong> — לאחד 271 שורות permissions חד-פעמיות לחוקי pattern.</li>
+      <li><strong>לאמץ /context</strong> — בדיקת טוקנים עצמאית ומהירה בכל סשן ארוך, בלי המתנה לריצה השבועית.</li>
+    </ol>
+
+    <div class="foot">דוח אוטומטי · Efficiency Agent רץ כל יום חמישי · מדווח רק כשיש ייעול חדש ושווה.</div>
+  </main>
+</body>
+</html>
