@@ -38,10 +38,12 @@
   }
   .filter-group { display: flex; flex-direction: column; gap: 4px; }
   .filter-group label { font-size: 11px; color: #888; }
-  .filter-group select {
+  .filter-group select, .filter-group input[type="text"] {
     background: #0d0d1a; color: #fff; border: 1px solid #2a2a50;
     border-radius: 6px; padding: 7px 10px; font-size: 13px; font-family: inherit;
   }
+  .filter-group input[type="text"] { width: 200px; }
+  .filter-group input[type="text"]::placeholder { color: #444; }
   .filters button {
     background: #232345; color: #c4c4e0; border: 1px solid #2a2a50;
     border-radius: 6px; padding: 8px 14px; font-size: 12px; cursor: pointer;
@@ -98,7 +100,7 @@
 
 <div class="header">
   <h1>🔍 מעקב משרות</h1>
-  <div class="meta">עדכון אחרון: 3 ביולי 2026 · 5 אתרים + אתרי חברות · 102 משרות</div>
+  <div class="meta">עדכון אחרון: 3 ביולי 2026 · 5 אתרים + אתרי חברות · 99 משרות</div>
 </div>
 
 <div class="notice">
@@ -146,12 +148,16 @@
       <option value="rejected">❌ סירוב</option>
     </select>
   </div>
+  <div class="filter-group">
+    <label>חיפוש חופשי</label>
+    <input type="text" id="filterSearch" placeholder="חברה / תפקיד..." oninput="applyFilters()">
+  </div>
   <button onclick="resetFilters()">נקה סינון</button>
 </div>
-<div class="filter-result-count">מציג <b id="resultCount">102</b> מתוך 102 משרות</div>
+<div class="filter-result-count">מציג <b id="resultCount">99</b> מתוך 99 משרות</div>
 
 <div class="summary">
-  <div class="summary-pill"><b>68</b> Product Designer</div>
+  <div class="summary-pill"><b>65</b> Product Designer</div>
   <div class="summary-pill"><b>26</b> UX/UI Designer</div>
   <div class="summary-pill"><b>6</b> Graphic & Visual</div>
   <div class="summary-pill"><b>2</b> אחר</div>
@@ -159,7 +165,7 @@
 
 <!-- SECTION: Product Designer -->
 <div class="section">
-  <div class="section-title">Product Designer (68)</div>
+  <div class="section-title">Product Designer (65)</div>
 
   <div class="job highlight" data-score="85" data-loc="haifa">
     <div class="job-top"><div class="job-title">Senior Product Designer</div>
@@ -976,95 +982,52 @@
     <div class="job-note">⚠ תחום prediction markets/הימורים + דגש חזק על מיתוג ושיווק, פחות Product UX קלאסי</div>
   </div>
 
-  <div class="job" data-score="85" data-loc="tel-aviv">
-    <div class="job-top"><div class="job-title">UX/UI Product Designer</div>
-      <div class="job-badges"><div class="job-score score-high">85%</div></div>
+  <div class="job" data-score="70" data-loc="tel-aviv">
+    <div class="job-top"><div class="job-title">Senior Product Designer — CRM</div>
+      <div class="job-badges"><div class="job-score score-high">70%</div></div>
     </div>
     <div class="job-company">Monday.com</div>
     <div class="job-meta">תל אביב</div>
     <div class="job-sources"><span class="job-source-tag">אתר החברה</span></div>
     <div class="job-actions">
-      <a class="job-link" href="https://monday.com/careers/85.205" target="_blank">פתח משרה ←</a>
-      <select class="status-select" onchange="updateStatus(this)">
-        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
+      <a class="job-link" href="https://monday.com/careers/40478e51-bf1a-4ce8-a297-de6c4488e289" target="_blank">פתח משרה ←</a>
+      <select class="status-select" onchange="updateStatus(this)" data-default-status="sent">
+        <option value="new">🆕 חדש</option><option value="sent" selected>📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
       </select>
     </div>
-  </div>
-
-  <div class="job" data-score="75" data-loc="tel-aviv">
-    <div class="job-top"><div class="job-title">Senior UX/UI Product Designer — AI Domain</div>
-      <div class="job-badges"><div class="job-score score-high">75%</div></div>
-    </div>
-    <div class="job-company">Monday.com</div>
-    <div class="job-meta">תל אביב</div>
-    <div class="job-sources"><span class="job-source-tag">אתר החברה</span></div>
-    <div class="job-actions">
-      <a class="job-link" href="https://monday.com/careers/A3.C39" target="_blank">פתח משרה ←</a>
-      <select class="status-select" onchange="updateStatus(this)">
-        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="job" data-score="75" data-loc="tel-aviv">
-    <div class="job-top"><div class="job-title">Senior UX/UI Product Designer — monday CRM</div>
-      <div class="job-badges"><div class="job-score score-high">75%</div></div>
-    </div>
-    <div class="job-company">Monday.com</div>
-    <div class="job-meta">תל אביב</div>
-    <div class="job-sources"><span class="job-source-tag">אתר החברה</span></div>
-    <div class="job-actions">
-      <a class="job-link" href="https://monday.com/careers/49.758" target="_blank">פתח משרה ←</a>
-      <select class="status-select" onchange="updateStatus(this)">
-        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="job" data-score="85" data-loc="tel-aviv">
-    <div class="job-top"><div class="job-title">Product Designer — Growth</div>
-      <div class="job-badges"><div class="job-score score-high">85%</div></div>
-    </div>
-    <div class="job-company">Monday.com</div>
-    <div class="job-meta">תל אביב</div>
-    <div class="job-sources"><span class="job-source-tag">אתר החברה</span></div>
-    <div class="job-actions">
-      <a class="job-link" href="https://monday.com/careers/A7.052" target="_blank">פתח משרה ←</a>
-      <select class="status-select" onchange="updateStatus(this)">
-        <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
-      </select>
-    </div>
+    <div class="job-note">⚠ נשלחה 3.7.2026 — Senior, דורשת 5+ שנים</div>
   </div>
 
   <div class="job" data-score="65" data-loc="tel-aviv">
-    <div class="job-top"><div class="job-title">Senior Mobile Product Designer — CRM</div>
+    <div class="job-top"><div class="job-title">Experienced Product Designer — New Ventures</div>
       <div class="job-badges"><div class="job-score score-high">65%</div></div>
     </div>
     <div class="job-company">Monday.com</div>
     <div class="job-meta">תל אביב</div>
     <div class="job-sources"><span class="job-source-tag">אתר החברה</span></div>
     <div class="job-actions">
-      <a class="job-link" href="https://monday.com/careers/AD.D5C" target="_blank">פתח משרה ←</a>
+      <a class="job-link" href="https://monday.com/careers/a1ec370c-48c7-4582-9e71-df698569878c" target="_blank">פתח משרה ←</a>
       <select class="status-select" onchange="updateStatus(this)">
         <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
       </select>
     </div>
-    <div class="job-note">⚠ Mobile בלבד — iOS/Android</div>
+    <div class="job-note">⚠ צוות New Ventures (לא Design Guild)</div>
   </div>
 
-  <div class="job" data-score="75" data-loc="tel-aviv">
-    <div class="job-top"><div class="job-title">Senior Product Designer</div>
-      <div class="job-badges"><div class="job-score score-high">75%</div></div>
+  <div class="job" data-score="50" data-loc="tel-aviv">
+    <div class="job-top"><div class="job-title">Lead Product Designer — monday Agents</div>
+      <div class="job-badges"><div class="job-score score-mid">50%</div></div>
     </div>
     <div class="job-company">Monday.com</div>
     <div class="job-meta">תל אביב</div>
     <div class="job-sources"><span class="job-source-tag">אתר החברה</span></div>
     <div class="job-actions">
-      <a class="job-link" href="https://monday.com/careers/ED.55F" target="_blank">פתח משרה ←</a>
+      <a class="job-link" href="https://monday.com/careers/fee48786-19a6-452e-afef-9301f26bf4f2" target="_blank">פתח משרה ←</a>
       <select class="status-select" onchange="updateStatus(this)">
         <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
       </select>
     </div>
+    <div class="job-note">⚠ Lead = 7+ שנים, מעל הרמה הנוכחית</div>
   </div>
 
   <div class="job" data-score="85" data-loc="tel-aviv">
@@ -1780,9 +1743,10 @@
   function loadStatuses() {
     document.querySelectorAll('.job').forEach(function(job) {
       var id = jobIdFor(job);
-      var status = id ? (localStorage.getItem('jobstatus:' + id) || 'new') : 'new';
-      job.dataset.status = status;
       var select = job.querySelector('.status-select');
+      var htmlDefault = select ? ([...select.options].find(function(o){return o.defaultSelected;}) || {value:'new'}).value : 'new';
+      var status = id ? (localStorage.getItem('jobstatus:' + id) || htmlDefault) : htmlDefault;
+      job.dataset.status = status;
       if (select) select.value = status;
       job.classList.remove('status-sent', 'status-interview', 'status-rejected');
       if (status !== 'new') job.classList.add('status-' + status);
@@ -1815,6 +1779,7 @@
     var scoreFilter = document.getElementById('filterScore').value;
     var locFilter = document.getElementById('filterLoc').value;
     var statusFilter = document.getElementById('filterStatus').value;
+    var searchFilter = document.getElementById('filterSearch').value.toLowerCase().trim();
     var totalVisible = 0;
     document.querySelectorAll('.section').forEach(function(section) {
       var sectionVisible = 0;
@@ -1829,6 +1794,11 @@
         if (scoreFilter === 'low' && score >= 45) show = false;
         if (locFilter !== 'all' && loc !== locFilter) show = false;
         if (statusFilter !== 'all' && status !== statusFilter) show = false;
+        if (searchFilter) {
+          var title = (job.querySelector('.job-title') || {}).textContent || '';
+          var company = (job.querySelector('.job-company') || {}).textContent || '';
+          if (!title.toLowerCase().includes(searchFilter) && !company.toLowerCase().includes(searchFilter)) show = false;
+        }
         job.style.display = show ? '' : 'none';
         if (show) { sectionVisible++; totalVisible++; }
       });
@@ -1841,6 +1811,7 @@
     document.getElementById('filterScore').value = 'all';
     document.getElementById('filterLoc').value = 'all';
     document.getElementById('filterStatus').value = 'all';
+    document.getElementById('filterSearch').value = '';
     applyFilters();
   }
   window.addEventListener('DOMContentLoaded', function() {
