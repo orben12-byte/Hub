@@ -24,7 +24,18 @@
   .filters input { flex: 1; min-width: 160px; }
   .filters button { background: none; border: none; color: var(--accent); font-size: 15px; cursor: pointer; font-family: inherit; }
   .count-line { color: var(--muted); font-size: 15px; margin-bottom: 20px; }
-  .section-title { font-size: 20px; margin: 26px 0 12px; padding-bottom: 6px; border-bottom: 2px solid var(--line); }
+  .section-title { font-size: 20px; margin: 26px 0 12px; padding: 8px 12px; border-bottom: 2px solid var(--line); border-radius: 8px 8px 0 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .cat-badge { font-size: 15px; font-weight: 400; border-radius: 999px; padding: 2px 10px; }
+  .section-title[data-cat="ops"] { background: rgba(20,184,166,.08); border-bottom-color: #14B8A6; }
+  .section-title[data-cat="ops"] .cat-badge { background: rgba(20,184,166,.18); color: #5eead4; }
+  .section-title[data-cat="projects"] { background: rgba(168,85,247,.08); border-bottom-color: #A855F7; }
+  .section-title[data-cat="projects"] .cat-badge { background: rgba(168,85,247,.18); color: #d8b4fe; }
+  .section-title[data-cat="service"] { background: rgba(59,130,246,.08); border-bottom-color: #3B82F6; }
+  .section-title[data-cat="service"] .cat-badge { background: rgba(59,130,246,.18); color: #93c5fd; }
+  .section-title[data-cat="other"] { background: rgba(249,115,22,.08); border-bottom-color: #F97316; }
+  .section-title[data-cat="other"] .cat-badge { background: rgba(249,115,22,.18); color: #fdba74; }
+  .job-wa { color: #25D366; text-decoration: none; font-size: 15px; white-space: nowrap; }
+  .job-wa:hover { text-decoration: underline; }
   .job { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; }
   .job.status-sent { border-color: #3b82f6; }
   .job.status-interview { border-color: #a855f7; }
@@ -97,7 +108,7 @@
   </div>
   <div class="count-line" id="count-line"></div>
 
-  <h2 class="section-title" data-cat="ops">מנהלת תפעול (35)</h2>
+  <h2 class="section-title" data-cat="ops"><span class="cat-badge">⚙️ תפעול</span> מנהלת תפעול (<span class="cat-count">35</span>)</h2>
   <div class="cat" id="cat-ops">
 
     <div class="job highlight" data-score="88" data-loc="tel-aviv">
@@ -401,7 +412,7 @@
     <div class="empty-filtered">אין משרות שמתאימות לסינון בקטגוריה הזו</div>
   </div>
 
-  <h2 class="section-title" data-cat="projects">ניהול פרויקטים (9)</h2>
+  <h2 class="section-title" data-cat="projects"><span class="cat-badge">📋 פרויקטים</span> ניהול פרויקטים (<span class="cat-count">9</span>)</h2>
   <div class="cat" id="cat-projects">
 
     <div class="job highlight" data-score="84" data-loc="center">
@@ -485,7 +496,7 @@
     <div class="empty-filtered">אין משרות שמתאימות לסינון בקטגוריה הזו</div>
   </div>
 
-  <h2 class="section-title" data-cat="service">שירות ומוקד (12)</h2>
+  <h2 class="section-title" data-cat="service"><span class="cat-badge">🎧 שירות</span> שירות ומוקד (<span class="cat-count">12</span>)</h2>
   <div class="cat" id="cat-service">
 
     <div class="job highlight" data-score="88" data-loc="other">
@@ -593,7 +604,7 @@
     <div class="empty-filtered">אין משרות שמתאימות לסינון בקטגוריה הזו</div>
   </div>
 
-  <h2 class="section-title" data-cat="other">תפקידי ניהול אחרים (3)</h2>
+  <h2 class="section-title" data-cat="other"><span class="cat-badge">🧩 אחר</span> תפקידי ניהול אחרים (<span class="cat-count">3</span>)</h2>
   <div class="cat" id="cat-other">
 
     <div class="job" data-score="72" data-loc="south">
@@ -625,6 +636,8 @@
 
     <div class="empty-filtered">אין משרות שמתאימות לסינון בקטגוריה הזו</div>
   </div>
+
+  <div class="meta" style="margin-top: 30px">מבוסס על: Drushim.co.il, AllJobs.co.il, Indeed — מוזג, סונן ודורג אוטומטית</div>
 </div>
 
 <script>
@@ -635,15 +648,46 @@
     catch (e) { return {}; }
   }
 
+  var STATUS_LABELS = { new: '🆕 חדש', sent: '📤 נשלח', interview: '🎤 ראיון', rejected: '❌ סירוב' };
+
   function updateStatus(sel) {
     var job = sel.closest('.job');
     var link = job.querySelector('.job-link');
     if (!link) return;
     var statuses = getStatuses();
     statuses[link.getAttribute('href')] = sel.value;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(statuses));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(statuses));
+    } catch (e) {
+      alert('שימו לב: הדפדפן חוסם שמירה מקומית (למשל בגלישה פרטית) — הסטטוס לא יישמר אחרי רענון.');
+    }
     applyStatusClass(job, sel.value);
+    updateWaLink(job, sel.value);
     applyFilters();
+  }
+
+  // כפתור עדכון לאור בוואטסאפ — מופיע ברגע שמסמנים סטטוס שאינו "חדש"
+  function updateWaLink(job, status) {
+    var actions = job.querySelector('.job-actions');
+    if (!actions) return;
+    var wa = job.querySelector('.job-wa');
+    if (status === 'new' || !STATUS_LABELS[status]) { if (wa) wa.remove(); return; }
+    if (!wa) {
+      wa = document.createElement('a');
+      wa.className = 'job-wa';
+      wa.target = '_blank';
+      wa.rel = 'noopener';
+      wa.textContent = '📲 עדכן את אור';
+      actions.appendChild(wa);
+    }
+    var t = job.querySelector('.job-title');
+    var c = job.querySelector('.job-company');
+    var link = job.querySelector('.job-link');
+    var msg = 'עדכון מהטרקר של מיטל 💼\n'
+      + (t ? t.innerText : '') + ' — ' + (c ? c.innerText : '')
+      + '\nסטטוס חדש: ' + STATUS_LABELS[status]
+      + (link ? '\n' + link.getAttribute('href') : '');
+    wa.href = 'https://wa.me/?text=' + encodeURIComponent(msg);
   }
 
   function applyStatusClass(job, status) {
@@ -663,7 +707,32 @@
       if (saved) {
         select.value = saved;
         applyStatusClass(job, saved);
+        updateWaLink(job, saved);
       }
+    });
+  }
+
+  // ספירות מחושבות מה-DOM — מקור אמת אחד, אין מספרים ידניים שמתיישנים
+  function initCounts() {
+    var total = 0;
+    ['ops', 'projects', 'service', 'other'].forEach(function (cat) {
+      var n = document.querySelectorAll('#cat-' + cat + ' .job').length;
+      total += n;
+      var pill = document.getElementById('pill-' + cat);
+      if (pill) pill.textContent = n;
+      var count = document.querySelector('.section-title[data-cat="' + cat + '"] .cat-count');
+      if (count) count.textContent = n;
+    });
+    var pt = document.getElementById('pill-total');
+    if (pt) pt.textContent = total;
+  }
+
+  // טקסט חיפוש מחושב פעם אחת ב-load, עמיד לכרטיס עם שדה חסר
+  function initSearch() {
+    document.querySelectorAll('.job').forEach(function (job) {
+      var t = job.querySelector('.job-title');
+      var c = job.querySelector('.job-company');
+      job.dataset.search = ((t ? t.innerText : '') + ' ' + (c ? c.innerText : '')).toLowerCase();
     });
   }
 
@@ -681,7 +750,7 @@
       var loc = job.dataset.loc || 'other';
       var select = job.querySelector('.status-select');
       var status = select ? select.value : 'new';
-      var text = (job.querySelector('.job-title').innerText + ' ' + job.querySelector('.job-company').innerText).toLowerCase();
+      var text = job.dataset.search || '';
 
       var ok = true;
       if (fScore === 'high' && score < 80) ok = false;
@@ -711,6 +780,8 @@
     applyFilters();
   }
 
+  initSearch();
+  initCounts();
   loadStatuses();
   applyFilters();
 </script>
