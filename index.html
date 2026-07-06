@@ -329,6 +329,14 @@
         <span class="cp-arrow">←</span>
       </a>
 
+      <a class="cp-row" id="cpJobM" href="digests/job-search-meital/tracker.html">
+        <span class="cp-dot" style="background:#0D9488"></span>
+        <span class="cp-name">Job Search — מיטל</span>
+        <span class="cp-headline empty" id="cpJobMH">אין גיליון עדיין</span>
+        <span class="cp-date" id="cpJobMD"></span>
+        <span class="cp-arrow">←</span>
+      </a>
+
       <a class="cp-row" id="cpEff" href="digests/efficiency/">
         <span class="cp-dot" style="background:#DB2777"></span>
         <span class="cp-name">Efficiency</span>
@@ -469,6 +477,20 @@
         <a class="archive-link" href="digests/job-search/">כל הגיליונות ←</a>
       </div>
 
+      <div class="card card-job">
+        <div class="card-icon">
+          <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M8 13h8"/><path d="M8 17h5"/></svg>
+        </div>
+        <div class="card-name">Job Search — מיטל</div>
+        <div class="digest-type">משרות ניהול תפעול, פרויקטים ושירות</div>
+        <div class="digest-empty" id="jobMEmpty">אין גיליון עדיין</div>
+        <div id="jobMLatest" style="display:none">
+          <div class="digest-latest" id="jobMTitle"></div>
+          <div class="digest-date" id="jobMDate"></div>
+        </div>
+        <a class="archive-link" href="digests/job-search-meital/tracker.html">פתח את הטרקר ←</a>
+      </div>
+
       <div class="card card-eff">
         <div class="card-icon">
           <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 4 14 12 14 11 22 20 10 12 10 13 2"/></svg>
@@ -586,6 +608,7 @@
       { folder: 'podcast',    rowId: 'cpPod',     rowHeadlineId: 'cpPodH',     rowDateId: 'cpPodD',     emptyId: 'podEmpty',     latestId: 'podLatest',     titleId: 'podTitle',     dateId: 'podDate', audioId: 'podAudio' },
       { folder: 'weekly',     rowId: 'cpWeekly',  rowHeadlineId: 'cpWeeklyH',  rowDateId: 'cpWeeklyD',  emptyId: 'weeklyEmpty',  latestId: 'weeklyLatest',  titleId: 'weeklyTitle',  dateId: 'weeklyDate'  },
       { folder: 'job-search', rowId: 'cpJob',     rowHeadlineId: 'cpJobH',     rowDateId: 'cpJobD',     emptyId: 'jobEmpty',     latestId: 'jobLatest',     titleId: 'jobTitle',     dateId: 'jobDate'     },
+      { folder: 'job-search-meital', rowId: 'cpJobM', rowHeadlineId: 'cpJobMH', rowDateId: 'cpJobMD', emptyId: 'jobMEmpty', latestId: 'jobMLatest', titleId: 'jobMTitle', dateId: 'jobMDate' },
       { folder: 'efficiency', rowId: 'cpEff',     rowHeadlineId: 'cpEffH',     rowDateId: 'cpEffD',     emptyId: 'effEmpty',     latestId: 'effLatest',     titleId: 'effTitle',     dateId: 'effDate'     },
       { folder: 'alt-hunter', rowId: 'cpAlt',     rowHeadlineId: 'cpAltH',     rowDateId: 'cpAltD',     emptyId: 'altEmpty',     latestId: 'altLatest',     titleId: 'altTitle',     dateId: 'altDate'     },
       { folder: 'monthly',    rowId: 'cpMonthly', rowHeadlineId: 'cpMonthlyH', rowDateId: 'cpMonthlyD', emptyId: 'monthlyEmpty', latestId: 'monthlyLatest', titleId: 'monthlyTitle', dateId: 'monthlyDate' }
