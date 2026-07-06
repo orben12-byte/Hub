@@ -45,6 +45,8 @@
   .job-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; gap: 10px; }
   .job-link { color: var(--accent); text-decoration: none; font-size: 15px; }
   .job-link:hover { text-decoration: underline; }
+  .job-direct { color: var(--mid); text-decoration: none; font-size: 15px; margin-inline-start: 14px; }
+  .job-direct:hover { text-decoration: underline; }
   .status-select { background: var(--card2); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; font-size: 15px; font-family: inherit; }
   .empty-filtered { display: none; color: var(--muted); font-size: 15px; padding: 10px 2px; }
 </style>
@@ -56,6 +58,7 @@
 
   <div class="notice">
     ⚠ ציון ההתאמה מבוסס על כותרת ותקציר המשרה בלבד, לא על ניתוח מלא מול קורות החיים. משרות ניהול הפרויקטים (ריצה 2) כבר משוקללות לפי מרחק מראש העין; ציוני ריצה 1 (תפעול/שירות) עדיין בלי שקלול מיקום — פילטר "מרכז" הוא הרלוונטי ביותר. רוב משרות "מנהל/ת פרויקטים" בלוחות הן הנדסה/בנייה/IT — סוננו החוצה.
+    <br>💡 <b>קישור צהוב = הגשה ישירה באתר החברה</b>, בלי הרשמה ללוח הדרושים.
   </div>
 
   <div class="summary">
@@ -103,6 +106,7 @@
       <div class="job-meta">תל אביב · 5-6 שנים · משרה מלאה</div>
       <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
       <div class="job-star">⭐ שרשרת אספקה מקצה לקצה — שינוע, מחסנים, מרלו"ג. מקביל לתפקיד הנוכחי במיצובישי</div>
+      <div class="job-note">אין לחברה אתר קריירה — הגשה דרך דרושים בלבד</div>
       <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37589508/4241086d/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
     </div>
 
@@ -112,7 +116,7 @@
       <div class="job-meta">מיקום לא צוין · משרה מלאה</div>
       <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
       <div class="job-star">⭐ חברה גדולה ויציבה, תחום הזמנות ואספקה — הליבה של הניסיון הנוכחי</div>
-      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8700498" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8700498" target="_blank">פתח משרה ←</a><a class="job-direct" href="https://career.tnuva.co.il/Positions" target="_blank">הגשה ישירה באתר החברה ↗</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
     </div>
 
     <div class="job highlight" data-score="85" data-loc="north">
@@ -121,7 +125,8 @@
       <div class="job-meta">קריית ביאליק · משרה מלאה</div>
       <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
       <div class="job-star">⭐ שילוב שירות + תפעול — בדיוק הפרופיל שלה</div>
-      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37501994/3bc655f2/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+      <div class="job-note">חברה קטנה בלי פורטל דרושים — אפשר לפנות ישירות דרך expordia.co.il (טל' 04-8764717)</div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37501994/3bc655f2/" target="_blank">פתח משרה ←</a><a class="job-direct" href="https://www.expordia.co.il/" target="_blank">אתר החברה ↗</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
     </div>
 
     <div class="job" data-score="85" data-loc="north">
@@ -147,7 +152,7 @@
       <div class="job-company">מכבי שירותי בריאות</div>
       <div class="job-meta">לוד · משרה מלאה</div>
       <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
-      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8695859" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8695859" target="_blank">פתח משרה ←</a><a class="job-direct" href="https://www.maccabi4u.co.il/careers/search-job-positions/" target="_blank">הגשה ישירה באתר החברה ↗</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
     </div>
 
     <div class="job" data-score="80" data-loc="tel-aviv">
@@ -155,7 +160,7 @@
       <div class="job-company">FACTORY 54</div>
       <div class="job-meta">תל אביב · 1-2 שנים · משרה מלאה</div>
       <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
-      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37519816/96acd704/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37519816/96acd704/" target="_blank">פתח משרה ←</a><a class="job-direct" href="https://www.factory54.co.il/talent" target="_blank">הגשה ישירה באתר החברה ↗</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
     </div>
 
     <div class="job" data-score="78" data-loc="center">
@@ -197,7 +202,7 @@
       <div class="job-company">שופרסל</div>
       <div class="job-meta">מיקום לא צוין</div>
       <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
-      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8224853" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8224853" target="_blank">פתח משרה ←</a><a class="job-direct" href="https://www.shufersal.co.il/corp/jobs" target="_blank">הגשה ישירה באתר החברה ↗</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
     </div>
 
     <div class="job" data-score="75" data-loc="center">
@@ -405,7 +410,7 @@
       <div class="job-meta">פתח תקווה · 1-2 שנים · משרה מלאה</div>
       <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
       <div class="job-star">⭐ פ"ת = ליד ראש העין, והשילוב פרויקטים + הצלחת לקוחות הוא בדיוק הפרופיל שלה</div>
-      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37450067/df8b1fe0/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37450067/df8b1fe0/" target="_blank">פתח משרה ←</a><a class="job-direct" href="https://www.voltasolarcareers.com/" target="_blank">הגשה ישירה באתר החברה ↗</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
     </div>
 
     <div class="job" data-score="76" data-loc="center">
@@ -439,7 +444,7 @@
       <div class="job-company">עמידר החברה הלאומית</div>
       <div class="job-meta">חולון · 3-4 שנים · משרה מלאה</div>
       <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
-      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37589375/3e9de437/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37589375/3e9de437/" target="_blank">פתח משרה ←</a><a class="job-direct" href="https://www.amidar.co.il/wps/portal/Jobs" target="_blank">הגשה ישירה באתר החברה ↗</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
     </div>
 
     <div class="job" data-score="64" data-loc="south">
