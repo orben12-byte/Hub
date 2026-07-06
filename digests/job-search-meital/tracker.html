@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>טרקר משרות — מיטל בן סניור</title>
+<style>
+  :root {
+    --bg: #12141a; --card: #1c1f28; --card2: #232734; --text: #e8eaf0;
+    --muted: #9aa0b0; --accent: #7ee0c3; --line: #2e3342;
+    --high: #4ade80; --mid: #facc15; --low: #f87171;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Rubik', 'Segoe UI', Arial, sans-serif; padding: 24px 16px 60px; }
+  .wrap { max-width: 860px; margin: 0 auto; }
+  h1 { font-size: 26px; margin-bottom: 4px; }
+  .meta { color: var(--muted); font-size: 15px; margin-bottom: 14px; }
+  .notice { background: var(--card2); border-right: 4px solid var(--mid); border-radius: 8px; padding: 12px 14px; font-size: 15px; color: var(--muted); margin-bottom: 18px; line-height: 1.5; }
+  .summary { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .summary-pill { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 15px; }
+  .summary-pill b { color: var(--accent); }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; align-items: center; }
+  .filters select, .filters input { background: var(--card); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font-size: 15px; font-family: inherit; }
+  .filters input { flex: 1; min-width: 160px; }
+  .filters button { background: none; border: none; color: var(--accent); font-size: 15px; cursor: pointer; font-family: inherit; }
+  .count-line { color: var(--muted); font-size: 15px; margin-bottom: 20px; }
+  .section-title { font-size: 20px; margin: 26px 0 12px; padding-bottom: 6px; border-bottom: 2px solid var(--line); }
+  .job { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; }
+  .job.status-sent { border-color: #3b82f6; }
+  .job.status-interview { border-color: #a855f7; }
+  .job.status-rejected { opacity: 0.55; }
+  .job.highlight { border-color: var(--mid); }
+  .job-top { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
+  .job-title { font-size: 17px; font-weight: 600; line-height: 1.35; }
+  .job-score { font-size: 15px; font-weight: 700; border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+  .score-high { background: rgba(74,222,128,.15); color: var(--high); }
+  .score-mid { background: rgba(250,204,21,.12); color: var(--mid); }
+  .score-low { background: rgba(248,113,113,.12); color: var(--low); }
+  .job-company { color: var(--accent); font-size: 15px; margin-top: 4px; }
+  .job-meta { color: var(--muted); font-size: 15px; margin-top: 2px; }
+  .job-sources { margin-top: 6px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .job-source-tag { background: var(--card2); border-radius: 6px; padding: 2px 8px; font-size: 15px; color: var(--muted); }
+  .job-star { margin-top: 6px; font-size: 15px; color: var(--mid); }
+  .job-note { margin-top: 6px; font-size: 15px; color: var(--muted); }
+  .job-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; gap: 10px; }
+  .job-link { color: var(--accent); text-decoration: none; font-size: 15px; }
+  .job-link:hover { text-decoration: underline; }
+  .status-select { background: var(--card2); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; font-size: 15px; font-family: inherit; }
+  .empty-filtered { display: none; color: var(--muted); font-size: 15px; padding: 10px 2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>טרקר משרות — מיטל בן סניור 💼</h1>
+  <div class="meta">עדכון אחרון: 6 ביולי 2026 · מקורות: Drushim, AllJobs, Indeed</div>
+
+  <div class="notice">
+    ⚠ ציון ההתאמה מבוסס על כותרת ותקציר המשרה בלבד, לא על ניתוח מלא מול קורות החיים. מיטל גרה בראש העין — הציונים בריצה זו עדיין בלי שקלול מיקום (יתעדכן מהריצה הבאה); בינתיים פילטר "מרכז" הוא הרלוונטי ביותר. משרות ניהול פרויקטים לא נסרקו בריצה זו.
+  </div>
+
+  <div class="summary">
+    <span class="summary-pill">תפעול <b id="pill-ops">35</b></span>
+    <span class="summary-pill">שירות ומוקד <b id="pill-service">11</b></span>
+    <span class="summary-pill">אחר <b id="pill-other">3</b></span>
+    <span class="summary-pill">סה"כ <b id="pill-total">49</b></span>
+  </div>
+
+  <div class="filters">
+    <select id="f-score" onchange="applyFilters()">
+      <option value="all">כל ההתאמות</option>
+      <option value="high">🟢 גבוהה (80+)</option>
+      <option value="mid">🟡 בינונית (65-79)</option>
+      <option value="low">🔴 נמוכה</option>
+    </select>
+    <select id="f-loc" onchange="applyFilters()">
+      <option value="all">כל המיקומים</option>
+      <option value="north">צפון</option>
+      <option value="tel-aviv">תל אביב</option>
+      <option value="center">מרכז</option>
+      <option value="jerusalem">ירושלים</option>
+      <option value="south">דרום</option>
+      <option value="other">אחר / לא צוין</option>
+    </select>
+    <select id="f-status" onchange="applyFilters()">
+      <option value="all">כל הסטטוסים</option>
+      <option value="new">🆕 חדש</option>
+      <option value="sent">📤 נשלח</option>
+      <option value="interview">🎤 ראיון</option>
+      <option value="rejected">❌ סירוב</option>
+    </select>
+    <input id="f-search" type="text" placeholder="חיפוש חופשי: תפקיד או חברה" oninput="applyFilters()">
+    <button onclick="clearFilters()">נקה סינון</button>
+  </div>
+  <div class="count-line" id="count-line"></div>
+
+  <h2 class="section-title" data-cat="ops">מנהלת תפעול (35)</h2>
+  <div class="cat" id="cat-ops">
+
+    <div class="job highlight" data-score="88" data-loc="tel-aviv">
+      <div class="job-top"><div class="job-title">מנהל/ת תפעול (Operations Manager)</div><div class="job-score score-high">88%</div></div>
+      <div class="job-company">גליה להב אינטרנשיונאל</div>
+      <div class="job-meta">תל אביב · 5-6 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-star">⭐ שרשרת אספקה מקצה לקצה — שינוע, מחסנים, מרלו"ג. מקביל לתפקיד הנוכחי במיצובישי</div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37589508/4241086d/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job highlight" data-score="85" data-loc="other">
+      <div class="job-top"><div class="job-title">מנהל/ת תפעול רכש וייבוא</div><div class="job-score score-high">85%</div></div>
+      <div class="job-company">תנובה</div>
+      <div class="job-meta">מיקום לא צוין · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+      <div class="job-star">⭐ חברה גדולה ויציבה, תחום הזמנות ואספקה — הליבה של הניסיון הנוכחי</div>
+      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8700498" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job highlight" data-score="85" data-loc="north">
+      <div class="job-top"><div class="job-title">מנהל/ת שירות ותפעול</div><div class="job-score score-high">85%</div></div>
+      <div class="job-company">EXPORDIA — מכונות לתעשיית העץ</div>
+      <div class="job-meta">קריית ביאליק · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-star">⭐ שילוב שירות + תפעול — בדיוק הפרופיל שלה</div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37501994/3bc655f2/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="85" data-loc="north">
+      <div class="job-top"><div class="job-title">מנהל/ת תפעול — תנאים מעולים</div><div class="job-score score-high">85%</div></div>
+      <div class="job-company">חסוי</div>
+      <div class="job-meta">טבריה · 1-2 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-note">דגש על הובלת אנשים, פיתוח מנהלים והנעה ליעדים — החוזקות המרכזיות שלה</div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37591940/97dd94f6/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job highlight" data-score="82" data-loc="center">
+      <div class="job-top"><div class="job-title">מנהל/ת תפעול ולוגיסטיקה — אולם אירועים</div><div class="job-score score-high">82%</div></div>
+      <div class="job-company">חסוי — אולם אירועים יוקרתי</div>
+      <div class="job-meta">פתח תקווה · שכר עד 23,000 ₪ · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-star">⭐ רקע הפקות האירועים שלה (CEV) רלוונטי ישירות</div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37361641/a367a891/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="80" data-loc="center">
+      <div class="job-top"><div class="job-title">מנהל/ת תפעול מרלו"ג</div><div class="job-score score-high">80%</div></div>
+      <div class="job-company">מכבי שירותי בריאות</div>
+      <div class="job-meta">לוד · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8695859" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="80" data-loc="tel-aviv">
+      <div class="job-top"><div class="job-title">מנהל/ת תפעול מסחרי</div><div class="job-score score-high">80%</div></div>
+      <div class="job-company">FACTORY 54</div>
+      <div class="job-meta">תל אביב · 1-2 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37519816/96acd704/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="78" data-loc="center">
+      <div class="job-top"><div class="job-title">מנהל/ת תפעול ולוגיסטיקה — חברה ממשלתית</div><div class="job-score score-mid">78%</div></div>
+      <div class="job-company">תומר חברה ממשלתית</div>
+      <div class="job-meta">רמלה · 3-4 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-note">כולל רכיב משמעותי של אחזקת מבנים ותשתיות</div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37502621/9c62fd8a/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="78" data-loc="other">
+      <div class="job-top"><div class="job-title">מנהל/ת תפעול ארצי/ת</div><div class="job-score score-mid">78%</div></div>
+      <div class="job-company">חברה חסויה</div>
+      <div class="job-meta">מיקום לא צוין</div>
+      <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8704014" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="78" data-loc="other">
+      <div class="job-top"><div class="job-title">מנהל תפעול — חברת אנרגיה מתחדשת</div><div class="job-score score-mid">78%</div></div>
+      <div class="job-company">דרך Jobs.ai</div>
+      <div class="job-meta">שכר 21,000 ₪ + רכב צמוד</div>
+      <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8719815" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="76" data-loc="north">
+      <div class="job-top"><div class="job-title">מנהל/ת תפעול וסידור עבודה — חברת הובלות</div><div class="job-score score-mid">76%</div></div>
+      <div class="job-company">ישע הובלות</div>
+      <div class="job-meta">קריית ביאליק · 1-2 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-note">ניהול מערך של ~30 משאיות ונהגים</div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37592529/ac1bd435/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="76" data-loc="other">
+      <div class="job-top"><div class="job-title">מנהל/ת פעילות — מרכז לוגיסטי</div><div class="job-score score-mid">76%</div></div>
+      <div class="job-company">שופרסל</div>
+      <div class="job-meta">מיקום לא צוין</div>
+      <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8224853" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="75" data-loc="center">
+      <div class="job-top"><div class="job-title">מנהל/ת תפעול — יבנה</div><div class="job-score score-mid">75%</div></div>
+      <div class="job-company">דרך מעוף ראש העין</div>
+      <div class="job-meta">יבנה · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8690479" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="74" data-loc="center">
+      <div class="job-top"><div class="job-title">מנהלת תפעול חשבונות</div><div class="job-score score-mid">74%</div></div>
+      <div class="job-company">אלמוג מיזוג אוויר</div>
+      <div class="job-meta">פתח תקווה · 3-4 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37316345/7bd400f2/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="74" data-loc="other">
+      <div class="job-top"><div class="job-title">מנהל/ת תפעול — הסעדה מוסדית</div><div class="job-score score-mid">74%</div></div>
+      <div class="job-company">CIP GROUP</div>
+      <div class="job-meta">מספר מקומות · 1-2 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-note">ניהול מספר אתרים במקביל — דומה לניהול סניפי הרץ</div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37336846/f3576e04/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="73" data-loc="center">
+      <div class="job-top"><div class="job-title">מנהל/ת תפעול — חברה תעשייתית</div><div class="job-score score-mid">73%</div></div>
+      <div class="job-company">חסוי</div>
+      <div class="job-meta">יבנה · 5-6 שנים · משמרות</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-note">⚠ עבודת משמרות</div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37362952/6f21b690/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="73" data-loc="center">
+      <div class="job-top"><div class="job-title">מנהל/ת תפעול מתקנים — פארק בילוי</div><div class="job-score score-mid">73%</div></div>
+      <div class="job-company">חסוי</div>
+      <div class="job-meta">ראשון לציון · 1-2 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37511779/6fdc1636/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="72" data-loc="center">
+      <div class="job-top"><div class="job-title">מנהל תפעול — תחום ההפצה</div><div class="job-score score-mid">72%</div></div>
+      <div class="job-company">חסוי</div>
+      <div class="job-meta">הוד השרון · 3-4 שנים · משמרות</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-note">⚠ עבודה במשמרות · ניהול צי משאיות ונהגים</div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37449402/6f84bb21/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="72" data-loc="other">
+      <div class="job-top"><div class="job-title">מנהל/ת תפעול וייצור — חברת מטבחים</div><div class="job-score score-mid">72%</div></div>
+      <div class="job-company">דרך Jobs.ai</div>
+      <div class="job-meta">מיקום לא צוין</div>
+      <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8700957" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="72" data-loc="other">
+      <div class="job-top"><div class="job-title">מנהל/ת אגף תפעול</div><div class="job-score score-mid">72%</div></div>
+      <div class="job-company">חסוי</div>
+      <div class="job-meta">מיקום לא צוין</div>
+      <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8698269" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="72" data-loc="center">
+      <div class="job-top"><div class="job-title">מנהל תפעול וחיתום אשראי</div><div class="job-score score-mid">72%</div></div>
+      <div class="job-company">חסוי — חברה פיננסית</div>
+      <div class="job-meta">יהוד · 3-4 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-note">הרקע שלה מכ.א.ל (אשראי) רלוונטי כאן</div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37427058/a7af4108/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="70" data-loc="south">
+      <div class="job-top"><div class="job-title">מנהל/ת תפעול נכסים</div><div class="job-score score-mid">70%</div></div>
+      <div class="job-company">יעד אריה</div>
+      <div class="job-meta">באר שבע · 5-6 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37621561/f55837a5/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="70" data-loc="other">
+      <div class="job-top"><div class="job-title">מנהל/ת תפעול — מרכז רפואת אסונות</div><div class="job-score score-mid">70%</div></div>
+      <div class="job-company">חסוי</div>
+      <div class="job-meta">מיקום לא צוין</div>
+      <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8704574" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="70" data-loc="south">
+      <div class="job-top"><div class="job-title">מנהל.ת תפעול — תכנית מומנטום+</div><div class="job-score score-mid">70%</div></div>
+      <div class="job-company">ברנקו וייס</div>
+      <div class="job-meta">רהט · 1-2 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span><span class="job-source-tag">AllJobs</span></div>
+      <div class="job-note">תכנית חינוכית — התואר B.Ed שלה יתרון</div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37600414/98caf9e6/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="68" data-loc="other">
+      <div class="job-top"><div class="job-title">מנהל/ת תפעול סניפים — אזור המרכז</div><div class="job-score score-mid">68%</div></div>
+      <div class="job-company">חוות נעמי — רשת מעדניות</div>
+      <div class="job-meta">מספר מקומות · 1-2 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37608147/1a25dced/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="68" data-loc="other">
+      <div class="job-top"><div class="job-title">מנהל/ת תפעול — תאגיד עובדים זרים</div><div class="job-score score-mid">68%</div></div>
+      <div class="job-company">מור לוגיסטיקה</div>
+      <div class="job-meta">מיקום לא צוין</div>
+      <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8708498" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="68" data-loc="other">
+      <div class="job-top"><div class="job-title">מנהל/ת תפעול — אתר מחזור</div><div class="job-score score-mid">68%</div></div>
+      <div class="job-company">דרך אינטגרל פתרונות משאבי אנוש</div>
+      <div class="job-meta">מיקום לא צוין</div>
+      <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8700760" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="65" data-loc="north">
+      <div class="job-top"><div class="job-title">מנהלת או מנהל אגף תשתיות ותפעול</div><div class="job-score score-mid">65%</div></div>
+      <div class="job-company">הטכניון</div>
+      <div class="job-meta">חיפה · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Indeed</span></div>
+      <div class="job-note">⚠ תפקיד ברמת אגף — ייתכן בכיר מהטווח שלה. שווה בדיקה</div>
+      <div class="job-actions"><a class="job-link" href="https://il.indeed.com/viewjob?jk=cf6bda6bdb71f947" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="65" data-loc="other">
+      <div class="job-top"><div class="job-title">מנהל.ת צוות תפעולי (אחראי.ת אזור)</div><div class="job-score score-mid">65%</div></div>
+      <div class="job-company">חסוי</div>
+      <div class="job-meta">מיקום לא צוין</div>
+      <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8709087" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="62" data-loc="other">
+      <div class="job-top"><div class="job-title">מנהל.ת משרד, תפעול ויבוא</div><div class="job-score score-low">62%</div></div>
+      <div class="job-company">עמית סגל — איי.אס.פי</div>
+      <div class="job-meta">אבו גוש · 1-2 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-note">חברה קטנה, תפקיד משולב משרד — כנראה צר מהניסיון שלה</div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37335497/ebf68762/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="62" data-loc="center">
+      <div class="job-top"><div class="job-title">מנהלת משרד ותפעול קשרי דיירים</div><div class="job-score score-low">62%</div></div>
+      <div class="job-company">חסוי — חברת בוטיק יזמית-קבלנית</div>
+      <div class="job-meta">פתח תקווה · 3-4 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37572940/50342d42/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="58" data-loc="tel-aviv">
+      <div class="job-top"><div class="job-title">מנהל/ת משרד ותפעול — התחדשות עירונית</div><div class="job-score score-low">58%</div></div>
+      <div class="job-company">חסוי — קבוצת נדל"ן</div>
+      <div class="job-meta">תל אביב (יעבור לחולון) · 1-2 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37466445/3a4f11ee/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="55" data-loc="other">
+      <div class="job-top"><div class="job-title">מנהל/ת תפעול — אזור תעשייה עמנואל</div><div class="job-score score-low">55%</div></div>
+      <div class="job-company">דרך JOB SPACE</div>
+      <div class="job-meta">עמנואל · 1-2 שנים · שכר עד 14,000 ₪</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-note">⚠ שכר נמוך יחסית לניסיון שלה</div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37321000/6ac34fc3/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="55" data-loc="center">
+      <div class="job-top"><div class="job-title">מנהלת משרד ותפעול</div><div class="job-score score-low">55%</div></div>
+      <div class="job-company">לא צוין</div>
+      <div class="job-meta">רמת השרון</div>
+      <div class="job-sources"><span class="job-source-tag">Indeed</span></div>
+      <div class="job-actions"><a class="job-link" href="https://il.indeed.com/viewjob?jk=805cb66c3cfbe4a9" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="50" data-loc="other">
+      <div class="job-top"><div class="job-title">אחראי.ת תפעול — מחלקת ההפצה</div><div class="job-score score-low">50%</div></div>
+      <div class="job-company">הרץ השכרת רכב</div>
+      <div class="job-meta">מיקום לא צוין</div>
+      <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+      <div class="job-note">⚠ רמת אחראי/ת — מתחת לרמה שלה. אבל הרץ = מעסיק עבר (9 שנים), ערוץ פנימי אפשרי לתפקידים ניהוליים</div>
+      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8701174" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="empty-filtered">אין משרות שמתאימות לסינון בקטגוריה הזו</div>
+  </div>
+
+  <h2 class="section-title" data-cat="service">שירות ומוקד (11)</h2>
+  <div class="cat" id="cat-service">
+
+    <div class="job highlight" data-score="88" data-loc="other">
+      <div class="job-top"><div class="job-title">מנהל/ת מערך שירות לקוחות</div><div class="job-score score-high">88%</div></div>
+      <div class="job-company">חברה בינלאומית גדולה — טכנולוגיה</div>
+      <div class="job-meta">מספר מקומות · 3-4 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-star">⭐ תפקיד בכיר על מערך מוקדים שלם — הניסיון ממגן מומחים + כ.א.ל בדיוק בכיוון</div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37282563/9e1a1470/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="76" data-loc="tel-aviv">
+      <div class="job-top"><div class="job-title">מנהל/ת מוקד שירות לקוחות</div><div class="job-score score-mid">76%</div></div>
+      <div class="job-company">משרד הכרטיסים "לאן"</div>
+      <div class="job-meta">תל אביב · 1-2 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37626862/4fd6ec64/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="75" data-loc="center">
+      <div class="job-top"><div class="job-title">מנהל/ת שירות לקוחות — סוכנות ביטוח</div><div class="job-score score-mid">75%</div></div>
+      <div class="job-company">חברת נתן</div>
+      <div class="job-meta">בת ים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37579077/d7390712/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="75" data-loc="center">
+      <div class="job-top"><div class="job-title">מנהל/ת שירות לקוחות</div><div class="job-score score-mid">75%</div></div>
+      <div class="job-company">אופנת GONG</div>
+      <div class="job-meta">חולון · 1-2 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-note">ניהול מוקד ב-4 פלטפורמות + מערך החזרות</div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37319119/f9f3499e/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="74" data-loc="center">
+      <div class="job-top"><div class="job-title">מנהל/ת מוקד שירות לקוחות</div><div class="job-score score-mid">74%</div></div>
+      <div class="job-company">נטלי שירותי רפואה</div>
+      <div class="job-meta">רמת גן · 1-2 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37597564/ce63b257/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="74" data-loc="center">
+      <div class="job-top"><div class="job-title">מנהלת שירות לקוחות</div><div class="job-score score-mid">74%</div></div>
+      <div class="job-company">ק.ש.ר תעשיות פלסטיק</div>
+      <div class="job-meta">קיבוץ נצר סרני · 5-6 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37385524/3d9ba292/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="72" data-loc="tel-aviv">
+      <div class="job-top"><div class="job-title">מנהל/ת מוקד שירות לקוחות (החלפה לחל"ד)</div><div class="job-score score-mid">72%</div></div>
+      <div class="job-company">לב חי גנטיקה</div>
+      <div class="job-meta">תל אביב · 5-6 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-note">⚠ החלפה לחל"ד — משרה זמנית. מוקד של ~20 נציגים</div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37616887/d9f00187/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="70" data-loc="center">
+      <div class="job-top"><div class="job-title">מנהל/ת שירות לקוחות</div><div class="job-score score-mid">70%</div></div>
+      <div class="job-company">Leonidas שוקולד</div>
+      <div class="job-meta">רעננה · 1-2 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37322881/3e65030e/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="70" data-loc="jerusalem">
+      <div class="job-top"><div class="job-title">מנהל/ת מוקד קשרי לקוחות — קופת חולים</div><div class="job-score score-mid">70%</div></div>
+      <div class="job-company">דרך JOB SPACE</div>
+      <div class="job-meta">ירושלים · 1-2 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37473741/2dfc9952/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="70" data-loc="north">
+      <div class="job-top"><div class="job-title">מנהל/ת קשרי והזמנות לקוחות</div><div class="job-score score-mid">70%</div></div>
+      <div class="job-company">חסוי — נציגות טכנולוגית</div>
+      <div class="job-meta">עפולה · 1-2 שנים · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-note">⚠ דרישה להנדסאי/ת תעו"נ או מכונות — אין לה. אבל ניהול הזמנות = התפקיד הנוכחי שלה, שווה ניסיון</div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37451739/298e224e/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="63" data-loc="north">
+      <div class="job-top"><div class="job-title">מנהל.ת מוקד שירות לקוחות</div><div class="job-score score-low">63%</div></div>
+      <div class="job-company">CGS Israel</div>
+      <div class="job-meta">נשר · ללא דרישת ניסיון · משרה מלאה</div>
+      <div class="job-sources"><span class="job-source-tag">Drushim</span></div>
+      <div class="job-note">דרישות בסיסיות — ייתכן שכר נמוך יחסית לניסיון שלה</div>
+      <div class="job-actions"><a class="job-link" href="https://www.drushim.co.il/job/37585632/65c8ae8a/" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="empty-filtered">אין משרות שמתאימות לסינון בקטגוריה הזו</div>
+  </div>
+
+  <h2 class="section-title" data-cat="other">תפקידי ניהול אחרים (3)</h2>
+  <div class="cat" id="cat-other">
+
+    <div class="job" data-score="72" data-loc="south">
+      <div class="job-top"><div class="job-title">מנהלת מחוז דרום — עמותה לשירות לאומי</div><div class="job-score score-mid">72%</div></div>
+      <div class="job-company">עמותה לשירות לאומי</div>
+      <div class="job-meta">באר שבע</div>
+      <div class="job-sources"><span class="job-source-tag">Indeed</span></div>
+      <div class="job-note">ניהול מחוזי — מתאים לניסיון הניהול הרוחבי שלה, התואר B.Ed יתרון במגזר החברתי</div>
+      <div class="job-actions"><a class="job-link" href="https://il.indeed.com/viewjob?jk=2c042317d7d28fab" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job highlight" data-score="70" data-loc="center">
+      <div class="job-top"><div class="job-title">מנהל.ת סניף — צפון השרון</div><div class="job-score score-mid">70%</div></div>
+      <div class="job-company">חסוי</div>
+      <div class="job-meta">צפון השרון</div>
+      <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+      <div class="job-star">⭐ ניהול סניף = 9 שנות הניסיון שלה בהרץ, כולל רווח והפסד</div>
+      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8663010" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="job" data-score="70" data-loc="other">
+      <div class="job-top"><div class="job-title">מנהל מערך תפעול — מינהל חינוך, מו"פ וטכנולוגיה</div><div class="job-score score-mid">70%</div></div>
+      <div class="job-company">דרך מתאם — משאבי אנוש בארגונים חברתיים</div>
+      <div class="job-meta">מיקום לא צוין</div>
+      <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
+      <div class="job-note">מגזר חינוכי-חברתי — B.Ed יתרון</div>
+      <div class="job-actions"><a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8538560" target="_blank">פתח משרה ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option></select></div>
+    </div>
+
+    <div class="empty-filtered">אין משרות שמתאימות לסינון בקטגוריה הזו</div>
+  </div>
+</div>
+
+<script>
+  var STORAGE_KEY = 'meital-job-tracker-statuses';
+
+  function getStatuses() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+    catch (e) { return {}; }
+  }
+
+  function updateStatus(sel) {
+    var job = sel.closest('.job');
+    var link = job.querySelector('.job-link');
+    if (!link) return;
+    var statuses = getStatuses();
+    statuses[link.getAttribute('href')] = sel.value;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(statuses));
+    applyStatusClass(job, sel.value);
+    applyFilters();
+  }
+
+  function applyStatusClass(job, status) {
+    job.classList.remove('status-sent', 'status-interview', 'status-rejected');
+    if (status === 'sent') job.classList.add('status-sent');
+    if (status === 'interview') job.classList.add('status-interview');
+    if (status === 'rejected') job.classList.add('status-rejected');
+  }
+
+  function loadStatuses() {
+    var statuses = getStatuses();
+    document.querySelectorAll('.job').forEach(function (job) {
+      var link = job.querySelector('.job-link');
+      var select = job.querySelector('.status-select');
+      if (!link || !select) return;
+      var saved = statuses[link.getAttribute('href')];
+      if (saved) {
+        select.value = saved;
+        applyStatusClass(job, saved);
+      }
+    });
+  }
+
+  function applyFilters() {
+    var fScore = document.getElementById('f-score').value;
+    var fLoc = document.getElementById('f-loc').value;
+    var fStatus = document.getElementById('f-status').value;
+    var q = document.getElementById('f-search').value.trim().toLowerCase();
+    var visible = 0, total = 0;
+
+    document.querySelectorAll('.job').forEach(function (job) {
+      total++;
+      var score = parseInt(job.dataset.score, 10);
+      if (isNaN(score)) score = 0;
+      var loc = job.dataset.loc || 'other';
+      var select = job.querySelector('.status-select');
+      var status = select ? select.value : 'new';
+      var text = (job.querySelector('.job-title').innerText + ' ' + job.querySelector('.job-company').innerText).toLowerCase();
+
+      var ok = true;
+      if (fScore === 'high' && score < 80) ok = false;
+      if (fScore === 'mid' && (score < 65 || score >= 80)) ok = false;
+      if (fScore === 'low' && score >= 65) ok = false;
+      if (fLoc !== 'all' && loc !== fLoc) ok = false;
+      if (fStatus !== 'all' && status !== fStatus) ok = false;
+      if (q && text.indexOf(q) === -1) ok = false;
+
+      job.style.display = ok ? '' : 'none';
+      if (ok) visible++;
+    });
+
+    document.querySelectorAll('.cat').forEach(function (cat) {
+      var any = Array.prototype.some.call(cat.querySelectorAll('.job'), function (j) { return j.style.display !== 'none'; });
+      cat.querySelector('.empty-filtered').style.display = any ? 'none' : 'block';
+    });
+
+    document.getElementById('count-line').innerText = 'מוצגות ' + visible + ' מתוך ' + total + ' משרות';
+  }
+
+  function clearFilters() {
+    document.getElementById('f-score').value = 'all';
+    document.getElementById('f-loc').value = 'all';
+    document.getElementById('f-status').value = 'all';
+    document.getElementById('f-search').value = '';
+    applyFilters();
+  }
+
+  loadStatuses();
+  applyFilters();
+</script>
+</body>
+</html>
