@@ -87,6 +87,8 @@
   .job-link { font-size: 12px; color: #4a9eff; text-decoration: none; font-weight: 600; }
   .job-direct { font-size: 12px; color: #0d0d1a; background: #FFD60A; text-decoration: none; font-weight: 700; padding: 3px 10px; border-radius: 8px; }
   .job-direct:hover { background: #ffe14d; }
+  .job-wa { font-size: 15px; color: #25D366; text-decoration: none; white-space: nowrap; }
+  .job-wa:hover { text-decoration: underline; }
   .status-select {
     background: #0d0d1a; color: #fff; border: 1px solid #2a2a50;
     border-radius: 6px; padding: 4px 8px; font-size: 11px; font-family: inherit; cursor: pointer;
@@ -1776,17 +1778,45 @@
       if (select) select.value = status;
       job.classList.remove('status-sent', 'status-interview', 'status-rejected');
       if (status !== 'new') job.classList.add('status-' + status);
+      updateWaLink(job, status);
     });
     updateStatusSummary();
+  }
+  var WA_STATUS_LABELS = { new: '🆕 חדש', sent: '📤 נשלח', interview: '🎤 ראיון', rejected: '❌ סירוב' };
+  // קישור שיתוף בוואטסאפ — מופיע כשסטטוס שונה מ"חדש". בכוונה בלי מספר מוטמע (קובץ ציבורי).
+  function updateWaLink(job, status) {
+    var actions = job.querySelector('.job-actions');
+    if (!actions) return;
+    var wa = job.querySelector('.job-wa');
+    if (status === 'new' || !WA_STATUS_LABELS[status]) { if (wa) wa.remove(); return; }
+    if (!wa) {
+      wa = document.createElement('a');
+      wa.className = 'job-wa';
+      wa.target = '_blank';
+      wa.rel = 'noopener';
+      wa.textContent = '📲 שתף עדכון';
+      actions.appendChild(wa);
+    }
+    var t = job.querySelector('.job-title');
+    var c = job.querySelector('.job-company');
+    var msg = 'עדכון מטרקר המשרות של אור 💼\n'
+      + (t ? t.innerText : '') + ' — ' + (c ? c.innerText : '')
+      + '\nסטטוס חדש: ' + WA_STATUS_LABELS[status]
+      + '\n' + (jobIdFor(job) || '');
+    wa.href = 'https://wa.me/?text=' + encodeURIComponent(msg);
   }
   function updateStatus(select) {
     var job = select.closest('.job');
     var id = jobIdFor(job);
     var status = select.value;
-    if (id) localStorage.setItem('jobstatus:' + id, status);
+    if (id) {
+      try { localStorage.setItem('jobstatus:' + id, status); }
+      catch (e) { alert('שים לב: הדפדפן חוסם שמירה מקומית — הסטטוס לא יישמר אחרי רענון.'); }
+    }
     job.dataset.status = status;
     job.classList.remove('status-sent', 'status-interview', 'status-rejected');
     if (status !== 'new') job.classList.add('status-' + status);
+    updateWaLink(job, status);
     updateStatusSummary();
     applyFilters();
   }
