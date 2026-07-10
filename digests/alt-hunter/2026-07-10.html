@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔍 Alt Hunter — 10 July 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #2c2f35;
+      color: #c8ccd4;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      direction: ltr;
+      min-height: 100vh;
+      padding: 32px 16px 64px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .header {
+      padding-bottom: 24px;
+      border-bottom: 1px solid #3a3d44;
+      margin-bottom: 32px;
+    }
+
+    .header-meta {
+      font-size: 11px;
+      color: #6a6d75;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #70a070;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .header .tagline {
+      font-size: 13px;
+      color: #6a6d75;
+      font-style: italic;
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: flex;
+      gap: 0;
+      margin-bottom: 32px;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #252830;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 14px 16px;
+      border-right: 1px solid #3a3d44;
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-val {
+      font-size: 20px;
+      font-weight: 700;
+      color: #70a070;
+      display: block;
+    }
+
+    .stat-val.warn { color: #e07070; }
+
+    .stat-key {
+      font-size: 10px;
+      color: #6a6d75;
+      display: block;
+      margin-top: 3px;
+      letter-spacing: 0.08em;
+    }
+
+    .stat-delta {
+      font-size: 10px;
+      color: #70a070;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* SECTIONS */
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #70a070;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: #3a3d44;
+    }
+
+    /* ITEMS */
+    .item {
+      background-color: #252830;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 8px;
+    }
+
+    .item-key {
+      font-size: 10px;
+      font-weight: 600;
+      color: #6a6d75;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .item-val {
+      font-size: 13px;
+      color: #c8ccd4;
+      line-height: 1.7;
+    }
+
+    .item-val a {
+      color: #70a070;
+      text-decoration: none;
+    }
+
+    .item-val a:hover { text-decoration: underline; }
+
+    .item-val ul {
+      margin: 8px 0 0 20px;
+    }
+
+    .item-val li {
+      margin-bottom: 6px;
+    }
+
+    .item-val strong {
+      color: #d8dce4;
+      font-weight: 600;
+    }
+
+    .item-val code {
+      background-color: #1a1d22;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #70a070;
+    }
+
+    /* ACCENT VARIANTS */
+    .item.highlight {
+      border-color: #70a07040;
+      background-color: #1e2a1e;
+    }
+
+    .item.highlight .item-key { color: #70a070; }
+
+    .item.dim {
+      border-color: #32353c;
+      background-color: #222428;
+    }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid #3a3d44;
+      text-align: center;
+      font-size: 11px;
+      color: #6a6d75;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <div class="header-meta">AUTOMATED WEEKLY SCAN</div>
+      <h1>🔍 Alternative Hunter</h1>
+      <div class="tagline">Free alternatives to Claude Pro — July 10, 2026</div>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <span class="stat-val">15+</span>
+        <span class="stat-key">FREE ALTERNATIVES</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">🟢</span>
+        <span class="stat-key">STATUS</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">3</span>
+        <span class="stat-key">MAJOR PATHWAYS</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🔥 EXECUTIVE SUMMARY</div>
+
+      <div class="item highlight">
+        <span class="item-key">LANDSCAPE STATUS</span>
+        <div class="item-val">
+          The Claude Pro alternative landscape in mid-2026 is <strong>thriving</strong>. Multiple viable pathways exist to get Claude-level coding assistance at <strong>zero or near-zero cost</strong>:<br><br>
+          <ul>
+            <li><strong>Claude Code + Ollama</strong> — Point Claude Code's interface at local Ollama models</li>
+            <li><strong>Open WebUI Desktop</strong> — Native app (Mac/Win/Linux) with local Ollama integration</li>
+            <li><strong>Open-Source CLI Tools</strong> — Aider, Cline, OpenCode (BYOK pricing)</li>
+            <li><strong>DeepSeek R1</strong> — Open-source reasoning model, MIT license, runs locally</li>
+            <li><strong>Free Hosted Options</strong> — OpenRouter free tier, NVIDIA NIM</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🎯 TOP FINDING: CLAUDE CODE WORKS WITH OLLAMA</div>
+
+      <div class="item highlight">
+        <span class="item-key">WHAT CHANGED</span>
+        <div class="item-val">
+          Claude Code now supports pointing to any <strong>OpenAI-compatible API endpoint</strong>, meaning you can use the same interface and workflows with local Ollama models at <strong>zero marginal cost</strong> after hardware.<br><br>
+          <strong>Cost Comparison:</strong><br>
+          • Claude Opus heavy usage: $30-45/week<br>
+          • Same volume on DeepSeek V3 via OpenRouter: &lt;$1/week<br>
+          • Ollama local: $0/week (after hardware)
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">BEST MODELS FOR CLAUDE CODE (JULY 2026)</span>
+        <div class="item-val">
+          <strong>1. Qwen3-Coder-Next</strong> — #1 ranked coding model<br>
+          <strong>2. Llama 3.3 70B</strong> — Best balanced alternative, handles 70-80% of daily coding<br>
+          <strong>3. DeepSeek R1 70B</strong> — Best reasoning, open-source<br>
+          <strong>4. Phi-4 14B</strong> — Best quality on modest hardware<br>
+          <strong>5. Mistral 7B</strong> — Fastest, runs on 8GB RAM<br><br>
+          <a href="https://localaimaster.com/models/best-local-ai-coding-models" target="_blank">→ Best Ollama Model for Coding (2026)</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">YOUTUBE SETUP TUTORIALS</span>
+        <div class="item-val">
+          <strong>The YouTube tutorial space for "Claude Code + Ollama" exploded in 2026.</strong> Dozens of high-quality, step-by-step guides:<br><br>
+          <ul>
+            <li><a href="https://www.youtube.com/watch?v=Ma9RHctkz28" target="_blank">How To Use Claude Code For FREE with Ollama Cloud</a> (May 9, 2026)</li>
+            <li><a href="https://www.youtube.com/watch?v=-V8fWL3oXTQ" target="_blank">How to USE Claude Code for FREE with Ollama (Full Tutorial)</a> (April 3)</li>
+            <li><a href="https://www.youtube.com/watch?v=UDP_BNYYrog" target="_blank">Use Claude Code for Free with Ollama on Windows PC</a></li>
+            <li><a href="https://www.youtube.com/watch?v=Hbp0yrVS6nA" target="_blank">Claude Code + Ollama = Free Claude Code (Full Setup)</a></li>
+            <li><a href="https://www.youtube.com/watch?v=GeJd0dAw3uw" target="_blank">Use Claude Code FREE Forever [Ollama Setup]</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🖥️ OPEN WEBUI — MAJOR DESKTOP RELEASE</div>
+
+      <div class="item highlight">
+        <span class="item-key">VERSION 0.10.2 (JULY 1, 2026)</span>
+        <div class="item-val">
+          Open WebUI now ships as a <strong>native desktop app</strong> for Mac, Windows, and Linux.<br><br>
+          <strong>Key Features:</strong>
+          <ul>
+            <li>✅ No Docker, no terminal, no setup</li>
+            <li>✅ System-wide floating chat bar (Shift+Cmd+I / Shift+Ctrl+I)</li>
+            <li>✅ System-wide push-to-talk</li>
+            <li>✅ Offline support after first launch</li>
+            <li>✅ Zero telemetry</li>
+            <li>✅ Auto-updates</li>
+          </ul>
+          <a href="https://github.com/open-webui/desktop/releases" target="_blank">→ Download Desktop App</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">NEW CAPABILITIES (v0.9.6 - JUNE 1, 2026)</span>
+        <div class="item-val">
+          <strong>External Knowledge Bases:</strong> Connect to existing external retrieval systems<br>
+          <strong>Memory System:</strong> Overhauled with personal + per-conversation context<br>
+          <strong>Event-Driven Plugins:</strong> Python hooks for system events (sign-ups, uploads, config changes)<br>
+          <strong>Security:</strong> Critical patches for public deployments (mandatory update)<br><br>
+          <a href="https://github.com/open-webui/open-webui/releases" target="_blank">→ View All Releases</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🛠️ FREE OPEN-SOURCE CLI ALTERNATIVES</div>
+
+      <div class="item">
+        <span class="item-key">AIDER</span>
+        <div class="item-val">
+          <strong>Type:</strong> Terminal-based AI pair programmer<br>
+          <strong>Cost:</strong> Free + BYOK (bring your own key)<br>
+          <strong>Standout:</strong> Git-first design — every edit is an atomic commit<br>
+          <strong>Models:</strong> Claude, GPT, Gemini, local/open-source via custom endpoints
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">CLINE</span>
+        <div class="item-val">
+          <strong>Type:</strong> VS Code extension<br>
+          <strong>Cost:</strong> Free + BYOK<br>
+          <strong>Standout:</strong> Runs inside VS Code, handles multi-step tasks<br>
+          <strong>Models:</strong> Multiple backends including local models
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">OPENCODE</span>
+        <div class="item-val">
+          <strong>Type:</strong> Terminal + editor support<br>
+          <strong>Cost:</strong> Free + BYOK<br>
+          <strong>Standout:</strong> First-class Ollama/LM Studio support<br>
+          <strong>Privacy:</strong> No API keys leave your machine with local models<br><br>
+          <a href="https://www.morphllm.com/comparisons/claude-code-alternatives" target="_blank">→ Claude Code Alternatives (2026): 11 Tested</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🧠 DEEPSEEK R1 — OPEN-SOURCE REASONING MODEL</div>
+
+      <div class="item highlight">
+        <span class="item-key">STATUS</span>
+        <div class="item-val">
+          <strong>License:</strong> MIT (fully open-source, commercial use allowed)<br>
+          <strong>Cost:</strong> DeepSeek API ~15x cheaper than Claude; self-hosted = free<br><br>
+          <strong>Strengths:</strong>
+          <ul>
+            <li>✅ Explicit chain-of-thought reasoning</li>
+            <li>✅ Math: 90.2% on MATH-500 vs Claude's 78.3%</li>
+            <li>✅ Structured, auditable problem-solving</li>
+            <li>✅ Can run locally (smaller distilled versions available)</li>
+          </ul>
+          <strong>Trade-offs:</strong>
+          <ul>
+            <li>⚠️ Claude better for image analysis (75% vs DeepSeek's lower scores)</li>
+            <li>⚠️ Full model requires ~1.3TB weights (serious GPU infrastructure)</li>
+          </ul>
+          <a href="https://deepseek.ai/" target="_blank">→ DeepSeek AI Official</a><br>
+          <a href="https://www.datacamp.com/blog/deepseek-vs-claude" target="_blank">→ DeepSeek vs. Claude Comparison</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🌐 MCP (MODEL CONTEXT PROTOCOL) UPDATES</div>
+
+      <div class="item">
+        <span class="item-key">MAJOR GOVERNANCE CHANGE</span>
+        <div class="item-val">
+          In December 2025, Anthropic donated MCP to the <strong>Agentic AI Foundation (AAIF)</strong> under the Linux Foundation, co-founded by Anthropic, Block, and OpenAI.
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">PROTOCOL EVOLUTION</span>
+        <div class="item-val">
+          🔄 <strong>New stateless design</strong> — Removes initialize handshake and protocol-level sessions<br>
+          🔄 <strong>Easier scaling</strong> — Simple round-robin load balancers, no sticky sessions<br>
+          🎨 <strong>MCP Apps (January 2026)</strong> — Rich HTML interfaces in chat<br><br>
+          <strong>Adoption Stats (December 2025):</strong><br>
+          • 10,000+ active public servers<br>
+          • 97M+ monthly SDK downloads (Python + TypeScript)<br>
+          • Integrated into: ChatGPT, Cursor, Gemini, Microsoft Copilot, VS Code<br><br>
+          <a href="https://www.digitalapplied.com/blog/mcp-adoption-statistics-2026-model-context-protocol" target="_blank">→ MCP Adoption Statistics 2026</a>
+        </div>
+      </div>
+
+      <div class="item dim">
+        <span class="item-key">2026 ROADMAP THEMES</span>
+        <div class="item-val">
+          1. Transport scalability<br>
+          2. Agent communication<br>
+          3. Governance maturation<br>
+          4. Enterprise readiness<br><br>
+          <a href="https://openclaw.direct/mcp-guide/model-context-protocol-news" target="_blank">→ Model Context Protocol News and Updates</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">📱 ADDITIONAL FREE OPTIONS</div>
+
+      <div class="item">
+        <span class="item-key">OPENROUTER FREE TIER</span>
+        <div class="item-val">
+          Access to multiple models including DeepSeek V3. Pay-as-you-go pricing (often &lt;$1/week for heavy use).<br>
+          <a href="https://www.mindstudio.ai/blog/free-claude-code-alternatives-openrouter-nvidia-nim-ollama-2" target="_blank">→ Free Claude Code Alternatives Guide</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">NVIDIA NIM</span>
+        <div class="item-val">
+          Free tier available with GPU-accelerated inference.<br>
+          <a href="https://www.mindstudio.ai/blog/free-claude-code-alternatives-openrouter-nvidia-nim-ollama" target="_blank">→ MindStudio Guide</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">JAN.AI</span>
+        <div class="item-val">
+          Offline-first desktop experience. Simplifies local LLM usage. Privacy-focused with no cloud dependency.<br>
+          <a href="https://www.localalternative.io/alternatives/claude" target="_blank">→ Best Claude Alternatives: Local AI</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">💬 COMMUNITY DISCUSSIONS</div>
+
+      <div class="item">
+        <span class="item-key">HACKER NEWS HIGHLIGHTS</span>
+        <div class="item-val">
+          Active technical discussions about local Ollama + Claude Code setups:<br><br>
+          <ul>
+            <li><a href="https://news.ycombinator.com/item?id=46722285" target="_blank">Show HN: First Claude Code client for Ollama local models</a></li>
+            <li><a href="https://news.ycombinator.com/item?id=46750752" target="_blank">Ask HN: A good Model to choose in Ollama to run on Claude Code</a></li>
+            <li><a href="https://news.ycombinator.com/item?id=45127509" target="_blank">Ollama and Bifrost –> Qwen3 in Claude Code</a></li>
+            <li><a href="https://news.ycombinator.com/item?id=46695760" target="_blank">Trying Out Claude Code with Ollama</a></li>
+          </ul>
+          <strong>Key Insight:</strong> The HN community is actively experimenting with model selection and performance trade-offs.
+        </div>
+      </div>
+
+      <div class="item dim">
+        <span class="item-key">REDDIT (r/OLLAMA, r/LOCALLLAMA)</span>
+        <div class="item-val">
+          Ongoing practical discussions about setups and troubleshooting. Specific 2026 threads not indexed by general search, but communities remain active.
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🎯 RECOMMENDED ACTION PLAN</div>
+
+      <div class="item highlight">
+        <span class="item-key">OPTION 1: EASIEST — OPEN WEBUI DESKTOP + OLLAMA</span>
+        <div class="item-val">
+          <strong>Steps:</strong><br>
+          1. Install Ollama: <code>ollama pull llama3.3:70b</code><br>
+          2. Download <a href="https://github.com/open-webui/desktop/releases" target="_blank">Open WebUI Desktop</a><br>
+          3. Launch → Connect to local Ollama<br>
+          4. Use floating chat bar (Shift+Ctrl+I) for quick access<br><br>
+          <strong>Why:</strong> No terminal commands, visual interface, works offline. Best for non-technical users.
+        </div>
+      </div>
+
+      <div class="item highlight">
+        <span class="item-key">OPTION 2: MAXIMUM POWER — CLAUDE CODE + OLLAMA</span>
+        <div class="item-val">
+          <strong>Steps:</strong><br>
+          1. Follow <a href="https://www.youtube.com/watch?v=Ma9RHctkz28" target="_blank">this YouTube tutorial</a><br>
+          2. Point Claude Code to local Ollama endpoint<br>
+          3. Keep Claude Code's interface with zero API costs<br><br>
+          <strong>Why:</strong> Most familiar if you already use Claude Code.
+        </div>
+      </div>
+
+      <div class="item highlight">
+        <span class="item-key">OPTION 3: FREE HOSTED — OPENROUTER</span>
+        <div class="item-val">
+          <strong>Steps:</strong><br>
+          1. Sign up at OpenRouter<br>
+          2. Use free tier with DeepSeek V3<br>
+          3. Connect to Aider or Cline<br><br>
+          <strong>Why:</strong> No local setup, still very cheap (&lt;$1/week).
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">📊 VERDICT</div>
+
+      <div class="item highlight">
+        <span class="item-key">STATUS: 🟢 MULTIPLE VIABLE FREE ALTERNATIVES EXIST</span>
+        <div class="item-val">
+          The "free alternatives to Claude Pro" situation in July 2026 is <strong>excellent</strong>:<br><br>
+          <ul>
+            <li>Local models (Qwen3-Coder, Llama 3.3, DeepSeek R1) handle 70-80% of coding tasks</li>
+            <li>Claude Code itself now supports local/cheap models</li>
+            <li>Open WebUI desktop app makes local LLMs accessible to non-technical users</li>
+            <li>Open-source CLI tools (Aider, Cline, OpenCode) are mature and production-ready</li>
+            <li>MCP ecosystem ensures extensibility across all platforms</li>
+          </ul>
+          <br>
+          <strong>Bottom Line:</strong> You do <strong>NOT</strong> need Claude Pro to get AI coding assistance in 2026.
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Automated by Alternative Hunter Agent — Generated July 10, 2026
+    </div>
+
+  </div>
+</body>
+</html>
