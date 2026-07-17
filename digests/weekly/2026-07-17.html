@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekly AI Digest — 17.07.2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+    background: #f5f5f5;
+    color: #111827;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 32px 16px;
+    line-height: 1.6;
+    direction: rtl;
+    text-align: right;
+  }
+
+  .header {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 28px 24px 24px;
+    margin-bottom: 16px;
+    text-align: right;
+    direction: rtl;
+  }
+  .header-eyebrow { font-size: 11px; font-weight: 600; color: #9ca3af; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+  .header h1 { font-size: 26px; font-weight: 700; color: #111827; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .header .date { font-size: 13px; color: #6b7280; margin-bottom: 8px; }
+  .header-meta { display: inline-block; font-size: 11px; color: #9ca3af; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 999px; padding: 3px 10px; margin-top: 4px; }
+
+  .tldr { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px 20px 12px; margin-bottom: 16px; direction: rtl; text-align: right; }
+  .tldr-title { font-size: 10px; font-weight: 700; color: #9ca3af; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; display: block; }
+  .tldr-row { padding: 10px 0; border-bottom: 1px solid #f3f4f6; direction: rtl; text-align: right; }
+  .tldr-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .tldr-label { display: block; font-size: 10px; font-weight: 600; color: #9ca3af; margin-bottom: 3px; text-align: right; letter-spacing: 0.5px; }
+  .tldr-text { display: block; font-size: 13px; color: #374151; text-align: right; line-height: 1.5; }
+
+  .section { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; margin-bottom: 16px; direction: rtl; text-align: right; }
+  .section-header { display: block; margin-bottom: 16px; direction: rtl; text-align: right; }
+  .section-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 999px; letter-spacing: 0.3px; }
+  .badge-dev    { background: #f3f0ff; color: #7c3aed; }
+  .badge-design { background: #eff6ff; color: #2563eb; }
+  .badge-cool   { background: #f0fdf4; color: #15803d; }
+  .badge-tool   { background: #fffbeb; color: #d97706; }
+
+  .item { padding: 14px 0; border-bottom: 1px solid #f3f4f6; direction: rtl; text-align: right; }
+  .item:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .item-hero { padding: 14px; border-radius: 10px; border-bottom: none; margin-bottom: 12px; }
+  .section-dev   .item-hero { background: #f5f3ff; border: 2px solid #ddd6fe; }
+  .section-design .item-hero { background: #eff6ff; border: 2px solid #bfdbfe; }
+  .section-cool  .item-hero { background: #f0fdf4; border: 2px solid #bbf7d0; }
+  .section-tool  .item-hero { background: #fffbeb; border: 2px solid #fde68a; }
+  .item-hero .item-title { font-size: 15px; }
+
+  .tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 999px; margin-bottom: 6px; letter-spacing: 0.3px; }
+  .tag-now    { background: #fff7ed; color: #c2410c; }
+  .tag-fyi    { background: #eff6ff; color: #1d4ed8; }
+  .tag-future { background: #faf5ff; color: #7c3aed; }
+
+  .item-title { font-size: 14px; font-weight: 600; color: #111827; text-align: right; margin-bottom: 3px; line-height: 1.4; }
+  .item-source { font-size: 11px; color: #9ca3af; margin-bottom: 6px; text-align: right; }
+  .item-source a { color: #6b7280; text-decoration: none; }
+  .item-summary { font-size: 13px; color: #6b7280; text-align: right; line-height: 1.6; }
+
+  .tool-detail { background: #ffffff; border: 1px solid #fde68a; border-radius: 8px; padding: 14px; margin-top: 12px; }
+  .tool-detail-row { margin-bottom: 10px; text-align: right; }
+  .tool-detail-row:last-child { margin-bottom: 0; }
+  .tool-detail-label { display: block; font-size: 10px; font-weight: 700; color: #d97706; margin-bottom: 2px; text-align: right; letter-spacing: 0.5px; text-transform: uppercase; }
+  .tool-detail-text { display: block; font-size: 13px; color: #374151; line-height: 1.5; text-align: right; }
+  .tool-link { display: inline-block; margin-top: 12px; font-size: 12px; font-weight: 700; color: #ffffff; text-decoration: none; padding: 7px 18px; border-radius: 999px; background: #d97706; }
+
+  .footer { text-align: center; margin-top: 8px; font-size: 11px; color: #d1d5db; padding: 16px 0; direction: rtl; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">Weekly AI Digest</div>
+  <h1>📡 מה קרה השבוע ב-AI</h1>
+  <div class="date">שבוע של 17 ביולי 2026 &nbsp;·&nbsp; 17.07.2026</div>
+  <div class="header-meta">10 פריטים &nbsp;·&nbsp; ~5 דק' קריאה</div>
+</div>
+
+<div class="tldr">
+  <span class="tldr-title">השבוע בשניה</span>
+
+  <div class="tldr-row">
+    <span class="tldr-label">🔥 הכי חשוב</span>
+    <span class="tldr-text">SpaceX רוכשת את Cursor ב-60 מיליארד דולר — הדיל הגדול ביותר בתולדות כלי הפיתוח. Anysphere הופכת לחברת בת של SpaceX.</span>
+  </div>
+
+  <div class="tldr-row">
+    <span class="tldr-label">🤯 הכי מגניב</span>
+    <span class="tldr-text">Kimi K3 — מודל open-source עם 2.8 טריליון פרמטרים ו-896 experts. שוחרר 16.07 ומתחרה ישירות עם GPT-5.6.</span>
+  </div>
+
+  <div class="tldr-row">
+    <span class="tldr-label">🛠 כדאי לנסות</span>
+    <span class="tldr-text">Ollama v0.32.0 — agent experience מובנה, Gemma 4 על Apple Silicon 90% מהיר יותר. חינמי לחלוטין.</span>
+  </div>
+</div>
+
+<!-- SECTION 1 — פיתוח -->
+<div class="section section-dev">
+  <div class="section-header">
+    <span class="section-badge badge-dev">🔨 AI בפיתוח ובנייה</span>
+  </div>
+
+  <div class="item item-hero">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">SpaceX רוכשת את Cursor ב-60 מיליארד דולר — הדיל הגדול של העשור</div>
+    <div class="item-source"><a href="https://blog.logrocket.com/ai-dev-tool-power-rankings/">LogRocket — AI Dev Tool Power Rankings</a></div>
+    <div class="item-summary">הוכרז ב-16.06 ועתיד להיסגר ברבעון 3 2026. SpaceX רוכשת את Anysphere (יוצרי Cursor) ב-60 מיליארד דולר בדיל מניות. Cursor תהפוך לחברת בת של SpaceX עם גישה לתשתית ה-Colossus של xAI. השלכות: Cursor תצמד ל-Grok במקום Claude.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">Claude Sonnet 5 — קידוד אגנטי חזק יותר, מחיר נמוך יותר</div>
+    <div class="item-source"><a href="https://www.crescendo.ai/news/latest-ai-news-and-updates">Crescendo AI</a></div>
+    <div class="item-summary">Anthropic שחררה Sonnet 5 עם long-run coding, tool use ו-debugging משופרים — במחיר נמוך יותר מ-Opus 4.8. הבחירה הברורה לקידוד אגנטי ו-debugging workflows אוטומטיים.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">GPT-5.6 Sol / Terra / Luna — שלוש גרסאות, מלחמת מחירים</div>
+    <div class="item-source"><a href="https://aireleasetracker.com/latest">Air Release Tracker</a></div>
+    <div class="item-summary">OpenAI שחררה שלוש גרסאות: Sol לרזוניג בעצמה ($5 per 1M tokens), Terra למחיר חצי מ-GPT-5.5, Luna למהירות ונפח. לצד Grok 4.5 — מחיר inference יורד לשפל חדש.</div>
+  </div>
+</div>
+
+<!-- SECTION 2 — עיצוב -->
+<div class="section section-design">
+  <div class="section-header">
+    <span class="section-badge badge-design">🎨 AI בעיצוב</span>
+  </div>
+
+  <div class="item item-hero">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">Figma Code Layers — מתחיל להתגלגל ביולי, עיצוב ↔ קוד בקובץ אחד</div>
+    <div class="item-source"><a href="https://releasebot.io/updates/figma">Figma Release Notes via Releasebot</a></div>
+    <div class="item-summary">הפיצ'ר שהוכרז ב-Config 2026 מתחיל לצאת לאוויר ביולי. מחלצים frame לקוד חי בלחיצה, עורכים, ובלחיצה נוספת מסנכרנים בחזרה. הגבול בין עיצוב לפיתוח מתמוסס באמת.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">Figma Agent Skills — בונים Skills מותאמים אישית לסוכן</div>
+    <div class="item-source"><a href="https://help.figma.com/hc/en-us/articles/39582753756695-What-s-new-from-Config-2026">Figma Learn</a></div>
+    <div class="item-summary">Skills מאפשרים לארוז workflow + conventions לסוכן ה-Figma — אפשר לבנות בעצמך, לקחת מהצוות, או מהקהילה. כמו Claude.md אבל לסוכן העיצוב.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">Figma Design Import — binding ל-variables אוטומטי מ-web screens</div>
+    <div class="item-source"><a href="https://www.figma.com/release-notes/">Figma Release Notes</a></div>
+    <div class="item-summary">Figma עודכנה להכנסת screens מה-web עם binding אוטומטי לצבעים, טיפוגרפיה ו-spacing ל-variables קיימים — במקום hardcoded values. מביאה legacy screens לsystem ישירות.</div>
+  </div>
+</div>
+
+<!-- SECTION 3 — מגניב -->
+<div class="section section-cool">
+  <div class="section-header">
+    <span class="section-badge badge-cool">✨ חדש ומגניב</span>
+  </div>
+
+  <div class="item item-hero">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">Kimi K3 — 2.8 טריליון פרמטרים, open MoE עם 896 experts</div>
+    <div class="item-source"><a href="https://www.aiapps.com/blog/july-ai-mega-update-major-breakthroughs-launches/">AIapps — July AI Mega-Update</a></div>
+    <div class="item-summary">Moonshot AI שחררה ב-16.07 את Kimi K3 — מודל MoE עם 2.8 טריליון פרמטרים (16 מתוך 896 experts פעילים בכל פעם). בנוי על Kimi Delta Attention ו-Attention Residuals. open weights — אפשר להריץ לוקלית.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">Grok 4.5 — 1.5T MoE, Terminal-Bench 83.3%, אומן על Cursor data</div>
+    <div class="item-source"><a href="https://llm-stats.com/llm-updates">LLM Stats</a></div>
+    <div class="item-summary">xAI שחררה Grok 4.5 עם 1.5 טריליון פרמטרים MoE. פגע ב-Terminal-Bench 2.1 ב-83.3% תוך שימוש ב-25% פחות tokens מ-Opus 4.8. אומן על interaction data של Cursor — ממש מכוון לקידוד.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-fyi">👀 שווה לדעת</span>
+    <div class="item-title">Gemini 3.5 Pro — זמינות כללית מ-17.07, 2M tokens + Deep Think</div>
+    <div class="item-source"><a href="https://kersai.com/ai-breakthroughs-july-2026/">KERSAI — AI Breakthroughs July 2026</a></div>
+    <div class="item-summary">Gemini 3.5 Pro יוצא ל-GA ב-17.07 — 2 מיליון tokens context ו-Deep Think mode לניתוח מורכב. הגדול ביותר ב-context window זמין כללי בשוק.</div>
+  </div>
+</div>
+
+<!-- SECTION 4 — כלי -->
+<div class="section section-tool">
+  <div class="section-header">
+    <span class="section-badge badge-tool">🛠 כלי אחד לנסות השבוע</span>
+  </div>
+
+  <div class="item item-hero">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">Ollama v0.32.0 — agent experience מובנה, Gemma 4 על Apple Silicon 90% מהיר יותר</div>
+    <div class="item-source"><a href="https://github.com/ollama/ollama/releases">Ollama GitHub Releases</a></div>
+    <div class="item-summary">גרסה 0.32.0 הוסיפה interactive agent experience — chat, code, web search, ו-work delegation — ישירות בממשק. Gemma 4 עלה 90% במהירות על Apple Silicon עם multi-token prediction. Flash attention על GPUs ישנים יותר. חינמי לחלוטין.</div>
+    <div class="tool-detail">
+      <div class="tool-detail-row">
+        <span class="tool-detail-label">למה כדאי</span>
+        <span class="tool-detail-text">להריץ מודלים לוקלית בלי לשלם — גם Kimi K3 וגם Gemma 4 דרך Ollama = Claude Pro בחינם</span>
+      </div>
+      <div class="tool-detail-row">
+        <span class="tool-detail-label">איך מתחילים</span>
+        <span class="tool-detail-text">ollama.ai ← הורד ← הרץ `ollama run gemma4` או `ollama run kimi-k3` בטרמינל</span>
+      </div>
+      <a class="tool-link" href="https://ollama.ai">פתח את Ollama</a>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  נוצר אוטומטית ע"י הסוכנים של אור &nbsp;·&nbsp; Weekly AI Digest &nbsp;·&nbsp; 17.07.2026
+</div>
+
+</body>
+</html>
