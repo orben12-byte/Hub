@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>טרקר דירות — קרית אליעזר, פינוי בינוי</title>
+<style>
+  :root {
+    --bg: #12141a; --card: #1c1f28; --card2: #232734; --text: #e8eaf0;
+    --muted: #9aa0b0; --accent: #7ee0c3; --line: #2e3342;
+    --high: #4ade80; --mid: #facc15; --low: #f87171;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Rubik', 'Segoe UI', Arial, sans-serif; padding: 24px 16px 60px; }
+  .wrap { max-width: 860px; margin: 0 auto; }
+  h1 { font-size: 26px; margin-bottom: 4px; }
+  .meta { color: var(--muted); font-size: 15px; margin-bottom: 14px; }
+  .notice { background: var(--card2); border-right: 4px solid var(--mid); border-radius: 8px; padding: 12px 14px; font-size: 15px; color: var(--muted); margin-bottom: 18px; line-height: 1.5; }
+  .summary { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .summary-pill { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 15px; }
+  .summary-pill b { color: var(--accent); }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; align-items: center; }
+  .filters select, .filters input { background: var(--card); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font-size: 15px; font-family: inherit; }
+  .filters input { flex: 1; min-width: 160px; }
+  .filters button { background: none; border: none; color: var(--accent); font-size: 15px; cursor: pointer; font-family: inherit; }
+  .count-line { color: var(--muted); font-size: 15px; margin-bottom: 20px; }
+  .section-title { font-size: 20px; margin: 26px 0 12px; padding: 8px 12px; border-bottom: 2px solid var(--line); border-radius: 8px 8px 0 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .cat-badge { font-size: 15px; font-weight: 400; border-radius: 999px; padding: 2px 10px; }
+  .section-title[data-cat="pb"] { background: rgba(74,222,128,.08); border-bottom-color: #4ade80; }
+  .section-title[data-cat="pb"] .cat-badge { background: rgba(74,222,128,.18); color: #86efac; }
+  .section-title[data-cat="other"] { background: rgba(249,115,22,.08); border-bottom-color: #F97316; }
+  .section-title[data-cat="other"] .cat-badge { background: rgba(249,115,22,.18); color: #fdba74; }
+  .job { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; }
+  .job.status-contacted { border-color: #3b82f6; }
+  .job.status-visited { border-color: #a855f7; }
+  .job.status-rejected { opacity: 0.5; }
+  .job.highlight { border-color: var(--mid); }
+  .job-top { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
+  .job-title { font-size: 17px; font-weight: 600; line-height: 1.35; }
+  .job-price { font-size: 16px; font-weight: 700; border-radius: 999px; padding: 3px 12px; white-space: nowrap; background: rgba(126,224,195,.12); color: var(--accent); }
+  .job-dev { color: var(--accent); font-size: 15px; margin-top: 4px; }
+  .job-meta { color: var(--muted); font-size: 15px; margin-top: 2px; }
+  .job-tags { margin-top: 6px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { background: var(--card2); border-radius: 6px; padding: 2px 8px; font-size: 14px; color: var(--muted); }
+  .tag.signed { background: rgba(74,222,128,.15); color: var(--high); }
+  .tag.taboo { background: rgba(250,204,21,.14); color: var(--mid); }
+  .job-facts { margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .fact { font-size: 14px; border-radius: 6px; padding: 3px 9px; border: 1px solid var(--line); }
+  .fact.yes { background: rgba(74,222,128,.14); color: var(--high); border-color: rgba(74,222,128,.3); }
+  .fact.no { background: rgba(248,113,113,.12); color: var(--low); border-color: rgba(248,113,113,.28); }
+  .fact.warn { background: rgba(250,204,21,.12); color: var(--mid); border-color: rgba(250,204,21,.3); }
+  .fact.pending { background: var(--card2); color: var(--muted); }
+  .job-star { margin-top: 6px; font-size: 15px; color: var(--mid); }
+  .job-note { margin-top: 6px; font-size: 15px; color: var(--muted); }
+  .job-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; gap: 10px; }
+  .job-link { color: var(--accent); text-decoration: none; font-size: 15px; }
+  .job-link:hover { text-decoration: underline; }
+  .status-select { background: var(--card2); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; font-size: 15px; font-family: inherit; }
+  .empty-filtered { display: none; color: var(--muted); font-size: 15px; padding: 10px 2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>טרקר דירות — חיפה (פינוי בינוי) 🏙️</h1>
+  <div class="meta">עדכון אחרון: 24 ביולי 2026 · מקור: מדלן · תקציב עד 1.4M · 2.5-4 חד׳ · קרית אליעזר + קרית אליהו + המושבה הגרמנית</div>
+
+  <div class="notice">
+    ⚠ סטטוס "פינוי בינוי" נקבע לפי <b>תיאור המודעה בלבד</b>, לא לפי בדיקה משפטית. "חתום / הערת אזהרה" = ההסכם כבר מעוגן (סיכון נמוך יותר). "מאושר / בתהליך" = מוקדם יותר. תמיד לאמת מול היזם ובטאבו לפני התקדמות.
+    <br>💡 הסטטוס שתבחר לכל דירה נשמר בדפדפן שלך אוטומטית.
+  </div>
+
+  <div class="summary">
+    <span class="summary-pill">✅ פינוי בינוי <b id="pill-pb">20</b></span>
+    <span class="summary-pill">קרית אליעזר <b>12</b></span>
+    <span class="summary-pill">קרית אליהו <b>7</b></span>
+    <span class="summary-pill">מושבה גרמנית <b>1</b></span>
+    <span class="summary-pill">❌ לא פ"ב <b id="pill-other">7</b></span>
+    <span class="summary-pill">סה"כ <b id="pill-total">27</b></span>
+  </div>
+
+  <div class="filters">
+    <select id="f-pb" onchange="applyFilters()">
+      <option value="all">הכל</option>
+      <option value="pb">✅ פינוי בינוי בלבד</option>
+      <option value="signed">🟢 חתום / הערת אזהרה בלבד</option>
+    </select>
+    <select id="f-rooms" onchange="applyFilters()">
+      <option value="all">כל החדרים</option>
+      <option value="2.5">2.5 חד׳</option>
+      <option value="3">3 חד׳</option>
+      <option value="3.5">3.5 חד׳</option>
+      <option value="4">4 חד׳</option>
+    </select>
+    <select id="f-hood" onchange="applyFilters()">
+      <option value="all">כל השכונות</option>
+      <option value="קרית אליעזר">קרית אליעזר</option>
+      <option value="קרית אליהו">קרית אליהו</option>
+      <option value="המושבה הגרמנית">המושבה הגרמנית</option>
+    </select>
+    <select id="f-dev" onchange="applyFilters()">
+      <option value="all">כל היזמים</option>
+      <option value="מטרופוליס">מטרופוליס</option>
+      <option value="אאורה">אאורה</option>
+      <option value="רייק">רייק</option>
+      <option value="נוף כרמל">נוף כרמל</option>
+      <option value="שובל">שובל</option>
+      <option value="בוני התיכון">בוני התיכון</option>
+      <option value="הריבוע הכחול">הריבוע הכחול</option>
+      <option value="לא צוין">יזם לא צוין</option>
+    </select>
+    <select id="f-verify" onchange="applyFilters()">
+      <option value="all">כל רמות האימות</option>
+      <option value="confirmed">🟢 אומת מול תוכנית</option>
+      <option value="plausible">🟡 לא אומת 100%</option>
+      <option value="flag">🔴 לברר מול היזם</option>
+    </select>
+    <select id="f-status" onchange="applyFilters()">
+      <option value="all">כל הסטטוסים</option>
+      <option value="new">🆕 חדש</option>
+      <option value="interested">⭐ מעניין</option>
+      <option value="contacted">📞 יצרתי קשר</option>
+      <option value="visited">👁️ ביקרתי</option>
+      <option value="rejected">❌ לא רלוונטי</option>
+    </select>
+    <input id="f-search" type="text" placeholder="חיפוש: רחוב או יזם" oninput="applyFilters()">
+    <button onclick="clearFilters()">נקה סינון</button>
+  </div>
+  <div class="count-line" id="count-line"></div>
+
+  <h2 class="section-title" data-cat="pb"><span class="cat-badge">✅ פינוי בינוי</span> דירות בתקציב (<span class="cat-count">12</span>)</h2>
+  <div class="cat" id="cat-pb">
+
+    <div class="job" data-id="s7bdlBldXQC" data-pb="1" data-signed="0" data-rooms="2.5" data-dev="הריבוע הכחול">
+      <div class="job-top"><div class="job-title">יואב, קרית אליעזר</div><div class="job-price">1,270,000 ₪</div></div>
+      <div class="job-dev">הריבוע הכחול + קדמת היובל</div>
+      <div class="job-meta">2.5 חד׳ · ~65 מ"ר · משופצת · הכי זולה</div>
+      <div class="job-tags"><span class="tag">פינוי בינוי</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/s7bdlBldXQC" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="Kn6SdNUGvbA" data-pb="1" data-signed="1" data-rooms="3" data-dev="רייק">
+      <div class="job-top"><div class="job-title">זילפה, קרית אליעזר</div><div class="job-price">1,290,000 ₪</div></div>
+      <div class="job-dev">רייק</div>
+      <div class="job-meta">3 חד׳ · 55 מ"ר · קומת קרקע</div>
+      <div class="job-tags"><span class="tag">פינוי בינוי</span><span class="tag taboo">הערת אזהרה בטאבו</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/Kn6SdNUGvbA" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job highlight" data-id="820FbFFOMVQ" data-pb="1" data-signed="1" data-rooms="2.5" data-dev="מטרופוליס">
+      <div class="job-top"><div class="job-title">הזית, קרית אליעזר</div><div class="job-price">1,290,000 ₪</div></div>
+      <div class="job-dev">מטרופוליס</div>
+      <div class="job-meta">2.5 חד׳ · 60 מ"ר · מושכרת 2,600 ₪</div>
+      <div class="job-tags"><span class="tag">פינוי בינוי</span><span class="tag signed">חתום</span></div>
+      <div class="job-star">⭐ פינוי בינוי חתום + תוספת 25 מ"ר ומרפסת, מחיר נמוך</div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/820FbFFOMVQ" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="lWtwnijqgAE" data-pb="1" data-signed="0" data-rooms="2.5" data-dev="לא צוין">
+      <div class="job-top"><div class="job-title">יואב 10, קרית אליעזר</div><div class="job-price">1,350,000 ₪</div></div>
+      <div class="job-dev">יזם לא צוין (מתחם מאושר)</div>
+      <div class="job-meta">2.5 חד׳ · 60 מ"ר · קומה 1</div>
+      <div class="job-tags"><span class="tag">פינוי בינוי</span><span class="tag">מאושר</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/lWtwnijqgAE" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job highlight" data-id="kL02dN22gD6" data-pb="1" data-signed="1" data-rooms="3" data-dev="אאורה">
+      <div class="job-top"><div class="job-title">אלנבי, קרית אליעזר</div><div class="job-price">1,350,000 ₪</div></div>
+      <div class="job-dev">אאורה</div>
+      <div class="job-meta">3 חד׳ · משופצת · שקטה · נוף לים</div>
+      <div class="job-tags"><span class="tag">פינוי בינוי</span><span class="tag signed">חתום</span></div>
+      <div class="job-star">⭐ 3 חד׳ חתום עם אאורה, משופצת, נוף ירוק וים</div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/kL02dN22gD6" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="3e9aJufMCvB" data-pb="1" data-signed="0" data-rooms="3" data-dev="אאורה">
+      <div class="job-top"><div class="job-title">אבנר, קרית אליעזר</div><div class="job-price">1,380,000 ₪</div></div>
+      <div class="job-dev">אאורה</div>
+      <div class="job-meta">3 חד׳ · 60 מ"ר · קרקע פינתית + חצר 50 מ"ר · משופצת</div>
+      <div class="job-tags"><span class="tag">פינוי בינוי</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/3e9aJufMCvB" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="ujT9sNgd8WV" data-pb="1" data-signed="1" data-rooms="2.5" data-dev="רייק">
+      <div class="job-top"><div class="job-title">גדנ"ע 5, קרית אליעזר</div><div class="job-price">1,380,000 ₪</div></div>
+      <div class="job-dev">קבוצת רייק</div>
+      <div class="job-meta">2.5 חד׳ · 60 מ"ר · מושכרת · ריהוט כלול</div>
+      <div class="job-tags"><span class="tag">פינוי בינוי</span><span class="tag signed">חתום</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/ujT9sNgd8WV" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="576R9b3L2IS" data-pb="1" data-signed="0" data-rooms="2.5" data-dev="לא צוין">
+      <div class="job-top"><div class="job-title">אבנר 9, קרית אליעזר (דירת גן)</div><div class="job-price">1,387,000 ₪</div></div>
+      <div class="job-dev">יזם לא צוין</div>
+      <div class="job-meta">2.5 חד׳ · 60 מ"ר + גינה 50 מ"ר · קרקע</div>
+      <div class="job-tags"><span class="tag">פינוי בינוי</span><span class="tag">היתר תוספת 45 מ"ר + ממ"ד</span></div>
+      <div class="job-star">⭐ דירת גן עם היתר בנייה לתוספת 45 מ"ר כולל ממ"ד</div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/576R9b3L2IS" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="WJ1HJ5BDRd8" data-pb="1" data-signed="1" data-rooms="2.5" data-dev="אאורה">
+      <div class="job-top"><div class="job-title">עמל 20, קרית אליעזר</div><div class="job-price">1,390,000 ₪</div></div>
+      <div class="job-dev">אאורה (aura)</div>
+      <div class="job-meta">2.5 חד׳ · 60 מ"ר · משופצת קומפלט</div>
+      <div class="job-tags"><span class="tag">פינוי בינוי</span><span class="tag taboo">הערת אזהרה בטאבו</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/WJ1HJ5BDRd8" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="WfmXPiAgyGK" data-pb="1" data-signed="0" data-rooms="3" data-dev="מטרופוליס">
+      <div class="job-top"><div class="job-title">אברהם לסין, קרית אליעזר</div><div class="job-price">1,390,000 ₪</div></div>
+      <div class="job-dev">מטרופוליס</div>
+      <div class="job-meta">3 חד׳ · ~80 מ"ר · קומה 2 · מושכרת</div>
+      <div class="job-tags"><span class="tag">פינוי בינוי</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/WfmXPiAgyGK" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="Xyfj85llnRz" data-pb="1" data-signed="0" data-rooms="3.5" data-dev="מטרופוליס">
+      <div class="job-top"><div class="job-title">הזית, קרית אליעזר</div><div class="job-price">1,390,000 ₪</div></div>
+      <div class="job-dev">מטרופוליס</div>
+      <div class="job-meta">3.5 חד׳ · 70 מ"ר · משופצת · הכי הרבה חדרים בקבוצה</div>
+      <div class="job-tags"><span class="tag">פינוי בינוי</span><span class="tag">פרויקט מתקדם</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/Xyfj85llnRz" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="PPuQ0UU6pzx" data-pb="1" data-signed="0" data-rooms="2.5" data-dev="לא צוין">
+      <div class="job-top"><div class="job-title">יואב, קרית אליעזר</div><div class="job-price">1,400,000 ₪</div></div>
+      <div class="job-dev">יזם לא צוין (מתחם מאושר)</div>
+      <div class="job-meta">2.5 חד׳ · 50 מ"ר · קומה 1 · על עמודים</div>
+      <div class="job-tags"><span class="tag">פינוי בינוי</span><span class="tag">מאושר</span></div>
+      <div class="job-note">מחיר למ"ר גבוה יחסית (28,000 ₪) — קטנה ובקצה העליון של התקציב</div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/PPuQ0UU6pzx" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="empty-filtered">אין דירות שמתאימות לסינון</div>
+  </div>
+
+  <h2 class="section-title" data-cat="pb"><span class="cat-badge">✅ פינוי בינוי</span> שכונות שכנות — קרית אליהו + מושבה גרמנית (<span class="cat-count">8</span>)</h2>
+  <div class="cat" id="cat-pb2">
+
+    <div class="job" data-id="9Yorpebr7oK" data-pb="1" data-signed="0" data-rooms="2.5" data-dev="שובל" data-hood="קרית אליהו">
+      <div class="job-top"><div class="job-title">אלנבי 84, קרית אליהו</div><div class="job-price">1,230,000 ₪</div></div>
+      <div class="job-dev">שובל · קרית אליהו</div>
+      <div class="job-meta">2.5 חד׳ · 65 מ"ר · מושכרת · הכי זולה בשכנות</div>
+      <div class="job-tags"><span class="tag">פינוי בינוי</span><span class="tag">מתקדם</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/9Yorpebr7oK" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="OMhFl3y8yDZ" data-pb="1" data-signed="0" data-rooms="3" data-dev="נוף כרמל" data-hood="קרית אליהו">
+      <div class="job-top"><div class="job-title">אחוה 21, קרית אליהו</div><div class="job-price">1,240,000 ₪</div></div>
+      <div class="job-dev">נוף כרמל · קרית אליהו</div>
+      <div class="job-meta">3 חד׳ · 70 מ"ר · משופצת · כניסה מיידית</div>
+      <div class="job-tags"><span class="tag">התחדשות עירונית</span></div>
+      <div class="job-note">כתוב "התחדשות עירונית נוף כרמל" — אותו מתחם מאושר כפינוי בינוי בדירות אחרות. לאמת שזה פינוי בינוי ולא תמ"א</div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/OMhFl3y8yDZ" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="c9LKlyu4qOx" data-pb="1" data-signed="0" data-rooms="3.5" data-dev="נוף כרמל" data-hood="קרית אליהו">
+      <div class="job-top"><div class="job-title">המגינים, קרית אליהו</div><div class="job-price">1,250,000 ₪</div></div>
+      <div class="job-dev">נוף כרמל · קרית אליהו</div>
+      <div class="job-meta">3.5 חד׳ · מטופחת · קרוב למטרונית ולים</div>
+      <div class="job-tags"><span class="tag">פינוי בינוי</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/c9LKlyu4qOx" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job highlight" data-id="3wYwNPUxGZn" data-pb="1" data-signed="0" data-rooms="3" data-dev="נוף כרמל" data-hood="קרית אליהו">
+      <div class="job-top"><div class="job-title">המגינים 124, קרית אליהו</div><div class="job-price">1,260,000 ₪</div></div>
+      <div class="job-dev">נוף כרמל · קרית אליהו</div>
+      <div class="job-meta">3 חד׳ · קומה 4/4</div>
+      <div class="job-tags"><span class="tag">פינוי בינוי</span><span class="tag">+25 מ"ר + ממ"ד + חניה</span></div>
+      <div class="job-star">⭐ פינוי בינוי מפורט עם תוספת 25 מ"ר, מרפסת 12 מ"ר, ממ"ד וחניה</div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/3wYwNPUxGZn" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="Lk89ccCtp8q" data-pb="1" data-signed="0" data-rooms="2.5" data-dev="לא צוין" data-hood="קרית אליהו">
+      <div class="job-top"><div class="job-title">יצחק שדה, קרית אליהו</div><div class="job-price">1,290,000 ₪</div></div>
+      <div class="job-dev">יזם לא צוין · קרית אליהו</div>
+      <div class="job-meta">2.5 חד׳ · בהליך · ניתן להשכיר ~3,300 ₪</div>
+      <div class="job-tags"><span class="tag">פינוי בינוי</span><span class="tag">בהליך</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/Lk89ccCtp8q" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="nt1CUTkWKIH" data-pb="1" data-signed="0" data-rooms="3" data-dev="לא צוין" data-hood="קרית אליהו">
+      <div class="job-top"><div class="job-title">התקוה, קרית אליהו</div><div class="job-price">1,320,000 ₪</div></div>
+      <div class="job-dev">יזם לא צוין · קרית אליהו</div>
+      <div class="job-meta">3 חד׳ · מרווחת ומוארת · מתחם של 2 בניינים בלבד</div>
+      <div class="job-tags"><span class="tag">פינוי בינוי</span><span class="tag">מתחם מתקדם</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/nt1CUTkWKIH" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="rbyiOh21VeP" data-pb="1" data-signed="1" data-rooms="3" data-dev="בוני התיכון" data-hood="קרית אליהו">
+      <div class="job-top"><div class="job-title">דרך יפו 151, קרית אליהו</div><div class="job-price">1,350,000 ₪</div></div>
+      <div class="job-dev">בוני התיכון · קרית אליהו</div>
+      <div class="job-meta">3 חד׳ + מרפסת · ~60 מ"ר · קומה 2/4 · ניתן להשכיר ~2,700-3,000 ₪</div>
+      <div class="job-tags"><span class="tag">פינוי בינוי</span><span class="tag taboo">הערת אזהרה בטאבו</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/rbyiOh21VeP" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="4jaBeMH97T5" data-pb="1" data-signed="0" data-rooms="3" data-dev="שובל" data-hood="המושבה הגרמנית">
+      <div class="job-top"><div class="job-title">דרך אלנבי, המושבה הגרמנית</div><div class="job-price">1,390,000 ₪</div></div>
+      <div class="job-dev">שובל הנדסה · המושבה הגרמנית</div>
+      <div class="job-meta">3 חד׳ · 60 מ"ר · קומה 1 · משופצת · מושכרת</div>
+      <div class="job-tags"><span class="tag">פינוי בינוי</span><span class="tag">מתקדם</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/4jaBeMH97T5" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="empty-filtered">אין דירות שמתאימות לסינון</div>
+  </div>
+
+  <h2 class="section-title" data-cat="other"><span class="cat-badge">❌ לא פינוי בינוי</span> למידע בלבד (<span class="cat-count">7</span>)</h2>
+  <div class="cat" id="cat-other">
+
+    <div class="job" data-id="lCZoRJrwmms" data-pb="0" data-signed="0" data-rooms="4" data-dev="לא צוין">
+      <div class="job-top"><div class="job-title">ככר מאירהוף 8, קרית אליעזר</div><div class="job-price">1,390,000 ₪</div></div>
+      <div class="job-dev">—</div>
+      <div class="job-meta">4 חד׳ · 94 מ"ר · קומה 1 · הכי גדולה בתקציב</div>
+      <div class="job-tags"><span class="tag">"פוטנציאל" בלבד</span></div>
+      <div class="job-note">לא פינוי בינוי, אבל התמורה הכי טובה למ"ר אם ויתור על פינוי בינוי אפשרי</div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/lCZoRJrwmms" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="6nu1uz0GvSs" data-pb="0" data-signed="0" data-rooms="3" data-dev="לא צוין">
+      <div class="job-top"><div class="job-title">אלנבי, קרית אליעזר</div><div class="job-price">1,150,000 ₪</div></div>
+      <div class="job-dev">—</div>
+      <div class="job-meta">3 חד׳ · 70 מ"ר · קומה 3 · מושכרת 3,200 ₪</div>
+      <div class="job-tags"><span class="tag">"פוטנציאל השבחה" בלבד</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/6nu1uz0GvSs" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="WDYrMEP4oGt" data-pb="0" data-signed="0" data-rooms="2" data-dev="לא צוין">
+      <div class="job-top"><div class="job-title">אלנבי 177, קרית אליעזר (דירת גן)</div><div class="job-price">789,000 ₪</div></div>
+      <div class="job-dev">—</div>
+      <div class="job-meta">2 חד׳ (לא 2.5) · 42 מ"ר · קרקע · מושכרת 2,500 ₪</div>
+      <div class="job-tags"><span class="tag">קטנה וזולה</span></div>
+      <div class="job-note">החריג הזול. לא פינוי בינוי — פשוט דירה קטנה של 2 חדרים</div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/WDYrMEP4oGt" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="kNYkkuX5Ud7" data-pb="0" data-signed="0" data-rooms="4" data-dev="לא צוין" data-hood="קרית אליהו">
+      <div class="job-top"><div class="job-title">תל אביב, קרית אליהו</div><div class="job-price">950,000 ₪</div></div>
+      <div class="job-dev">— · קרית אליהו</div>
+      <div class="job-meta">4 חד׳ · 80 מ"ר · בניין אבן ערבי ישן · משופצת</div>
+      <div class="job-tags"><span class="tag">בניין ישן, לא פ"ב</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/kNYkkuX5Ud7" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="vfkwvspDFp7" data-pb="0" data-signed="0" data-rooms="3" data-dev="לא צוין" data-hood="קרית אליהו">
+      <div class="job-top"><div class="job-title">המגינים 139, קרית אליהו</div><div class="job-price">1,290,000 ₪</div></div>
+      <div class="job-dev">— · קרית אליהו</div>
+      <div class="job-meta">3 חד׳ · 75 מ"ר · קומה 5 · מושכרת 3,700 ₪</div>
+      <div class="job-tags"><span class="tag">השקעה, לא פ"ב</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/vfkwvspDFp7" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="rGuFo0Icv20" data-pb="0" data-signed="0" data-rooms="3" data-dev="לא צוין" data-hood="קרית אליהו">
+      <div class="job-top"><div class="job-title">המגינים 133, קרית אליהו</div><div class="job-price">1,330,000 ₪</div></div>
+      <div class="job-dev">— · קרית אליהו</div>
+      <div class="job-meta">3 חד׳ · 70 מ"ר · קומה 6/9 · משופצת</div>
+      <div class="job-tags"><span class="tag">בניין גבוה, לא פ"ב</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/rGuFo0Icv20" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="job" data-id="eJFa7IHGNis" data-pb="0" data-signed="0" data-rooms="3" data-dev="לא צוין" data-hood="המושבה הגרמנית">
+      <div class="job-top"><div class="job-title">שדרות המגינים, המושבה הגרמנית</div><div class="job-price">1,370,000 ₪</div></div>
+      <div class="job-dev">— · המושבה הגרמנית</div>
+      <div class="job-meta">3 חד׳ · 70 מ"ר · מוארת · ליד מרכז מאירהוף</div>
+      <div class="job-tags"><span class="tag">אין אזכור פ"ב בתיאור</span></div>
+      <div class="job-actions"><a class="job-link" href="https://www.madlan.co.il/listings/eJFa7IHGNis" target="_blank">פתח במדלן ←</a><select class="status-select" onchange="updateStatus(this)"><option value="new">🆕 חדש</option><option value="interested">⭐ מעניין</option><option value="contacted">📞 יצרתי קשר</option><option value="visited">👁️ ביקרתי</option><option value="rejected">❌ לא רלוונטי</option></select></div>
+    </div>
+
+    <div class="empty-filtered">אין דירות שמתאימות לסינון</div>
+  </div>
+</div>
+
+<script>
+  // מקלט (shelter): true = מוזכר מפורש בטקסט (מקלט/ממ"ד), false = לא מוזכר, undefined = טרם נבדק
+  // photos: מספר תמונות אמיתיות בדף. null/undefined = טרם נבדק
+  const META = {
+    // קרית אליעזר
+    's7bdlBldXQC': { shelter: false, photos: 2,  verify: 'confirmed', vnote: 'אומת: מתחם ההגנה/יואב (ריבוע כחול)' },
+    'Kn6SdNUGvbA': { shelter: false, photos: 5,  verify: 'confirmed', vnote: 'אומת: רייק מתחם 12 (גדנ"ע-זילפה-צה"ל)' },
+    '820FbFFOMVQ': { shelter: false, photos: 7,  verify: 'plausible', vnote: 'מטרופוליס פעילה בשכונה, רחוב הזית לא אומת 100%' },
+    'lWtwnijqgAE': { shelter: false, photos: 7,  verify: 'confirmed', vnote: 'אומת: מתחם ההגנה/יואב (ריבוע כחול)' },
+    'kL02dN22gD6': { shelter: false, photos: 9,  verify: 'confirmed', vnote: 'אומת: אאורה, אלנבי 132-150' },
+    '3e9aJufMCvB': { shelter: false, photos: 5,  verify: 'flag',      vnote: 'רחוב אבנר לא מופיע ברשימות אאורה הרשמיות — לברר!' },
+    'ujT9sNgd8WV': { shelter: false, photos: 8,  verify: 'confirmed', vnote: 'אומת: רייק מתחם 12 (גדנ"ע-זילפה-צה"ל)' },
+    '576R9b3L2IS': { shelter: true,  photos: 5,  verify: 'flag',      vnote: 'רחוב אבנר לא מופיע ברשימות אאורה הרשמיות — לברר!' },
+    'WJ1HJ5BDRd8': { shelter: false, photos: 17, verify: 'confirmed', vnote: 'אומת: אאורה, עמל 22-33 (מס\' 20 בקצה המתחם)' },
+    'WfmXPiAgyGK': { shelter: false, photos: 6,  verify: 'plausible', vnote: 'מטרופוליס פעילה בשכונה, רחוב לסין לא אומת 100%' },
+    'Xyfj85llnRz': { shelter: false, photos: 7,  verify: 'plausible', vnote: 'מטרופוליס פעילה בשכונה, רחוב הזית לא אומת 100%' },
+    'PPuQ0UU6pzx': { shelter: true,  photos: 6,  verify: 'confirmed', vnote: 'אומת: מתחם ההגנה/יואב (ריבוע כחול)' },
+    // קרית אליהו + מושבה גרמנית
+    '9Yorpebr7oK': { shelter: false, photos: 5,  verify: 'confirmed', vnote: 'אומת: שובל, אלנבי 80-90' },
+    'OMhFl3y8yDZ': { shelter: false, photos: 9,  verify: 'plausible', vnote: 'נוף כרמל, סמוך למתחם המגינים; בטקסט "התחדשות" בלבד' },
+    'c9LKlyu4qOx': { shelter: true,  photos: 3,  verify: 'confirmed', vnote: 'אומת: נוף כרמל, מתחם המגינים' },
+    '3wYwNPUxGZn': { shelter: true,  photos: 12, verify: 'confirmed', vnote: 'אומת: נוף כרמל, מתחם המגינים' },
+    'Lk89ccCtp8q': { shelter: false, photos: 20, verify: 'confirmed', vnote: 'אומת: שובל, יצחק שדה 34-42' },
+    'nt1CUTkWKIH': { shelter: false, photos: 1,  verify: 'flag',      vnote: 'רחוב התקוה — מתחם ספציפי לא זוהה, לברר מול המתווך' },
+    'rbyiOh21VeP': { shelter: true,  photos: 14, verify: 'confirmed', vnote: 'אומת: בוני התיכון, דרך יפו + תל אביב' },
+    '4jaBeMH97T5': { shelter: false, photos: 5,  verify: 'plausible', vnote: 'שובל פעילה באזור רוטשילד-אלנבי; דרך אלנבי לא אומת 100%' }
+  };
+
+  function renderMeta() {
+    document.querySelectorAll('.job').forEach(job => {
+      const id = job.dataset.id;
+      if (job.querySelector('.job-facts')) return;
+      const facts = document.createElement('div');
+      facts.className = 'job-facts';
+      const m = META[id];
+      // shelter fact
+      let sCls = 'pending', sTxt = '🛡️ מקלט: לבדיקה';
+      if (m && m.shelter === true) { sCls = 'yes'; sTxt = '🛡️ מקלט/ממ"ד: כן'; }
+      else if (m && m.shelter === false) { sCls = 'no'; sTxt = '🛡️ מקלט: לא צוין'; }
+      // photos fact
+      let pCls = 'pending', pTxt = '📷 תמונות: לבדיקה';
+      if (m && (m.photos || m.photos === 0)) {
+        if (m.photos >= 3) { pCls = 'yes'; pTxt = '📷 ' + m.photos + ' תמונות'; }
+        else { pCls = 'warn'; pTxt = '📷 ' + m.photos + ' בלבד (באנר?)'; }
+      }
+      // verify fact (אימות יזם מול תוכנית רשמית)
+      let vCls = 'pending', vTxt = '🔎 אימות: לבדיקה';
+      if (m && m.verify === 'confirmed') { vCls = 'yes'; vTxt = '🔎 ' + (m.vnote || 'אומת מול תוכנית רשמית'); }
+      else if (m && m.verify === 'plausible') { vCls = 'warn'; vTxt = '🔎 ' + (m.vnote || 'יזם פעיל, רחוב לא אומת 100%'); }
+      else if (m && m.verify === 'flag') { vCls = 'no'; vTxt = '🔎 ' + (m.vnote || 'לא אומת — לברר מול היזם'); }
+      facts.innerHTML = '<span class="fact ' + sCls + '">' + sTxt + '</span><span class="fact ' + pCls + '">' + pTxt + '</span><span class="fact ' + vCls + '">' + vTxt + '</span>';
+      const actions = job.querySelector('.job-actions');
+      job.insertBefore(facts, actions);
+    });
+  }
+
+  const STORE = 'apt-tracker-kiryat-eliezer';
+  function loadStatuses() { try { return JSON.parse(localStorage.getItem(STORE)) || {}; } catch (e) { return {}; } }
+  function saveStatuses(s) { localStorage.setItem(STORE, JSON.stringify(s)); }
+
+  function applyStatusClass(job, status) {
+    job.classList.remove('status-contacted', 'status-visited', 'status-rejected');
+    if (status === 'contacted') job.classList.add('status-contacted');
+    else if (status === 'visited') job.classList.add('status-visited');
+    else if (status === 'rejected') job.classList.add('status-rejected');
+  }
+
+  function initStatuses() {
+    const saved = loadStatuses();
+    document.querySelectorAll('.job').forEach(job => {
+      const id = job.dataset.id;
+      const sel = job.querySelector('.status-select');
+      if (saved[id]) { sel.value = saved[id]; }
+      applyStatusClass(job, sel.value);
+    });
+  }
+
+  function updateStatus(sel) {
+    const job = sel.closest('.job');
+    const id = job.dataset.id;
+    const saved = loadStatuses();
+    saved[id] = sel.value;
+    saveStatuses(saved);
+    applyStatusClass(job, sel.value);
+    applyFilters();
+  }
+
+  function applyFilters() {
+    const fpb = document.getElementById('f-pb').value;
+    const frooms = document.getElementById('f-rooms').value;
+    const fdev = document.getElementById('f-dev').value;
+    const fhood = document.getElementById('f-hood').value;
+    const fverify = document.getElementById('f-verify').value;
+    const fstatus = document.getElementById('f-status').value;
+    const q = document.getElementById('f-search').value.trim().toLowerCase();
+    let shown = 0;
+
+    document.querySelectorAll('.cat').forEach(cat => {
+      let catShown = 0;
+      cat.querySelectorAll('.job').forEach(job => {
+        const status = job.querySelector('.status-select').value;
+        const hood = job.dataset.hood || 'קרית אליעזר';
+        let ok = true;
+        if (fpb === 'pb' && job.dataset.pb !== '1') ok = false;
+        if (fpb === 'signed' && job.dataset.signed !== '1') ok = false;
+        if (frooms !== 'all' && job.dataset.rooms !== frooms) ok = false;
+        if (fdev !== 'all' && job.dataset.dev !== fdev) ok = false;
+        if (fhood !== 'all' && hood !== fhood) ok = false;
+        if (fverify !== 'all') { const mv = (META[job.dataset.id] || {}).verify; if (mv !== fverify) ok = false; }
+        if (fstatus !== 'all' && status !== fstatus) ok = false;
+        if (q) {
+          const txt = job.innerText.toLowerCase();
+          if (!txt.includes(q)) ok = false;
+        }
+        job.style.display = ok ? '' : 'none';
+        if (ok) { shown++; catShown++; }
+      });
+      const empty = cat.querySelector('.empty-filtered');
+      if (empty) empty.style.display = catShown === 0 ? 'block' : 'none';
+    });
+
+    document.getElementById('count-line').textContent = 'מוצגות ' + shown + ' דירות';
+  }
+
+  function clearFilters() {
+    document.getElementById('f-pb').value = 'all';
+    document.getElementById('f-rooms').value = 'all';
+    document.getElementById('f-dev').value = 'all';
+    document.getElementById('f-hood').value = 'all';
+    document.getElementById('f-verify').value = 'all';
+    document.getElementById('f-status').value = 'all';
+    document.getElementById('f-search').value = '';
+    applyFilters();
+  }
+
+  renderMeta();
+  initStatuses();
+  applyFilters();
+</script>
+</body>
+</html>
