@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>כמה עולה לגדל 2 ילדים בחיפה — מדריך עלויות 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F3F0; --card: #FFFFFF; --border: #E8E3DC; --accent: #0066CC;
+    --ink: #1A1A1A; --ink-soft: #6B6B6B;
+    --warn: #B8862E; --warn-soft: #F6EDD8;
+    --pos: #2F8A57; --pos-soft: #E4F1E8;
+    --accent-soft: #E4EFFB;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #141414; --card: #1E1E1E; --border: #2E2E2E; --accent: #4D9FFF;
+      --ink: #ECECEC; --ink-soft: #9A9A9A;
+      --warn: #D8AE5A; --warn-soft: #2E2717;
+      --pos: #63C088; --pos-soft: #1C2C22; --accent-soft: #182838;
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #F5F3F0; --card: #FFFFFF; --border: #E8E3DC; --accent: #0066CC;
+    --ink: #1A1A1A; --ink-soft: #6B6B6B; --warn: #B8862E; --warn-soft: #F6EDD8;
+    --pos: #2F8A57; --pos-soft: #E4F1E8; --accent-soft: #E4EFFB;
+  }
+  :root[data-theme="dark"] {
+    --bg: #141414; --card: #1E1E1E; --border: #2E2E2E; --accent: #4D9FFF;
+    --ink: #ECECEC; --ink-soft: #9A9A9A; --warn: #D8AE5A; --warn-soft: #2E2717;
+    --pos: #63C088; --pos-soft: #1C2C22; --accent-soft: #182838;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--ink); direction: rtl;
+    font-family: "Rubik", "Segoe UI", system-ui, -apple-system, sans-serif;
+    line-height: 1.55; -webkit-font-smoothing: antialiased; font-variant-numeric: tabular-nums;
+  }
+  .wrap { max-width: 840px; margin: 0 auto; padding: 40px 20px 72px; }
+
+  .theme-toggle {
+    position: fixed; top: 16px; left: 16px; z-index: 10;
+    background: var(--card); border: 1px solid var(--border); color: var(--ink);
+    width: 40px; height: 40px; border-radius: 10px; cursor: pointer; font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  header { margin-bottom: 32px; }
+  .eyebrow { font-size: 13px; letter-spacing: .06em; color: var(--accent); font-weight: 600; margin-bottom: 8px; }
+  h1 { font-size: 30px; font-weight: 800; letter-spacing: -.02em; line-height: 1.2; text-wrap: balance; }
+  .sub { color: var(--ink-soft); font-size: 16px; margin-top: 10px; max-width: 62ch; }
+
+  h2 {
+    font-size: 13px; font-weight: 700; letter-spacing: .05em; color: var(--ink-soft);
+    text-transform: uppercase; margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: right; padding: 13px 18px; }
+  thead th { font-size: 12px; letter-spacing: .04em; color: var(--ink-soft); font-weight: 700; background: var(--accent-soft); text-transform: uppercase; }
+  th.num, td.num { text-align: left; white-space: nowrap; }
+  tbody tr { border-top: 1px solid var(--border); }
+  .cat { font-weight: 600; }
+  .hint { display: block; font-size: 12.5px; color: var(--ink-soft); font-weight: 400; margin-top: 3px; }
+  .price { font-weight: 700; white-space: nowrap; }
+
+  .scenarios { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .scn { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; }
+  .scn .tag { align-self: flex-start; font-size: 11.5px; font-weight: 700; padding: 4px 11px; border-radius: 999px; margin-bottom: 13px; }
+  .scn h3 { font-size: 18px; font-weight: 700; }
+  .scn .ages { font-size: 13px; color: var(--ink-soft); margin: 3px 0 16px; }
+  .rows { display: flex; flex-direction: column; gap: 8px; font-size: 13.5px; margin-bottom: 4px; }
+  .rows .r { display: flex; justify-content: space-between; gap: 8px; }
+  .rows .r span:last-child { color: var(--ink-soft); white-space: nowrap; }
+  .total { margin-top: auto; padding-top: 15px; }
+  .total .lbl { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 3px; }
+  .total .big { font-size: 25px; font-weight: 800; letter-spacing: -.02em; }
+  .scn-a { border-top: 3px solid var(--warn); }
+  .scn-a .tag { background: var(--warn-soft); color: var(--warn); } .scn-a .big { color: var(--warn); }
+  .scn-b { border-top: 3px solid var(--accent); }
+  .scn-b .tag { background: var(--accent-soft); color: var(--accent); } .scn-b .big { color: var(--accent); }
+  .scn-c { border-top: 3px solid var(--pos); }
+  .scn-c .tag { background: var(--pos-soft); color: var(--pos); } .scn-c .big { color: var(--pos); }
+
+  .note { background: var(--card); border: 1px solid var(--border); border-right: 4px solid var(--accent); border-radius: 14px; padding: 18px 20px; margin-top: 16px; }
+  .note.amber { border-right-color: var(--warn); }
+  .note h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .note p { font-size: 14.5px; color: var(--ink-soft); }
+  .note strong { color: var(--ink); }
+
+  .cost-list { list-style: none; font-size: 14px; color: var(--ink-soft); }
+  .cost-list li { display: flex; justify-content: space-between; padding: 9px 0; border-top: 1px solid var(--border); gap: 12px; }
+  .cost-list li:first-child { border-top: none; }
+  .cost-list li strong { color: var(--ink); font-weight: 600; }
+  .cost-list .v { white-space: nowrap; color: var(--ink); font-weight: 600; }
+
+  .sources { font-size: 12.5px; color: var(--ink-soft); line-height: 1.9; margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .sources a { color: var(--accent); text-decoration: none; }
+  .sources a:hover { text-decoration: underline; }
+  .disclaimer { font-size: 12.5px; color: var(--ink-soft); margin-top: 14px; font-style: italic; }
+
+  @media (max-width: 640px) {
+    .scenarios { grid-template-columns: 1fr; }
+    h1 { font-size: 25px; }
+    .wrap { padding: 32px 16px 56px; }
+  }
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="החלף מצב תצוגה">◐</button>
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">מדריך עלויות · חיפה · מאומת ל־2026</p>
+    <h1>כמה עולה לגדל 2 ילדים בחיפה?</h1>
+    <p class="sub">הגיל של הילדים משנה את העלות יותר מכל דבר אחר. הנה הפירוק לפי גיל, עם המחירים הארציים והסבסוד — ומה חיפה משנה (ומה לא).</p>
+  </header>
+
+  <h2>עלות המסגרת לפי גיל · לילד אחד</h2>
+  <div class="card">
+    <table>
+      <thead>
+        <tr><th>גיל</th><th>מסגרת</th><th class="num">₪ לחודש</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cat">0–3</td>
+          <td>מעון יום <span class="hint">מסובסד לפי הכנסה לנפש (משרד העבודה)</span></td>
+          <td class="num price">1,700–2,400<span class="hint">בלי סבסוד: 3,000–3,900</span></td>
+        </tr>
+        <tr>
+          <td class="cat">3–6</td>
+          <td>גן חינם + צהרון <span class="hint">הגן חינם מגיל 3; משלמים רק צהרון</span></td>
+          <td class="num price">672–935<span class="hint">רק הצהרון</span></td>
+        </tr>
+        <tr>
+          <td class="cat">6+</td>
+          <td>בית ספר + צהרון (ניצנים) <span class="hint">הלימודים חינם; משלמים צהרון</span></td>
+          <td class="num price">672–985<span class="hint">רק הצהרון</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>התוספת החודשית ל־2 ילדים · לפי גיל</h2>
+  <div class="scenarios">
+
+    <div class="scn scn-a">
+      <span class="tag">היקר ביותר</span>
+      <h3>2 תינוקות</h3>
+      <p class="ages">גיל 0–3 · שניהם במעון</p>
+      <div class="rows">
+        <div class="r"><span>מעון יום × 2 (מסובסד)</span><span>~4,000</span></div>
+        <div class="r"><span>אוכל · חיתולים · ציוד</span><span>1,000–1,900</span></div>
+      </div>
+      <div class="total">
+        <p class="lbl">תוספת חודשית</p>
+        <div class="big">~5,000–5,900 ₪</div>
+      </div>
+    </div>
+
+    <div class="scn scn-b">
+      <span class="tag">אמצע</span>
+      <h3>מעורב</h3>
+      <p class="ages">תינוק (מעון) + גדול (צהרון)</p>
+      <div class="rows">
+        <div class="r"><span>מעון (1) + צהרון (1)</span><span>~2,800</span></div>
+        <div class="r"><span>אוכל · ציוד · חוגים</span><span>1,000–1,600</span></div>
+      </div>
+      <div class="total">
+        <p class="lbl">תוספת חודשית</p>
+        <div class="big">~3,800–4,400 ₪</div>
+      </div>
+    </div>
+
+    <div class="scn scn-c">
+      <span class="tag">הזול ביותר</span>
+      <h3>2 גדולים</h3>
+      <p class="ages">גיל 3+ · גן חינם + צהרון</p>
+      <div class="rows">
+        <div class="r"><span>גן חינם + צהרון × 2</span><span>~1,600</span></div>
+        <div class="r"><span>אוכל · ביגוד · חוגים</span><span>1,400–1,800</span></div>
+      </div>
+      <div class="total">
+        <p class="lbl">תוספת חודשית</p>
+        <div class="big">~3,000–3,400 ₪</div>
+      </div>
+    </div>
+
+  </div>
+
+  <h2>אוכל וציוד לילדים · טווחי אמת</h2>
+  <div class="card" style="padding: 6px 20px;">
+    <ul class="cost-list">
+      <li><strong>חיתולים + מגבונים</strong> <span class="v">~300 / תינוק</span></li>
+      <li><strong>תמ"ל / פורמולה</strong> <span class="v">0–500 (הנקה = 0)</span></li>
+      <li><strong>אוכל + ציוד לתינוק</strong> <span class="v">~400</span></li>
+      <li><strong>סה"כ תינוק</strong> <span class="v">~700–1,200</span></li>
+      <li><strong>ילד גדול — אוכל · ביגוד · חוגים</strong> <span class="v">~700–900</span></li>
+    </ul>
+  </div>
+  <p class="disclaimer">מה שמזיז את המספר הכי הרבה: הנקה מול פורמולה, יד־שנייה מול חדש, וכמות החוגים.</p>
+
+  <h2>האם חיפה משנה משהו?</h2>
+  <div class="note amber">
+    <h3>כמעט לא — התמחור ארצי</h3>
+    <p>
+      <strong>מעון וצהרון מתומחרים ברמה ארצית</strong> — הסבסוד לפי הכנסה (משרד העבודה) והתקרה לצהרון (משרד החינוך),
+      לא לפי עיר. חיפה כן זולה מהמרכז ב<strong>גן פרטי</strong> (כשאין מקום במעון מסובסד): בערך 2,500–3,300 ₪ מול 3,500–4,500 ₪ בתל־אביב.
+      זה היתרון היחיד של האזור במספרים האלה.
+    </p>
+  </div>
+  <div class="note">
+    <h3>3 דברים שחשוב לדעת</h3>
+    <p>
+      <strong>1.</strong> סבסוד המעון מותנה ב<strong>שני ההורים עובדים</strong>. &nbsp;
+      <strong>2.</strong> הגן חינם רק <strong>מגיל 3</strong> — עד אז זו ההוצאה הגדולה. &nbsp;
+      <strong>3.</strong> השנים היקרות (0–3) הן <strong>זמניות</strong>; מגיל 3 העלות צונחת.
+    </p>
+  </div>
+
+  <div class="sources">
+    <strong>מקורות (2026):</strong><br>
+    <a href="https://www.kolzchut.org.il/he/מחיר_מקסימלי_לצהרונים_במערכת_החינוך">כל-זכות — מחיר מקסימלי לצהרונים</a> ·
+    <a href="https://www.kolzchut.org.il/he/דרגות_השתתפות_במימון_מעונות_יום_ומשפחתונים">כל-זכות — דרגות סבסוד מעונות</a> ·
+    <a href="https://daycareeligibilitysimulator.labor.gov.il/">סימולטור דרגה — משרד העבודה</a> ·
+    <a href="https://www.gov.il/he/departments/guides/tuition-daycare-and-supervised-nurseries">gov.il — תעריפי מעונות תשפ"ו</a>
+    <p class="disclaimer">המספרים הם הערכות מבוססות־מקורות לצורך תכנון. לחישוב מדויק לפי המצב האישי — השתמשו בסימולטור של משרד העבודה.</p>
+  </div>
+
+</div>
+<script>
+  (function () {
+    var saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  })();
+  function toggleTheme() {
+    var cur = document.documentElement.getAttribute('data-theme');
+    if (!cur) cur = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    var next = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  }
+</script>
+</body>
+</html>
