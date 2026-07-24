@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔍 Alt Hunter — 24 July 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #2c2f35;
+      color: #c8ccd4;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      direction: ltr;
+      min-height: 100vh;
+      padding: 32px 16px 64px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .header {
+      padding-bottom: 24px;
+      border-bottom: 1px solid #3a3d44;
+      margin-bottom: 32px;
+    }
+
+    .header-meta {
+      font-size: 11px;
+      color: #6a6d75;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #70a070;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .header .tagline {
+      font-size: 13px;
+      color: #6a6d75;
+      font-style: italic;
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: flex;
+      gap: 0;
+      margin-bottom: 32px;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #252830;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 14px 16px;
+      border-right: 1px solid #3a3d44;
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-val {
+      font-size: 20px;
+      font-weight: 700;
+      color: #70a070;
+      display: block;
+    }
+
+    .stat-val.warn { color: #e07070; }
+
+    .stat-key {
+      font-size: 10px;
+      color: #6a6d75;
+      display: block;
+      margin-top: 3px;
+      letter-spacing: 0.08em;
+    }
+
+    .stat-delta {
+      font-size: 10px;
+      color: #70a070;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* SECTIONS */
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #70a070;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: #3a3d44;
+    }
+
+    /* ITEMS */
+    .item {
+      background-color: #252830;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 8px;
+    }
+
+    .item-key {
+      font-size: 10px;
+      font-weight: 600;
+      color: #6a6d75;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .item-val {
+      font-size: 13px;
+      color: #c8ccd4;
+      line-height: 1.7;
+    }
+
+    .item-val a {
+      color: #70a070;
+      text-decoration: none;
+    }
+
+    .item-val a:hover { text-decoration: underline; }
+
+    .item-val ul {
+      margin: 8px 0 0 20px;
+    }
+
+    .item-val li {
+      margin-bottom: 6px;
+    }
+
+    .item-val strong {
+      color: #d8dce4;
+      font-weight: 600;
+    }
+
+    .item-val code {
+      background-color: #1a1d22;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #70a070;
+    }
+
+    /* ACCENT VARIANTS */
+    .item.highlight {
+      border-color: #70a07040;
+      background-color: #1e2a1e;
+    }
+
+    .item.highlight .item-key { color: #70a070; }
+
+    .item.dim {
+      border-color: #32353c;
+      background-color: #222428;
+    }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid #3a3d44;
+      text-align: center;
+      font-size: 11px;
+      color: #6a6d75;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+    }
+
+    table td {
+      padding: 8px 12px;
+      border: 1px solid #3a3d44;
+    }
+
+    table td:first-child {
+      color: #6a6d75;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <div class="header-meta">AUTOMATED WEEKLY SCAN</div>
+      <h1>🔍 Alternative Hunter</h1>
+      <div class="tagline">Free alternatives to Claude Pro — July 24, 2026</div>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <span class="stat-val">$0</span>
+        <span class="stat-key">CHEAPEST PATH</span>
+        <span class="stat-delta">Ollama + Claude Code</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">🟢</span>
+        <span class="stat-key">STATUS</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">6 NEW</span>
+        <span class="stat-key">ALTERNATIVES</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🔥 EXECUTIVE SUMMARY</div>
+
+      <div class="item highlight">
+        <span class="item-key">STEADY MATURATION</span>
+        <div class="item-val">
+          The free Claude Pro alternative ecosystem continues to <strong>solidify</strong>. Key releases live this week:<br><br>
+          <ul>
+            <li><strong>Ollama v0.32.1</strong> (July 16) — Interactive agent experience, full Anthropic Messages API</li>
+            <li><strong>Open WebUI v0.10.2</strong> (July 1) — Native desktop app, task management + calendar</li>
+            <li><strong>MCP final spec</strong> — Ships July 28 (stateless protocol, 10K+ servers)</li>
+          </ul>
+          <br>
+          The <strong>Ollama + Claude Code</strong> setup is now the standout: run Claude Code fully local for <code>$0/month</code> with just two environment variables. <strong>DeepSeek-R1</strong> (MIT license) remains the best free reasoning model.
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🎯 BEST FREE ALTERNATIVES (JULY 24, 2026)</div>
+
+      <div class="item highlight">
+        <span class="item-key">1. OLLAMA + CLAUDE CODE ⭐ TOP PICK</span>
+        <div class="item-val">
+          <strong>Run Claude Code fully local for $0/month.</strong> Setup is just two environment variables:<br><br>
+          <code>ANTHROPIC_API_KEY=ollama</code><br>
+          <code>ANTHROPIC_BASE_URL=http://localhost:11434/v1</code><br><br>
+          <strong>Best models:</strong>
+          <ul>
+            <li><strong>Qwen3.6:27b</strong> — coding default, 77.2% SWE-Bench Verified, 128K context</li>
+            <li><strong>DeepSeek-R1</strong> — reasoning, MIT license, matches GPT-4o</li>
+            <li><strong>GLM-4.7-flash</strong> — tool calling + 128K context</li>
+          </ul>
+          Fully functional since January 2026. Community reports successful multi-file editing and codebase analysis.<br>
+          <a href="https://habr.com/en/articles/988538" target="_blank">→ Setup Guide</a>
+        </div>
+      </div>
+
+      <div class="item highlight">
+        <span class="item-key">2. OPEN WEBUI V0.10.2 (JULY 1, 2026)</span>
+        <div class="item-val">
+          <strong>Native desktop app</strong> for Mac, Windows, Linux — no Docker, no terminal setup.<br><br>
+          <strong>New Features:</strong>
+          <ul>
+            <li>✅ Task management — AI creates and tracks tasks in chat</li>
+            <li>✅ Full Calendar workspace with recurring schedules and reminders</li>
+            <li>✅ Open Terminal integration — browse, read, upload files in chat</li>
+            <li>✅ Trusts self-signed SSL certificates for private instances</li>
+            <li>✅ Improved tool call streaming (no duplicate invocations)</li>
+          </ul>
+          <a href="https://github.com/open-webui/open-webui/releases" target="_blank">→ GitHub Releases</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">3. DEEPSEEK-R1 (FREE REASONING)</span>
+        <div class="item-val">
+          <strong>671B MoE reasoning model</strong> under MIT license. Matches or exceeds GPT-4o on reasoning benchmarks.<br><br>
+          <strong>Advantages:</strong> Fraction of GPT-4o cost (free self-hosted), 100% private, fine-tunable, full weights available.<br>
+          <strong>Strengths:</strong> Math, logic puzzles, step-by-step problems.<br>
+          <strong>Run it:</strong> <code>ollama pull deepseek-r1</code><br>
+          <a href="https://deepseek.ai/deepseek-r1" target="_blank">→ DeepSeek R1</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">4. OPEN-SOURCE CODING ASSISTANTS</span>
+        <div class="item-val">
+          All free with local models or pay-per-use APIs:<br><br>
+          <strong>• OpenCode</strong> — terminal-first, model flexibility (top open-source pick)<br>
+          <strong>• Aider</strong> — multi-file editing, command execution<br>
+          <strong>• Cline</strong> — free for individuals, pay per-use inference<br>
+          <strong>• Goose</strong> — terminal-based assistant<br><br>
+          <strong>Cost:</strong> Free software + model costs ($0 with local models)
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">5. CHERRY STUDIO (DESKTOP CLIENT)</span>
+        <div class="item-val">
+          Cross-platform desktop client (Windows, macOS, Linux). Stores all data <strong>locally</strong>, bring your own API keys or use bundled free models — <strong>no account setup required</strong>.<br><br>
+          <strong>Cost:</strong> Free, open-source
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">⚡ MAJOR UPDATES THIS WEEK</div>
+
+      <div class="item highlight">
+        <span class="item-key">MODEL CONTEXT PROTOCOL (MCP)</span>
+        <div class="item-val">
+          <strong>2026-07-28 Final Spec</strong> — the largest revision in MCP history ships July 28 (RC locked May 21).<br><br>
+          <strong>Key Changes:</strong>
+          <ul>
+            <li><strong>Stateless Protocol</strong> — session IDs redesigned for horizontal scaling</li>
+            <li><strong>MCP Apps</strong> — servers ship interactive HTML in sandboxed iframes</li>
+            <li><strong>Tasks Extension</strong> — server returns task handles, client drives execution</li>
+          </ul>
+          <strong>Ecosystem:</strong> 10,000+ public servers in production, 97M+ monthly SDK downloads.<br>
+          <a href="https://blog.modelcontextprotocol.io/posts/2026-mcp-roadmap/" target="_blank">→ 2026 MCP Roadmap</a><br>
+          <a href="https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/" target="_blank">→ July 28 Release Candidate</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">OLLAMA V0.32.1 (JULY 16)</span>
+        <div class="item-val">
+          <strong>Interactive agent experience</strong> now starts when you run <code>ollama</code> — built-in chat, code, web search, and work delegation.<br><br>
+          <strong>Model library additions:</strong>
+          <ul>
+            <li><strong>DeepSeek V4-Pro</strong> (April 24) — 1.6T param MoE, 1M-token context</li>
+            <li><strong>Llama 4 Scout/Maverick</strong> now stable</li>
+            <li><strong>Gemma4:12b</strong> — vision, audio, tools, thinking</li>
+          </ul>
+          <a href="https://docs.ollama.com/integrations/claude-desktop" target="_blank">→ Claude Desktop Ollama Docs</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">CLAUDE DESKTOP OFFICIAL UPDATES</span>
+        <div class="item-val">
+          <strong>Claude Sonnet 5</strong> now available (intro pricing until Aug 31). Sonnet 4.5 is the new default in Claude Code.<br><br>
+          <strong>Other updates:</strong> Dynamic workflows for large-scale problems, Opus 4.8 codebase-scale migrations, native VS Code extension, searchable prompt history (Ctrl+r).<br>
+          <strong>Notable:</strong> Desktop app now supports third-party APIs — connect Ollama/Open Router for a zero-cost experience.<br>
+          <a href="https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously" target="_blank">→ Anthropic News</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">HACKER NEWS + REDDIT HIGHLIGHTS</span>
+        <div class="item-val">
+          <strong>• Show HN:</strong> First Claude Code client for Ollama local models (Jan 27)<br>
+          <strong>• r/LocalLLaMA:</strong> 266,500+ members — consensus is "use both" (local for privacy/volume, cloud for max capability)<br>
+          <strong>• Beginner rec:</strong> Ollama + Llama 3.1 8B; for coding, Qwen 2.5 Coder<br><br>
+          <a href="https://news.ycombinator.com/item?id=46722285" target="_blank">→ Show HN: Ollama Claude Code client</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">📊 FREE VS PAID COMPARISON</div>
+
+      <div class="item">
+        <span class="item-key">AT A GLANCE</span>
+        <div class="item-val">
+          <table>
+            <tr>
+              <td>Claude Pro</td>
+              <td>$20-30/mo, cloud only</td>
+            </tr>
+            <tr>
+              <td>Ollama (Free)</td>
+              <td><strong>$0</strong>, 100% local, offline</td>
+            </tr>
+            <tr>
+              <td>Open WebUI (Free)</td>
+              <td><strong>$0</strong>, local or cloud</td>
+            </tr>
+            <tr>
+              <td>Best free coding model</td>
+              <td><strong>Qwen3.6:27b</strong> (77.2% SWE-Bench)</td>
+            </tr>
+            <tr>
+              <td>Best free reasoning model</td>
+              <td><strong>DeepSeek-R1</strong> (matches GPT-4o)</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🎬 VIDEO RESOURCES</div>
+
+      <div class="item">
+        <span class="item-key">SETUP TUTORIALS</span>
+        <div class="item-val">
+          <ul>
+            <li><a href="https://www.youtube.com/watch?v=8ozhyUsO5xU" target="_blank">Claude Desktop Just Got CRAZY — Run ANY Model for FREE (Ollama Guide)</a></li>
+            <li><a href="https://medium.com/@sathishkumar.babu89/stop-paying-for-claude-code-run-it-with-free-local-cloud-llms-using-ollama-6e3456d2c797" target="_blank">Stop Paying for Claude Code? Run It with Free Local &amp; Cloud LLMs Using Ollama</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">💡 RECOMMENDATIONS FOR OR</div>
+
+      <div class="item highlight">
+        <span class="item-key">IMMEDIATE ACTIONS</span>
+        <div class="item-val">
+          <strong>1. Try Ollama v0.32.1 + Claude Code</strong><br>
+          • Pull <code>qwen3.6:27b</code> (coding) or <code>deepseek-r1</code> (reasoning)<br>
+          • Set 2 env vars, test on a small project<br>
+          • Full offline capability<br><br>
+
+          <strong>2. Install Open WebUI v0.10.2 Desktop App</strong><br>
+          • No Docker required, works on Windows<br>
+          • Task management + calendar built in<br><br>
+
+          <strong>3. Wait for MCP July 28 Final Spec</strong><br>
+          • Stateless protocol will be production-ready<br>
+          • Avoid investing in pre-release MCP development<br><br>
+
+          <strong>Why This Matters:</strong><br>
+          • ✅ No monthly subscription for basic AI coding<br>
+          • ✅ Full offline capability (privacy-sensitive work)<br>
+          • ✅ Native desktop apps align with your tool preferences
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Alternative Hunter — Automated Weekly Scan<br>
+      Generated: July 24, 2026 • Next Hunt: July 31, 2026
+    </div>
+
+  </div>
+</body>
+</html>
