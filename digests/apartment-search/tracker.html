@@ -390,9 +390,9 @@
     '820FbFFOMVQ': { shelter: true,  shelterDist: 26, photos: 7,  verify: 'plausible', vnote: 'מטרופוליס — המודעה ב-Yad2 אומרת "חתום"' },
     'lWtwnijqgAE': { shelter: false, photos: 7,  verify: 'confirmed', vnote: 'אומת: מתחם ההגנה/יואב (ריבוע כחול)' },
     'kL02dN22gD6': { shelter: false, photos: 9,  verify: 'confirmed', vnote: 'אומת: אאורה, אלנבי 132-150' },
-    '3e9aJufMCvB': { shelter: false, shelterDist: 111, photos: 5,  verify: 'flag',      vnote: 'רחוב אבנר לא מופיע ברשימות אאורה הרשמיות — לברר!' },
+    '3e9aJufMCvB': { shelter: false, shelterDist: 111, photos: 5,  verify: 'flag',      vnote: 'רחוב אבנר לא מופיע ברשימות אאורה הרשמיות — לברר!', dup: 'כפילות אפשרית — כנראה אותה דירה כמו "אבנר 9" (1,387,000)' },
     'ujT9sNgd8WV': { shelter: false, photos: 8,  verify: 'confirmed', vnote: 'אומת: רייק מתחם 12 (גדנ"ע-זילפה-צה"ל)' },
-    '576R9b3L2IS': { shelter: true,  photos: 5,  verify: 'flag',      vnote: 'רחוב אבנר לא מופיע ברשימות אאורה הרשמיות — לברר!' },
+    '576R9b3L2IS': { shelter: true,  photos: 5,  verify: 'flag',      vnote: 'רחוב אבנר לא מופיע ברשימות אאורה הרשמיות — לברר!', dup: 'כפילות אפשרית — כנראה אותה דירה כמו "אבנר" (1,380,000, אאורה)' },
     'WJ1HJ5BDRd8': { shelter: false, shelterDist: 108, photos: 17, verify: 'confirmed', vnote: 'אומת: אאורה, עמל 22-33 (מס\' 20 בקצה המתחם)' },
     'WfmXPiAgyGK': { shelter: false, photos: 6,  verify: 'plausible', vnote: 'מטרופוליס פעילה בשכונה, רחוב לסין לא אומת 100%' },
     'Xyfj85llnRz': { shelter: false, photos: 7,  verify: 'plausible', vnote: 'מטרופוליס פעילה בשכונה, רחוב הזית לא אומת 100%' },
@@ -435,7 +435,9 @@
       if (m && m.verify === 'confirmed') { vCls = 'yes'; vTxt = '🔎 ' + (m.vnote || 'אומת מול תוכנית רשמית'); }
       else if (m && m.verify === 'plausible') { vCls = 'warn'; vTxt = '🔎 ' + (m.vnote || 'יזם פעיל, רחוב לא אומת 100%'); }
       else if (m && m.verify === 'flag') { vCls = 'no'; vTxt = '🔎 ' + (m.vnote || 'לא אומת — לברר מול היזם'); }
-      facts.innerHTML = '<span class="fact ' + sCls + '">' + sTxt + '</span><span class="fact ' + pCls + '">' + pTxt + '</span><span class="fact ' + vCls + '">' + vTxt + '</span>';
+      let dupTag = '';
+      if (m && m.dup) { dupTag = '<span class="fact no">⚠ ' + m.dup + '</span>'; }
+      facts.innerHTML = '<span class="fact ' + sCls + '">' + sTxt + '</span><span class="fact ' + pCls + '">' + pTxt + '</span><span class="fact ' + vCls + '">' + vTxt + '</span>' + dupTag;
       const actions = job.querySelector('.job-actions');
       job.insertBefore(facts, actions);
     });
