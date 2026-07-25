@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>הודעות למתווכים — פינוי בינוי חיפה</title>
+<style>
+  :root { --bg:#0f172a; --card:#1e293b; --card2:#172033; --line:#334155; --text:#e2e8f0; --muted:#94a3b8; --sky:#0EA5E9; --red:#f87171; }
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', 'Assistant', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; line-height: 1.6; }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  h1 { font-size: 24px; margin: 0 0 6px; }
+  .meta { color: var(--muted); font-size: 15px; margin-bottom: 18px; }
+  .back { display: inline-block; color: var(--sky); text-decoration: none; font-weight: 700; font-size: 15px; margin-bottom: 18px; }
+  .back:hover { text-decoration: underline; }
+  .msg { background: var(--card); border: 1px solid var(--line); border-right: 4px solid var(--red); border-radius: 12px; padding: 16px 18px; margin-bottom: 16px; }
+  .msg-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+  .msg-title { font-weight: 700; font-size: 17px; }
+  .msg-price { color: var(--muted); font-size: 15px; white-space: nowrap; }
+  .msg-dev { color: var(--muted); font-size: 14px; margin-bottom: 12px; }
+  .msg-body { background: var(--card2); border-radius: 8px; padding: 12px 14px; font-size: 15px; margin-bottom: 12px; white-space: pre-wrap; }
+  .copy-btn { background: var(--sky); color: #fff; border: none; font-weight: 700; font-size: 14px; padding: 8px 16px; border-radius: 8px; cursor: pointer; transition: background .15s; }
+  .copy-btn:hover { background: #0284C7; }
+  .copy-btn.done { background: #22c55e; }
+  .tip { background: var(--card2); border-radius: 8px; padding: 12px 14px; font-size: 15px; color: var(--muted); margin-bottom: 18px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="tracker.html">← חזרה לטרקר</a>
+  <h1>💬 הודעות מוכנות למתווכים</h1>
+  <div class="meta">6 הדירות האדומות · עדכון: 25 ביולי 2026</div>
+  <div class="tip">השאלה החוזרת בכולן: <b>פ"ב או תמ"א? איזה יזם? באיזה שלב?</b> — כי זה מה שקובע אם השווי אמיתי. לחץ "העתק" והדבק ב-WhatsApp.</div>
+
+  <div class="msg">
+    <div class="msg-head"><span class="msg-title">1️⃣ אבנר, קרית אליעזר</span><span class="msg-price">1,380,000 ₪</span></div>
+    <div class="msg-dev">אאורה · 3 חד׳ · קרקע</div>
+    <div class="msg-body">שלום, ראיתי את הדירה באבנר. אשמח לוודא: הבניין נכלל במתחם פינוי בינוי מאושר? של איזה יזם, ובאיזה שלב התהליך (חתימות/היתר/היטל)? תודה 🙏</div>
+    <button class="copy-btn" onclick="copyMsg(this)">📋 העתק</button>
+  </div>
+
+  <div class="msg">
+    <div class="msg-head"><span class="msg-title">2️⃣ אבנר 9, קרית אליעזר</span><span class="msg-price">1,387,000 ₪</span></div>
+    <div class="msg-dev">דירת גן · 2.5 חד׳</div>
+    <div class="msg-body">שלום, מתעניין בדירת הגן באבנר 9. זו דירה במתחם פינוי בינוי, או מדובר בהיתר תוספת 45 מ"ר בלבד? אם פ"ב — איזה יזם ובאיזה שלב? ותודה, זו אותה דירה של המודעה השנייה באבנר (1,380,000)?</div>
+    <button class="copy-btn" onclick="copyMsg(this)">📋 העתק</button>
+  </div>
+
+  <div class="msg">
+    <div class="msg-head"><span class="msg-title">3️⃣ הזית 5, קרית אליעזר</span><span class="msg-price">1,300,000 ₪</span></div>
+    <div class="msg-dev">מטרופוליס · 2.5 חד׳ · קומה 4</div>
+    <div class="msg-body">שלום, ראיתי את הדירה בהזית 5. הבניין נכלל במתחם פינוי בינוי של מטרופוליס? באיזה שלב המתחם נמצא? תודה 🙏</div>
+    <button class="copy-btn" onclick="copyMsg(this)">📋 העתק</button>
+  </div>
+
+  <div class="msg">
+    <div class="msg-head"><span class="msg-title">4️⃣ אחוה 21, קרית אליהו</span><span class="msg-price">1,240,000 ₪</span></div>
+    <div class="msg-dev">נוף כרמל · 3 חד׳</div>
+    <div class="msg-body">שלום, מתעניין בדירה באחוה 21. כתוב "התחדשות עירונית נוף כרמל" — זה פינוי בינוי או תמ"א 38? ובאיזה שלב התהליך? תודה 🙏</div>
+    <button class="copy-btn" onclick="copyMsg(this)">📋 העתק</button>
+  </div>
+
+  <div class="msg">
+    <div class="msg-head"><span class="msg-title">5️⃣ התקוה, קרית אליהו</span><span class="msg-price">1,320,000 ₪</span></div>
+    <div class="msg-dev">3 חד׳ · מתחם 2 בניינים</div>
+    <div class="msg-body">שלום, ראיתי את הדירה בהתקוה. אשמח לדעת: איזה יזם מוביל את מתחם הפינוי בינוי, ובאיזה שלב הוא (חתימות/היתר)? תודה 🙏</div>
+    <button class="copy-btn" onclick="copyMsg(this)">📋 העתק</button>
+  </div>
+
+  <div class="msg">
+    <div class="msg-head"><span class="msg-title">6️⃣ יצחק שדה, המושבה הגרמנית</span><span class="msg-price">1,300,000 ₪</span></div>
+    <div class="msg-dev">שיכון ובינוי · 3.5 חד׳ · עדן 055-4551222</div>
+    <div class="msg-body">שלום עדן, מתעניין בדירה ביצחק שדה. כתוב "התחדשות עירונית של שיכון ובינוי" — זה פינוי בינוי או תמ"א 38? ובאיזה שלב המתחם? תודה 🙏</div>
+    <button class="copy-btn" onclick="copyMsg(this)">📋 העתק</button>
+  </div>
+</div>
+<script>
+  function copyMsg(btn) {
+    var text = btn.parentElement.querySelector('.msg-body').innerText;
+    navigator.clipboard.writeText(text).then(function () {
+      var orig = btn.textContent;
+      btn.textContent = '✓ הועתק';
+      btn.classList.add('done');
+      setTimeout(function () { btn.textContent = orig; btn.classList.remove('done'); }, 1600);
+    });
+  }
+</script>
+</body>
+</html>
