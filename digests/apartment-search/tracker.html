@@ -67,6 +67,7 @@
 
   <div class="notice">
     ⚠ סטטוס "פינוי בינוי" נקבע לפי <b>תיאור המודעה בלבד</b>, לא לפי בדיקה משפטית. "חתום / הערת אזהרה" = ההסכם כבר מעוגן (סיכון נמוך יותר). "מאושר / בתהליך" = מוקדם יותר. תמיד לאמת מול היזם ובטאבו לפני התקדמות.
+    <br>🌿 <b>סביבה:</b> כל השכונות בחיפה תחתית — זיהום אוויר ~פי 2 מתקן WHO (משותף לכולן, לא משתנה מפ"ב). התג "סביבה" מדרג רק את הפרש הרעש/תנועה (רחוב ראשי מול צדדי). <b>עמודי חשמל/קרינה — לא ניתן לדרג מרחוק, חובה מודד קרינה מוסמך בסיור לפני קנייה.</b>
     <br>💡 הסטטוס שתבחר לכל דירה נשמר בדפדפן שלך אוטומטית.
   </div>
 
@@ -416,6 +417,10 @@
     'eJFa7IHGNis': 'PHOTO-2025-06-29-15-10-07_2-425350a1-1e16-4b3e-afec-9ed9035ff404.jpg'
   };
 
+  // דירוג סביבה: כל הדירות חולקות את קנס-האוויר של חיפה תחתית (~פי 2 מ-WHO, לא משתנה מפ"ב).
+  // המבדיל הוא רעש/תנועה ברמת רחוב. ENV_MAJOR = על עורק ראשי (רעש גבוה). השאר = רחוב צדדי.
+  const ENV_MAJOR = new Set(['rbyiOh21VeP','9Yorpebr7oK','kL02dN22gD6','4jaBeMH97T5','WDYrMEP4oGt','6nu1uz0GvSs','3wYwNPUxGZn','rGuFo0Icv20','vfkwvspDFp7','c9LKlyu4qOx','eJFa7IHGNis']);
+
   const META = {
     // קרית אליעזר
     's7bdlBldXQC': { shelter: false, photos: 2,  verify: 'confirmed', vnote: 'אומת: מתחם ההגנה/יואב (ריבוע כחול)' },
@@ -480,9 +485,16 @@
       if (m && m.verify === 'confirmed') { vCls = 'yes'; vTxt = '🔎 ' + (m.vnote || 'אומת מול תוכנית רשמית'); }
       else if (m && m.verify === 'plausible') { vCls = 'warn'; vTxt = '🔎 ' + (m.vnote || 'יזם פעיל, רחוב לא אומת 100%'); }
       else if (m && m.verify === 'flag') { vCls = 'no'; vTxt = '🔎 ' + (m.vnote || 'לא אומת — לברר מול היזם'); }
+      // environment fact (זיהום/רעש) — today ← after pinui-binui
+      const isMajor = ENV_MAJOR.has(id);
+      const envCls = isMajor ? 'no' : 'warn';
+      const envTxt = isMajor
+        ? '🌿 סביבה: 🔴 היום ← 🟡 אחרי · רחוב ראשי (רעש/תנועה)'
+        : '🌿 סביבה: 🟡 היום ← 🟢 אחרי · רחוב צדדי';
+      const envTag = '<span class="fact ' + envCls + '">' + envTxt + '</span>';
       let dupTag = '';
       if (m && m.dup) { dupTag = '<span class="fact no">⚠ ' + m.dup + '</span>'; }
-      facts.innerHTML = '<span class="fact ' + sCls + '">' + sTxt + '</span><span class="fact ' + pCls + '">' + pTxt + '</span><span class="fact ' + vCls + '">' + vTxt + '</span>' + dupTag;
+      facts.innerHTML = '<span class="fact ' + sCls + '">' + sTxt + '</span><span class="fact ' + pCls + '">' + pTxt + '</span><span class="fact ' + vCls + '">' + vTxt + '</span>' + envTag + dupTag;
       const actions = job.querySelector('.job-actions');
       job.insertBefore(facts, actions);
     });
