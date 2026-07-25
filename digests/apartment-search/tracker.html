@@ -384,6 +384,38 @@
 <script>
   // מקלט (shelter): true = מוזכר מפורש בטקסט (מקלט/ממ"ד), false = לא מוזכר, undefined = טרם נבדק
   // photos: מספר תמונות אמיתיות בדף. null/undefined = טרם נבדק
+  // תמונה ראשית לכל דירה (hotlink ממדלן). base + filename. התקוה ללא תמונה אמיתית (placeholder).
+  const IMG_BASE = 'https://images2.madlan.co.il/t:nonce:v=4;resize:height=600;convert:type=webp/bulletins/';
+  const IMG = {
+    '820FbFFOMVQ': 'file_000000006010822f9e9398d90cef44dc-de1871bc-f704-49e1-a784-4d46795fb0ee.png',
+    'WJ1HJ5BDRd8': '3V8A3165-2-0454b419-9bee-4e6a-8852-2db63f6e3c87.jpg',
+    'yitzhakSdeMG': 'IMG_6815-c4470db3-6fb3-4572-bdc1-b59715d6d449.jpeg',
+    'Kn6SdNUGvbA': '72d2813e-91fe-44b6-bab0-2ec3c92bf6fa-0206a917-c0c9-4a44-bd2b-ba2a016654b2.jpg',
+    'lWtwnijqgAE': '1-d68adf9a-35c3-4120-a3d9-9600155ce1a1.jpg',
+    'kL02dN22gD6': '20260506_124126-336273d4-a4d2-45b3-8b8c-3fa7bd8a4f80.jpg',
+    '3e9aJufMCvB': '571E78E6-5825-4534-9AA1-705BC62A0B97-669d81c1-591c-43e6-9efe-068d2a62643c.JPG',
+    'ujT9sNgd8WV': '20251015_123914-7e90a72d-5d73-4436-8036-71755764dc23.jpg',
+    '576R9b3L2IS': 'WhatsApp_Image_2026-07-20_at_14.57.37-70a280bc-f1a8-4978-9802-a26612ea358d.jpeg',
+    'WfmXPiAgyGK': '1782592041707-r6doj0-178fa024-5bca-441b-b244-cfc845828d26.jpg',
+    'Xyfj85llnRz': 'PHOTO-2025-10-19-11-49-54_1-a2e7392c-fbdb-42f4-954c-501936359869.jpg',
+    'PPuQ0UU6pzx': 'PHOTO-2026-04-05-15-33-01-42a20f90-dcfa-404f-9038-9240c35d3951.jpg',
+    's7bdlBldXQC': '%D7%99%D7%95%D7%90%D7%91-%D7%97%D7%99%D7%A4%D7%94-ce2d4b9e-e083-4b22-937c-0c0b1d17c8e8.jpg',
+    '9Yorpebr7oK': 'WhatsApp_Image_2026-07-13_at_10.11.56_(4)-2b6113c7-7351-40e0-84f3-78ceb93f14d3.jpeg',
+    'OMhFl3y8yDZ': 'IMG_5010-8ad6afee-46eb-4191-9315-ec9209ae9403.jpeg',
+    'c9LKlyu4qOx': '1000354928-c319358b-8172-4674-ab5c-fd8dcbe7e891.jpg',
+    '3wYwNPUxGZn': 'IMG_0154-96bce6bd-96c1-498a-81f2-172d1f8b0a05.jpeg',
+    'Lk89ccCtp8q': '3V8A5078-6-baea3a77-e75e-47a9-8e81-593c8baedfc6.jpg',
+    'rbyiOh21VeP': 'ec21923d-9095-47ce-b0c0-b1a966e18dd8-68fec78c-5dc3-416c-bb02-8328f3fe3570.jpeg',
+    '4jaBeMH97T5': 'PHOTO-2025-10-28-14-01-31_1-bf18fd2d-a7f7-4073-ac30-3cf08516a3c8.jpg',
+    'lCZoRJrwmms': '%D7%AA%D7%9E%D7%95%D7%A0%D7%95%D7%AA_%D7%A2%D7%9D_%D7%9C%D7%95%D7%92%D7%95_%D7%9C%D7%A4%D7%99%D7%A8%D7%A1%D7%95%D7%9D-535e9c9e-0879-4927-ae06-82ec6ed61222.png',
+    '6nu1uz0GvSs': 'IMG-20251123-WA0128-c497eca5-93ee-47bd-a547-691788b6c866.jpg',
+    'WDYrMEP4oGt': '0A748A40-8326-4F01-A7DE-83ED63F8CE05_-_Daniel_Ben_Dahan-eb3cd4f0-85c0-4287-9307-758871fdc54d.png',
+    'kNYkkuX5Ud7': '1001237791-3df890d3-2eeb-41b8-9bae-24b8334ecf48.jpg',
+    'vfkwvspDFp7': '1-44360f84-76a7-49a0-a920-411eaca5d95d.png',
+    'rGuFo0Icv20': 'WhatsApp_Image_2026-05-17_at_17.56.38_(1)-e2b1d4a7-bdef-4b31-aca8-66dfd9c81f2b.jpeg',
+    'eJFa7IHGNis': 'PHOTO-2025-06-29-15-10-07_2-425350a1-1e16-4b3e-afec-9ed9035ff404.jpg'
+  };
+
   const META = {
     // קרית אליעזר
     's7bdlBldXQC': { shelter: false, photos: 2,  verify: 'confirmed', vnote: 'אומת: מתחם ההגנה/יואב (ריבוע כחול)' },
@@ -416,13 +448,14 @@
       if (job.querySelector('.job-facts')) return;
       // hero photo (hotlinked from Madlan) — hides itself if it fails to load
       const mm = META[id];
-      if (mm && mm.img && !job.querySelector('.job-photo')) {
+      const imgUrl = IMG[id] ? (IMG_BASE + IMG[id]) : (mm && mm.img);
+      if (imgUrl && !job.querySelector('.job-photo')) {
         const ph = document.createElement('img');
         ph.className = 'job-photo';
         ph.loading = 'lazy';
         ph.alt = '';
         ph.onerror = function(){ this.style.display = 'none'; };
-        ph.src = mm.img;
+        ph.src = imgUrl;
         job.insertBefore(ph, job.firstChild);
       }
       const facts = document.createElement('div');
