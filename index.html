@@ -307,6 +307,14 @@
       <div class="cockpit-head">🗓️ השבוע במערכת</div>
       <div class="cockpit-sub">הכותרת האחרונה מכל דוח. לחיצה פותחת את הדוח המלא.</div>
 
+      <a class="cp-row" id="cpMC" href="digests/mission-control/">
+        <span class="cp-dot" style="background:#0066CC"></span>
+        <span class="cp-name">🧭 מרכז שליטה</span>
+        <span class="cp-headline empty" id="cpMCH">טוען…</span>
+        <span class="cp-date" id="cpMCD"></span>
+        <span class="cp-arrow">←</span>
+      </a>
+
       <a class="cp-row" id="cpPod" href="digests/podcast/">
         <span class="cp-dot" style="background:#8B5CF6"></span>
         <span class="cp-name">🎧 Podcast</span>
@@ -637,6 +645,7 @@
     }
 
     [
+      { folder: 'mission-control', rowId: 'cpMC', rowHeadlineId: 'cpMCH', rowDateId: 'cpMCD' },
       { folder: 'podcast',    rowId: 'cpPod',     rowHeadlineId: 'cpPodH',     rowDateId: 'cpPodD',     emptyId: 'podEmpty',     latestId: 'podLatest',     titleId: 'podTitle',     dateId: 'podDate', audioId: 'podAudio' },
       { folder: 'weekly',     rowId: 'cpWeekly',  rowHeadlineId: 'cpWeeklyH',  rowDateId: 'cpWeeklyD',  emptyId: 'weeklyEmpty',  latestId: 'weeklyLatest',  titleId: 'weeklyTitle',  dateId: 'weeklyDate'  },
       { folder: 'job-search', rowId: 'cpJob',     rowHeadlineId: 'cpJobH',     rowDateId: 'cpJobD',     emptyId: 'jobEmpty',     latestId: 'jobLatest',     titleId: 'jobTitle',     dateId: 'jobDate'     },
