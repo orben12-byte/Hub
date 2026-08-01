@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekly AI Digest — 01.08.2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif; background: #f5f5f5; color: #111827; max-width: 600px; margin: 0 auto; padding: 32px 16px; line-height: 1.6; direction: rtl; text-align: right; }
+  .header { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 16px; padding: 28px 24px 24px; margin-bottom: 16px; text-align: right; direction: rtl; }
+  .header-eyebrow { font-size: 11px; font-weight: 600; color: #9ca3af; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+  .header h1 { font-size: 26px; font-weight: 700; color: #111827; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .header .date { font-size: 13px; color: #6b7280; margin-bottom: 8px; }
+  .header-meta { display: inline-block; font-size: 11px; color: #9ca3af; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 999px; padding: 3px 10px; margin-top: 4px; }
+  .tldr { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px 20px 12px; margin-bottom: 16px; direction: rtl; text-align: right; }
+  .tldr-title { font-size: 10px; font-weight: 700; color: #9ca3af; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; display: block; }
+  .tldr-row { padding: 10px 0; border-bottom: 1px solid #f3f4f6; direction: rtl; text-align: right; }
+  .tldr-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .tldr-label { display: block; font-size: 10px; font-weight: 600; color: #9ca3af; margin-bottom: 3px; text-align: right; letter-spacing: 0.5px; }
+  .tldr-text { display: block; font-size: 13px; color: #374151; text-align: right; line-height: 1.5; }
+  .section { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; margin-bottom: 16px; direction: rtl; text-align: right; }
+  .section-header { display: block; margin-bottom: 16px; direction: rtl; text-align: right; }
+  .section-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 999px; letter-spacing: 0.3px; }
+  .badge-dev { background: #f3f0ff; color: #7c3aed; }
+  .badge-design { background: #eff6ff; color: #2563eb; }
+  .badge-cool { background: #f0fdf4; color: #15803d; }
+  .badge-tool { background: #fffbeb; color: #d97706; }
+  .item { padding: 14px 0; border-bottom: 1px solid #f3f4f6; direction: rtl; text-align: right; }
+  .item:last-child { border-bottom: none; padding-bottom: 0; }
+  .item-hero { padding: 14px; border-radius: 10px; border-bottom: none; margin-bottom: 12px; }
+  .section-dev .item-hero { background: #f5f3ff; border: 2px solid #ddd6fe; }
+  .section-design .item-hero { background: #eff6ff; border: 2px solid #bfdbfe; }
+  .section-cool .item-hero { background: #f0fdf4; border: 2px solid #bbf7d0; }
+  .section-tool .item-hero { background: #fffbeb; border: 2px solid #fde68a; }
+  .item-hero .item-title { font-size: 15px; }
+  .tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 999px; margin-bottom: 6px; letter-spacing: 0.3px; }
+  .tag-now { background: #fff7ed; color: #c2410c; }
+  .tag-fyi { background: #eff6ff; color: #1d4ed8; }
+  .tag-future { background: #faf5ff; color: #7c3aed; }
+  .item-title { font-size: 14px; font-weight: 600; color: #111827; text-align: right; margin-bottom: 3px; line-height: 1.4; }
+  .item-source { font-size: 11px; color: #9ca3af; margin-bottom: 6px; text-align: right; }
+  .item-source a { color: #6b7280; text-decoration: none; }
+  .item-summary { font-size: 13px; color: #6b7280; text-align: right; line-height: 1.6; }
+  .tool-detail { background: #ffffff; border: 1px solid #fde68a; border-radius: 8px; padding: 14px; margin-top: 12px; }
+  .tool-detail-row { margin-bottom: 10px; text-align: right; }
+  .tool-detail-row:last-child { margin-bottom: 0; }
+  .tool-detail-label { display: block; font-size: 10px; font-weight: 700; color: #d97706; margin-bottom: 2px; text-align: right; letter-spacing: 0.5px; text-transform: uppercase; }
+  .tool-detail-text { display: block; font-size: 13px; color: #374151; line-height: 1.5; text-align: right; }
+  .tool-link { display: inline-block; margin-top: 12px; font-size: 12px; font-weight: 700; color: #ffffff; text-decoration: none; padding: 7px 18px; border-radius: 999px; background: #d97706; }
+  .footer { text-align: center; margin-top: 8px; font-size: 11px; color: #d1d5db; padding: 16px 0; direction: rtl; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">Weekly AI Digest</div>
+  <h1>📡 מה קרה השבוע ב-AI</h1>
+  <div class="date">שבוע של 1 באוגוסט 2026 &nbsp;·&nbsp; 01.08.2026</div>
+  <div class="header-meta">10 פריטים &nbsp;·&nbsp; ~5 דק' קריאה</div>
+</div>
+
+<div class="tldr">
+  <span class="tldr-title">השבוע בשניה</span>
+  <div class="tldr-row">
+    <span class="tldr-label">🔥 הכי חשוב</span>
+    <span class="tldr-text">Claude Opus 5 יצא ב-24 ביולי באיכות קרובה ל-Fable 5 במחצית המחיר — משנה את חישוב העלות-תועלת של קידוד יומיומי עם Claude Code.</span>
+  </div>
+  <div class="tldr-row">
+    <span class="tldr-label">🤯 הכי מגניב</span>
+    <span class="tldr-text">Black Forest Labs השיקו את FLUX 3 — המודל הראשון שיוצר וידאו, אודיו, תמונה וגם חיזוי פעולות רובוטיות מאותה קבוצת משקלים אחת.</span>
+  </div>
+  <div class="tldr-row">
+    <span class="tldr-label">🛠 כדאי לנסות</span>
+    <span class="tldr-text">Figma Code Layers — הופכים כל שכבת עיצוב לקוד חי שאפשר לערוך לצד העיצוב, עם סנכרון מיידי בין השניים.</span>
+  </div>
+</div>
+
+<div class="section section-dev">
+  <div class="section-header">
+    <span class="section-badge badge-dev">💻 AI בפיתוח ובנייה</span>
+  </div>
+
+  <div class="item item-hero">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">Claude Opus 5 יצא רשמית — איכות Fable 5 במחצית המחיר</div>
+    <div class="item-source">Developers Digest</div>
+    <div class="item-summary">Anthropic השיקו את Opus 5 ב-24 ביולי, עם ביצועים קרובים ל-Fable 5 אך במחיר נמוך משמעותית. מודל טוב יותר וזול יותר לעבודת קידוד יומיומית ב-Claude Code.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">Claude Code: /goal ו-Artifacts שמתחברים ל-MCP</div>
+    <div class="item-source">Claude Code Docs — What's New</div>
+    <div class="item-summary">הפקודה החדשה /goal משאירה את Claude עובד על פני כמה תורות עד שתנאי סיום מתקיים. במקביל, Artifacts שפורסמו יכולים כעת למשוך מידע חי דרך חיבורי MCP של הצופה.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-fyi">👀 שווה לדעת</span>
+    <div class="item-title">GitHub Copilot Agent Mode תומך עכשיו במספר מודלים</div>
+    <div class="item-source">Cosmic JS</div>
+    <div class="item-summary">Copilot ב-2026 כולל Agent Mode עם תמיכה במספר מודלים (GPT-5, Claude, Gemini) ואינטגרציה עמוקה ל-PR reviews. גם ב-JetBrains אפשר עכשיו לבחור את Claude Code כ-agent provider בתוך Copilot Chat.</div>
+  </div>
+</div>
+
+<div class="section section-design">
+  <div class="section-header">
+    <span class="section-badge badge-design">🎨 AI בעיצוב</span>
+  </div>
+
+  <div class="item item-hero">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">Figma Code Layers — עיצוב וקוד באותו קובץ, בזמן אמת</div>
+    <div class="item-source">Figma Blog — Config 2026 Recap</div>
+    <div class="item-summary">כל שכבת עיצוב אפשר להפוך בלחיצה אחת לקוד חי, ולערוך קוד ועיצוב זה לצד זה באותו קובץ Figma — שינויים בקוד משתקפים מיידית בעיצוב. גישה מוקדמת נפתחה ביולי 2026.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">Figma Motion יצא לבטא פתוחה בכל התוכניות</div>
+    <div class="item-source">Figma Blog</div>
+    <div class="item-summary">בנייה של אנימציה ישירות בתוך Figma Design עם timeline, keyframes ופריסטים מוכנים. זמין בבטא פתוחה בכל התוכניות, כולל התוכנית החינמית.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-fyi">👀 שווה לדעת</span>
+    <div class="item-title">Figma Design Agent מתחבר ל-Notion, Slack, GitHub ו-Atlassian</div>
+    <div class="item-source">magicshot.ai — Figma Config 2026</div>
+    <div class="item-summary">ה-agent המעודכן של Figma תומך עכשיו ב-skills לשימוש חוזר, קבצים מצורפים מודעי-הקשר, ושיתוף פעולה בזמן אמת בתוך שיחות עם ה-agent.</div>
+  </div>
+</div>
+
+<div class="section section-cool">
+  <div class="section-header">
+    <span class="section-badge badge-cool">🚀 חדש ומגניב</span>
+  </div>
+
+  <div class="item item-hero">
+    <span class="tag tag-fyi">👀 שווה לדעת</span>
+    <div class="item-title">שבעה מודלים חדשים בשבעה ימים — ואז FLUX 3</div>
+    <div class="item-source">Digital Applied — Seven Days, Seven Model Releases</div>
+    <div class="item-summary">בין 17-23 ביולי יצאו שבעה מודלים: דגל חדש מ-Moonshot, שלושה מודלי Qwen בחלון של 72 שעות, שלישיית Gemini מגוגל, מודל קידוד open-weight מ-poolside, ו-MoE יעיל מ-Ant Group. השבוע נסגר עם FLUX 3 של Black Forest Labs — המודל הראשון שיוצר וידאו, אודיו, תמונה וחיזוי פעולות רובוטיות מאותה קבוצת משקלים.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-fyi">👀 שווה לדעת</span>
+    <div class="item-title">מלחמת מחירים: GPT-5.6, Grok 4.5 ו-Muse Spark 1.1</div>
+    <div class="item-source">Raulji Technologies — July 2026 AI Model Wave</div>
+    <div class="item-summary">OpenAI, SpaceXAI ו-Meta השיקו דגלים חדשים בתוך 24 שעות זו מזו ביולי — GPT-5.6 בשלוש גרסאות, Grok 4.5 ו-Muse Spark 1.1 — מה שהוריד את עלויות ה-inference לשפל חדש.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-future">🔮 בקרוב</span>
+    <div class="item-title">NVIDIA Cosmos 3 — מודל בסיס פתוח ל-AI פיזי</div>
+    <div class="item-source">NVIDIA Newsroom</div>
+    <div class="item-summary">ארכיטקטורת mixture-of-transformers שמשלבת הבנה חזותית, יצירת עולמות וחיזוי פעולות במערכת אחת — בסיס לרובוטיקה ול-AI שפועל בעולם הפיזי.</div>
+  </div>
+</div>
+
+<div class="section section-tool">
+  <div class="section-header">
+    <span class="section-badge badge-tool">🛠 כלי אחד לנסות</span>
+  </div>
+
+  <div class="item item-hero">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">Figma Code Layers</div>
+    <div class="item-source">Figma — גישה מוקדמת, יולי 2026</div>
+    <div class="item-summary">הכלי הכי רלוונטי השבוע למי שבונה PWAs עם Claude Code ומעצב ב-Figma: כל שכבת עיצוב הופכת לקוד חי שעורכים ישירות בתוך הקובץ, וההפך — שינויים בקוד חוזרים לעיצוב באופן מיידי.</div>
+
+    <div class="tool-detail">
+      <div class="tool-detail-row">
+        <span class="tool-detail-label">מה זה עושה</span>
+        <span class="tool-detail-text">הופך פער בין עיצוב לקוד לעריכה משותפת אחת — בלי handoff, בלי לייצא ולייבא מחדש בכל שינוי קטן.</span>
+      </div>
+      <div class="tool-detail-row">
+        <span class="tool-detail-label">למי זה מתאים</span>
+        <span class="tool-detail-text">מעצבים שגם כותבים קוד (או עובדים צמוד עם Claude Code) ורוצים לקצר את הלולאה בין שינוי עיצובי לקוד שרץ באמת.</span>
+      </div>
+      <div class="tool-detail-row">
+        <span class="tool-detail-label">איך להתחיל</span>
+        <span class="tool-detail-text">להצטרף לגישה המוקדמת דרך Figma ולנסות על קומפוננטה אחת פשוטה לפני שמאמצים בפרויקט שלם.</span>
+      </div>
+      <a href="https://www.figma.com/blog/config-2026-recap/" class="tool-link">לפרטים נוספים ←</a>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  נוצר אוטומטית ע"י הסוכנים של אור &nbsp;·&nbsp; Weekly AI Digest &nbsp;·&nbsp; 01.08.2026
+</div>
+
+</body>
+</html>
