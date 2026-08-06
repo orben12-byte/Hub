@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>סיכום חודשי — יולי 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f4ede4; --bg-alt: #ede4d8; --accent: #c45e2a;
+    --ink: #1c1208; --ink-mid: #6b5040; --ink-light: #b8956a;
+    --dark-bg: #1c1208; --dark-ink: #f4ede4; --card-bg: #ede4d8;
+  }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Rubik', sans-serif;
+    direction: rtl; text-align: right; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; padding: 0 24px 80px; }
+  .header { padding: 56px 0 32px; border-bottom: 2px solid var(--accent); margin-bottom: 40px; }
+  .header-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+  .header-title { font-size: clamp(3.8rem, 14vw, 6.5rem); font-weight: 900; line-height: 0.88; color: var(--ink); letter-spacing: -3px; margin-bottom: 24px; }
+  .header-sentence { font-size: 17px; font-style: italic; color: var(--ink-mid); line-height: 1.6; max-width: 540px; }
+  .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--accent); border-radius: 6px; overflow: hidden; margin-bottom: 56px; }
+  .stat-cell { background: var(--bg); padding: 22px 12px; text-align: center; }
+  .stat-number { font-size: clamp(2rem, 7vw, 3rem); font-weight: 900; color: var(--accent); line-height: 1; letter-spacing: -1px; display: block; }
+  .stat-label { font-size: clamp(9px, 2vw, 11px); font-weight: 600; color: var(--ink-light); text-transform: uppercase; letter-spacing: 1px; margin-top: 7px; display: block; line-height: 1.4; }
+  .section { margin-bottom: 52px; }
+  .section-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--bg-alt); }
+  .project-list { display: flex; flex-direction: column; gap: 10px; }
+  .project-card { background: var(--card-bg); border-radius: 6px; padding: 20px 22px; border-right: 4px solid var(--accent); }
+  .project-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 12px; }
+  .project-name { font-size: 17px; font-weight: 700; color: var(--ink); }
+  .project-badge { font-size: 10px; font-weight: 700; color: var(--accent); background: var(--bg); border: 1.5px solid var(--accent); border-radius: 20px; padding: 3px 10px; white-space: nowrap; flex-shrink: 0; letter-spacing: 0.5px; }
+  .project-desc { font-size: 14px; color: var(--ink-mid); line-height: 1.6; }
+  .agent-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .agent-item { background: var(--card-bg); border-radius: 6px; padding: 16px 18px; display: flex; align-items: center; gap: 14px; }
+  .agent-circle { width: 44px; height: 44px; min-width: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #f4ede4; flex-shrink: 0; }
+  .agent-name { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+  .agent-role { font-size: 12px; color: var(--ink-light); line-height: 1.4; }
+  .rule-list { display: flex; flex-direction: column; gap: 12px; }
+  .rule-box { border-right: 4px solid var(--accent); padding: 16px 20px; background: var(--card-bg); border-radius: 0 6px 6px 0; }
+  .rule-box-tag { font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; }
+  .rule-box-text { font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.4; margin-bottom: 5px; }
+  .rule-box-sub { font-size: 13px; color: var(--ink-mid); line-height: 1.6; }
+  .footer-block { background: var(--dark-bg); border-radius: 8px; padding: 36px 32px 40px; margin-top: 56px; }
+  .footer-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 16px; }
+  .footer-title { font-size: clamp(1.6rem, 5vw, 2.2rem); font-weight: 900; color: var(--dark-ink); margin-bottom: 14px; line-height: 1.2; letter-spacing: -0.5px; }
+  .footer-text { font-size: 15px; color: rgba(244,237,228,0.65); line-height: 1.75; margin-bottom: 24px; }
+  .footer-items { display: flex; flex-direction: column; gap: 10px; }
+  .footer-item { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: rgba(244,237,228,0.80); line-height: 1.5; }
+  .footer-dot { width: 6px; height: 6px; min-width: 6px; border-radius: 50%; background: var(--accent); margin-top: 8px; flex-shrink: 0; }
+  .colophon { text-align: center; padding: 28px 0 0; font-size: 11px; color: var(--ink-light); letter-spacing: 1.5px; }
+  @media (max-width: 480px) {
+    .agent-grid { grid-template-columns: 1fr; }
+    .stats-bar  { grid-template-columns: repeat(2, 1fr); }
+    .container  { padding: 0 16px 60px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="header">
+    <div class="header-eyebrow">סיכום חודשי · ABC-TOM System</div>
+    <h1 class="header-title">יולי 2026</h1>
+    <p class="header-sentence">החודש שבו חיפוש הדירה ירד מהשולחן, חיפוש העבודה חידד שהבעיה בערוץ ולא בתיק, ומצפן קם כדי לענות "מה עכשיו" בלי לחפור בזיכרון.</p>
+  </header>
+
+  <div class="stats-bar">
+    <div class="stat-cell">
+      <span class="stat-number">6</span>
+      <span class="stat-label">פרויקטים</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-number">3</span>
+      <span class="stat-label">סוכנים<br>חדשים</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-number">4</span>
+      <span class="stat-label">גרסאות<br>עלו live</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-number">11+</span>
+      <span class="stat-label">כללים<br>נרשמו</span>
+    </div>
+  </div>
+
+  <!-- פרויקטים -->
+  <section class="section">
+    <div class="section-label">פרויקטים</div>
+    <div class="project-list">
+
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-name">תוכנית הכנסה — שיעורים</div>
+          <div class="project-badge">בתנועה</div>
+        </div>
+        <div class="project-desc">הפרויקט בעדיפות העליונה. הודעת מחיר + שמות נשלחה לתלמיד שחזר ב-29.7 — החוסם היחיד שנשאר הוא שלושה שיעורים ראשונים משולמים. כלל האפס-תשתית עדיין עומד: לא בונים עמוד נחיתה או מחירון עד שהכסף הראשון נכנס.</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-name">חיפוש עבודה (אור)</div>
+          <div class="project-badge">ניסוי חי</div>
+        </div>
+        <div class="project-desc">7/7 סירובים מהירים מחברות הייטק גדולות חשפו סינון-ערוץ ולא סינון-תיק. סטודיואים (Firma/OPEN בגודל) נכנסו ל-scope, עיר המגורים הוסרה מה-CV/פורטפוליו ב-27.7, ו-GoatCounter נוסף למדידת תנועה. קוהורט "בלי מיקום" נפתח למעקב.</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-name">חיפוש עבודה — מיטל</div>
+          <div class="project-badge">ריצה 4</div>
+        </div>
+        <div class="project-desc">+20 משרות חדשות (93 סה"כ), 2 בראש העין. אימוץ פייפליין "עדכן את אור" בוואטסאפ כסנכרון סטטוסים במקום backend — פורסם ל-Orbit.</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-name">חיפוש דירה לקנייה (חיפה)</div>
+          <div class="project-badge">נסגר 31.7</div>
+        </div>
+        <div class="project-desc">נבנה סוכן וטרקר ייעודי במהלך החודש — ואור סגר את הנושא באותו חודש. הטרקר נשאר כארכיון, לא נסרק יותר.</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-name">ספריית Obsidian</div>
+          <div class="project-badge">ריצות 9–13</div>
+        </div>
+        <div class="project-desc">חמש ריצות שבועיות מלאות. שופר כלל קידום-ישויות ("2+ הופעות בהקשר תוכן ממשי"), Dashboard.md עם Dataview עלה ונסגר ב-16.7, ותוקן bug שיצר orphan חדש בזמן תיקון קישורים.</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-name">C-core: voice-dna + project-brief</div>
+          <div class="project-badge">טיוטה ראשונה</div>
+        </div>
+        <div class="project-desc">אחרי 3 ביקורות ייעול רצופות שדיווחו על קבצים ריקים — נכתבה טיוטה ראשונה מבוססת-ראיות במקום להמשיך להמתין לקלט גולמי שלא הגיע.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- הצוות גדל -->
+  <section class="section">
+    <div class="section-label">הצוות גדל</div>
+    <div class="agent-grid">
+
+      <div class="agent-item">
+        <div class="agent-circle" style="background: #c45e2a;">מצ</div>
+        <div class="agent-info">
+          <div class="agent-name">Compass (מצפן)</div>
+          <div class="agent-role">מצפן — פנקס פרויקטים אחד לכל המערכת, עונה "מה תקוע / מה עכשיו"</div>
+        </div>
+      </div>
+
+      <div class="agent-item">
+        <div class="agent-circle" style="background: #8a4a2a;">AI</div>
+        <div class="agent-info">
+          <div class="agent-name">AI High-Tech Scanner</div>
+          <div class="agent-role">רדאר ה-AI — סורק איך אנשי הייטק באמת משתמשים ב-AI</div>
+        </div>
+      </div>
+
+      <div class="agent-item">
+        <div class="agent-circle" style="background: #5a3a1a;">דר</div>
+        <div class="agent-info">
+          <div class="agent-name">Apartment Search</div>
+          <div class="agent-role">סריקת Madlan לדירות פינוי-בינוי בחיפה — נבנה ונסגר באותו חודש</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- מה למדנו -->
+  <section class="section">
+    <div class="section-label">מה למדנו</div>
+    <div class="rule-list">
+
+      <div class="rule-box">
+        <div class="rule-box-tag">חיפוש עבודה</div>
+        <div class="rule-box-text">5+ סירובי-סינון מהירים מאותו סוג ערוץ = תעצור ותחליף ערוץ, לא תגביר קצב</div>
+        <div class="rule-box-sub">7/7 סירובים תוך 2-5 ימים מחברות הייטק גדולות. הציון שלנו מודד התאמת-דרישות, לא סיכוי-מעבר — 85% ו-50% נפלו באותה מהירות.</div>
+      </div>
+
+      <div class="rule-box">
+        <div class="rule-box-tag">חיפוש עבודה</div>
+        <div class="rule-box-text">סטודיואים נכנסו ל-scope — אותו סדר גודל כמו Firma/OPEN בלבד</div>
+        <div class="rule-box-sub">הרקע הסטודיו של אור הוא יתרון בסטודיו וחיסרון ב-ATS של חברת product גדולה. זו התאמת ערוץ, לא פשרה. קיים רק בתל אביב, לא בצפון.</div>
+      </div>
+
+      <div class="rule-box">
+        <div class="rule-box-tag">דה-דופ</div>
+        <div class="rule-box-text">דה-דופ בטרקר לפי job-direct/ATS, לא רק לפי job-link</div>
+        <div class="rule-box-sub">Sweet Security כמעט נכפלה — קישור שונה (Glassdoor מול Indeed) לאותו ATS (Greenhouse). כמעט הגשה כפולה.</div>
+      </div>
+
+      <div class="rule-box">
+        <div class="rule-box-tag">ניהול זיכרון</div>
+        <div class="rule-box-text">תקרת ארכוב שבועית לא מספיקה כשקצב התיעוד עולה עליה</div>
+        <div class="rule-box-sub">אושש פעם שלישית (30.06, 09.07, 23.07) — learning-log ו-decisions תפחו שוב תוך ימים. אם יישנה שוב, לעבור לארכוב תלוי-נפח.</div>
+      </div>
+
+      <div class="rule-box">
+        <div class="rule-box-tag">C-core</div>
+        <div class="rule-box-text">טיוטה מתויגת עדיפה על קובץ ריק שחוסם כל סוכן תוכן</div>
+        <div class="rule-box-sub">voice-dna ו-project-brief נכתבו כטיוטה ראשונה מבוססת-ראיות במקום להמשיך להמתין לקלט גולמי שלא הגיע חודש שלם.</div>
+      </div>
+
+      <div class="rule-box">
+        <div class="rule-box-tag">ספריית Obsidian</div>
+        <div class="rule-box-text">"2+ הופעות" נספרות רק בהקשר תוכן ממשי ושונה, לא שורה חוזרת בטבלה</div>
+        <div class="rule-box-sub">כלי שמופיע רק כשורה משוכפלת בטבלת "Best Free Alternatives" לא נחשב — נדרש סעיף/פסקה ייעודית כדי לקדם לישות.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- לחודש הבא -->
+  <div class="footer-block">
+    <div class="footer-label">לחודש הבא — אוגוסט 2026</div>
+    <div class="footer-title">לנעול את השיעור הראשון</div>
+    <div class="footer-text">חיפוש הדירה ירד מהשולחן, אז אוגוסט מתפנה למנוע ההכנסה האמיתי. במקביל, קוהורט "בלי מיקום" בחיפוש העבודה מתחיל לתת תוצאות, והדייג'סט השבועי עובר לריצה אוטומטית מלאה ראשונה.</div>
+    <div class="footer-items">
+      <div class="footer-item">
+        <div class="footer-dot"></div>
+        <span>לעקוב אחרי תשובת התלמיד ולקבוע את 3 השיעורים הראשונים</span>
+      </div>
+      <div class="footer-item">
+        <div class="footer-dot"></div>
+        <span>להשוות מהירות תגובה: קוהורט "בלי מיקום" (מ-27.7) מול "עם מיקום"</span>
+      </div>
+      <div class="footer-item">
+        <div class="footer-dot"></div>
+        <span>ריצה 5 לחיפוש עבודה מיטל (בעוד כ-7 ימים) + מעקב סטטוסים בוואטסאפ</span>
+      </div>
+      <div class="footer-item">
+        <div class="footer-dot"></div>
+        <span>להכריע בהחלטות עיצוב פתוחות בפורטפוליו 2026 (כריכות, affordance, הירו)</span>
+      </div>
+      <div class="footer-item">
+        <div class="footer-dot"></div>
+        <span>לעקוב אחרי Weekly AI Digest בריצה האוטומטית המלאה הראשונה שלו (שישי 09:35)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="colophon">ABC-TOM System v9 · Or Ben · אוגוסט 2026</div>
+
+</div>
+</body>
+</html>
