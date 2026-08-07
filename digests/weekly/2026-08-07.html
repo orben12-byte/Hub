@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekly AI Digest — 07.08.2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif; background: #f5f5f5; color: #111827; max-width: 600px; margin: 0 auto; padding: 32px 16px; line-height: 1.6; direction: rtl; text-align: right; }
+  .header { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 16px; padding: 28px 24px 24px; margin-bottom: 16px; text-align: right; direction: rtl; }
+  .header-eyebrow { font-size: 11px; font-weight: 600; color: #9ca3af; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+  .header h1 { font-size: 26px; font-weight: 700; color: #111827; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .header .date { font-size: 13px; color: #6b7280; margin-bottom: 8px; }
+  .header-meta { display: inline-block; font-size: 11px; color: #9ca3af; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 999px; padding: 3px 10px; margin-top: 4px; }
+  .tldr { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px 20px 12px; margin-bottom: 16px; direction: rtl; text-align: right; }
+  .tldr-title { font-size: 10px; font-weight: 700; color: #9ca3af; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; display: block; }
+  .tldr-row { padding: 10px 0; border-bottom: 1px solid #f3f4f6; direction: rtl; text-align: right; }
+  .tldr-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .tldr-label { display: block; font-size: 10px; font-weight: 600; color: #9ca3af; margin-bottom: 3px; text-align: right; letter-spacing: 0.5px; }
+  .tldr-text { display: block; font-size: 13px; color: #374151; text-align: right; line-height: 1.5; }
+  .section { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; margin-bottom: 16px; direction: rtl; text-align: right; }
+  .section-header { display: block; margin-bottom: 16px; direction: rtl; text-align: right; }
+  .section-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 999px; letter-spacing: 0.3px; }
+  .badge-dev { background: #f3f0ff; color: #7c3aed; }
+  .badge-design { background: #eff6ff; color: #2563eb; }
+  .badge-cool { background: #f0fdf4; color: #15803d; }
+  .badge-tool { background: #fffbeb; color: #d97706; }
+  .item { padding: 14px 0; border-bottom: 1px solid #f3f4f6; direction: rtl; text-align: right; }
+  .item:last-child { border-bottom: none; padding-bottom: 0; }
+  .item-hero { padding: 14px; border-radius: 10px; border-bottom: none; margin-bottom: 12px; }
+  .section-dev .item-hero { background: #f5f3ff; border: 2px solid #ddd6fe; }
+  .section-design .item-hero { background: #eff6ff; border: 2px solid #bfdbfe; }
+  .section-cool .item-hero { background: #f0fdf4; border: 2px solid #bbf7d0; }
+  .section-tool .item-hero { background: #fffbeb; border: 2px solid #fde68a; }
+  .item-hero .item-title { font-size: 15px; }
+  .tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 999px; margin-bottom: 6px; letter-spacing: 0.3px; }
+  .tag-now { background: #fff7ed; color: #c2410c; }
+  .tag-fyi { background: #eff6ff; color: #1d4ed8; }
+  .tag-future { background: #faf5ff; color: #7c3aed; }
+  .item-title { font-size: 14px; font-weight: 600; color: #111827; text-align: right; margin-bottom: 3px; line-height: 1.4; }
+  .item-source { font-size: 11px; color: #9ca3af; margin-bottom: 6px; text-align: right; }
+  .item-source a { color: #6b7280; text-decoration: none; }
+  .item-summary { font-size: 13px; color: #6b7280; text-align: right; line-height: 1.6; }
+  .tool-detail { background: #ffffff; border: 1px solid #fde68a; border-radius: 8px; padding: 14px; margin-top: 12px; }
+  .tool-detail-row { margin-bottom: 10px; text-align: right; }
+  .tool-detail-row:last-child { margin-bottom: 0; }
+  .tool-detail-label { display: block; font-size: 10px; font-weight: 700; color: #d97706; margin-bottom: 2px; text-align: right; letter-spacing: 0.5px; text-transform: uppercase; }
+  .tool-detail-text { display: block; font-size: 13px; color: #374151; line-height: 1.5; text-align: right; }
+  .tool-link { display: inline-block; margin-top: 12px; font-size: 12px; font-weight: 700; color: #ffffff; text-decoration: none; padding: 7px 18px; border-radius: 999px; background: #d97706; }
+  .footer { text-align: center; margin-top: 8px; font-size: 11px; color: #d1d5db; padding: 16px 0; direction: rtl; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">Weekly AI Digest</div>
+  <h1>📡 מה קרה השבוע ב-AI</h1>
+  <div class="date">שבוע של 7 באוגוסט 2026 &nbsp;·&nbsp; 07.08.2026</div>
+  <div class="header-meta">10 פריטים &nbsp;·&nbsp; ~5 דק' קריאה</div>
+</div>
+
+<div class="tldr">
+  <span class="tldr-title">השבוע בשניה</span>
+  <div class="tldr-row">
+    <span class="tldr-label">🔥 הכי חשוב</span>
+    <span class="tldr-text">Claude Opus 5 יצא לדרך — קרוב לרמת Fable 5 במחיר חצי, וכבר ברירת המחדל ב-Claude Code (מגרסה v2.1.219 ומעלה).</span>
+  </div>
+  <div class="tldr-row">
+    <span class="tldr-label">🤯 הכי מגניב</span>
+    <span class="tldr-text">Qwen3.8-Max של עליבאבא (2.4 טריליון פרמטרים) עבד ברצף 10 ימים ובנה מאפס harness קוד שמשתפר את עצמו.</span>
+  </div>
+  <div class="tldr-row">
+    <span class="tldr-label">🛠 כדאי לנסות</span>
+    <span class="tldr-text">Claude Security Plugin — סורק פרצות אבטחה מרובה-סוכנים שרץ ישירות בטרמינל של Claude Code, בחינם בבטא.</span>
+  </div>
+</div>
+
+<div class="section section-dev">
+  <div class="section-header">
+    <span class="section-badge badge-dev">AI בפיתוח ובנייה</span>
+  </div>
+
+  <div class="item item-hero">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">Claude Opus 5 יצא, ו-Claude Code התעדכן</div>
+    <div class="item-source">מקור: <a href="https://dev.classmethod.jp/en/articles/20260725-cc-updates-v2-1-219/">DevelopersIO</a></div>
+    <div class="item-summary">Opus 5 מגיע קרוב לרמת הדגל Fable 5 אבל במחיר חצי, זמין בכל התוכניות ובממשק ה-API באותו מחיר של Opus 4.8. Claude Code v2.1.219 ומעלה נדרש כדי להשתמש בו, וכולל גם Fast Mode מהיר פי 2.5.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-fyi">👀 שווה לדעת</span>
+    <div class="item-title">Cursor 3 מוסיף ניתוב חכם ואפליקציית iOS</div>
+    <div class="item-source">מקור: <a href="https://www.datacamp.com/blog/cursor-3">DataCamp</a></div>
+    <div class="item-summary">Cursor Router עם Auto Intelligence בוחר את המודל הכי מתאים לכל משימה כדי לחסוך עלות, ו-Cursor ל-iOS (בטא) מאפשר לעקוב אחרי סוכנים שרצים ברקע ולאשר שינויים ישירות מהטלפון.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-future">🔮 בקרוב</span>
+    <div class="item-title">מטא נכנסת למירוץ עם Muse Code</div>
+    <div class="item-source">מקור: <a href="https://research.meta.ai/blog/introducing-muse-code-and-muse-spark-1-2">Meta AI Research</a></div>
+    <div class="item-summary">סוכן קוד חדש שרץ בטרמינל, מבוסס על מודל Muse Spark 1.2 שמתוכנן לבצע משימות פיתוח מורכבות מקצה לקצה — תכנון, עריכת קבצים, הרצת בדיקות ותיקון שגיאות. כרגע בבטא ל-macOS ו-Linux.</div>
+  </div>
+</div>
+
+<div class="section section-design">
+  <div class="section-header">
+    <span class="section-badge badge-design">AI בעיצוב</span>
+  </div>
+
+  <div class="item item-hero">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">Figma Weave נכנס לקנבס העיצוב, בבטא פתוחה וחינם</div>
+    <div class="item-source">מקור: <a href="https://www.figma.com/blog/connecting-figma-and-weave/">Figma Blog</a></div>
+    <div class="item-summary">מעל 20 משימות תמונה מבוססות AI זמינות עכשיו ישירות בתוך Figma Design, בלי לצאת לכלי חיצוני — יצירת וריאציות, עריכה בסגנון ושיתוף workflows דרך Figma Community. בזמן הבטא זה לא צורך קרדיטים.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">סרגל כלים חדש לעריכת תמונות: Vectorize, Erase, Expand</div>
+    <div class="item-source">מקור: <a href="https://www.figma.com/blog/introducing-vectorize/">Figma Blog</a></div>
+    <div class="item-summary">Vectorize הופך תמונה רסטרית לוקטור עריך בקליק אחד, לצד Remove Background, Erase Object ו-Expand Image שממלא AI רקע חסר כשמשנים יחס רוחב-גובה. כל הכלים עכשיו במקום אחד.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">תיקיות מקוננות — סוף סוף</div>
+    <div class="item-source">מקור: <a href="https://help.figma.com/hc/en-us/articles/39582753756695-What-s-new-from-Config-2026">Figma Help Center</a></div>
+    <div class="item-summary">פיצ'ר מבוקש שמאפשר לארגן פרויקטים גדולים בהיררכיה של תיקיות בתוך תיקיות, במקום קובץ שטוח אחד גדול.</div>
+  </div>
+</div>
+
+<div class="section section-cool">
+  <div class="section-header">
+    <span class="section-badge badge-cool">חדש ומגניב</span>
+  </div>
+
+  <div class="item item-hero">
+    <span class="tag tag-future">🔮 בקרוב</span>
+    <div class="item-title">Qwen3.8-Max: 2.4 טריליון פרמטרים ו-10 ימי עבודה רצופים</div>
+    <div class="item-source">מקור: <a href="https://www.marktechpost.com/2026/08/03/alibaba-qwen-releases-qwen3-8-max/">MarkTechPost</a></div>
+    <div class="item-summary">המודל הגדול ביותר של עליבאבא עד היום, עם חלון הקשר של עד מיליון טוקנים. בבדיקה אחת המודל עבד יותר מ-10 ימים ברצף ובנה מאפס harness קוד שמשתפר את עצמו. משקלים פתוחים צפויים לצאת בשבוע הקרוב.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-fyi">👀 שווה לדעת</span>
+    <div class="item-title">51% מהקוד ב-GitHub נכתב או נעזר ב-AI</div>
+    <div class="item-source">מקור: <a href="https://www.under30ceo.com/ai-coding-tools-reshaping-software-2026/">Under30CEO</a></div>
+    <div class="item-summary">GitHub מדווחת על כ-180 מיליון מפתחים ורישום חדש כמעט כל שנייה. הרוב המכריע כבר לא כותב קוד לבד — ה-AI מתכנן, כותב, בודק ופותח pull requests.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-fyi">👀 שווה לדעת</span>
+    <div class="item-title">אמזון חצתה שווי שוק של 3 טריליון דולר על ביקוש ל-AI cloud</div>
+    <div class="item-source">מקור: <a href="https://techstartups.com/2026/08/04/top-tech-news-today-august-4-2026-anthropic-apple-google-meta-openai-palantir-more/">Tech Startups</a></div>
+    <div class="item-summary">רק החברה החמישית בהיסטוריה שמגיעה לרף הזה, אחרי אנבידיה, אלפאבית, מיקרוסופט ואפל — סימן נוסף לכמה כסף זורם כרגע לתשתיות AI.</div>
+  </div>
+</div>
+
+<div class="section section-tool">
+  <div class="section-header">
+    <span class="section-badge badge-tool">כלי אחד לנסות</span>
+  </div>
+
+  <div class="item item-hero">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">Claude Security Plugin</div>
+    <div class="item-source">מקור: <a href="https://www.marktechpost.com/2026/07/22/anthropic-releases-claude-security-plugin-for-claude-code-in-beta-a-multi-agent-vulnerability-scanner-that-runs-in-your-terminal/">MarkTechPost</a></div>
+    <div class="item-summary">תוסף חדש ל-Claude Code שמריץ סריקת פרצות אבטחה מרובת-סוכנים ישירות בטרמינל, ומציע תיקונים מאומתים לפני שאתה מתחייב (commit) לקוד.</div>
+    <div class="tool-detail">
+      <div class="tool-detail-row">
+        <span class="tool-detail-label">מה זה עושה</span>
+        <span class="tool-detail-text">אותו כלי שכותב ועורך את הקוד שלך עכשיו גם סורק אותו לבעיות אבטחה, באותה session — בלי לצאת ל-Claude Code בכלל.</span>
+      </div>
+      <div class="tool-detail-row">
+        <span class="tool-detail-label">למה כדאי לנסות</span>
+        <span class="tool-detail-text">בונה PWA-ים לבד עם Claude Code? זה בדיוק נט הביטחון שחסר — סריקה אוטומטית לפני שדברים עולים לפרודקשן, בלי עלות נוספת בזמן הבטא.</span>
+      </div>
+      <div class="tool-detail-row">
+        <span class="tool-detail-label">איך מתחילים</span>
+        <span class="tool-detail-text">מתקינים כתוסף (plugin) בתוך Claude Code — בבטא וחינמי כרגע.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  נוצר אוטומטית ע"י הסוכנים של אור &nbsp;·&nbsp; Weekly AI Digest &nbsp;·&nbsp; 07.08.2026
+</div>
+
+</body>
+</html>
