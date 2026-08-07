@@ -197,11 +197,35 @@
     .name-row { display: flex; gap: 10px; align-items: flex-end; margin-bottom: 16px; }
     .name-row .field { flex: 1; margin-bottom: 0; }
 
-    @media (max-width: 520px) {
+    @media (max-width: 600px) {
+      header { padding: 12px 16px; }
+      main { padding: 20px 14px 50px; }
+      h1 { font-size: 18px; }
+      .page-sub { font-size: 13px; margin-bottom: 20px; }
+      .card { padding: 16px 16px; }
+      .settings-grid { grid-template-columns: 1fr 1fr; }
+
+      /* calc row: name full-width, then weight | time | qty | ✕ */
+      .calc-row {
+        grid-template-columns: 1fr 1fr 1fr auto;
+      }
+      .calc-row .field:first-child { grid-column: 1 / -1; }
+      .row-del { align-self: end; }
+
+      .btn { width: 100%; }
+      .btn-row { flex-direction: column; }
+      .btn-sm { width: auto; }
+      .btn-row .btn-sm { width: auto; }
+
+      .hist-head { flex-wrap: wrap; gap: 6px; }
+    }
+
+    @media (max-width: 380px) {
+      .settings-grid { grid-template-columns: 1fr; }
       .calc-row { grid-template-columns: 1fr 1fr; }
       .calc-row .field:first-child { grid-column: 1 / -1; }
-      .row-del { width: 100%; }
-      .settings-grid { grid-template-columns: 1fr; }
+      .calc-row .field:nth-child(4) { grid-column: 1 / -1; }
+      .row-del { grid-column: 1 / -1; width: 100%; }
     }
   </style>
 </head>
