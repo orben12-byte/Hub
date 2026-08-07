@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔍 Alt Hunter — 7 August 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #2c2f35;
+      color: #c8ccd4;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      direction: ltr;
+      min-height: 100vh;
+      padding: 32px 16px 64px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .header {
+      padding-bottom: 24px;
+      border-bottom: 1px solid #3a3d44;
+      margin-bottom: 32px;
+    }
+
+    .header-meta {
+      font-size: 11px;
+      color: #6a6d75;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #70a070;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .header .tagline {
+      font-size: 13px;
+      color: #6a6d75;
+      font-style: italic;
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: flex;
+      gap: 0;
+      margin-bottom: 32px;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #252830;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 14px 16px;
+      border-right: 1px solid #3a3d44;
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-val {
+      font-size: 20px;
+      font-weight: 700;
+      color: #70a070;
+      display: block;
+    }
+
+    .stat-val.warn { color: #e07070; }
+
+    .stat-key {
+      font-size: 10px;
+      color: #6a6d75;
+      display: block;
+      margin-top: 3px;
+      letter-spacing: 0.08em;
+    }
+
+    .stat-delta {
+      font-size: 10px;
+      color: #70a070;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* SECTIONS */
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #70a070;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: #3a3d44;
+    }
+
+    /* ITEMS */
+    .item {
+      background-color: #252830;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 8px;
+    }
+
+    .item-key {
+      font-size: 10px;
+      font-weight: 600;
+      color: #6a6d75;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .item-val {
+      font-size: 13px;
+      color: #c8ccd4;
+      line-height: 1.7;
+    }
+
+    .item-val a {
+      color: #70a070;
+      text-decoration: none;
+    }
+
+    .item-val a:hover { text-decoration: underline; }
+
+    .item-val ul {
+      margin: 8px 0 0 20px;
+    }
+
+    .item-val li {
+      margin-bottom: 6px;
+    }
+
+    .item-val strong {
+      color: #d8dce4;
+      font-weight: 600;
+    }
+
+    .item-val code {
+      background-color: #1a1d22;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #70a070;
+    }
+
+    /* ACCENT VARIANTS */
+    .item.highlight {
+      border-color: #70a07040;
+      background-color: #1e2a1e;
+    }
+
+    .item.highlight .item-key { color: #70a070; }
+
+    .item.dim {
+      border-color: #32353c;
+      background-color: #222428;
+    }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid #3a3d44;
+      text-align: center;
+      font-size: 11px;
+      color: #6a6d75;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+    }
+
+    table td {
+      padding: 8px 12px;
+      border: 1px solid #3a3d44;
+    }
+
+    table td:first-child {
+      color: #6a6d75;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <div class="header-meta">AUTOMATED WEEKLY SCAN</div>
+      <h1>🔍 Alternative Hunter</h1>
+      <div class="tagline">Free alternatives to Claude Pro — August 7, 2026</div>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <span class="stat-val">$0</span>
+        <span class="stat-key">CHEAPEST PATH</span>
+        <span class="stat-delta">Ollama + Claude Code</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">🟢</span>
+        <span class="stat-key">STATUS</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">1 NEW</span>
+        <span class="stat-key">RELEASES</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🔥 EXECUTIVE SUMMARY</div>
+
+      <div class="item highlight">
+        <span class="item-key">STEADY WEEK — OLLAMA SHIPS POINT RELEASE</span>
+        <div class="item-val">
+          A quieter week after last week's big drops, but the free-alternative story stays strong:<br><br>
+          <ul>
+            <li><strong>Ollama v0.32.6</strong> (Aug 4) — faster Qwen3.5 on Apple GPUs, OpenAI-compatible streaming improvements, better cloud-only model handling, TUI fixes</li>
+            <li><strong>Open WebUI v0.11.0</strong> — still the current release from July 27, no new drop this week</li>
+            <li><strong>MCP</strong> — now the industry-standard connectivity layer across Anthropic, OpenAI, Google DeepMind, and Microsoft</li>
+          </ul>
+          <br>
+          The <strong>Ollama + Claude Code</strong> local setup remains the standout <code>$0/month</code> path. Experimental image generation was temporarily pulled in the latest Ollama build, but the core coding-assistant experience keeps improving.
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🎯 BEST FREE ALTERNATIVES (AUGUST 7, 2026)</div>
+
+      <div class="item highlight">
+        <span class="item-key">1. OLLAMA + CLAUDE CODE ⭐ TOP PICK</span>
+        <div class="item-val">
+          <strong>Run Claude Code fully local for $0/month.</strong> Ollama's Anthropic Messages API support (since Jan 2026) lets Claude Code point at any local model.<br><br>
+          <strong>Now on v0.32.6 (Aug 4):</strong>
+          <ul>
+            <li>Faster Qwen3.5 decoding on Apple GPUs</li>
+            <li>OpenAI-compatible streaming improvements</li>
+            <li>Better cloud-only model handling + TUI fixes</li>
+            <li>Interactive agent mode (bare <code>ollama</code> launches chat/code/search agent)</li>
+          </ul>
+          <strong>Recommended model for tool-calling:</strong> <code>GLM-4.7-flash</code> — supports tool-calling with 128K context, ideal for Claude Code workflows.<br>
+          <a href="https://docs.ollama.com/integrations/claude-desktop" target="_blank">→ Official Setup Guide</a>
+        </div>
+      </div>
+
+      <div class="item highlight">
+        <span class="item-key">2. OPEN WEBUI V0.11.0 (JULY 27, 2026)</span>
+        <div class="item-val">
+          <strong>Best free chat frontend for Ollama.</strong> Still the current release — biggest UI overhaul yet.<br><br>
+          <strong>In v0.11.0:</strong>
+          <ul>
+            <li>✅ Interface reorganization with unified settings</li>
+            <li>✅ Rebuilt sidebar + remappable keyboard shortcuts</li>
+            <li>✅ Reworked model picker</li>
+            <li>✅ Notifications, usage tracking, notes, and variables</li>
+            <li>✅ Admin panel updates</li>
+          </ul>
+          Desktop app runs on Windows/Mac/Linux — no Docker required.<br>
+          <a href="https://github.com/open-webui/open-webui/releases" target="_blank">→ GitHub Releases</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">3. OPEN-SOURCE CODING ASSISTANTS</span>
+        <div class="item-val">
+          All free with local models or pay-per-use APIs:<br><br>
+          <strong>• Aider</strong> — multi-file editing, command execution, any model<br>
+          <strong>• Cline</strong> — free for individuals, pay per-use inference<br>
+          <strong>• Continue.dev</strong> — VS Code/JetBrains extension, wires local models into your editor<br>
+          <strong>• OpenCode</strong> — open-source, top community pick<br>
+          <strong>• OpenHands</strong> — multi-file editing, codebase analysis<br><br>
+          <strong>Cost:</strong> Free software + model costs ($0 with local models)
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">4. CHERRY STUDIO (DESKTOP CLIENT)</span>
+        <div class="item-val">
+          <strong>Cross-platform desktop client</strong> (Windows/macOS/Linux) that puts dozens of AI providers under one roof. Stores all data <strong>locally</strong>, bundled free models, no account required.<br><br>
+          <strong>Cost:</strong> Free, open-source
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">5. WEB-BASED FREE OPTIONS</span>
+        <div class="item-val">
+          For quick access without any setup:<br><br>
+          <strong>• HuggingChat</strong> — free access to open-source models<br>
+          <strong>• Gemini CLI</strong> — generous free tier in terminal workflow<br>
+          <strong>• Mistral Le Chat</strong> — free chat alternative<br>
+          <strong>• DeepSeek</strong> — free, strong reasoning<br>
+          <strong>• Lumo by Proton</strong> — privacy-focused free option
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">⚡ UPDATES THIS WEEK</div>
+
+      <div class="item highlight">
+        <span class="item-key">OLLAMA V0.32.6 (AUGUST 4, 2026) — NEW</span>
+        <div class="item-val">
+          Latest point release, published Aug 4:<br><br>
+          <ul>
+            <li>Faster <strong>Qwen3.5</strong> on Apple GPUs</li>
+            <li>OpenAI-compatible <strong>streaming improvements</strong></li>
+            <li>Better <strong>cloud-only model handling</strong></li>
+            <li>TUI fixes + updated MLX and llama.cpp engines</li>
+            <li>⚠️ Experimental image generation temporarily removed</li>
+          </ul>
+          <a href="https://releasebot.io/updates/ollama" target="_blank">→ Ollama Release Notes</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">MODEL CONTEXT PROTOCOL (MCP) — NOW STANDARD</span>
+        <div class="item-val">
+          <strong>MCP is the defining connectivity standard for AI apps in 2026.</strong><br><br>
+          <ul>
+            <li>Adopted by <strong>Anthropic, OpenAI, Google DeepMind, Microsoft</strong></li>
+            <li>LangChain, CrewAI, LangGraph, LlamaIndex all made MCP the default tool-calling protocol</li>
+            <li>First-class support in Claude Desktop; growing IDE adoption</li>
+            <li>Public registry of community servers keeps expanding</li>
+          </ul>
+          "USB-C for AI agents" — one universal connector across all models.<br>
+          <a href="https://www.sitepoint.com/model-context-protocol-mcp/" target="_blank">→ MCP 2026 Guide</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">HACKER NEWS + REDDIT HIGHLIGHTS</span>
+        <div class="item-val">
+          <strong>• HN:</strong> Active threads on the first Claude Code clients for Ollama local models<br>
+          <strong>• HN:</strong> "Claude Desktop spawns 1.8 GB Hyper-V VM on every launch, even chat-only" — recurring gripe<br>
+          <strong>• r/ollama:</strong> <code>GLM-4.7-flash</code> favored for tool-calling with Claude Code (128K context)<br><br>
+          <a href="https://news.ycombinator.com/item?id=46722285" target="_blank">→ HN: First Claude Code client for Ollama</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">📊 FREE VS PAID COMPARISON</div>
+
+      <div class="item">
+        <span class="item-key">AT A GLANCE</span>
+        <div class="item-val">
+          <table>
+            <tr>
+              <td>Claude Pro</td>
+              <td>$20-30/mo, cloud only</td>
+            </tr>
+            <tr>
+              <td>Ollama v0.32.6 (Free)</td>
+              <td><strong>$0</strong>, 100% local, offline</td>
+            </tr>
+            <tr>
+              <td>Open WebUI v0.11.0</td>
+              <td><strong>$0</strong>, local or cloud</td>
+            </tr>
+            <tr>
+              <td>Best free tool-calling model</td>
+              <td><strong>GLM-4.7-flash</strong> (128K context)</td>
+            </tr>
+            <tr>
+              <td>Easiest desktop client</td>
+              <td><strong>Cherry Studio</strong> (no account)</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🎬 VIDEO RESOURCES</div>
+
+      <div class="item">
+        <span class="item-key">SETUP TUTORIALS (2026)</span>
+        <div class="item-val">
+          <ul>
+            <li><a href="https://www.youtube.com/watch?v=7L_iDpcMLjc" target="_blank">How To Use Claude Code With Ollama (Free Local AI Setup)</a></li>
+            <li><a href="https://www.youtube.com/watch?v=GeJd0dAw3uw" target="_blank">Use Claude Code FREE Forever [Ollama Setup]</a></li>
+            <li><a href="https://www.youtube.com/watch?v=8ozhyUsO5xU" target="_blank">Claude Desktop Just Got CRAZY — Run ANY Model for FREE (Ollama Guide)</a></li>
+            <li><a href="https://www.youtube.com/watch?v=oQYyAC6IO-Y" target="_blank">Claude Code FREE on VS Code: Ollama Setup for Beginners (Windows 11)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">💡 RECOMMENDATIONS FOR OR</div>
+
+      <div class="item highlight">
+        <span class="item-key">IMMEDIATE ACTIONS</span>
+        <div class="item-val">
+          <strong>1. Update Ollama to v0.32.6</strong><br>
+          • Grab the latest streaming + cloud-model handling fixes<br>
+          • Pull <code>glm-4.7-flash</code> for tool-calling with Claude Code (128K context)<br>
+          • Note: experimental image gen is temporarily out this build<br><br>
+
+          <strong>2. Stay on Open WebUI v0.11.0</strong><br>
+          • No new release this week — current version is stable<br>
+          • Desktop app, no Docker needed on Windows<br><br>
+
+          <strong>3. Try Cherry Studio if you want zero-setup</strong><br>
+          • Cross-platform, local data, no account required<br>
+          • Good fallback when you don't want to run a local model<br><br>
+
+          <strong>Why This Matters:</strong><br>
+          • ✅ No monthly subscription for the bulk of AI coding tasks<br>
+          • ✅ Full offline capability for privacy-sensitive work<br>
+          • ✅ MCP is now standard — tooling works across the ecosystem
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Alternative Hunter — Automated Weekly Scan<br>
+      Generated: August 7, 2026 • Next Hunt: August 14, 2026
+    </div>
+
+  </div>
+</body>
+</html>
