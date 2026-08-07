@@ -275,6 +275,7 @@
     .card-budget .card-icon { background: #CA8A04; }
     .card-pod    .card-icon { background: #8B5CF6; }
     .card-necro  .card-icon { background: linear-gradient(135deg, #34D08C 0 50%, #9B51E0 50% 100%); }
+    .card-3dcalc .card-icon { background: #EA580C; }
 
     /* Responsive */
     @media (max-width: 768px) {
@@ -371,6 +372,14 @@
         <span class="cp-arrow">←</span>
       </a>
 
+      <a class="cp-row" id="cpRadar" href="digests/hightech-radar/">
+        <span class="cp-dot" style="background:#06B6D4"></span>
+        <span class="cp-name">📡 רדאר ה-AI</span>
+        <span class="cp-headline empty" id="cpRadarH">אין גיליון עדיין</span>
+        <span class="cp-date" id="cpRadarD"></span>
+        <span class="cp-arrow">←</span>
+      </a>
+
       <a class="cp-row" id="cpMonthly" href="digests/monthly/">
         <span class="cp-dot" style="background:#C45E2A"></span>
         <span class="cp-name">Monthly</span>
@@ -445,6 +454,14 @@
         </div>
         <div class="card-name">NECRONEKO</div>
         <div class="card-desc">חנות הדפסות תלת-מימד ופסלוני אספנות. גלריה, עגלה והזמנה בוואטסאפ.</div>
+      </a>
+
+      <a class="card card-3dcalc" href="3d-calc/" target="_blank" rel="noopener">
+        <div class="card-icon">
+          <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><rect x="8" y="6" width="8" height="3" rx="0.5" fill="rgba(255,255,255,0.9)" stroke="none"/><circle cx="9" cy="13" r="1" fill="rgba(255,255,255,0.95)" stroke="none"/><circle cx="12" cy="13" r="1" fill="rgba(255,255,255,0.95)" stroke="none"/><circle cx="15" cy="13" r="1" fill="rgba(255,255,255,0.95)" stroke="none"/><circle cx="9" cy="17" r="1" fill="rgba(255,255,255,0.95)" stroke="none"/><circle cx="12" cy="17" r="1" fill="rgba(255,255,255,0.95)" stroke="none"/><circle cx="15" cy="17" r="1" fill="rgba(255,255,255,0.95)" stroke="none"/></svg>
+        </div>
+        <div class="card-name">מחשבון הדפסות 3D</div>
+        <div class="card-desc">חשב עלות חומרים, חשמל ורווח לכל הזמנה — ללא כניסה.</div>
       </a>
 
       <a class="card card-budget" href="budget/" target="_blank" rel="noopener">
@@ -653,6 +670,7 @@
       { folder: 'apartment-search', rowId: 'cpApt', rowHeadlineId: 'cpAptH', rowDateId: 'cpAptD', emptyId: 'aptEmpty', latestId: 'aptLatest', titleId: 'aptTitle', dateId: 'aptDate' },
       { folder: 'efficiency', rowId: 'cpEff',     rowHeadlineId: 'cpEffH',     rowDateId: 'cpEffD',     emptyId: 'effEmpty',     latestId: 'effLatest',     titleId: 'effTitle',     dateId: 'effDate'     },
       { folder: 'alt-hunter', rowId: 'cpAlt',     rowHeadlineId: 'cpAltH',     rowDateId: 'cpAltD',     emptyId: 'altEmpty',     latestId: 'altLatest',     titleId: 'altTitle',     dateId: 'altDate'     },
+      { folder: 'hightech-radar', rowId: 'cpRadar', rowHeadlineId: 'cpRadarH', rowDateId: 'cpRadarD' },
       { folder: 'monthly',    rowId: 'cpMonthly', rowHeadlineId: 'cpMonthlyH', rowDateId: 'cpMonthlyD', emptyId: 'monthlyEmpty', latestId: 'monthlyLatest', titleId: 'monthlyTitle', dateId: 'monthlyDate' }
     ].forEach(feedStream);
   </script>

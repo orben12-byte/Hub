@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>מחשבון הדפסות 3D — Orbit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:           #F5F3F0;
+      --surface:      #FFFFFF;
+      --border:       #E8E3DC;
+      --text:         #111111;
+      --muted:        #6B6B6B;
+      --accent:       #EA580C;
+      --accent-hover: #C2410C;
+      --card-hover:   #F0EDE8;
+      --danger:       #DC2626;
+    }
+    [data-theme="dark"] {
+      --bg:           #141414;
+      --surface:      #1E1E1E;
+      --border:       #2E2E2E;
+      --text:         #F0F0F0;
+      --muted:        #9A9A9A;
+      --accent:       #F97316;
+      --accent-hover: #EA580C;
+      --card-hover:   #242424;
+      --danger:       #EF4444;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Rubik', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      transition: background 200ms, color 200ms;
+    }
+
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 28px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .header-left { display: flex; align-items: center; gap: 14px; }
+
+    .back-btn {
+      background: none; border: 1px solid var(--border);
+      border-radius: 8px; padding: 7px 11px;
+      cursor: pointer; font-size: 15px; color: var(--muted);
+      text-decoration: none; transition: background 150ms;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .back-btn:hover { background: var(--card-hover); color: var(--text); }
+
+    .logo { font-size: 18px; font-weight: 700; letter-spacing: -0.4px; color: var(--text); }
+    .logo span { color: var(--accent); }
+
+    .theme-btn {
+      background: none; border: 1px solid var(--border);
+      border-radius: 8px; padding: 7px 11px;
+      cursor: pointer; font-size: 17px; line-height: 1; color: var(--text);
+      transition: background 150ms;
+    }
+    .theme-btn:hover { background: var(--card-hover); }
+
+    main {
+      max-width: 680px; margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    h1 {
+      font-size: 22px; font-weight: 700; margin-bottom: 6px;
+    }
+    .page-sub { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+
+    /* Card */
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 22px 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-size: 13px; font-weight: 600; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+
+    /* Form */
+    label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 4px; }
+    input[type="number"], input[type="text"] {
+      width: 100%; padding: 9px 11px; font-size: 14px;
+      font-family: 'Rubik', sans-serif;
+      border: 1px solid var(--border); border-radius: 8px;
+      background: var(--bg); color: var(--text);
+      transition: border-color 150ms;
+    }
+    input:focus { outline: none; border-color: var(--accent); }
+
+    .field { margin-bottom: 12px; }
+
+    /* Settings grid */
+    .settings-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 10px 16px;
+    }
+
+    /* Calc rows */
+    .calc-row {
+      display: grid;
+      grid-template-columns: 1.5fr 0.9fr 0.9fr 0.6fr auto;
+      gap: 8px; align-items: end;
+      margin-bottom: 10px;
+    }
+    .calc-row label { font-size: 11px; }
+    .calc-row input { padding: 8px 10px; font-size: 14px; }
+    .row-del {
+      background: none; border: 1px solid var(--border);
+      color: var(--muted); border-radius: 8px;
+      width: 36px; height: 36px; cursor: pointer; font-size: 18px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 120ms, color 120ms;
+    }
+    .row-del:hover { background: #fee2e2; border-color: var(--danger); color: var(--danger); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 11px 20px; border-radius: 10px;
+      font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+      cursor: pointer; border: none; transition: background 150ms, opacity 150ms;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-secondary {
+      background: none; border: 1px solid var(--border); color: var(--text);
+    }
+    .btn-secondary:hover { background: var(--card-hover); }
+    .btn-sm { padding: 7px 14px; font-size: 13px; }
+
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+
+    /* Result */
+    #result-card { display: none; }
+
+    .result-line {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 9px 0; border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .result-line:last-child { border-bottom: none; }
+    .result-line.total {
+      font-size: 18px; font-weight: 700; color: var(--accent);
+      padding-top: 12px;
+    }
+
+    .result-items { margin-bottom: 12px; }
+    .result-item {
+      display: flex; justify-content: space-between;
+      font-size: 13px; color: var(--muted);
+      padding: 4px 0;
+    }
+
+    /* History */
+    .hist-item {
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+    }
+    .hist-item:last-child { border-bottom: none; }
+    .hist-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
+    .hist-name { font-size: 14px; font-weight: 600; }
+    .hist-total { font-size: 14px; font-weight: 700; color: var(--accent); }
+    .hist-date { font-size: 12px; color: var(--muted); }
+    .hist-detail { font-size: 12px; color: var(--muted); }
+
+    .empty-state { text-align: center; padding: 24px; color: var(--muted); font-size: 14px; }
+
+    /* Settings toggle */
+    .settings-toggle {
+      display: flex; align-items: center; gap: 8px;
+      cursor: pointer; color: var(--muted);
+      font-size: 13px; font-weight: 600;
+      user-select: none; margin-bottom: 14px;
+    }
+    .settings-toggle:hover { color: var(--text); }
+    #settings-body { display: none; }
+    #settings-body.open { display: block; }
+
+    /* Customer name */
+    .name-row { display: flex; gap: 10px; align-items: flex-end; margin-bottom: 16px; }
+    .name-row .field { flex: 1; margin-bottom: 0; }
+
+    @media (max-width: 520px) {
+      .calc-row { grid-template-columns: 1fr 1fr; }
+      .calc-row .field:first-child { grid-column: 1 / -1; }
+      .row-del { width: 100%; }
+      .settings-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <a class="back-btn" href="..">← Orbit</a>
+    <div class="logo">3D Calc<span>.</span></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="מצב לילה">🌙</button>
+</header>
+
+<main>
+  <h1>מחשבון מחיר הדפסות</h1>
+  <p class="page-sub">חשב עלות חומרים, חשמל ורווח לכל הזמנה — ללא כניסה</p>
+
+  <!-- Settings (collapsible) -->
+  <div class="card">
+    <div class="settings-toggle" onclick="toggleSettings()" id="settings-toggle">
+      <span id="settings-arrow">▸</span> הגדרות עלויות
+    </div>
+    <div id="settings-body">
+      <div class="settings-grid">
+        <div class="field">
+          <label>משקל סליל (גרם)</label>
+          <input type="number" id="s-spool-w" value="1000" min="1">
+        </div>
+        <div class="field">
+          <label>מחיר סליל (₪)</label>
+          <input type="number" id="s-spool-p" value="60" min="0">
+        </div>
+        <div class="field">
+          <label>צריכת חשמל (וואט)</label>
+          <input type="number" id="s-watts" value="100" min="1">
+        </div>
+        <div class="field">
+          <label>תעריף חשמל (₪/kWh)</label>
+          <input type="number" id="s-elec" value="0.63" step="0.01" min="0">
+        </div>
+        <div class="field">
+          <label>מעמ (%)</label>
+          <input type="number" id="s-vat" value="18" min="0">
+        </div>
+        <div class="field">
+          <label>רווח/שעת עבודה (₪)</label>
+          <input type="number" id="s-labor" value="0" min="0">
+        </div>
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="saveSettings()">שמור הגדרות</button>
+    </div>
+  </div>
+
+  <!-- Calculator -->
+  <div class="card">
+    <div class="card-title">פריטים בהזמנה</div>
+
+    <div class="name-row">
+      <div class="field">
+        <label>שם לקוח (לציטוט)</label>
+        <input type="text" id="cust-name" placeholder="שם (אופציונלי)">
+      </div>
+    </div>
+
+    <div id="calc-rows"></div>
+
+    <button class="btn btn-secondary btn-sm" onclick="addRow()" style="margin-bottom:16px;">+ הוסף פריט</button>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="calcQuote()">חשב מחיר</button>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div class="card" id="result-card">
+    <div class="card-title">תוצאה</div>
+    <div class="result-items" id="result-items"></div>
+    <div class="result-line"><span>סכום ביניים</span><span id="r-sub"></span></div>
+    <div class="result-line"><span id="r-vat-label">מעמ</span><span id="r-vat"></span></div>
+    <div class="result-line total"><span>סה"כ ללקוח</span><span id="r-total"></span></div>
+
+    <div class="btn-row" style="margin-top:16px;">
+      <button class="btn btn-secondary btn-sm" onclick="copyQuote()">העתק ציטוט</button>
+      <button class="btn btn-secondary btn-sm" onclick="saveToHistory()">שמור בהיסטוריה</button>
+    </div>
+  </div>
+
+  <!-- History -->
+  <div class="card">
+    <div class="card-title">היסטוריה</div>
+    <div id="history-list">
+      <div class="empty-state">אין הצעות שמורות עדיין</div>
+    </div>
+  </div>
+</main>
+
+<script>
+  // ── Theme ──
+  const themeBtn = document.getElementById('themeBtn');
+  function applyTheme(dark) {
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+    themeBtn.textContent = dark ? '☀️' : '🌙';
+  }
+  const savedTheme = localStorage.getItem('orbit-theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(savedTheme === 'dark' || (!savedTheme && prefersDark));
+  function toggleTheme() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    localStorage.setItem('orbit-theme', isDark ? 'light' : 'dark');
+    applyTheme(!isDark);
+  }
+
+  // ── Settings — shared localStorage key with 3dshop_Fam ──
+  const SETTINGS_KEY = '3d_settings';
+  const HISTORY_KEY  = '3d_history';
+  const DEFAULT = { spoolWeight: 1000, spoolPrice: 60, avgWatts: 100, elecRate: 0.63, vat: 18, labor: 0 };
+
+  function getSettings() {
+    return { ...DEFAULT, ...JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}') };
+  }
+  function saveSettings() {
+    const s = {
+      spoolWeight: parseFloat(document.getElementById('s-spool-w').value) || 1000,
+      spoolPrice:  parseFloat(document.getElementById('s-spool-p').value) || 60,
+      avgWatts:    parseFloat(document.getElementById('s-watts').value)   || 100,
+      elecRate:    parseFloat(document.getElementById('s-elec').value)    || 0.63,
+      vat:         parseFloat(document.getElementById('s-vat').value)     || 18,
+      labor:       parseFloat(document.getElementById('s-labor').value)   || 0,
+    };
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(s));
+    toast('ההגדרות נשמרו');
+  }
+  function loadSettingsUI() {
+    const s = getSettings();
+    document.getElementById('s-spool-w').value = s.spoolWeight;
+    document.getElementById('s-spool-p').value = s.spoolPrice;
+    document.getElementById('s-watts').value   = s.avgWatts;
+    document.getElementById('s-elec').value    = s.elecRate;
+    document.getElementById('s-vat').value     = s.vat;
+    document.getElementById('s-labor').value   = s.labor;
+  }
+
+  // ── Settings toggle ──
+  function toggleSettings() {
+    const body  = document.getElementById('settings-body');
+    const arrow = document.getElementById('settings-arrow');
+    const open  = body.classList.toggle('open');
+    arrow.textContent = open ? '▾' : '▸';
+  }
+
+  // ── Calc rows ──
+  let rowId = 0;
+  function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function addRow(label, w, t, qty) {
+    const id = 'row' + (rowId++);
+    const div = document.createElement('div');
+    div.className = 'calc-row'; div.id = id;
+    div.innerHTML = `
+      <div class="field"><label>פריט</label><input type="text" id="${id}-l" value="${esc(label||'')}" placeholder="שם / תיאור"></div>
+      <div class="field"><label>משקל (גרם)</label><input type="number" id="${id}-w" value="${w||''}" placeholder="25" min="0"></div>
+      <div class="field"><label>זמן (שעות)</label><input type="number" id="${id}-t" value="${t||''}" placeholder="1.5" step="0.5" min="0"></div>
+      <div class="field"><label>כמות</label><input type="number" id="${id}-u" value="${qty||1}" min="1"></div>
+      <button class="row-del" onclick="delRow('${id}')" title="הסר">×</button>`;
+    document.getElementById('calc-rows').appendChild(div);
+  }
+  function delRow(id) { document.getElementById(id)?.remove(); }
+
+  // ── Calc ──
+  let lastQuote = null;
+
+  function calcQuote() {
+    const s = getSettings();
+    const rows = document.querySelectorAll('#calc-rows .calc-row');
+    if (!rows.length) { alert('הוסף לפחות פריט אחד'); return; }
+
+    let subtotal = 0;
+    const lines = [];
+    let valid = false;
+
+    rows.forEach(row => {
+      const id = row.id;
+      const label = document.getElementById(id + '-l').value.trim() || 'פריט';
+      const w = parseFloat(document.getElementById(id + '-w').value);
+      const t = parseFloat(document.getElementById(id + '-t').value);
+      const u = parseInt(document.getElementById(id + '-u').value)  || 1;
+      if (!w || !t || w <= 0 || t <= 0) return;
+      valid = true;
+
+      const mat   = (w / s.spoolWeight) * s.spoolPrice;
+      const elec  = (t * s.avgWatts / 1000) * s.elecRate;
+      const labor = t * (s.labor || 0);
+      const lineTotal = (mat + elec + labor) * u;
+      subtotal += lineTotal;
+      lines.push({ label, u, lineTotal });
+    });
+
+    if (!valid) { alert('הזן משקל וזמן תקינים לפחות לפריט אחד'); return; }
+
+    const vatAmt = subtotal * (s.vat / 100);
+    const total  = subtotal + vatAmt;
+
+    document.getElementById('result-items').innerHTML = lines.map(l =>
+      `<div class="result-item"><span>${esc(l.label)}${l.u > 1 ? ' ×' + l.u : ''}</span><span>₪${l.lineTotal.toFixed(2)}</span></div>`
+    ).join('');
+    document.getElementById('r-sub').textContent       = '₪' + subtotal.toFixed(2);
+    document.getElementById('r-vat-label').textContent = `מעמ ${s.vat}%`;
+    document.getElementById('r-vat').textContent       = '₪' + vatAmt.toFixed(2);
+    document.getElementById('r-total').textContent     = '₪' + total.toFixed(2);
+    document.getElementById('result-card').style.display = 'block';
+
+    lastQuote = {
+      name: document.getElementById('cust-name').value.trim() || 'לקוח',
+      lines, subtotal, vatAmt, total, vat: s.vat,
+    };
+  }
+
+  function quoteText() {
+    if (!lastQuote) return '';
+    const q = lastQuote;
+    const lines = [`שלום${q.name && q.name !== 'לקוח' ? ' ' + q.name : ''}! הצעת מחיר להזמנה:`, ''];
+    q.lines.forEach(l => lines.push(`• ${l.label}${l.u > 1 ? ' ×' + l.u : ''}: ₪${l.lineTotal.toFixed(2)}`));
+    lines.push('', `סה"כ כולל מעמ: ₪${q.total.toFixed(2)}`);
+    return lines.join('\n');
+  }
+
+  function copyQuote() {
+    const txt = quoteText();
+    if (!txt) return;
+    navigator.clipboard.writeText(txt)
+      .then(() => toast('הציטוט הועתק'))
+      .catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = txt; document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); ta.remove();
+        toast('הציטוט הועתק');
+      });
+  }
+
+  // ── History ──
+  function getHistory() { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); }
+  function saveHistoryData(h) { localStorage.setItem(HISTORY_KEY, JSON.stringify(h)); }
+
+  function saveToHistory() {
+    if (!lastQuote) return;
+    const h = getHistory();
+    h.unshift({
+      id: Date.now().toString(),
+      name: lastQuote.name,
+      date: new Date().toISOString(),
+      total: lastQuote.total,
+      lines: lastQuote.lines,
+      status: 'quoted',
+    });
+    saveHistoryData(h);
+    toast('נשמר בהיסטוריה');
+    renderHistory();
+  }
+
+  function deleteHistory(id) {
+    saveHistoryData(getHistory().filter(o => o.id !== id));
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const list = document.getElementById('history-list');
+    const h = getHistory();
+    if (!h.length) {
+      list.innerHTML = '<div class="empty-state">אין הצעות שמורות עדיין</div>';
+      return;
+    }
+    list.innerHTML = h.slice(0, 20).map(o => {
+      const dateStr = new Date(o.date).toLocaleDateString('he-IL', { day: 'numeric', month: 'short', year: 'numeric' });
+      const items = o.lines.map(l => `${esc(l.label)}${l.u > 1 ? ' ×' + l.u : ''}`).join(' · ');
+      return `
+        <div class="hist-item">
+          <div class="hist-head">
+            <div>
+              <div class="hist-name">${esc(o.name)}</div>
+              <div class="hist-date">${dateStr}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div class="hist-total">₪${o.total.toFixed(2)}</div>
+              <button class="btn btn-secondary btn-sm" style="color:var(--danger);border-color:var(--danger);" onclick="deleteHistory('${o.id}')">מחק</button>
+            </div>
+          </div>
+          <div class="hist-detail">${items}</div>
+        </div>`;
+    }).join('');
+  }
+
+  // ── Toast ──
+  function toast(msg) {
+    let el = document.getElementById('toast');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'toast';
+      Object.assign(el.style, {
+        position: 'fixed', bottom: '24px', right: '24px',
+        background: 'var(--text)', color: 'var(--bg)',
+        padding: '10px 18px', borderRadius: '10px',
+        fontSize: '14px', fontFamily: 'Rubik, sans-serif',
+        zIndex: '9999', opacity: '0', transition: 'opacity 200ms',
+        pointerEvents: 'none',
+      });
+      document.body.appendChild(el);
+    }
+    el.textContent = msg;
+    el.style.opacity = '1';
+    clearTimeout(el._t);
+    el._t = setTimeout(() => { el.style.opacity = '0'; }, 2200);
+  }
+
+  // ── Init ──
+  loadSettingsUI();
+  addRow();
+  renderHistory();
+</script>
+
+</body>
+</html>
