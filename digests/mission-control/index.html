@@ -12,11 +12,13 @@
       --bg:#F5F3F0; --surface:#FFFFFF; --border:#E8E3DC; --text:#111111;
       --text-muted:#6B6B6B; --accent:#0066CC; --card-hover:#F0EDE8;
       --green:#22A06B; --amber:#E1A211; --blue:#3B82F6; --grey:#9A9A9A;
+      --red:#E53E3E;
     }
     [data-theme="dark"] {
       --bg:#141414; --surface:#1E1E1E; --border:#2E2E2E; --text:#F0F0F0;
       --text-muted:#9A9A9A; --accent:#4D9FFF; --card-hover:#242424;
       --green:#34D08C; --amber:#F0C040; --blue:#5BA0F2; --grey:#6B6B6B;
+      --red:#FC8181;
     }
     *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
     body { font-family:'Rubik',sans-serif; background:var(--bg); color:var(--text);
@@ -43,6 +45,12 @@
     .today-task { font-size:22px; font-weight:700; line-height:1.35; margin-bottom:10px; }
     .today-why { font-size:14px; color:var(--text-muted); line-height:1.6; }
 
+    /* Alert strip */
+    .alert { background:rgba(229,62,62,0.08); border:1px solid rgba(229,62,62,0.25);
+      border-radius:12px; padding:12px 18px; margin-bottom:14px;
+      font-size:13.5px; line-height:1.5; color:var(--text); }
+    .alert strong { color:var(--red); }
+
     /* Counters */
     .counters { display:flex; gap:12px; margin-bottom:34px; flex-wrap:wrap; }
     .counter { flex:1; min-width:120px; background:var(--surface); border:1px solid var(--border);
@@ -53,6 +61,7 @@
     .dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
     .dot.g{background:var(--green)} .dot.a{background:var(--amber)}
     .dot.b{background:var(--blue)} .dot.x{background:var(--grey)}
+    .dot.r{background:var(--red)}
 
     .section-label { font-size:12px; font-weight:600; color:var(--text-muted);
       text-transform:uppercase; letter-spacing:0.08em; margin:0 2px 12px; }
@@ -61,6 +70,7 @@
     .pcard { background:var(--surface); border:1px solid var(--border); border-radius:14px;
       padding:18px 20px; display:flex; flex-direction:column; gap:7px;
       box-shadow:0 1px 3px rgba(0,0,0,0.06); }
+    .pcard.urgent { border-color:rgba(229,62,62,0.35); }
     .pcard-top { display:flex; align-items:center; gap:9px; }
     .pcard-name { font-size:16px; font-weight:600; }
     .pcard-domain { font-size:11px; color:var(--text-muted); margin-inline-start:auto;
@@ -68,6 +78,7 @@
     .pcard-next { font-size:13.5px; color:var(--text); line-height:1.5; }
     .pcard-next b { color:var(--text-muted); font-weight:600; }
     .pcard-meta { font-size:11.5px; color:var(--text-muted); }
+    .pcard-meta.warn { color:var(--red); }
 
     .routine-strip { background:var(--surface); border:1px solid var(--border);
       border-radius:14px; padding:16px 20px; margin-bottom:32px; box-shadow:0 1px 3px rgba(0,0,0,0.06); }
@@ -103,16 +114,21 @@
   <main>
     <!-- המשימה של היום -->
     <div class="today">
-      <div class="today-label">⭐ מוכן למחר · 31 ביולי 2026</div>
-      <div class="today-task">לאמת 2 מודעות דירה מול המתווך/יזם</div>
-      <div class="today-why"><b>1. אבנר / אבנר 9, ק' אליעזר (~1.38M)</b> — הרחוב לא ברשימות אאורה; 2 המודעות כנראה אותה דירה. לשאול: מתחם מאושר? איזה יזם ושלב? <b>2. התקוה, ק' אליהו (1.32M)</b> — מתחם/יזם לא זוהה. לשאול: לאיזה מתחם שייכת ומי היזם? שיחה אחת-שתיים מהטרקר, אפס הכנה.</div>
+      <div class="today-label">⭐ מוכן עכשיו · 7 אוגוסט 2026</div>
+      <div class="today-task">שיעורים — לבדוק אם התלמיד ענה ולסגור תאריך</div>
+      <div class="today-why">ההודעה נשלחה 29.7 — <b>9 ימים</b>. אם ענה → לקבוע שיעור ראשון עכשיו. אם לא ענה → תזכורת קצרה (3 שורות, ידידותית). הצעד הכי ממנף: 3 שיעורים ראשונים = הפרנסה קיימת.</div>
+    </div>
+
+    <!-- התראה -->
+    <div class="alert">
+      <strong>⚠️ ריצה 5 למיטל — מאחרת יום.</strong> אמורה הייתה לצאת 6.8. לרוץ <code>/job-search-meital</code> בהקדם.
     </div>
 
     <!-- מונים -->
     <div class="counters">
-      <div class="counter"><div class="counter-num">5</div><div class="counter-lbl"><span class="dot g"></span>פעילים</div></div>
+      <div class="counter"><div class="counter-num">3</div><div class="counter-lbl"><span class="dot g"></span>פעילים</div></div>
       <div class="counter"><div class="counter-num">5</div><div class="counter-lbl"><span class="dot a"></span>תקועים</div></div>
-      <div class="counter"><div class="counter-num">5</div><div class="counter-lbl"><span class="dot b"></span>שגרתיים</div></div>
+      <div class="counter"><div class="counter-num">6</div><div class="counter-lbl"><span class="dot b"></span>שגרתיים</div></div>
       <div class="counter"><div class="counter-num">2</div><div class="counter-lbl"><span class="dot x"></span>מתישהו</div></div>
     </div>
 
@@ -121,8 +137,8 @@
     <div class="grid">
       <div class="pcard">
         <div class="pcard-top"><span class="dot g"></span><span class="pcard-name">תוכנית הכנסה — שיעורים</span><span class="pcard-domain">פרנסה</span></div>
-        <div class="pcard-next"><b>הבא:</b> מעקב תשובות + לקבוע 3 השיעורים הראשונים</div>
-        <div class="pcard-meta">נגעת: 29.7 · ✅ הודעה נשלחה</div>
+        <div class="pcard-next"><b>הבא:</b> לבדוק תשובת תלמיד → לקבוע שיעור 1 או לשלוח תזכורת</div>
+        <div class="pcard-meta">נגעת: 29.7 · ✅ הודעה נשלחה (9 ימים אחורה)</div>
       </div>
       <div class="pcard">
         <div class="pcard-top"><span class="dot g"></span><span class="pcard-name">חיפוש עבודה (אור)</span><span class="pcard-domain">קריירה</span></div>
@@ -134,21 +150,16 @@
         <div class="pcard-next"><b>הבא:</b> החלטות עיצוב — כריכות · affordance · הירו</div>
         <div class="pcard-meta">נגעת: 27.7</div>
       </div>
-      <div class="pcard">
-        <div class="pcard-top"><span class="dot g"></span><span class="pcard-name">חיפוש דירה (חיפה)</span><span class="pcard-domain">אישי</span></div>
-        <div class="pcard-next"><b>הבא:</b> הצלבת 3 יזמים שסומנו</div>
-        <div class="pcard-meta">נגעת: 25.7</div>
-      </div>
-      <div class="pcard">
-        <div class="pcard-top"><span class="dot g"></span><span class="pcard-name">חיפוש עבודה מיטל</span><span class="pcard-domain">משפחה</span></div>
-        <div class="pcard-next"><b>הבא:</b> ריצה 5 בעוד ~7 ימים + מעקב סטטוסים</div>
-        <div class="pcard-meta">נגעת: 30.7 · ✅ ריצה 4 (93 משרות)</div>
-      </div>
     </div>
 
     <!-- תקועים -->
     <div class="section-label">🟡 תקועים — מחכים למהלך</div>
     <div class="grid">
+      <div class="pcard urgent">
+        <div class="pcard-top"><span class="dot r"></span><span class="pcard-name">חיפוש עבודה מיטל</span><span class="pcard-domain">משפחה</span></div>
+        <div class="pcard-next"><b>הבא:</b> ריצה 5 — לרוץ <code>/job-search-meital</code></div>
+        <div class="pcard-meta warn">⚠️ מאחרת יום — אמורה הייתה 6.8 · 93 משרות (ריצה 4)</div>
+      </div>
       <div class="pcard">
         <div class="pcard-top"><span class="dot a"></span><span class="pcard-name">NECRONEKO (חנות)</span><span class="pcard-domain">עסק</span></div>
         <div class="pcard-next"><b>חוסם:</b> משני לפי החלטת ההכנסה — ממתין לקטלוג</div>
@@ -161,18 +172,13 @@
       </div>
       <div class="pcard">
         <div class="pcard-top"><span class="dot a"></span><span class="pcard-name">גלריית חיים (הדפסות)</span><span class="pcard-domain">משפחה</span></div>
-        <div class="pcard-next"><b>הבא:</b> לבדוק סטטוס אתר המכירות</div>
+        <div class="pcard-next"><b>הבא:</b> לבדוק סטטוס אתר המכירות לאבא</div>
         <div class="pcard-meta">—</div>
       </div>
       <div class="pcard">
         <div class="pcard-top"><span class="dot a"></span><span class="pcard-name">סוכן "רואה חשבון"</span><span class="pcard-domain">מערכת</span></div>
-        <div class="pcard-next"><b>הבא:</b> לא נבנה — רעיון פתוח מ-ToDo</div>
-        <div class="pcard-meta">רעיון</div>
-      </div>
-      <div class="pcard">
-        <div class="pcard-top"><span class="dot a"></span><span class="pcard-name">סוכן "AI high-tech"</span><span class="pcard-domain">מערכת</span></div>
-        <div class="pcard-next"><b>הבא:</b> סורק איך אנשי הייטק משתמשים ב-AI</div>
-        <div class="pcard-meta">רעיון</div>
+        <div class="pcard-next"><b>הבא:</b> לא נבנה — רעיון פתוח</div>
+        <div class="pcard-meta">רעיון מ-ToDo</div>
       </div>
     </div>
 
@@ -180,10 +186,11 @@
     <div class="section-label">🔵 שגרתיים — רצים מעצמם</div>
     <div class="routine-strip">
       <div class="r-row"><span class="dot b"></span>Efficiency Audit<span class="r-cadence">שבועי · חמישי</span></div>
-      <div class="r-row"><span class="dot b"></span>ספרן Obsidian<span class="r-cadence">שבועי · ריצה 13</span></div>
+      <div class="r-row"><span class="dot b"></span>ספרן Obsidian<span class="r-cadence">שבועי · ריצה 13 ב-27.7</span></div>
       <div class="r-row"><span class="dot b"></span>חיפוש עבודה שבועי<span class="r-cadence">ראשון</span></div>
       <div class="r-row"><span class="dot b"></span>דייג'סט חודשי / שבועי<span class="r-cadence">מתפרסם ל-Hub</span></div>
       <div class="r-row"><span class="dot b"></span>סקירת שיעורים<span class="r-cadence">לפי צורך</span></div>
+      <div class="r-row"><span class="dot b"></span>רדאר AI (High-tech Scanner)<span class="r-cadence">דו-שבועי · ידני · /scanner</span></div>
     </div>
 
     <!-- אישי -->
@@ -199,7 +206,7 @@
     </div>
 
     <footer>
-      עודכן ע"י מצפן 🧭 · 29 ביולי 2026<br>
+      עודכן ע"י מצפן 🧭 · 7 אוגוסט 2026<br>
       מקור: <code>M-memory/project-ledger.md</code> · אמור "מה תקוע?" / "מה עכשיו?" בצ'אט
     </footer>
   </main>
