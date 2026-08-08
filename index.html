@@ -230,7 +230,7 @@
 
     .card-portfolio { --card-bg: #FFD60A; background: var(--card-bg); }
     .card-portfolio .card-name { color: rgba(0,0,0,0.82); }
-    .card-portfolio .card-desc { color: rgba(0,0,0,0.55); }
+    .card-portfolio .card-desc { color: rgba(0,0,0,0.60); }
     .card-obs       { --card-bg: #1A1A1A; background: var(--card-bg); }
     .card-moon      { --card-bg: #7C3AED; background: var(--card-bg); }
     .card-calc      { --card-bg: #0891B2; background: var(--card-bg); }
@@ -239,7 +239,23 @@
     .card-haim      { --card-bg: #0F766E; background: var(--card-bg); }
     .card-3dcalc    { --card-bg: #EA580C; background: var(--card-bg); }
     .card-budget    { --card-bg: #CA8A04; background: var(--card-bg); }
-    .card-necro     { background: linear-gradient(135deg, #34D08C 0 50%, #9B51E0 50% 100%); }
+    .card-necro     { background: linear-gradient(135deg, #0E5E3A 0 50%, #5E25A8 50% 100%); }
+
+    /* ── Accessibility: dark text on mid-bright cards ── */
+    .card-calc .card-name, .card-tools .card-name,
+    .card-3d .card-name, .card-3dcalc .card-name, .card-budget .card-name {
+      color: rgba(0,0,0,0.82);
+    }
+    .card-calc .card-desc, .card-tools .card-desc,
+    .card-3d .card-desc, .card-3dcalc .card-desc, .card-budget .card-desc {
+      color: rgba(0,0,0,0.75);
+    }
+
+    /* ── Accessibility: increase desc opacity on dark-enough cards ── */
+    .card-moon .card-desc,
+    .card-haim .card-desc {
+      color: rgba(255,255,255,0.90);
+    }
 
     /* ===== Compact digest list ===== */
     .digest-list {
