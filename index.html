@@ -177,8 +177,6 @@
       margin-bottom: 36px;
     }
 
-    .col-2 { grid-column: span 2; }
-
     /* Card base */
     .card {
       background: var(--surface);
@@ -224,40 +222,6 @@
       flex: 1;
     }
 
-    /* Digest card extras */
-    .digest-type {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-bottom: 2px;
-    }
-
-    .digest-latest {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .digest-date {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .digest-empty {
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-
-    .archive-link {
-      display: inline-block;
-      margin-top: 10px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    .archive-link:hover { color: var(--accent-hover); }
-
     /* Per-card icon colors */
     .card-portfolio .card-icon { background: #FFD60A; }
     .card-obs    .card-icon { background: #111111; }
@@ -266,17 +230,83 @@
     .card-tools  .card-icon { background: #D97706; }
     .card-3d     .card-icon { background: #EA580C; }
     .card-haim   .card-icon { background: #0F766E; }
-    .card-weekly .card-icon { background: #2563EB; }
-    .card-monthly .card-icon { background: #C45E2A; }
-    .card-alt    .card-icon { background: #059669; }
-    .card-eff    .card-icon { background: #DB2777; }
-    .card-job    .card-icon { background: #4F46E5; }
-    .card-apt    .card-icon { background: #0EA5E9; }
-    .card-budget .card-icon { background: #CA8A04; }
-    .card-pod    .card-icon { background: #8B5CF6; }
-    .card-necro  .card-icon { background: linear-gradient(135deg, #34D08C 0 50%, #9B51E0 50% 100%); }
     .card-3dcalc .card-icon { background: #EA580C; }
-    .card-radar  .card-icon { background: #06B6D4; }
+    .card-budget .card-icon { background: #CA8A04; }
+    .card-necro  .card-icon { background: linear-gradient(135deg, #34D08C 0 50%, #9B51E0 50% 100%); }
+
+    /* ===== Compact digest list ===== */
+    .digest-list {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      margin-bottom: 36px;
+    }
+
+    .dl-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 22px;
+      border-top: 1px solid var(--border);
+      transition: background 130ms ease;
+    }
+
+    .dl-row:first-child { border-top: none; }
+    .dl-row:hover { background: var(--card-hover); }
+
+    .dl-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .dl-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      width: 90px;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .dl-hl {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text);
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+    }
+
+    .dl-hl.empty {
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    .dl-date {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .dl-link {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-inline-start: 8px;
+    }
+
+    .dl-link:hover { color: var(--accent-hover); }
 
     /* Responsive */
     @media (max-width: 768px) {
@@ -288,10 +318,12 @@
 
     @media (max-width: 480px) {
       .grid { grid-template-columns: 1fr; }
-      .col-2 { grid-column: span 1; }
       .card { min-height: auto; }
       .cp-date { display: none; }
       .cp-name { display: none; }
+      .dl-name { display: none; }
+      .dl-date { display: none; }
+      .dl-row { padding: 10px 16px; }
 
       /* ── Compact tools grid on mobile ── */
       .tools-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
@@ -495,140 +527,84 @@
     </div>
 
     <div class="section-label">דיגסטים</div>
-    <div class="grid" id="digestsGrid">
+    <div class="digest-list">
 
-      <div class="card col-2 card-pod">
-        <div class="card-icon">
-          <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></svg>
-        </div>
-        <div class="card-name">Podcast — השבוע במערכת</div>
-        <div class="digest-type">סקירה שבועית מדוברת · גרסת האוזניים</div>
-        <div class="digest-empty" id="podEmpty">אין פרק עדיין</div>
-        <div id="podLatest" style="display:none">
-          <div class="digest-latest" id="podTitle"></div>
-          <div class="digest-date" id="podDate"></div>
-          <audio id="podAudio" controls preload="none" style="width:100%;margin-top:12px;"></audio>
-        </div>
-        <a class="archive-link" href="digests/podcast/">כל הפרקים ←</a>
+      <div class="dl-row">
+        <span class="dl-dot" style="background:#8B5CF6"></span>
+        <span class="dl-name">Podcast</span>
+        <span class="dl-hl empty" id="podTitle">אין פרק עדיין</span>
+        <span class="dl-date" id="podDate"></span>
+        <a class="dl-link" href="digests/podcast/">כל הפרקים ←</a>
       </div>
 
-      <div class="card col-2 card-weekly">
-        <div class="card-icon">
-          <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg>
-        </div>
-        <div class="card-name">Weekly AI Digest</div>
-        <div class="digest-type">סיכום שבועי: AI, עיצוב, וכלים חדשים</div>
-        <div class="digest-empty" id="weeklyEmpty">אין גיליון עדיין</div>
-        <div id="weeklyLatest" style="display:none">
-          <div class="digest-latest" id="weeklyTitle"></div>
-          <div class="digest-date" id="weeklyDate"></div>
-        </div>
-        <a class="archive-link" href="digests/weekly/">כל הגיליונות ←</a>
+      <div class="dl-row">
+        <span class="dl-dot" style="background:#2563EB"></span>
+        <span class="dl-name">AI Digest</span>
+        <span class="dl-hl empty" id="weeklyTitle">אין גיליון עדיין</span>
+        <span class="dl-date" id="weeklyDate"></span>
+        <a class="dl-link" href="digests/weekly/">כל הגיליונות ←</a>
       </div>
 
-      <div class="card card-job">
-        <div class="card-icon">
-          <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><circle cx="12" cy="13" r="3"/><line x1="14.2" y1="15.2" x2="17" y2="18"/></svg>
-        </div>
-        <div class="card-name">Job Search</div>
-        <div class="digest-type">משרות עיצוב חדשות מאתרי הדרושים</div>
-        <div class="digest-empty" id="jobEmpty">אין גיליון עדיין</div>
-        <div id="jobLatest" style="display:none">
-          <div class="digest-latest" id="jobTitle"></div>
-          <div class="digest-date" id="jobDate"></div>
-        </div>
-        <a class="archive-link" href="digests/job-search/">כל הגיליונות ←</a>
+      <div class="dl-row">
+        <span class="dl-dot" style="background:#4F46E5"></span>
+        <span class="dl-name">Job Search</span>
+        <span class="dl-hl empty" id="jobTitle">אין גיליון עדיין</span>
+        <span class="dl-date" id="jobDate"></span>
+        <a class="dl-link" href="digests/job-search/">כל הגיליונות ←</a>
       </div>
 
-      <div class="card card-job">
-        <div class="card-icon">
-          <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M8 13h8"/><path d="M8 17h5"/></svg>
-        </div>
-        <div class="card-name">Job Search — מיטל</div>
-        <div class="digest-type">משרות ניהול תפעול, פרויקטים ושירות</div>
-        <div class="digest-empty" id="jobMEmpty">אין גיליון עדיין</div>
-        <div id="jobMLatest" style="display:none">
-          <div class="digest-latest" id="jobMTitle"></div>
-          <div class="digest-date" id="jobMDate"></div>
-        </div>
-        <a class="archive-link" href="digests/job-search-meital/tracker.html">פתח את הטרקר ←</a>
+      <div class="dl-row">
+        <span class="dl-dot" style="background:#0D9488"></span>
+        <span class="dl-name">Job מיטל</span>
+        <span class="dl-hl empty" id="jobMTitle">אין גיליון עדיין</span>
+        <span class="dl-date" id="jobMDate"></span>
+        <a class="dl-link" href="digests/job-search-meital/tracker.html">טרקר ←</a>
       </div>
 
-      <div class="card card-apt">
-        <div class="card-icon">
-          <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 9h.01"/><path d="M15 9h.01"/><path d="M9 13h.01"/><path d="M15 13h.01"/><path d="M10 21v-4h4v4"/></svg>
-        </div>
-        <div class="card-name">פינוי בינוי — חיפה</div>
-        <div class="digest-type">דירות למכירה בפינוי בינוי, קרית אליעזר והסביבה</div>
-        <div class="digest-empty" id="aptEmpty">אין גיליון עדיין</div>
-        <div id="aptLatest" style="display:none">
-          <div class="digest-latest" id="aptTitle"></div>
-          <div class="digest-date" id="aptDate"></div>
-        </div>
-        <a class="archive-link" href="digests/apartment-search/tracker.html">פתח את הטרקר ←</a>
+      <div class="dl-row">
+        <span class="dl-dot" style="background:#0EA5E9"></span>
+        <span class="dl-name">פינוי בינוי</span>
+        <span class="dl-hl empty" id="aptTitle">אין גיליון עדיין</span>
+        <span class="dl-date" id="aptDate"></span>
+        <a class="dl-link" href="digests/apartment-search/tracker.html">טרקר ←</a>
       </div>
 
-      <div class="card card-eff">
-        <div class="card-icon">
-          <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 4 14 12 14 11 22 20 10 12 10 13 2"/></svg>
-        </div>
-        <div class="card-name">Efficiency Audit</div>
-        <div class="digest-type">ייעול שבועי של העבודה בקלוד קוד</div>
-        <div class="digest-empty" id="effEmpty">אין גיליון עדיין</div>
-        <div id="effLatest" style="display:none">
-          <div class="digest-latest" id="effTitle"></div>
-          <div class="digest-date" id="effDate"></div>
-        </div>
-        <a class="archive-link" href="digests/efficiency/">כל הגיליונות ←</a>
+      <div class="dl-row">
+        <span class="dl-dot" style="background:#DB2777"></span>
+        <span class="dl-name">Efficiency</span>
+        <span class="dl-hl empty" id="effTitle">אין גיליון עדיין</span>
+        <span class="dl-date" id="effDate"></span>
+        <a class="dl-link" href="digests/efficiency/">כל הגיליונות ←</a>
       </div>
 
-      <div class="card card-monthly">
-        <div class="card-icon">
-          <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="8" cy="15" r="1.2" fill="rgba(255,255,255,0.95)" stroke="none"/><circle cx="12" cy="15" r="1.2" fill="rgba(255,255,255,0.95)" stroke="none"/><circle cx="16" cy="15" r="1.2" fill="rgba(255,255,255,0.95)" stroke="none"/></svg>
-        </div>
-        <div class="card-name">Monthly Summary</div>
-        <div class="digest-type">סיכום חודשי של הפרויקטים והלקחים</div>
-        <div class="digest-empty" id="monthlyEmpty">אין גיליון עדיין</div>
-        <div id="monthlyLatest" style="display:none">
-          <div class="digest-latest" id="monthlyTitle"></div>
-          <div class="digest-date" id="monthlyDate"></div>
-        </div>
-        <a class="archive-link" href="digests/monthly/">כל הגיליונות ←</a>
+      <div class="dl-row">
+        <span class="dl-dot" style="background:#C45E2A"></span>
+        <span class="dl-name">Monthly</span>
+        <span class="dl-hl empty" id="monthlyTitle">אין גיליון עדיין</span>
+        <span class="dl-date" id="monthlyDate"></span>
+        <a class="dl-link" href="digests/monthly/">כל הגיליונות ←</a>
       </div>
 
-      <div class="card card-alt">
-        <div class="card-icon">
-          <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </div>
-        <div class="card-name">Alt Hunter</div>
-        <div class="digest-type">חיפוש שבועי של אלטרנטיבות לכלים</div>
-        <div class="digest-empty" id="altEmpty">אין גיליון עדיין</div>
-        <div id="altLatest" style="display:none">
-          <div class="digest-latest" id="altTitle"></div>
-          <div class="digest-date" id="altDate"></div>
-        </div>
-        <a class="archive-link" href="digests/alt-hunter/">כל הגיליונות ←</a>
+      <div class="dl-row">
+        <span class="dl-dot" style="background:#059669"></span>
+        <span class="dl-name">Alt Hunter</span>
+        <span class="dl-hl empty" id="altTitle">אין גיליון עדיין</span>
+        <span class="dl-date" id="altDate"></span>
+        <a class="dl-link" href="digests/alt-hunter/">כל הגיליונות ←</a>
       </div>
 
-      <div class="card card-radar">
-        <div class="card-icon">
-          <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="M13 13l6 6"/></svg>
-        </div>
-        <div class="card-name">רדאר ה-AI</div>
-        <div class="digest-type">סריקה דו-שבועית: איך הייטקיסטים משתמשים ב-AI</div>
-        <div class="digest-empty" id="radarEmpty">אין גיליון עדיין</div>
-        <div id="radarLatest" style="display:none">
-          <div class="digest-latest" id="radarTitle"></div>
-          <div class="digest-date" id="radarDate"></div>
-        </div>
-        <a class="archive-link" href="digests/hightech-radar/">כל הגיליונות ←</a>
+      <div class="dl-row">
+        <span class="dl-dot" style="background:#06B6D4"></span>
+        <span class="dl-name">רדאר AI</span>
+        <span class="dl-hl empty" id="radarTitle">אין גיליון עדיין</span>
+        <span class="dl-date" id="radarDate"></span>
+        <a class="dl-link" href="digests/hightech-radar/">כל הגיליונות ←</a>
       </div>
 
     </div>
   </main>
 
   <script>
-    // Dark mode
     const btn = document.getElementById('themeBtn');
 
     function applyTheme(dark) {
@@ -669,38 +645,33 @@
         const row = document.getElementById(cfg.rowId);
         if (row) row.setAttribute('href', url);
 
-        const empty = document.getElementById(cfg.emptyId);
-        const block = document.getElementById(cfg.latestId);
-        if (empty && block) {
-          empty.style.display = 'none';
-          block.style.display = 'block';
-          const titleEl = document.getElementById(cfg.titleId);
+        const titleEl = document.getElementById(cfg.titleId);
+        if (titleEl) {
           titleEl.textContent = headline;
+          titleEl.classList.remove('empty');
           titleEl.style.cursor = 'pointer';
           titleEl.setAttribute('tabindex', '0');
           titleEl.setAttribute('role', 'button');
           titleEl.onclick = () => window.open(url, '_blank');
           titleEl.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.open(url, '_blank'); } };
-          document.getElementById(cfg.dateId).textContent = latest.date || '';
-          if (cfg.audioId) {
-            const audio = document.getElementById(cfg.audioId);
-            if (audio) audio.src = url;
-          }
         }
+        const dateEl = document.getElementById(cfg.dateId);
+        if (dateEl) dateEl.textContent = latest.date || '';
+
       } catch (e) { console.warn('[Orbit] feedStream failed for', cfg.folder, e); }
     }
 
     [
-      { folder: 'mission-control', rowId: 'cpMC', rowHeadlineId: 'cpMCH', rowDateId: 'cpMCD' },
-      { folder: 'podcast',    rowId: 'cpPod',     rowHeadlineId: 'cpPodH',     rowDateId: 'cpPodD',     emptyId: 'podEmpty',     latestId: 'podLatest',     titleId: 'podTitle',     dateId: 'podDate', audioId: 'podAudio' },
-      { folder: 'weekly',     rowId: 'cpWeekly',  rowHeadlineId: 'cpWeeklyH',  rowDateId: 'cpWeeklyD',  emptyId: 'weeklyEmpty',  latestId: 'weeklyLatest',  titleId: 'weeklyTitle',  dateId: 'weeklyDate'  },
-      { folder: 'job-search', rowId: 'cpJob',     rowHeadlineId: 'cpJobH',     rowDateId: 'cpJobD',     emptyId: 'jobEmpty',     latestId: 'jobLatest',     titleId: 'jobTitle',     dateId: 'jobDate'     },
-      { folder: 'job-search-meital', rowId: 'cpJobM', rowHeadlineId: 'cpJobMH', rowDateId: 'cpJobMD', emptyId: 'jobMEmpty', latestId: 'jobMLatest', titleId: 'jobMTitle', dateId: 'jobMDate' },
-      { folder: 'apartment-search', rowId: 'cpApt', rowHeadlineId: 'cpAptH', rowDateId: 'cpAptD', emptyId: 'aptEmpty', latestId: 'aptLatest', titleId: 'aptTitle', dateId: 'aptDate' },
-      { folder: 'efficiency', rowId: 'cpEff',     rowHeadlineId: 'cpEffH',     rowDateId: 'cpEffD',     emptyId: 'effEmpty',     latestId: 'effLatest',     titleId: 'effTitle',     dateId: 'effDate'     },
-      { folder: 'alt-hunter', rowId: 'cpAlt',     rowHeadlineId: 'cpAltH',     rowDateId: 'cpAltD',     emptyId: 'altEmpty',     latestId: 'altLatest',     titleId: 'altTitle',     dateId: 'altDate'     },
-      { folder: 'hightech-radar', rowId: 'cpRadar', rowHeadlineId: 'cpRadarH', rowDateId: 'cpRadarD', emptyId: 'radarEmpty', latestId: 'radarLatest', titleId: 'radarTitle', dateId: 'radarDate' },
-      { folder: 'monthly',    rowId: 'cpMonthly', rowHeadlineId: 'cpMonthlyH', rowDateId: 'cpMonthlyD', emptyId: 'monthlyEmpty', latestId: 'monthlyLatest', titleId: 'monthlyTitle', dateId: 'monthlyDate' }
+      { folder: 'mission-control',   rowId: 'cpMC',      rowHeadlineId: 'cpMCH',      rowDateId: 'cpMCD'      },
+      { folder: 'podcast',           rowId: 'cpPod',     rowHeadlineId: 'cpPodH',     rowDateId: 'cpPodD',     titleId: 'podTitle',     dateId: 'podDate'     },
+      { folder: 'weekly',            rowId: 'cpWeekly',  rowHeadlineId: 'cpWeeklyH',  rowDateId: 'cpWeeklyD',  titleId: 'weeklyTitle',  dateId: 'weeklyDate'  },
+      { folder: 'job-search',        rowId: 'cpJob',     rowHeadlineId: 'cpJobH',     rowDateId: 'cpJobD',     titleId: 'jobTitle',     dateId: 'jobDate'     },
+      { folder: 'job-search-meital', rowId: 'cpJobM',    rowHeadlineId: 'cpJobMH',    rowDateId: 'cpJobMD',    titleId: 'jobMTitle',    dateId: 'jobMDate'    },
+      { folder: 'apartment-search',  rowId: 'cpApt',     rowHeadlineId: 'cpAptH',     rowDateId: 'cpAptD',     titleId: 'aptTitle',     dateId: 'aptDate'     },
+      { folder: 'efficiency',        rowId: 'cpEff',     rowHeadlineId: 'cpEffH',     rowDateId: 'cpEffD',     titleId: 'effTitle',     dateId: 'effDate'     },
+      { folder: 'alt-hunter',        rowId: 'cpAlt',     rowHeadlineId: 'cpAltH',     rowDateId: 'cpAltD',     titleId: 'altTitle',     dateId: 'altDate'     },
+      { folder: 'hightech-radar',    rowId: 'cpRadar',   rowHeadlineId: 'cpRadarH',   rowDateId: 'cpRadarD',   titleId: 'radarTitle',   dateId: 'radarDate'   },
+      { folder: 'monthly',           rowId: 'cpMonthly', rowHeadlineId: 'cpMonthlyH', rowDateId: 'cpMonthlyD', titleId: 'monthlyTitle', dateId: 'monthlyDate' }
     ].forEach(feedStream);
   </script>
 
