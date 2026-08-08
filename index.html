@@ -291,6 +291,25 @@
       .card { min-height: auto; }
       .cp-date { display: none; }
       .cp-name { display: none; }
+
+      /* ── Compact tools grid on mobile ── */
+      .tools-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+      .tools-grid .card {
+        padding: 10px 6px;
+        gap: 4px;
+        align-items: center;
+        text-align: center;
+        border-radius: 12px;
+      }
+      .tools-grid .card-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        margin-bottom: 0;
+      }
+      .tools-grid .card-icon svg { width: 20px; height: 20px; }
+      .tools-grid .card-name { font-size: 10.5px; line-height: 1.3; }
+      .tools-grid .card-desc { display: none; }
     }
   </style>
 </head>
@@ -390,7 +409,7 @@
     </div>
 
     <div class="section-label">כלים</div>
-    <div class="grid">
+    <div class="grid tools-grid">
 
       <a class="card card-portfolio" href="https://orben12-byte.github.io/portfolio_2026/" target="_blank" rel="noopener">
         <div class="card-icon">
@@ -617,9 +636,6 @@
       applyTheme(!isDark);
     }
 
-    // Feed one stream into BOTH the cockpit row and its bento card.
-    // Manifest entries may include an optional "headline" (the single takeaway);
-    // when absent we fall back to "title" so older issues still render.
     async function feedStream(cfg) {
       try {
         const res = await fetch('digests/' + cfg.folder + '/manifest.json');
@@ -631,7 +647,6 @@
         const url = 'digests/' + cfg.folder + '/' + latest.file;
         const headline = (latest.headline && latest.headline.trim()) ? latest.headline : latest.title;
 
-        // --- cockpit row ---
         const rowH = document.getElementById(cfg.rowHeadlineId);
         if (rowH) { rowH.textContent = headline; rowH.classList.remove('empty'); }
         const rowD = document.getElementById(cfg.rowDateId);
@@ -639,7 +654,6 @@
         const row = document.getElementById(cfg.rowId);
         if (row) row.setAttribute('href', url);
 
-        // --- bento card ---
         const empty = document.getElementById(cfg.emptyId);
         const block = document.getElementById(cfg.latestId);
         if (empty && block) {
