@@ -188,7 +188,7 @@
       gap: 8px;
       text-decoration: none;
       color: var(--text);
-      transition: background 150ms ease, box-shadow 150ms ease;
+      transition: background 150ms ease, box-shadow 150ms ease, filter 150ms ease;
       min-height: 160px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
     }
@@ -222,17 +222,24 @@
       flex: 1;
     }
 
-    /* Per-card icon colors */
-    .card-portfolio .card-icon { background: #FFD60A; }
-    .card-obs    .card-icon { background: #111111; }
-    .card-moon   .card-icon { background: #7C3AED; }
-    .card-calc   .card-icon { background: #0891B2; }
-    .card-tools  .card-icon { background: #D97706; }
-    .card-3d     .card-icon { background: #EA580C; }
-    .card-haim   .card-icon { background: #0F766E; }
-    .card-3dcalc .card-icon { background: #EA580C; }
-    .card-budget .card-icon { background: #CA8A04; }
-    .card-necro  .card-icon { background: linear-gradient(135deg, #34D08C 0 50%, #9B51E0 50% 100%); }
+    /* ── Tool cards: full color background ── */
+    .tools-grid .card-icon { background: transparent; }
+    .tools-grid .card-name { color: rgba(255,255,255,0.95); }
+    .tools-grid .card-desc { color: rgba(255,255,255,0.72); }
+    .tools-grid .card:hover { background: var(--card-bg, var(--card-hover)); filter: brightness(1.1); box-shadow: 0 4px 14px rgba(0,0,0,0.18); }
+
+    .card-portfolio { --card-bg: #FFD60A; background: var(--card-bg); }
+    .card-portfolio .card-name { color: rgba(0,0,0,0.82); }
+    .card-portfolio .card-desc { color: rgba(0,0,0,0.55); }
+    .card-obs       { --card-bg: #1A1A1A; background: var(--card-bg); }
+    .card-moon      { --card-bg: #7C3AED; background: var(--card-bg); }
+    .card-calc      { --card-bg: #0891B2; background: var(--card-bg); }
+    .card-tools     { --card-bg: #D97706; background: var(--card-bg); }
+    .card-3d        { --card-bg: #EA580C; background: var(--card-bg); }
+    .card-haim      { --card-bg: #0F766E; background: var(--card-bg); }
+    .card-3dcalc    { --card-bg: #EA580C; background: var(--card-bg); }
+    .card-budget    { --card-bg: #CA8A04; background: var(--card-bg); }
+    .card-necro     { background: linear-gradient(135deg, #34D08C 0 50%, #9B51E0 50% 100%); }
 
     /* ===== Compact digest list ===== */
     .digest-list {
