@@ -62,7 +62,7 @@
       background: none;
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 7px 11px;
+      padding: 11px 14px;
       cursor: pointer;
       font-size: 17px;
       line-height: 1;
@@ -71,6 +71,29 @@
     }
 
     .theme-btn:hover { background: var(--card-hover); }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute;
+      inset-inline-start: -9999px;
+      top: 8px;
+      background: var(--accent);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      z-index: 9999;
+    }
+    .skip-link:focus { inset-inline-start: 16px; }
+
+    /* Focus indicator */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
 
     /* Main */
     main {
@@ -371,16 +394,18 @@
 </head>
 <body>
 
+  <a class="skip-link" href="#main-content">דלג לתוכן</a>
+
   <header>
     <div class="logo">Orbit<span>.</span></div>
-    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="החלף מצב כהה/בהיר">🌙</button>
   </header>
 
-  <main>
+  <main id="main-content">
 
     <!-- ===== Cockpit: one glance at every report ===== -->
-    <div class="cockpit" id="cockpit">
-      <div class="cockpit-head">🗓️ השבוע במערכת</div>
+    <section class="cockpit" id="cockpit" aria-labelledby="cockpit-heading">
+      <h2 class="cockpit-head" id="cockpit-heading">🗓️ השבוע במערכת</h2>
       <div class="cockpit-sub">הכותרת האחרונה מכל דוח. לחיצה פותחת את הדוח המלא.</div>
 
       <a class="cp-row" id="cpMC" href="digests/mission-control/">
@@ -462,9 +487,9 @@
         <span class="cp-date" id="cpMonthlyD"></span>
         <span class="cp-arrow">←</span>
       </a>
-    </div>
+    </section>
 
-    <div class="section-label">כלים</div>
+    <h2 class="section-label">כלים</h2>
     <div class="grid tools-grid">
 
       <a class="card card-portfolio" href="https://orben12-byte.github.io/portfolio_2026/" target="_blank" rel="noopener">
@@ -549,75 +574,75 @@
 
     </div>
 
-    <div class="section-label">דיגסטים</div>
+    <h2 class="section-label">דיגסטים</h2>
     <div class="digest-list">
 
-      <div class="dl-row">
-        <span class="dl-dot" style="background:#8B5CF6"></span>
+      <div class="dl-row" aria-label="Podcast">
+        <span class="dl-dot" style="background:#8B5CF6" aria-hidden="true"></span>
         <span class="dl-name">Podcast</span>
         <span class="dl-hl empty" id="podTitle">אין פרק עדיין</span>
         <span class="dl-date" id="podDate"></span>
         <a class="dl-link" href="digests/podcast/">כל הפרקים ←</a>
       </div>
 
-      <div class="dl-row">
-        <span class="dl-dot" style="background:#2563EB"></span>
+      <div class="dl-row" aria-label="AI Digest">
+        <span class="dl-dot" style="background:#2563EB" aria-hidden="true"></span>
         <span class="dl-name">AI Digest</span>
         <span class="dl-hl empty" id="weeklyTitle">אין גיליון עדיין</span>
         <span class="dl-date" id="weeklyDate"></span>
         <a class="dl-link" href="digests/weekly/">כל הגיליונות ←</a>
       </div>
 
-      <div class="dl-row">
-        <span class="dl-dot" style="background:#4F46E5"></span>
+      <div class="dl-row" aria-label="Job Search">
+        <span class="dl-dot" style="background:#4F46E5" aria-hidden="true"></span>
         <span class="dl-name">Job Search</span>
         <span class="dl-hl empty" id="jobTitle">אין גיליון עדיין</span>
         <span class="dl-date" id="jobDate"></span>
         <a class="dl-link" href="digests/job-search/">כל הגיליונות ←</a>
       </div>
 
-      <div class="dl-row">
-        <span class="dl-dot" style="background:#0D9488"></span>
+      <div class="dl-row" aria-label="Job Search מיטל">
+        <span class="dl-dot" style="background:#0D9488" aria-hidden="true"></span>
         <span class="dl-name">Job מיטל</span>
         <span class="dl-hl empty" id="jobMTitle">אין גיליון עדיין</span>
         <span class="dl-date" id="jobMDate"></span>
         <a class="dl-link" href="digests/job-search-meital/tracker.html">טרקר ←</a>
       </div>
 
-      <div class="dl-row">
-        <span class="dl-dot" style="background:#0EA5E9"></span>
+      <div class="dl-row" aria-label="פינוי בינוי חיפה">
+        <span class="dl-dot" style="background:#0EA5E9" aria-hidden="true"></span>
         <span class="dl-name">פינוי בינוי</span>
         <span class="dl-hl empty" id="aptTitle">אין גיליון עדיין</span>
         <span class="dl-date" id="aptDate"></span>
         <a class="dl-link" href="digests/apartment-search/tracker.html">טרקר ←</a>
       </div>
 
-      <div class="dl-row">
-        <span class="dl-dot" style="background:#DB2777"></span>
+      <div class="dl-row" aria-label="Efficiency">
+        <span class="dl-dot" style="background:#DB2777" aria-hidden="true"></span>
         <span class="dl-name">Efficiency</span>
         <span class="dl-hl empty" id="effTitle">אין גיליון עדיין</span>
         <span class="dl-date" id="effDate"></span>
         <a class="dl-link" href="digests/efficiency/">כל הגיליונות ←</a>
       </div>
 
-      <div class="dl-row">
-        <span class="dl-dot" style="background:#C45E2A"></span>
+      <div class="dl-row" aria-label="Monthly">
+        <span class="dl-dot" style="background:#C45E2A" aria-hidden="true"></span>
         <span class="dl-name">Monthly</span>
         <span class="dl-hl empty" id="monthlyTitle">אין גיליון עדיין</span>
         <span class="dl-date" id="monthlyDate"></span>
         <a class="dl-link" href="digests/monthly/">כל הגיליונות ←</a>
       </div>
 
-      <div class="dl-row">
-        <span class="dl-dot" style="background:#059669"></span>
+      <div class="dl-row" aria-label="Alt Hunter">
+        <span class="dl-dot" style="background:#059669" aria-hidden="true"></span>
         <span class="dl-name">Alt Hunter</span>
         <span class="dl-hl empty" id="altTitle">אין גיליון עדיין</span>
         <span class="dl-date" id="altDate"></span>
         <a class="dl-link" href="digests/alt-hunter/">כל הגיליונות ←</a>
       </div>
 
-      <div class="dl-row">
-        <span class="dl-dot" style="background:#06B6D4"></span>
+      <div class="dl-row" aria-label="רדאר AI">
+        <span class="dl-dot" style="background:#06B6D4" aria-hidden="true"></span>
         <span class="dl-name">רדאר AI</span>
         <span class="dl-hl empty" id="radarTitle">אין גיליון עדיין</span>
         <span class="dl-date" id="radarDate"></span>
