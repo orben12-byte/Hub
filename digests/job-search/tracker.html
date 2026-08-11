@@ -2933,7 +2933,7 @@
     <div class="job-meta">ירושלים · Full Time</div>
     <div class="job-sources"><span class="job-source-tag">AllJobs</span></div>
     <div class="job-actions">
-      <a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8742609">פתח משרה ←</a>
+      <a class="job-link" href="https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8742609#entry-2">פתח משרה ←</a>
       <select class="status-select" onchange="updateStatus(this)">
         <option value="new" selected>🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
       </select>
@@ -3245,7 +3245,7 @@
     <div class="job-meta">שער העמקים, מחוז חיפה · Hybrid</div>
     <div class="job-sources"><span class="job-source-tag">LinkedIn</span></div>
     <div class="job-actions">
-      <a class="job-link" href="https://www.linkedin.com/jobs/view/4427330730/">פתח משרה ←</a>
+      <a class="job-link" href="https://www.linkedin.com/jobs/view/4427330730/#entry-2">פתח משרה ←</a>
       <select class="status-select" onchange="updateStatus(this)">
         <option value="new">🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected" selected>❌ סירוב</option>
       </select>
@@ -3381,7 +3381,7 @@
     <div class="job-meta">מרכז עזריאלי, תל אביב · Brands &amp; Products agency בתוך Deloitte Digital · מ-2012</div>
     <div class="job-sources"><span class="job-source-tag">אתר החברה</span></div>
     <div class="job-actions">
-      <a class="job-link" href="https://www.awesome-deloitte.com/jobs">פתח משרה ←</a>
+      <a class="job-link" href="https://www.awesome-deloitte.com/jobs#entry-2">פתח משרה ←</a>
       <select class="status-select" onchange="updateStatus(this)">
         <option value="new" selected>🆕 חדש</option><option value="sent">📤 נשלח</option><option value="interview">🎤 ראיון</option><option value="rejected">❌ סירוב</option>
       </select>
@@ -3504,7 +3504,9 @@
       var id = jobIdFor(job);
       var select = job.querySelector('.status-select');
       var htmlDefault = select ? ([...select.options].find(function(o){return o.defaultSelected;}) || {value:'new'}).value : 'new';
-      var status = id ? (localStorage.getItem('jobstatus:' + id) || htmlDefault) : htmlDefault;
+      var stored = null;
+      if (id) { try { stored = localStorage.getItem('jobstatus:' + id); } catch(e) {} }
+      var status = (stored !== null ? stored : null) || htmlDefault;
       job.dataset.status = status;
       if (select) select.value = status;
       job.classList.remove('status-sent', 'status-interview', 'status-rejected');
