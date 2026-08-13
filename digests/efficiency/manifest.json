@@ -1,4 +1,5 @@
 [
+  { "title": "Efficiency Audit — 13.08.2026", "headline": "מפתח Figma API נחשף בטקסט גלוי ב-settings.local.json + כפילות claude-mem/M-memory + מיטל עדיין בלי scheduled task (ביקורת 7)", "date": "13 באוגוסט 2026", "file": "2026-08-13.html" },
   { "title": "Efficiency Audit — 06.08.2026", "headline": "learning-log/decisions חצו את התקרה בפעם השלישית תוך פחות משבועיים — ארכוב אוטומטי + פער scheduled task למיטל + Focus view חדש (ביקורת 6)", "date": "6 באוגוסט 2026", "file": "2026-08-06.html" },
   { "title": "Efficiency Audit — 30.07.2026", "headline": "voice-dna/project-brief ריקים חודש שלם (ביקורת 5) — learning-log ארכוב אוטומטי + תוקנה טבלת מודלים (Opus 5) + נמצא /recap", "date": "30 ביולי 2026", "file": "2026-07-30.html" },
   { "title": "Efficiency Audit — 23.07.2026", "headline": "learning-log/decisions חצו את התקרה בשלישית — ארכוב אוטומטי + voice-dna עדיין ריק אחרי 3+ שבועות (ביקורת 4)", "date": "23 ביולי 2026", "file": "2026-07-23.html" },

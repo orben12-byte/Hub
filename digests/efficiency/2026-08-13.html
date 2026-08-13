@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Efficiency Audit — 13.08.2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0E0E10; --surface:#1A1A1E; --surface-2:#232328; --border:#2E2E34;
+      --text:#F0F0F0; --muted:#9A9A9A; --accent:#F472B6; --accent-deep:#DB2777;
+      --green:#34D399; --amber:#FBBF24; --red:#F87171;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Rubik',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+    main{max-width:760px;margin:0 auto;padding:40px 22px 70px;}
+    .back{font-size:13px;font-weight:600;color:var(--accent);text-decoration:none;}
+    .eyebrow{display:inline-flex;align-items:center;gap:7px;margin-top:22px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);}
+    .eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent-deep);}
+    h1{font-size:30px;font-weight:700;margin:10px 0 6px;letter-spacing:-0.5px;}
+    .date{font-size:14px;color:var(--muted);margin-bottom:6px;}
+    .verdict{display:inline-block;margin-top:14px;background:rgba(251,191,36,0.12);color:var(--amber);border:1px solid rgba(251,191,36,0.3);font-weight:600;font-size:14px;padding:8px 16px;border-radius:999px;}
+
+    .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:30px 0 36px;}
+    .metric{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;}
+    .metric-label{font-size:12px;color:var(--muted);margin-bottom:8px;}
+    .metric-val{font-size:26px;font-weight:700;letter-spacing:-0.5px;}
+    .metric-val small{font-size:13px;font-weight:500;color:var(--muted);}
+    .metric-delta{font-size:12px;font-weight:600;margin-top:4px;color:var(--green);}
+
+    .section-label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:34px 0 14px;}
+
+    .finding{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:14px;border-inline-start:3px solid var(--border);}
+    .finding.good{border-inline-start-color:var(--green);}
+    .finding.warn{border-inline-start-color:var(--amber);}
+    .finding.bad{border-inline-start-color:var(--red);}
+    .f-head{display:flex;align-items:center;gap:9px;font-size:16px;font-weight:600;margin-bottom:4px;}
+    .f-axis{font-size:11px;font-weight:600;color:var(--muted);background:var(--surface-2);padding:2px 9px;border-radius:6px;}
+    .f-body{font-size:14.5px;color:#D8D8D8;margin-top:8px;}
+    .f-action{font-size:14px;font-weight:600;margin-top:10px;color:var(--text);}
+    .f-action span{color:var(--accent);}
+
+    table{width:100%;border-collapse:collapse;margin:8px 0 30px;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+    th,td{text-align:right;padding:12px 16px;font-size:14px;border-bottom:1px solid var(--border);}
+    th{background:var(--surface-2);font-weight:600;color:var(--muted);font-size:12px;letter-spacing:.04em;}
+    tr:last-child td{border-bottom:none;}
+
+    .steps{counter-reset:s;list-style:none;}
+    .steps li{counter-increment:s;position:relative;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px 16px 18px;padding-inline-start:54px;margin-bottom:10px;font-size:15px;}
+    .steps li::before{content:counter(s);position:absolute;inset-inline-start:16px;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;background:var(--accent-deep);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;}
+    .foot{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);font-size:12.5px;color:var(--muted);}
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="../../">← Orbit</a>
+
+    <div class="eyebrow">Efficiency Audit</div>
+    <h1>ייעול שבועי של המערכת</h1>
+    <div class="date">13 באוגוסט 2026 · Efficiency Agent · ביקורת 7</div>
+    <div class="verdict">🟡 נמצאו 3 הזדמנויות ייעול</div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-label">Session Start (טעינה קבועה)</div>
+        <div class="metric-val">~19.5K <small>טוקנים</small></div>
+        <div class="metric-delta">↓ מ-~20.3K אחרי הארכוב</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">learning-log</div>
+        <div class="metric-val">12 <small>ערכים</small></div>
+        <div class="metric-delta">↓ מ-15 (ארכוב אוטומטי)</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">settings.local.json</div>
+        <div class="metric-val">541 <small>חוקי הרשאה</small></div>
+        <div class="metric-delta" style="color:var(--red)">כולל מפתח API בטקסט גלוי</div>
+      </div>
+    </div>
+
+    <div class="section-label">ממצאים (3)</div>
+
+    <div class="finding warn">
+      <div class="f-head">🟡 מפתח Figma API יושב בטקסט גלוי ב-settings.local.json <span class="f-axis">כלים והגדרות</span></div>
+      <div class="f-body">חוק הרשאה אחד מתוך 541 מכיל שורת PowerShell מלאה עם <code>FIGMA_API_KEY = "figd_..."</code> בגלוי — בקובץ שיושב בתיקיית OneDrive מסונכרנת. זה לא אמור להיות שם בכלל: מפתחות שייכים למשתני סביבה, לא לרשימת הרשאות.</div>
+      <div class="f-action">מה לעשות עכשיו: <span>למחוק את חוק ההרשאה הספציפי הזה מ-settings.local.json ולסובב (rotate) את המפתח ב-Figma — הוא כבר נחשף בקובץ מסונכרן.</span></div>
+    </div>
+
+    <div class="finding warn">
+      <div class="f-head">🟡 claude-mem plugin הופעל בפרויקט — כפילות אפשרית עם זיכרון ABC-TOM <span class="f-axis">כלים והגדרות</span></div>
+      <div class="f-body">הודעת מערכת בתחילת הסשן: "הפרויקט הזה עדיין בלי זיכרון — הסשן הנוכחי יזרע אותו", מנוהל דרך שירות נפרד (localhost:37777), מתחיל להזריק context מהסשן השני. ל-ABC-TOM כבר יש מערכת זיכרון שלמה ומתוחזקת ידנית (M-memory/, פרוטוקול קריאה מפורש ב-CLAUDE.md). שני מקורות אמת ל"מה קרה בעבר" = בלבול עתידי, ותוספת טוקנים על מה שה-Session Start Protocol כבר טוען.</div>
+      <div class="f-action">מה לעשות עכשיו: <span>להחליט במפורש אם claude-mem צריך לרוץ בפרויקט הזה — אם M-memory כבר מכסה את הצורך, לכבות אותו כאן.</span></div>
+    </div>
+
+    <div class="finding warn">
+      <div class="f-head">🟡 מיטל: שבוע שלישי ברציפות בלי scheduled task <span class="f-axis">כלים והגדרות</span></div>
+      <div class="f-body">תועד לראשונה 23.07, שוב 06.08, ונבדק שוב היום ישירות מול רשימת המשימות המתוזמנות בפועל: 6 tasks רצים, אף אחד לא של job-search-meital-agent — למרות שהוא רץ כל 7-8 ימים, אותו קצב בדיוק כמו weekly-job-search המתוזמן.</div>
+      <div class="f-action">מה לעשות עכשיו: <span>להפנות ל-Adam ליצירת scheduled task קבוע (יום ראשון, אחרי weekly-job-search 09:00) — שבוע שלישי שזה רק "מדווח מחדש" בלי לזוז.</span></div>
+    </div>
+
+    <div class="finding good">
+      <div class="f-head">🟢 ארכוב אוטומטי מנע חזרה ל-Session Start כבד <span class="f-axis">טוקנים / context</span></div>
+      <div class="f-body">learning-log חצה את התקרה (15 ערכים / 25,966 bytes) — אורכבו 3 הערכים הישנים ביותר (16-19.07) ל-<code>archive/learning-log-archive-2026-07-16-to-2026-07-19.md</code>. ירד ל-12 ערכים / 22,737 bytes. decisions נבדק ונמצא תקין (12 ערכים / 17,208 bytes) — לא נזקק לארכוב הפעם.</div>
+    </div>
+
+    <div class="finding good">
+      <div class="f-head">🟢 טבלת המודלים אומתה שוב נכונה <span class="f-axis">בחירת מודל</span></div>
+      <div class="f-body">חיפוש מחירים עדכני מאשר: Opus 5 $5/$25, Sonnet 5 $2/$10 (עד 31.08.2026, אח"כ $3/$15), Haiku 4.5 $1/$5, Fable 5 $10/$50 — תואם בדיוק את מה שכתוב ב-efficiency-agent.md. אין צורך בתיקון.</div>
+    </div>
+
+    <div class="section-label">סיכום צירים</div>
+    <table>
+      <tr><th>ציר</th><th>מצב</th></tr>
+      <tr><td>🪙 טוקנים / context</td><td>🟢 טופל אוטומטית (~19.5K)</td></tr>
+      <tr><td>⚙️ שיטת עבודה</td><td>🟢 תקין</td></tr>
+      <tr><td>🧠 בחירת מודל</td><td>🟢 טבלה מאומתת</td></tr>
+      <tr><td>🔧 כלים והגדרות</td><td>🟡 3 ממצאים (מפתח חשוף, כפל claude-mem, פער מיטל)</td></tr>
+      <tr><td>🌐 מה חדש בחוץ</td><td>🟢 אין ממצא חדש שרלוונטי (נבדק changelog + תמחור + טכניקות context)</td></tr>
+    </table>
+
+    <div class="section-label">3 הצעדים המשתלמים</div>
+    <ol class="steps">
+      <li><strong>לסובב את מפתח ה-Figma</strong> — נחשף בטקסט גלוי בקובץ מסונכרן ל-OneDrive. הכי דחוף, הכי מהיר לתקן.</li>
+      <li><strong>להחליט על claude-mem</strong> — אם M-memory כבר מכסה הכל, לכבות בפרויקט הזה כדי לא לכפול זיכרון.</li>
+      <li><strong>scheduled task למיטל</strong> — דרך Adam. שבוע שלישי שזה רק חוזר בדוח בלי להיפתר.</li>
+    </ol>
+
+    <div class="foot">דוח אוטומטי · Efficiency Agent רץ כל יום חמישי · מדווח רק כשיש ייעול חדש ושווה.</div>
+  </main>
+</body>
+</html>
