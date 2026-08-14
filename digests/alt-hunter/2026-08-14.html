@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔍 Alt Hunter — 14 August 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #2c2f35;
+      color: #c8ccd4;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      direction: ltr;
+      min-height: 100vh;
+      padding: 32px 16px 64px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .header {
+      padding-bottom: 24px;
+      border-bottom: 1px solid #3a3d44;
+      margin-bottom: 32px;
+    }
+
+    .header-meta {
+      font-size: 11px;
+      color: #6a6d75;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #70a070;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .header .tagline {
+      font-size: 13px;
+      color: #6a6d75;
+      font-style: italic;
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: flex;
+      gap: 0;
+      margin-bottom: 32px;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #252830;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 14px 16px;
+      border-right: 1px solid #3a3d44;
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-val {
+      font-size: 20px;
+      font-weight: 700;
+      color: #70a070;
+      display: block;
+    }
+
+    .stat-val.warn { color: #e07070; }
+
+    .stat-key {
+      font-size: 10px;
+      color: #6a6d75;
+      display: block;
+      margin-top: 3px;
+      letter-spacing: 0.08em;
+    }
+
+    .stat-delta {
+      font-size: 10px;
+      color: #70a070;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* SECTIONS */
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #70a070;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: #3a3d44;
+    }
+
+    /* ITEMS */
+    .item {
+      background-color: #252830;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 8px;
+    }
+
+    .item-key {
+      font-size: 10px;
+      font-weight: 600;
+      color: #6a6d75;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .item-val {
+      font-size: 13px;
+      color: #c8ccd4;
+      line-height: 1.7;
+    }
+
+    .item-val a {
+      color: #70a070;
+      text-decoration: none;
+    }
+
+    .item-val a:hover { text-decoration: underline; }
+
+    .item-val ul {
+      margin: 8px 0 0 20px;
+    }
+
+    .item-val li {
+      margin-bottom: 6px;
+    }
+
+    .item-val strong {
+      color: #d8dce4;
+      font-weight: 600;
+    }
+
+    .item-val code {
+      background-color: #1a1d22;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #70a070;
+    }
+
+    /* ACCENT VARIANTS */
+    .item.highlight {
+      border-color: #70a07040;
+      background-color: #1e2a1e;
+    }
+
+    .item.highlight .item-key { color: #70a070; }
+
+    .item.dim {
+      border-color: #32353c;
+      background-color: #222428;
+    }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid #3a3d44;
+      text-align: center;
+      font-size: 11px;
+      color: #6a6d75;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+    }
+
+    table td {
+      padding: 8px 12px;
+      border: 1px solid #3a3d44;
+    }
+
+    table td:first-child {
+      color: #6a6d75;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <div class="header-meta">AUTOMATED WEEKLY SCAN</div>
+      <h1>🔍 Alternative Hunter</h1>
+      <div class="tagline">Free alternatives to Claude Pro — August 14, 2026</div>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <span class="stat-val">$0</span>
+        <span class="stat-key">CHEAPEST PATH</span>
+        <span class="stat-delta">Ollama + Claude Code</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">🟢</span>
+        <span class="stat-key">STATUS</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">3 NEW</span>
+        <span class="stat-key">RELEASES</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🔥 EXECUTIVE SUMMARY</div>
+
+      <div class="item highlight">
+        <span class="item-key">BIG WEEK — OLLAMA ADDS DEEPSEEK HARNESS + META MUSE CODE</span>
+        <div class="item-val">
+          A busy week for the free-alternative ecosystem, with real gains for local coding agents:<br><br>
+          <ul>
+            <li><strong>Ollama v0.32.11</strong> (Aug 14) — adds <strong>DeepSeek Harness</strong> (open-source agent framework), <strong>Meta Muse Code</strong> integration for agentic coding, and web search in the OpenAI-compatible Responses API</li>
+            <li><strong>Muse Glimmer 30B</strong> (Aug 10, v0.32.8) — a multimodal model tuned for agent workloads, now on all platforms and fast on Apple Silicon via MLX</li>
+            <li><strong>Claude Code</strong> — Opus 5 is now the default; background code review and a Security plugin shipped</li>
+          </ul>
+          <br>
+          The <strong>Ollama + Claude Code</strong> local setup remains the standout <code>$0/month</code> path. This week's DeepSeek Harness support means a fully open-source agent harness now runs against local models.
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🎯 BEST FREE ALTERNATIVES (AUGUST 14, 2026)</div>
+
+      <div class="item highlight">
+        <span class="item-key">1. OLLAMA + CLAUDE CODE ⭐ TOP PICK</span>
+        <div class="item-val">
+          <strong>Run Claude Code fully local for $0/month.</strong> Ollama's Anthropic Messages API support (since Jan 2026) lets Claude Code point at any local model.<br><br>
+          <strong>Now on v0.32.11 (Aug 14):</strong>
+          <ul>
+            <li>DeepSeek Harness — open-source agent framework support</li>
+            <li>Meta Muse Code integration for agentic coding</li>
+            <li>Web search added to OpenAI-compatible Responses API</li>
+            <li>Muse Glimmer 30B multimodal model on all platforms</li>
+          </ul>
+          <strong>Recommended model for coding:</strong> <code>qwen3.6:27b</code> — 77.2% on SWE-Bench Verified, 256K context, ~17GB VRAM at Q4.<br>
+          <a href="https://docs.ollama.com/integrations/claude-desktop" target="_blank">→ Official Setup Guide</a>
+        </div>
+      </div>
+
+      <div class="item highlight">
+        <span class="item-key">2. QWEN 3.6 27B (LOCAL) — BEST OPEN MODEL</span>
+        <div class="item-val">
+          <strong>Best free local coding model for most users.</strong> Apache 2.0 licensed, runs great on Apple Silicon via Ollama.<br><br>
+          <strong>Specs:</strong>
+          <ul>
+            <li>✅ 77.2% on SWE-Bench Verified (April 2026 default)</li>
+            <li>✅ 256K context window</li>
+            <li>✅ ~17GB VRAM at Q4_K_M</li>
+            <li>✅ 35B-A3B MoE variant runs on 22GB RAM (3B active)</li>
+          </ul>
+          Pull with <code>ollama pull qwen3.6:27b</code> — zero ongoing cost, full privacy.<br>
+          <a href="https://www.aimadetools.com/blog/qwen-3-6-complete-guide/" target="_blank">→ Qwen 3.6 Guide</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">3. DEEPSEEK V4 — FREE WEB CHAT + CHEAP API</span>
+        <div class="item-val">
+          Frontier-class reasoning, free consumer chat, and now Ollama support:<br><br>
+          <strong>• Free chat</strong> at chat.deepseek.com (account required)<br>
+          <strong>• V4-Pro</strong> — 93.5% on LiveCodeBench, 1M token context<br>
+          <strong>• V4-Flash API</strong> — 93% cheaper input / 97% cheaper output vs Claude Sonnet 5<br>
+          <strong>• DeepSeek Harness</strong> — now runs in Ollama v0.32.11<br><br>
+          <strong>Cost:</strong> Free (web) or ~$0.14/$0.28 per 1M tokens (API)
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">4. OPEN-SOURCE CODING ASSISTANTS</span>
+        <div class="item-val">
+          All free with local models or pay-per-use APIs:<br><br>
+          <strong>• Aider</strong> — terminal-first, 15B tokens/week, supports Ollama<br>
+          <strong>• Cline</strong> — VS Code native (64.6k★), Plan-and-Act, MCP marketplace<br>
+          <strong>• OpenHands</strong> — most-starred coding agent (80.5k★), browser UI + Python SDK<br>
+          <strong>• Eigent</strong> — most complete open-source Cowork desktop, multi-agent<br>
+          <strong>• 5ire</strong> — cross-platform desktop, MCP integration<br><br>
+          <strong>Cost:</strong> Free software + model costs ($0 with local models)
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">5. WEB-BASED FREE OPTIONS</span>
+        <div class="item-val">
+          For quick access without any setup:<br><br>
+          <strong>• DeepSeek V4</strong> — free chat, strong reasoning<br>
+          <strong>• Qwen 3.6 Plus</strong> — free via DashScope, 1M context<br>
+          <strong>• ChatGPT</strong> — still the top free general alternative<br>
+          <strong>• Google Gemini</strong> — generous free tier<br>
+          <strong>• Mistral Le Chat</strong> — free chat alternative
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">⚡ UPDATES THIS WEEK</div>
+
+      <div class="item highlight">
+        <span class="item-key">OLLAMA V0.32.11 (AUGUST 14, 2026) — NEW</span>
+        <div class="item-val">
+          Latest release, published today:<br><br>
+          <ul>
+            <li><strong>DeepSeek Harness</strong> — DeepSeek's open-source agent harness</li>
+            <li><strong>Meta Muse Code</strong> integration for agentic coding apps</li>
+            <li>Web search added to OpenAI-compatible <strong>Responses API</strong></li>
+            <li>Template improvements for <strong>Muse Glimmer</strong></li>
+            <li>v0.32.8 (Aug 10) brought Muse Glimmer 30B to all platforms</li>
+          </ul>
+          <a href="https://github.com/ollama/ollama/releases" target="_blank">→ Ollama Releases</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">CLAUDE CODE — OPUS 5 NOW DEFAULT</span>
+        <div class="item-val">
+          <strong>Anthropic keeps shipping — 29 product updates in 5 months.</strong><br><br>
+          <ul>
+            <li>Opus 5 is the new default model in Claude Code</li>
+            <li>iOS Simulator pane added to Claude Code Desktop</li>
+            <li>Claude Security plugin for vulnerability scanning</li>
+            <li>Background code review shipped</li>
+            <li>Self-hosted environments in public beta (Team/Enterprise)</li>
+          </ul>
+          <a href="https://releasebot.io/updates/anthropic/claude-code" target="_blank">→ Claude Code Updates</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">OPEN WEBUI V0.11.0 — STILL CURRENT</span>
+        <div class="item-val">
+          No new release this week — v0.11.0 (July 27) remains the current build:<br><br>
+          <strong>• Sub-agents</strong> — models delegate to background helper agents<br>
+          <strong>• Chat timers</strong> — schedule prompts to return later<br>
+          <strong>• Folder pages</strong> with pagination<br>
+          <strong>• Chat variables</strong> — persistent fields across conversations<br>
+          <strong>• Open sharing</strong> — shared chats without sign-in<br><br>
+          <a href="https://github.com/open-webui/open-webui/releases" target="_blank">→ GitHub Releases</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">HACKER NEWS + REDDIT HIGHLIGHTS</span>
+        <div class="item-val">
+          <strong>• HN:</strong> Threads on running Claude Code with Ollama local models continue<br>
+          <strong>• HN:</strong> "Claude Desktop spawns 1.8 GB Hyper-V VM on every launch" — recurring Windows gripe<br>
+          <strong>• r/LocalLLaMA:</strong> Ollama hits 55 tokens/sec on Llama 3.1 8B; community favors it for zero cost + privacy<br><br>
+          <a href="https://news.ycombinator.com/item?id=46722285" target="_blank">→ HN: First Claude Code client for Ollama</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">📊 FREE VS PAID COMPARISON</div>
+
+      <div class="item">
+        <span class="item-key">AT A GLANCE</span>
+        <div class="item-val">
+          <table>
+            <tr>
+              <td>Claude Sonnet 5 (API)</td>
+              <td>$2 in / $10 out per 1M tokens</td>
+            </tr>
+            <tr>
+              <td>Ollama v0.32.11 (Free)</td>
+              <td><strong>$0</strong>, 100% local, offline</td>
+            </tr>
+            <tr>
+              <td>DeepSeek V4-Flash (API)</td>
+              <td><strong>$0.14 / $0.28</strong> per 1M (~95% cheaper)</td>
+            </tr>
+            <tr>
+              <td>Best free local coding model</td>
+              <td><strong>Qwen 3.6 27B</strong> (77.2% SWE-Bench)</td>
+            </tr>
+            <tr>
+              <td>Best free web chat</td>
+              <td><strong>DeepSeek V4</strong> (chat.deepseek.com)</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">💡 RECOMMENDATIONS FOR OR</div>
+
+      <div class="item highlight">
+        <span class="item-key">IMMEDIATE ACTIONS</span>
+        <div class="item-val">
+          <strong>1. Update Ollama to v0.32.11</strong><br>
+          • Get DeepSeek Harness + Muse Code agent support<br>
+          • Pull <code>qwen3.6:27b</code> for local coding (256K context)<br>
+          • Try Muse Glimmer 30B if you want multimodal on Apple Silicon<br><br>
+
+          <strong>2. Bookmark DeepSeek V4 for free web chat</strong><br>
+          • chat.deepseek.com is free with an account<br>
+          • Frontier-class reasoning, 1M context, no local hardware needed<br><br>
+
+          <strong>3. Stay on Open WebUI v0.11.0</strong><br>
+          • No new release this week — current version is stable<br>
+          • Desktop app, no Docker needed on Windows<br><br>
+
+          <strong>Why This Matters:</strong><br>
+          • ✅ No monthly subscription for the bulk of AI coding tasks<br>
+          • ✅ Full offline capability for privacy-sensitive work<br>
+          • ✅ Open-source agent harnesses (DeepSeek) now run local
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Alternative Hunter — Automated Weekly Scan<br>
+      Generated: August 14, 2026 • Next Hunt: August 21, 2026
+    </div>
+
+  </div>
+</body>
+</html>

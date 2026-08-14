@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekly AI Digest — 14.08.2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif; background: #f5f5f5; color: #111827; max-width: 600px; margin: 0 auto; padding: 32px 16px; line-height: 1.6; direction: rtl; text-align: right; }
+  .header { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 16px; padding: 28px 24px 24px; margin-bottom: 16px; text-align: right; direction: rtl; }
+  .header-eyebrow { font-size: 11px; font-weight: 600; color: #9ca3af; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+  .header h1 { font-size: 26px; font-weight: 700; color: #111827; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .header .date { font-size: 13px; color: #6b7280; margin-bottom: 8px; }
+  .header-meta { display: inline-block; font-size: 11px; color: #9ca3af; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 999px; padding: 3px 10px; margin-top: 4px; }
+  .tldr { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px 20px 12px; margin-bottom: 16px; direction: rtl; text-align: right; }
+  .tldr-title { font-size: 10px; font-weight: 700; color: #9ca3af; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; display: block; }
+  .tldr-row { padding: 10px 0; border-bottom: 1px solid #f3f4f6; direction: rtl; text-align: right; }
+  .tldr-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .tldr-label { display: block; font-size: 10px; font-weight: 600; color: #9ca3af; margin-bottom: 3px; text-align: right; letter-spacing: 0.5px; }
+  .tldr-text { display: block; font-size: 13px; color: #374151; text-align: right; line-height: 1.5; }
+  .section { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; margin-bottom: 16px; direction: rtl; text-align: right; }
+  .section-header { display: block; margin-bottom: 16px; direction: rtl; text-align: right; }
+  .section-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 999px; letter-spacing: 0.3px; }
+  .badge-dev { background: #f3f0ff; color: #7c3aed; }
+  .badge-design { background: #eff6ff; color: #2563eb; }
+  .badge-cool { background: #f0fdf4; color: #15803d; }
+  .badge-tool { background: #fffbeb; color: #d97706; }
+  .item { padding: 14px 0; border-bottom: 1px solid #f3f4f6; direction: rtl; text-align: right; }
+  .item:last-child { border-bottom: none; padding-bottom: 0; }
+  .item-hero { padding: 14px; border-radius: 10px; border-bottom: none; margin-bottom: 12px; }
+  .section-dev .item-hero { background: #f5f3ff; border: 2px solid #ddd6fe; }
+  .section-design .item-hero { background: #eff6ff; border: 2px solid #bfdbfe; }
+  .section-cool .item-hero { background: #f0fdf4; border: 2px solid #bbf7d0; }
+  .section-tool .item-hero { background: #fffbeb; border: 2px solid #fde68a; }
+  .item-hero .item-title { font-size: 15px; }
+  .tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 999px; margin-bottom: 6px; letter-spacing: 0.3px; }
+  .tag-now { background: #fff7ed; color: #c2410c; }
+  .tag-fyi { background: #eff6ff; color: #1d4ed8; }
+  .tag-future { background: #faf5ff; color: #7c3aed; }
+  .item-title { font-size: 14px; font-weight: 600; color: #111827; text-align: right; margin-bottom: 3px; line-height: 1.4; }
+  .item-source { font-size: 11px; color: #9ca3af; margin-bottom: 6px; text-align: right; }
+  .item-source a { color: #6b7280; text-decoration: none; }
+  .item-summary { font-size: 13px; color: #6b7280; text-align: right; line-height: 1.6; }
+  .tool-detail { background: #ffffff; border: 1px solid #fde68a; border-radius: 8px; padding: 14px; margin-top: 12px; }
+  .tool-detail-row { margin-bottom: 10px; text-align: right; }
+  .tool-detail-row:last-child { margin-bottom: 0; }
+  .tool-detail-label { display: block; font-size: 10px; font-weight: 700; color: #d97706; margin-bottom: 2px; text-align: right; letter-spacing: 0.5px; text-transform: uppercase; }
+  .tool-detail-text { display: block; font-size: 13px; color: #374151; line-height: 1.5; text-align: right; }
+  .tool-link { display: inline-block; margin-top: 12px; font-size: 12px; font-weight: 700; color: #ffffff; text-decoration: none; padding: 7px 18px; border-radius: 999px; background: #d97706; }
+  .footer { text-align: center; margin-top: 8px; font-size: 11px; color: #d1d5db; padding: 16px 0; direction: rtl; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">Weekly AI Digest</div>
+  <h1>📡 מה קרה השבוע ב-AI</h1>
+  <div class="date">שבוע של 14 באוגוסט 2026 &nbsp;·&nbsp; 14.08.2026</div>
+  <div class="header-meta">10 פריטים &nbsp;·&nbsp; ~5 דק' קריאה</div>
+</div>
+
+<div class="tldr">
+  <span class="tldr-title">השבוע בשניה</span>
+  <div class="tldr-row">
+    <span class="tldr-label">🔥 הכי חשוב</span>
+    <span class="tldr-text">Claude Code קיבל תוסף בטא לסריקת אבטחה מבוסס multi-agent שרץ ישירות בטרמינל, במקביל ל-Opus 5 שהפך לדגם ברירת המחדל היומיומי לקוד וסוכנים.</span>
+  </div>
+  <div class="tldr-row">
+    <span class="tldr-label">🤯 הכי מגניב</span>
+    <span class="tldr-text">דגם פנימי של OpenAI בשם Astra פתר 10 בעיות פתוחות במתמטיקה ובמדעי המחשב התיאורטיים — כולל הוכחת קיום לקבוצות non-sofic.</span>
+  </div>
+  <div class="tldr-row">
+    <span class="tldr-label">🛠 כדאי לנסות</span>
+    <span class="tldr-text">A11yEngine — סורק נגישות מבוסס AI שבודק WCAG 2.2 section-by-section ומציע תיקונים מותאמים ל-framework, טוב לבדיקת כל PWA לפני עלייה לאוויר.</span>
+  </div>
+</div>
+
+<div class="section section-dev">
+  <div class="section-header">
+    <span class="section-badge badge-dev">AI בפיתוח ובנייה</span>
+  </div>
+
+  <div class="item item-hero">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">Claude Code קיבל סורק אבטחה מובנה בטרמינל</div>
+    <div class="item-source">Anthropic · <a href="https://www.marktechpost.com/2026/07/22/anthropic-releases-claude-security-plugin-for-claude-code-in-beta-a-multi-agent-vulnerability-scanner-that-runs-in-your-terminal/">marktechpost.com</a></div>
+    <div class="item-summary">אנתרופיק השיקה את Claude Security כתוסף בטא ל-Claude Code — סורק פגיעויות מבוסס multi-agent שרץ ישירות בתוך הסשן. סוכן אחד ממפה את הארכיטקטורה, אחר בונה מודל איומים, סוכנים נוספים מאתרים פרצות, וסוכני אימות בודקים כל ממצא לפני שהוא נכנס לדוח. במקביל, Opus 5 הפך לדגם היומיומי המומלץ לקוד ולעבודת סוכנים.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-fyi">👀 שווה לדעת</span>
+    <div class="item-title">Cursor Router מנתב אוטומטית בין מודלים</div>
+    <div class="item-source">Cursor · <a href="https://releasebot.io/updates/cursor">releasebot.io</a></div>
+    <div class="item-summary">Auto Intelligence ו-Auto Balance בוחרים לכל בקשה את המודל המתאים ביותר, כולל Opus 5 — עם שביעות רצון גבוהה יותר ועלות נמוכה ב-40-68% מהרצה קבועה על מודל יחיד.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-fyi">👀 שווה לדעת</span>
+    <div class="item-title">רוב הקוד ב-GitHub כבר נכתב בעזרת AI</div>
+    <div class="item-source">GitHub · <a href="https://www.under30ceo.com/ai-coding-tools-reshaping-software-2026/">under30ceo.com</a></div>
+    <div class="item-summary">נכון לתחילת 2026, 51% מהקוד שנדחף ל-GitHub נכתב או נעזר ב-AI, ו-TypeScript טיפסה לראש טבלת השפות הנפוצות ביותר — מגמה שממשיכה להאיץ.</div>
+  </div>
+</div>
+
+<div class="section section-design">
+  <div class="section-header">
+    <span class="section-badge badge-design">AI בעיצוב</span>
+  </div>
+
+  <div class="item item-hero">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">Figma הופכת לקנבס code-native</div>
+    <div class="item-source">Figma Config 2026 · <a href="https://analyticsindiamag.com/ai-news/figma-unveils-ai-agents-and-code-native-design-tools-at-config-2026">analyticsindiamag.com</a></div>
+    <div class="item-summary">פיגמה השיקה Code Layers — עבודה ישירה עם קוד על הקנבס, שכפול ריפוזיטוריז והמרת פלואו לשכבות עריכה — לצד הרחבת כלי ה-Weave עם למעלה מ-20 משימות עריכת תמונה מבוססות AI, כולל אפשרות להריץ כמה עריכות ברקע ולהמשיך לעצב במקביל.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">תיקיות מקוננות ב-Figma</div>
+    <div class="item-source">Figma · <a href="https://www.figma.com/release-notes/">figma.com</a></div>
+    <div class="item-summary">פיצ'ר מבוקש-ותיק שסוף-סוף נחת — עכשיו אפשר לארגן קבצים בתיקיות בתוך תיקיות, שימושי גם לפרויקטים אישיים עם הרבה גרסאות וגם לצוותים גדולים.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-fyi">👀 שווה לדעת</span>
+    <div class="item-title">ספריית סקילים ל-AI Agents בפיגמה</div>
+    <div class="item-source">Figma · <a href="https://www.figma.com/newsroom/">figma.com</a></div>
+    <div class="item-summary">יותר מ-50 סקילים לתהליכי עיצוב — מריסרץ' ועד handoff — זמינים דרך ה-Figma MCP ורצים גם מתוך Claude, ChatGPT או Cursor.</div>
+  </div>
+</div>
+
+<div class="section section-cool">
+  <div class="section-header">
+    <span class="section-badge badge-cool">חדש ומגניב</span>
+  </div>
+
+  <div class="item item-hero">
+    <span class="tag tag-future">🔮 בקרוב</span>
+    <div class="item-title">דגם פנימי של OpenAI פתר 10 בעיות מתמטיות פתוחות</div>
+    <div class="item-source">OpenAI · <a href="https://local-ai-zone.github.io/blog/ai-updates-august-2026.html">local-ai-zone.github.io</a></div>
+    <div class="item-summary">Astra, הדגם הבא של OpenAI, פתר בגרסה פנימית 10 בעיות פתוחות במתמטיקה ובמדעי המחשב התיאורטיים — כולל הוכחת קיום לקבוצות non-sofic ותחומים חדשים ל-sphere-packing. הדגם עצמו עדיין לא זמין לציבור.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-fyi">👀 שווה לדעת</span>
+    <div class="item-title">דגמים חדשים יוצאים כמו עדכוני תוכנה</div>
+    <div class="item-source">aireleasetracker.com</div>
+    <div class="item-summary">תשעה דגמי AI חדשים יצאו רק באוגוסט עד כה מחמישה ספקים שונים — מ-Grok 4.6 ועד DeepSeek-V4-Pro ו-Qwen Image 3.0 Pro — קצב שהופך מעקב שוטף אחרי כל דגם חדש למשימה כמעט בלתי אפשרית בלי כלי ריכוז.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-fyi">👀 שווה לדעת</span>
+    <div class="item-title">OpenAI מוזילה את GPT-5.6 ב-80%</div>
+    <div class="item-source">buildfastwithai.com</div>
+    <div class="item-summary">מלחמת המחירים בין הספקים ממשיכה להאיץ, עם ירידה של עד 80% במחיר — מה שהופך שימוש כבד ב-AI לזול משמעותית לעומת תחילת השנה.</div>
+  </div>
+</div>
+
+<div class="section section-tool">
+  <div class="section-header">
+    <span class="section-badge badge-tool">כלי אחד לנסות</span>
+  </div>
+
+  <div class="item item-hero">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">A11yEngine — סורק נגישות מבוסס AI</div>
+    <div class="item-source"><a href="https://www.somewhatcreative.net/design/whats-new-for-designers-developers-august-2026/">somewhatcreative.net</a></div>
+    <div class="item-summary">כלי שסורק דפי אינטרנט section-by-section, מאתר בעיות תאימות ל-WCAG 2.2 ומציע תיקונים מותאמים ל-framework שבו נבנה האתר.</div>
+
+    <div class="tool-detail">
+      <div class="tool-detail-row">
+        <span class="tool-detail-label">מה זה</span>
+        <span class="tool-detail-text">סריקת נגישות אוטומטית לפי סעיף — לא רק "רשימת שגיאות" אלא הצעות תיקון קונקרטיות שמתאימות ל-stack שבו האתר נבנה.</span>
+      </div>
+      <div class="tool-detail-row">
+        <span class="tool-detail-label">למה כדאי</span>
+        <span class="tool-detail-text">שימושי לבדיקת כל PWA לפני עלייה לאוויר — כמו Moon Phase, ה-Hub או הפורטפוליו — צעד קל להוסיף לתהליך העבודה בלי לשנות שום דבר בקוד הקיים.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  נוצר אוטומטית ע"י הסוכנים של אור &nbsp;·&nbsp; Weekly AI Digest &nbsp;·&nbsp; 14.08.2026
+</div>
+
+</body>
+</html>
