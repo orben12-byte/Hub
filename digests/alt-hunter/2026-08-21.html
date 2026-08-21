@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔍 Alt Hunter — 21 August 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #2c2f35;
+      color: #c8ccd4;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      direction: ltr;
+      min-height: 100vh;
+      padding: 32px 16px 64px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .header {
+      padding-bottom: 24px;
+      border-bottom: 1px solid #3a3d44;
+      margin-bottom: 32px;
+    }
+
+    .header-meta {
+      font-size: 11px;
+      color: #6a6d75;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #70a070;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .header .tagline {
+      font-size: 13px;
+      color: #6a6d75;
+      font-style: italic;
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: flex;
+      gap: 0;
+      margin-bottom: 32px;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #252830;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 14px 16px;
+      border-right: 1px solid #3a3d44;
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-val {
+      font-size: 20px;
+      font-weight: 700;
+      color: #70a070;
+      display: block;
+    }
+
+    .stat-val.warn { color: #e07070; }
+
+    .stat-key {
+      font-size: 10px;
+      color: #6a6d75;
+      display: block;
+      margin-top: 3px;
+      letter-spacing: 0.08em;
+    }
+
+    .stat-delta {
+      font-size: 10px;
+      color: #70a070;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* SECTIONS */
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #70a070;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: #3a3d44;
+    }
+
+    /* ITEMS */
+    .item {
+      background-color: #252830;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 8px;
+    }
+
+    .item-key {
+      font-size: 10px;
+      font-weight: 600;
+      color: #6a6d75;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .item-val {
+      font-size: 13px;
+      color: #c8ccd4;
+      line-height: 1.7;
+    }
+
+    .item-val a {
+      color: #70a070;
+      text-decoration: none;
+    }
+
+    .item-val a:hover { text-decoration: underline; }
+
+    .item-val ul {
+      margin: 8px 0 0 20px;
+    }
+
+    .item-val li {
+      margin-bottom: 6px;
+    }
+
+    .item-val strong {
+      color: #d8dce4;
+      font-weight: 600;
+    }
+
+    .item-val code {
+      background-color: #1a1d22;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #70a070;
+    }
+
+    /* ACCENT VARIANTS */
+    .item.highlight {
+      border-color: #70a07040;
+      background-color: #1e2a1e;
+    }
+
+    .item.highlight .item-key { color: #70a070; }
+
+    .item.dim {
+      border-color: #32353c;
+      background-color: #222428;
+    }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid #3a3d44;
+      text-align: center;
+      font-size: 11px;
+      color: #6a6d75;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+    }
+
+    table td {
+      padding: 8px 12px;
+      border: 1px solid #3a3d44;
+    }
+
+    table td:first-child {
+      color: #6a6d75;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <div class="header-meta">AUTOMATED WEEKLY SCAN</div>
+      <h1>🔍 Alternative Hunter</h1>
+      <div class="tagline">Free alternatives to Claude Pro — August 21, 2026</div>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <span class="stat-val">$0</span>
+        <span class="stat-key">CHEAPEST PATH</span>
+        <span class="stat-delta">Ollama + Claude Code</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">🟢</span>
+        <span class="stat-key">STATUS</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">4 NEW</span>
+        <span class="stat-key">RELEASES</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🔥 EXECUTIVE SUMMARY</div>
+
+      <div class="item highlight">
+        <span class="item-key">QUIET WEEK, ONE REAL UPGRADE — QWEN 3.8 LANDS</span>
+        <div class="item-val">
+          No new platform this week. Four Ollama point releases, and the only change that
+          actually affects your setup is a model bump:<br><br>
+          <ul>
+            <li><strong>Qwen 3.8 27B</strong> (v0.32.12, Aug 14) — replaces qwen3.6 as the
+                recommended local coding model, optimised for Apple Silicon via the MLX engine</li>
+            <li><strong>~50% faster time-to-first-token</strong> (v0.32.15, Aug 19) — metadata
+                caching cuts cold start from ~995ms to ~524ms. Noticeable on every prompt</li>
+            <li><strong>Stability fix</strong> — chat/generate no longer wedges after a parser error</li>
+            <li><strong>Claude Code</strong> — <code>ANTHROPIC_DEFAULT_MODEL</code> env var to pin
+                the starting model; spellcheck in the prompt input; screen reader support</li>
+          </ul>
+          <br>
+          <strong>Verdict:</strong> nothing here changes the recommendation. <strong>Ollama +
+          Claude Code</strong> stays the <code>$0/month</code> path. One action worth taking:
+          pull qwen3.8.
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">⚡ THE ONE ACTION THIS WEEK</div>
+
+      <div class="item highlight">
+        <span class="item-key">UPGRADE THE LOCAL CODING MODEL</span>
+        <div class="item-val">
+          Last week's pick was <code>qwen3.6:27b</code>. It has been superseded.<br><br>
+          <code>ollama pull qwen3.8:27b</code><br><br>
+          Same class of hardware (~17GB VRAM at Q4), better coding scores, and it now takes
+          developer instructions properly (v0.32.13) — which matters if you point Claude Code
+          at it, since system prompts were being mishandled before.<br><br>
+          Combined with the v0.32.15 speed fix, this is the biggest practical gain in a month.
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🎯 BEST FREE ALTERNATIVES (AUGUST 21, 2026)</div>
+
+      <div class="item highlight">
+        <span class="item-key">1. OLLAMA + CLAUDE CODE ⭐ TOP PICK</span>
+        <div class="item-val">
+          <strong>Run Claude Code fully local for $0/month.</strong> Ollama's Anthropic Messages
+          API support lets Claude Code point at any local model.<br><br>
+          <strong>Now on v0.32.15 (Aug 19):</strong>
+          <ul>
+            <li>Time-to-first-token roughly halved via metadata caching</li>
+            <li>New desktop onboarding flow on first launch</li>
+            <li>Qwen 3.8 system message handling normalised</li>
+            <li>WebP image transcoding for llama-server (v0.32.14)</li>
+          </ul>
+          <strong>Recommended model:</strong> <code>qwen3.8:27b</code> — ~17GB VRAM at Q4.<br>
+          <a href="https://docs.ollama.com/integrations/claude-desktop" target="_blank">→ Official Setup Guide</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">2. QWEN 3.8 27B (LOCAL) — BEST OPEN MODEL</span>
+        <div class="item-val">
+          The current best free local coding model. Runs well on Apple Silicon through Ollama's
+          MLX engine. Developer-instruction support added Aug 14, so it behaves correctly as a
+          Claude Code backend.<br><br>
+          <code>ollama pull qwen3.8:27b</code>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">3. OPENCODE / AIDER — TERMINAL AGENTS</span>
+        <div class="item-val">
+          Both free and open source. <strong>OpenCode</strong> (~17.1k stars) is the closest
+          match to the Claude Code terminal workflow; you pay only for whatever model you point
+          it at, which is $0 against a local Ollama. <strong>Aider</strong> (MIT) paired with
+          Ollama is a fully free coding agent that never leaves your machine.<br><br>
+          Unchanged from last week — listed for completeness, not because anything shipped.
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">4. OPEN WEBUI — SELF-HOSTED CHAT UI</span>
+        <div class="item-val">
+          Still on <strong>v0.11.0</strong> (Jul 27) — the interface reorganisation with a
+          rebuilt sidebar, unified settings, remappable shortcuts, and sub-agents that hand
+          parts of a task to background helpers. No release this week.
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">📉 WHAT DIDN'T CHANGE</div>
+
+      <div class="item">
+        <span class="item-key">NO NEW CONTENDERS</span>
+        <div class="item-val">
+          DeepSeek Harness, Muse Glimmer 30B, Cline, Goose, LobeChat, AnythingLLM, Cherry Studio,
+          Proton Lumo — all unchanged since last week's scan. Gemini CLI still offers 1,000
+          requests/day with no card required, which remains the easiest non-local free path.<br><br>
+          <strong>Nothing this week justifies switching away from your current setup.</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Alternative Hunter · automated scan · 21 August 2026<br>
+      Sources: Ollama releases · Claude Code changelog · Open WebUI blog · r/LocalLLaMA
+    </div>
+
+  </div>
+</body>
+</html>
