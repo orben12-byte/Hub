@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Efficiency Audit — 28.08.2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0E0E10; --surface:#1A1A1E; --surface-2:#232328; --border:#2E2E34;
+      --text:#F0F0F0; --muted:#9A9A9A; --accent:#F472B6; --accent-deep:#DB2777;
+      --green:#34D399; --amber:#FBBF24; --red:#F87171;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Rubik',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+    main{max-width:760px;margin:0 auto;padding:40px 22px 70px;}
+    .back{font-size:13px;font-weight:600;color:var(--accent);text-decoration:none;}
+    .eyebrow{display:inline-flex;align-items:center;gap:7px;margin-top:22px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);}
+    .eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent-deep);}
+    h1{font-size:30px;font-weight:700;margin:10px 0 6px;letter-spacing:-0.5px;}
+    .date{font-size:14px;color:var(--muted);margin-bottom:6px;}
+    .verdict{display:inline-block;margin-top:14px;background:rgba(251,191,36,0.12);color:var(--amber);border:1px solid rgba(251,191,36,0.3);font-weight:600;font-size:14px;padding:8px 16px;border-radius:999px;}
+
+    .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:30px 0 36px;}
+    .metric{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;}
+    .metric-label{font-size:12px;color:var(--muted);margin-bottom:8px;}
+    .metric-val{font-size:26px;font-weight:700;letter-spacing:-0.5px;}
+    .metric-val small{font-size:13px;font-weight:500;color:var(--muted);}
+    .metric-delta{font-size:12px;font-weight:600;margin-top:4px;color:var(--green);}
+
+    .section-label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:34px 0 14px;}
+
+    .finding{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:14px;border-inline-start:3px solid var(--border);}
+    .finding.good{border-inline-start-color:var(--green);}
+    .finding.warn{border-inline-start-color:var(--amber);}
+    .finding.bad{border-inline-start-color:var(--red);}
+    .f-head{display:flex;align-items:center;gap:9px;font-size:16px;font-weight:600;margin-bottom:4px;}
+    .f-axis{font-size:11px;font-weight:600;color:var(--muted);background:var(--surface-2);padding:2px 9px;border-radius:6px;}
+    .f-body{font-size:14.5px;color:#D8D8D8;margin-top:8px;}
+    .f-action{font-size:14px;font-weight:600;margin-top:10px;color:var(--text);}
+    .f-action span{color:var(--accent);}
+
+    table{width:100%;border-collapse:collapse;margin:8px 0 30px;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+    th,td{text-align:right;padding:12px 16px;font-size:14px;border-bottom:1px solid var(--border);}
+    th{background:var(--surface-2);font-weight:600;color:var(--muted);font-size:12px;letter-spacing:.04em;}
+    tr:last-child td{border-bottom:none;}
+
+    .steps{counter-reset:s;list-style:none;}
+    .steps li{counter-increment:s;position:relative;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px 16px 18px;padding-inline-start:54px;margin-bottom:10px;font-size:15px;}
+    .steps li::before{content:counter(s);position:absolute;inset-inline-start:16px;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;background:var(--accent-deep);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;}
+    .foot{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);font-size:12.5px;color:var(--muted);}
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="../../">← Orbit</a>
+
+    <div class="eyebrow">Efficiency Audit</div>
+    <h1>ייעול שבועי של המערכת</h1>
+    <div class="date">28 באוגוסט 2026 · Efficiency Agent · ביקורת 8</div>
+    <div class="verdict">🟡 נמצאו 3 הזדמנויות ייעול</div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-label">Session Start (טעינה קבועה)</div>
+        <div class="metric-val">~22.9K <small>טוקנים</small></div>
+        <div class="metric-delta" style="color:var(--amber)">↑ מ-~19.5K (13.08) — feedback-system.md גדל בלי בלם</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">learning-log</div>
+        <div class="metric-val">12 <small>ערכים</small></div>
+        <div class="metric-delta">30,685→24,886 bytes · 4 ערכים אורכבו</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">decisions</div>
+        <div class="metric-val">16 <small>ערכים</small></div>
+        <div class="metric-delta">26,142→23,709 bytes · 2 ערכים אורכבו</div>
+      </div>
+    </div>
+
+    <div class="section-label">ממצאים (3)</div>
+
+    <div class="finding good">
+      <div class="f-head">🟢 ארכוב אוטומטי — שני קבצים חצו את התקרה בו-זמנית בפעם הראשונה <span class="f-axis">טוקנים / context</span></div>
+      <div class="f-body">learning-log (30,685 bytes) ו-decisions (26,142 bytes) חצו יחד את תקרת ה-25K. learning-log: 4 ערכים ישנים (27.7, 30.7, 1.8, 2.8) הועברו — 27.7/30.7 לארכיון יולי הקיים, 1.8/2.8 לקובץ ארכיון אוגוסט חדש (לא היה קיים עד עכשיו). decisions: 2 ערכים (11.7, 13.7) הועברו לארכיון יולי הקיים. אימות לפני/אחרי: 135 ערכים ב-learning-log ו-98 ב-decisions בשני הצדדים, ללא מפרידים כפולים.</div>
+    </div>
+
+    <div class="finding warn">
+      <div class="f-head">🟡 Session Start עלה ל-~22.9K — feedback-system.md הוא היחיד בלי תקרת ארכוב <span class="f-axis">טוקנים / context</span></div>
+      <div class="f-body">סך כל קבצי פרוטוקול הפתיחה (CLAUDE.md + 3×C-core + 4×M-memory) נמדד ב-PowerShell: 91,462 bytes ≈ 22.9K טוקנים — עלייה מה-~19.5K שנמדד ב-13.08. הסיבה: learning-log/decisions כפופים לכלל תקרה של ~25K (עודכן 21.08), אבל feedback-system.md (17,263 bytes) לא — אין לו מנגנון ארכוב בכלל, והוא נטען בכל סשן. אם ימשיך לגדול באותו קצב, הוא יהיה הבזבוז הבא.</div>
+      <div class="f-action">מה לעשות עכשיו: <span>להרחיב את אותו כלל תקרת-נפח (~25K, ארכוב חודשי) גם ל-feedback-system.md — ולעבור מראש על תוכנו לבדוק אם חלק מהכללים כבר הוטמעו ב-skills/agent files ואפשר לצמצם, לא רק להעביר.</span></div>
+    </div>
+
+    <div class="finding good">
+      <div class="f-head">🟢 תוקן: טבלת המודלים ציינה מחיר Sonnet 5 כמבצע — הוא הפך קבוע <span class="f-axis">בחירת מודל / חוץ</span></div>
+      <div class="f-body">חיפוש רשת אימת (מספר מקורות עצמאיים): Anthropic הודיעו ב-10.08.2026 שהעלאת המחיר המתוכננת של Sonnet 5 ל-1.09.2026 (מ-$2/$10 ל-$3/$15) <strong>בוטלה</strong> — $2/$10 הפך למחיר קבוע. `efficiency-agent.md` עדכן את זה כמבצע שנגמר ב-31.08. תוקן ישירות בקובץ הסוכן.</div>
+    </div>
+
+    <div class="section-label">סיכום צירים</div>
+    <table>
+      <tr><th>ציר</th><th>מצב</th></tr>
+      <tr><td>🪙 טוקנים / context</td><td>🟡 ארכוב טופל, feedback-system פתוח</td></tr>
+      <tr><td>⚙️ שיטת עבודה</td><td>🟢 תקין</td></tr>
+      <tr><td>🧠 בחירת מודל</td><td>🟢 טופל אוטומטית (תמחור תוקן)</td></tr>
+      <tr><td>🔧 כלים והגדרות</td><td>🟢 תקין — אין כפילות סוכנים/scheduled tasks חדשה</td></tr>
+      <tr><td>🌐 מה חדש בחוץ</td><td>🟢 נמצא ותוקן (תמחור) · אין פיצ'ר Claude Code חדש שרלוונטי כרגע</td></tr>
+    </table>
+
+    <div class="section-label">3 הצעדים המשתלמים</div>
+    <ol class="steps">
+      <li><strong>להרחיב את כלל תקרת הארכוב ל-feedback-system.md</strong> — הקובץ היחיד בפרוטוקול הפתיחה (17.3KB) שגדל בלי שום בלם. זה הבזבוז הבא אם לא נוגעים בו.</li>
+      <li><strong>שום פעולה נדרשת על תיקון המחיר</strong> — בוצע אוטומטית ב-efficiency-agent.md, רק לדעת שהמידע היה שגוי חודש.</li>
+      <li><strong>לעקוב אחרי Session Start בריצה הבאה</strong> — לוודא שהוא חוזר לכיוון ~19-20K אחרי שיטופל feedback-system, לא ממשיך לטפס.</li>
+    </ol>
+
+    <div class="foot">דוח אוטומטי · Efficiency Agent רץ כל יום חמישי · מדווח רק כשיש ייעול חדש ושווה.</div>
+  </main>
+</body>
+</html>
