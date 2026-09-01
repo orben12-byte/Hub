@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>סיכום חודשי — אוגוסט 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f4ede4; --bg-alt: #ede4d8; --accent: #c45e2a;
+    --ink: #1c1208; --ink-mid: #6b5040; --ink-light: #b8956a;
+    --dark-bg: #1c1208; --dark-ink: #f4ede4; --card-bg: #ede4d8;
+  }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Rubik', sans-serif;
+    direction: rtl; text-align: right; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; padding: 0 24px 80px; }
+  .header { padding: 56px 0 32px; border-bottom: 2px solid var(--accent); margin-bottom: 40px; }
+  .header-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+  .header-title { font-size: clamp(3.8rem, 14vw, 6.5rem); font-weight: 900; line-height: 0.88; color: var(--ink); letter-spacing: -3px; margin-bottom: 24px; }
+  .header-sentence { font-size: 17px; font-style: italic; color: var(--ink-mid); line-height: 1.6; max-width: 540px; }
+  .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--accent); border-radius: 6px; overflow: hidden; margin-bottom: 56px; }
+  .stat-cell { background: var(--bg); padding: 22px 12px; text-align: center; }
+  .stat-number { font-size: clamp(2rem, 7vw, 3rem); font-weight: 900; color: var(--accent); line-height: 1; letter-spacing: -1px; display: block; }
+  .stat-label { font-size: clamp(9px, 2vw, 11px); font-weight: 600; color: var(--ink-light); text-transform: uppercase; letter-spacing: 1px; margin-top: 7px; display: block; line-height: 1.4; }
+  .section { margin-bottom: 52px; }
+  .section-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--bg-alt); }
+  .project-list { display: flex; flex-direction: column; gap: 10px; }
+  .project-card { background: var(--card-bg); border-radius: 6px; padding: 20px 22px; border-right: 4px solid var(--accent); }
+  .project-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 12px; }
+  .project-name { font-size: 17px; font-weight: 700; color: var(--ink); }
+  .project-badge { font-size: 10px; font-weight: 700; color: var(--accent); background: var(--bg); border: 1.5px solid var(--accent); border-radius: 20px; padding: 3px 10px; white-space: nowrap; flex-shrink: 0; letter-spacing: 0.5px; }
+  .project-desc { font-size: 14px; color: var(--ink-mid); line-height: 1.6; }
+  .agent-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .agent-item { background: var(--card-bg); border-radius: 6px; padding: 16px 18px; display: flex; align-items: center; gap: 14px; }
+  .agent-circle { width: 44px; height: 44px; min-width: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #f4ede4; flex-shrink: 0; }
+  .agent-name { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+  .agent-role { font-size: 12px; color: var(--ink-light); line-height: 1.4; }
+  .rule-list { display: flex; flex-direction: column; gap: 12px; }
+  .rule-box { border-right: 4px solid var(--accent); padding: 16px 20px; background: var(--card-bg); border-radius: 0 6px 6px 0; }
+  .rule-box-tag { font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; }
+  .rule-box-text { font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.4; margin-bottom: 5px; }
+  .rule-box-sub { font-size: 13px; color: var(--ink-mid); line-height: 1.6; }
+  .footer-block { background: var(--dark-bg); border-radius: 8px; padding: 36px 32px 40px; margin-top: 56px; }
+  .footer-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 16px; }
+  .footer-title { font-size: clamp(1.6rem, 5vw, 2.2rem); font-weight: 900; color: var(--dark-ink); margin-bottom: 14px; line-height: 1.2; letter-spacing: -0.5px; }
+  .footer-text { font-size: 15px; color: rgba(244,237,228,0.65); line-height: 1.75; margin-bottom: 24px; }
+  .footer-items { display: flex; flex-direction: column; gap: 10px; }
+  .footer-item { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: rgba(244,237,228,0.80); line-height: 1.5; }
+  .footer-dot { width: 6px; height: 6px; min-width: 6px; border-radius: 50%; background: var(--accent); margin-top: 8px; flex-shrink: 0; }
+  .colophon { text-align: center; padding: 28px 0 0; font-size: 11px; color: var(--ink-light); letter-spacing: 1.5px; }
+  @media (max-width: 480px) {
+    .agent-grid { grid-template-columns: 1fr; }
+    .stats-bar  { grid-template-columns: repeat(2, 1fr); }
+    .container  { padding: 0 16px 60px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="header">
+    <div class="header-eyebrow">סיכום חודשי · ABC-TOM System</div>
+    <h1 class="header-title">אוגוסט 2026</h1>
+    <p class="header-sentence">חודש שבו כמעט הכל נעלם — תזמונים, סשנים, דוחות — ושום דבר לא אבד באמת, ולצד השחזורים קם סוכן חדש שסופר לאור שקלים בפעם הראשונה.</p>
+  </header>
+
+  <div class="stats-bar">
+    <div class="stat-cell">
+      <span class="stat-number">5</span>
+      <span class="stat-label">פרויקטים</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-number">2</span>
+      <span class="stat-label">סוכנים<br>חדשים</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-number">3</span>
+      <span class="stat-label">גרסאות<br>עלו live</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-number">14+</span>
+      <span class="stat-label">כללים<br>נרשמו</span>
+    </div>
+  </div>
+
+  <!-- פרויקטים -->
+  <section class="section">
+    <div class="section-label">פרויקטים</div>
+    <div class="project-list">
+
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-name">Accountant Agent</div>
+          <div class="project-badge">LIVE · 24.08</div>
+        </div>
+        <div class="project-desc">האודיט הפיננסי הראשון האמיתי — 6 מחזורי אשראי, קריאה רק מ-CSV מסונן (ללא PDF גולמי, ללא פרטים מזהים). הממצא: מזון וצריכה 1,458 ₪/חודש, גדול מהרכב ב-50%. הרכב על השולחן, ההחלטה עדיין פתוחה.</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-name">Compass (מצפן)</div>
+          <div class="project-badge">LIVE · 14.08</div>
+        </div>
+        <div class="project-desc">סוכן מיקוד-שליטה חדש שעונה על "מה תקוע / מה עשיתי / מה עכשיו" מתוך פנקס פרויקטים מרוכז, ומעדכן דשבורד Orbit. נקודת כניסה יומית חדשה לכל המערכת.</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-name">Weekly AI Digest</div>
+          <div class="project-badge">AUTOMATED</div>
+        </div>
+        <div class="project-desc">האוטומציה נסגרה סוף-סוף: שישי 09:35, 4 חיפושי-רשת → HTML → manifest → git push, עם התראה בסיום כל ריצה.</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-name">חיפוש עבודה</div>
+          <div class="project-badge">ACTIVE</div>
+        </div>
+        <div class="project-desc">Moon Active אותרה דרך ATS חדש (Ashby). נקודת מדד ראשונה לקוהורט "ללא מיקום": סירוב אחרי 13 יום במקום 2-4 — סימן ראשון (וזהיר) שהמהלך עוזר לעבור סינון CV.</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-name">כלי MCP וסקילים</div>
+          <div class="project-badge">EXPANDED</div>
+        </div>
+        <div class="project-desc">Markitdown ו-ElevenLabs נוספו מתוך סריקת aitmpl (101 כלים, רק 6 רלוונטיים). 4 סקילי קריירה חדשים (ATS, פורטפוליו, ראיונות) שמילאו חורים אמיתיים בצינור חיפוש העבודה.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- הצוות גדל -->
+  <section class="section">
+    <div class="section-label">הצוות גדל</div>
+    <div class="agent-grid">
+
+      <div class="agent-item">
+        <div class="agent-circle" style="background: #c45e2a;">מצ</div>
+        <div class="agent-info">
+          <div class="agent-name">Compass · מצפן</div>
+          <div class="agent-role">מיקוד-שליטה על כל הפרויקטים — מה תקוע, מה עשיתי, מה עכשיו</div>
+        </div>
+      </div>
+
+      <div class="agent-item">
+        <div class="agent-circle" style="background: #8a4a2a;">רו</div>
+        <div class="agent-info">
+          <div class="agent-name">Accountant Agent</div>
+          <div class="agent-role">אודיט פיננסי אישי — מוצא הוצאות דולפות, עובד רק מ-CSV מסונן</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- מה למדנו -->
+  <section class="section">
+    <div class="section-label">מה למדנו</div>
+    <div class="rule-list">
+
+      <div class="rule-box">
+        <div class="rule-box-tag">ניתוח נתונים</div>
+        <div class="rule-box-text">מחזור אחד לא מספיק כדי לדרג קטגוריית הוצאה</div>
+        <div class="rule-box-sub">מחזור בודד נתן "הרכב הוא ההוצאה הגדולה"; שישה מחזורים הפכו את התמונה — מזון גדול ב-50%. קטגוריה תנודתית נראית ענקית או אפסית תלוי איזה חודש דגמת. מינימום 5-6 חודשים לפני שקובעים דירוג.</div>
+      </div>
+
+      <div class="rule-box">
+        <div class="rule-box-tag">פרטיות</div>
+        <div class="rule-box-text">ציור על PDF לא מוחק כלום — הטקסט נשאר מתחת</div>
+        <div class="rule-box-sub">רדקציה ויזואלית היא שכבה גרפית בלבד; כל כלי חילוץ טקסט קורא את מה שמתחת. רדקציה אמיתית = בניית קובץ ביניים מסונן בקוד, לא ציור ידני על המסמך.</div>
+      </div>
+
+      <div class="rule-box">
+        <div class="rule-box-tag">חיפוש עבודה</div>
+        <div class="rule-box-text">ציון הטרקר טועה בשני הכיוונים — גם מנפח וגם מסתיר</div>
+        <div class="rule-box-sub">משרה עם 75% התבררה כמתיחה (5+ שנים דרושות), משרה עם 55% התבררה כהתאמה הכי טובה. הציון הוא רמז ראשוני, לא סדר עדיפויות — לא לסנן שורטליסט לפיו בלבד.</div>
+      </div>
+
+      <div class="rule-box">
+        <div class="rule-box-tag">אמינות מערכת</div>
+        <div class="rule-box-text">צינור אוטומטי יכול "לעבוד" בלי שגיאה ולהאכיל זבל</div>
+        <div class="rule-box-sub">קולקטור פודקאסט קרא קבצים בני שבועות בלי להתלונן. נתיב שבור מתגלה מיד; נתיב שעובד אבל מצביע על תוכן מת נראה בדיוק כמו הצלחה. הכלל: להגביל כל מקור לפי גיל (maxAgeDays), לא רק לוודא שהנתיב קיים.</div>
+      </div>
+
+      <div class="rule-box">
+        <div class="rule-box-tag">שחזור מידע</div>
+        <div class="rule-box-text">"נעלם מהממשק" לא אומר "אבד מהדיסק"</div>
+        <div class="rule-box-sub">7 רוטינות מתוזמנות ו-90 סשנים נעלמו מהרשימה באותו שבוע — שני האינדקסים נשברו, לא התוכן. לפני שמכריזים על אובדן, לחפש בפועל על הדיסק; אפליקציות מפרידות מאגר מאינדקס, והאינדקס הוא החלק השביר.</div>
+      </div>
+
+      <div class="rule-box">
+        <div class="rule-box-tag">ייעול</div>
+        <div class="rule-box-text">ניהול הקשר (context) הוא מנוף החיסכון הכי גדול</div>
+        <div class="rule-box-sub">תחקיר מלא של 7 מנופי חיסכון-טוקנים הצביע על ה-bottleneck האמיתי של אור: סשנים ארוכים ורב-נושאיים שגוררים היסטוריה מיותרת. `/clear` בין משימות לא-קשורות הוא החיסכון המשמעותי ביותר בדפוס שלו.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- לחודש הבא -->
+  <div class="footer-block">
+    <div class="footer-label">לחודש הבא — ספטמבר 2026</div>
+    <div class="footer-title">לסגור החלטות שנפתחו, לא לפתוח חדשות</div>
+    <div class="footer-text">אוגוסט היה חודש של שחזור ותשתית — תזמונים, סשנים, ואודיט פיננסי ראשון. ספטמבר הוא הזמן לסגור את מה שנשאר תלוי באוויר: החלטת הרכב, בדיקת פייפליין ה-Alternative Hunter, ועוד כמה נקודות מדד לניסוי "ללא מיקום" לפני שמסיקים מסקנה.</div>
+    <div class="footer-items">
+      <div class="footer-item">
+        <div class="footer-dot"></div>
+        <span>להכריע בהחלטת הרכב — מול בר-החיסכון שהוצג באודיט (עד ~13,850 ₪/שנה)</span>
+      </div>
+      <div class="footer-item">
+        <div class="footer-dot"></div>
+        <span>לבדוק את ה-scheduled task של Alternative Hunter — שני שבועות רצופים בלי דוח</span>
+      </div>
+      <div class="footer-item">
+        <div class="footer-dot"></div>
+        <span>עוד 3-4 נקודות מדד לקוהורט "ללא מיקום" (Plus500/Cello/Figma/Moon Active) לפני מסקנה</span>
+      </div>
+      <div class="footer-item">
+        <div class="footer-dot"></div>
+        <span>לפתור את סנכרון ה-OneDrive לתיקיית פיננסים (ידוע ולא נפתר מאז 24.08)</span>
+      </div>
+      <div class="footer-item">
+        <div class="footer-dot"></div>
+        <span>לעקוב אחרי תקרת הארכוב של feedback-system.md — מתקרב ל-25K</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="colophon">ABC-TOM System v9 · Or Ben · אוגוסט 2026</div>
+
+</div>
+</body>
+</html>
