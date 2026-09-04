@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔍 Alt Hunter — 4 September 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #2c2f35;
+      color: #c8ccd4;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      direction: ltr;
+      min-height: 100vh;
+      padding: 32px 16px 64px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .header {
+      padding-bottom: 24px;
+      border-bottom: 1px solid #3a3d44;
+      margin-bottom: 32px;
+    }
+
+    .header-meta {
+      font-size: 11px;
+      color: #6a6d75;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #70a070;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .header .tagline {
+      font-size: 13px;
+      color: #6a6d75;
+      font-style: italic;
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: flex;
+      gap: 0;
+      margin-bottom: 32px;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #252830;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 14px 16px;
+      border-right: 1px solid #3a3d44;
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-val {
+      font-size: 20px;
+      font-weight: 700;
+      color: #70a070;
+      display: block;
+    }
+
+    .stat-val.warn { color: #e07070; }
+
+    .stat-key {
+      font-size: 10px;
+      color: #6a6d75;
+      display: block;
+      margin-top: 3px;
+      letter-spacing: 0.08em;
+    }
+
+    .stat-delta {
+      font-size: 10px;
+      color: #70a070;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* SECTIONS */
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #70a070;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: #3a3d44;
+    }
+
+    .section-label.warn { color: #e07070; }
+    .section-label.warn::after { background-color: #e07070; opacity: 0.3; }
+
+    /* ITEMS */
+    .item {
+      background-color: #252830;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 8px;
+    }
+
+    .item-key {
+      font-size: 10px;
+      font-weight: 600;
+      color: #6a6d75;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .item-val {
+      font-size: 13px;
+      color: #c8ccd4;
+      line-height: 1.7;
+    }
+
+    .item-val a {
+      color: #70a070;
+      text-decoration: none;
+    }
+
+    .item-val a:hover { text-decoration: underline; }
+
+    .item-val ul {
+      margin: 8px 0 0 20px;
+    }
+
+    .item-val li {
+      margin-bottom: 6px;
+    }
+
+    .item-val strong {
+      color: #d8dce4;
+      font-weight: 600;
+    }
+
+    .item-val code {
+      background-color: #1a1d22;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #70a070;
+    }
+
+    del { color: #6a6d75; }
+
+    /* ACCENT VARIANTS */
+    .item.highlight {
+      border-color: #70a07040;
+      background-color: #1e2a1e;
+    }
+
+    .item.highlight .item-key { color: #70a070; }
+
+    .item.warn {
+      border-color: #e0707050;
+      background-color: #2a1e1e;
+    }
+
+    .item.warn .item-key { color: #e07070; }
+
+    .item.dim {
+      border-color: #32353c;
+      background-color: #222428;
+    }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid #3a3d44;
+      text-align: center;
+      font-size: 11px;
+      color: #6a6d75;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <div class="header-meta">AUTOMATED WEEKLY SCAN</div>
+      <h1>🔍 Alternative Hunter</h1>
+      <div class="tagline">Free alternatives to Claude Pro — September 4, 2026</div>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <span class="stat-val">$0</span>
+        <span class="stat-key">CHEAPEST PATH</span>
+        <span class="stat-delta">Ollama + Claude Code</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">🟢</span>
+        <span class="stat-key">STATUS</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val warn">1 CORRECTION</span>
+        <span class="stat-key">PLUS 3 RELEASES</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label warn">⚠️ CORRECTION — PAST REPORTS WERE WRONG ABOUT GEMINI CLI</div>
+
+      <div class="item warn">
+        <span class="item-key">GEMINI CLI'S FREE TIER DIED JUNE 18, 2026 — WE KEPT REPORTING IT AS UNCHANGED</span>
+        <div class="item-val">
+          The Aug 21 and Aug 29 reports both said <em>"Gemini CLI still offers 1,000 requests/day
+          with no card"</em>. <strong>That stopped being true almost three months ago.</strong> Google
+          killed Gemini CLI for free and individual users on June 18, 2026 — no grace period — and
+          replaced it with <strong>Antigravity CLI</strong>, a closed-source binary (Gemini CLI was
+          open source with 100K+ GitHub stars).<br><br>
+          Antigravity does have a free "Individual" tier, but the quota collapsed to roughly
+          <strong>20 requests/day</strong> (weekly refresh, no credit pool) — down ~98% from the old
+          1,000/day. It gives access to Gemini 3.5 Flash, Gemini 3.1 Pro, even Claude Sonnet/Opus 4.6
+          as agent models, but the quota is too thin for real daily use.<br><br>
+          <strong>Action taken:</strong> Gemini CLI is removed from the "best free alternatives" list
+          below. Antigravity CLI is not a serious free-tier replacement.<br><br>
+          <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/" target="_blank">→ Google Developers Blog: Gemini CLI → Antigravity</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🔥 EXECUTIVE SUMMARY</div>
+
+      <div class="item highlight">
+        <span class="item-key">CLAUDE DESKTOP CAN NOW GATEWAY TO FREE OLLAMA MODELS — NO CONFIG EDITING</span>
+        <div class="item-val">
+          <ul>
+            <li><strong>Claude Desktop + Ollama gateway</strong> (shipped in v0.33.0, Aug 21; covered
+                properly this week) — a built-in toggle inside Claude Desktop itself routes requests
+                to free local or Ollama-cloud models. No MCP bridge, no config file editing. Privacy:
+                telemetry off by default, Zero Data Retention policy</li>
+            <li><strong>Ollama v0.33.2</strong> (Aug 27) — stability fix: the Claude Desktop proxy no
+                longer interrupts in-flight requests when the model catalog updates. Also fixed macOS
+                app handoff and restored dark mode</li>
+            <li><strong>Ollama v0.33.3</strong> (Sep 2) — Gemma4 now supports images and audio on the
+                MLX engine, cached prompt tokens are reported, GGUF-defined default parameters are
+                honored</li>
+            <li><strong>Open WebUI v0.11.2–v0.11.3</strong> (late Aug) — safer DB migrations (stops at
+                the error instead of continuing blind) and richer in-terminal previews for Word/PowerPoint
+                files</li>
+          </ul>
+          <br>
+          <strong>Verdict:</strong> the top pick is unchanged — <strong>Ollama + Claude Code</strong>
+          stays $0/month. But this week's real news is that the gateway toggle now lives inside
+          <strong>Claude Desktop itself</strong>, the app you're reading this in.
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">⚡ THE ONE ACTION THIS WEEK</div>
+
+      <div class="item highlight">
+        <span class="item-key">TRY THE OLLAMA TOGGLE INSIDE CLAUDE DESKTOP</span>
+        <div class="item-val">
+          You're already running Claude Desktop. This routes small, non-critical tasks to a free local
+          model and saves Claude Pro usage for work that actually needs it:<br><br>
+          1. Open Ollama (or install it: <code>ollama.com/download</code>)<br>
+          2. In Ollama → Settings → Claude → flip the toggle on<br>
+          3. In Claude Desktop you'll see a switch between Anthropic and Ollama models (local or cloud)<br><br>
+          This won't replace Claude Pro for complex work — but for quick drafts, short summaries, or
+          sanity checks, it's $0 without leaving the app you already work in.
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🎯 BEST FREE ALTERNATIVES (SEPTEMBER 4, 2026)</div>
+
+      <div class="item highlight">
+        <span class="item-key">1. OLLAMA + CLAUDE CODE ⭐ TOP PICK</span>
+        <div class="item-val">
+          Run Claude Code fully local for $0/month. Recommended model:
+          <code>qwen3.8:27b</code> (~17GB VRAM at Q4). Unchanged this week.
+        </div>
+      </div>
+
+      <div class="item highlight">
+        <span class="item-key">2. CLAUDE DESKTOP + OLLAMA GATEWAY 🆕 THIS WEEK'S FOCUS</span>
+        <div class="item-val">
+          Built-in toggle inside Claude Desktop for free/local model routing. Most relevant pick
+          because it touches the app you already use daily.<br><br>
+          <a href="https://ollama.com/blog/claude-desktop" target="_blank">→ Ollama Blog: Claude Desktop</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">3. OPEN WEBUI v0.11.3 — SELF-HOSTED CHAT UI</span>
+        <div class="item-val">
+          More stable after the DB migration fix. No change to the recommendation — still the closest
+          free local UI feels to an agent.
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-key">4. OPENCODE / AIDER — UNCHANGED</span>
+        <div class="item-val">
+          Both free and open source, remain the closest match to the Claude Code terminal workflow
+          against local Ollama.
+        </div>
+      </div>
+
+      <div class="item dim">
+        <span class="item-key">5. <del>GEMINI CLI</del> — REMOVED, SEE CORRECTION ABOVE</span>
+        <div class="item-val">
+          Replaced by Antigravity CLI, whose free tier (~20 req/day) is too thin to count as a
+          serious no-cost path anymore.
+        </div>
+      </div>
+
+      <div class="item dim">
+        <span class="item-key">6. GROK CLI / GROK BUILD</span>
+        <div class="item-val">
+          Open source since Jul 15, 2026, up to 8 parallel agents — but model access bills through an
+          xAI account, so it's not free beyond the CLI itself. Worth watching, not worth switching.
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">📉 WHAT DIDN'T CHANGE</div>
+
+      <div class="item">
+        <span class="item-key">NO NEW LOCAL-MODEL CONTENDER</span>
+        <div class="item-val">
+          Cline, Goose, LobeChat, AnythingLLM, Cherry Studio, Proton Lumo — all unchanged. The best
+          local coding model is still <code>qwen3.8:27b</code>.<br><br>
+          <strong>The one worthwhile move this week is trying the Ollama toggle inside Claude Desktop
+          above.</strong> Beyond that, nothing justifies changing your setup.
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Alternative Hunter · automated scan · 4 September 2026<br>
+      Sources: Ollama blog &amp; releases · Open WebUI releases · Google Developers Blog · Grok Build (x.ai)
+    </div>
+
+  </div>
+</body>
+</html>
