@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מעקב טלוויזיות 55" — ראש השנה 2026</title>
+<style>
+:root{
+  --bg:#0B0D11; --panel:#141821; --panel2:#1B2029; --line:#262C38;
+  --tx:#E8EBF0; --tx2:#98A2B3; --tx3:#6B7280;
+  --acc:#A855F7; --ok:#22C55E; --warn:#F59E0B; --bad:#EF4444; --info:#38BDF8;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);
+  font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  font-size:15px;line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 18px 80px}
+
+header{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:24px}
+h1{margin:0 0 6px;font-size:26px;letter-spacing:-.4px}
+.sub{color:var(--tx2);font-size:14px}
+.sub b{color:var(--tx)}
+
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.pill{background:var(--panel);border:1px solid var(--line);border-radius:999px;
+  padding:5px 13px;font-size:13px;color:var(--tx2)}
+.pill b{color:var(--tx)}
+.pill.good{border-color:rgba(34,197,94,.4);color:#86EFAC}
+.pill.bad{border-color:rgba(239,68,68,.4);color:#FCA5A5}
+
+/* recommendation */
+.rec{background:linear-gradient(135deg,rgba(168,85,247,.14),rgba(56,189,248,.07));
+  border:1px solid rgba(168,85,247,.35);border-radius:14px;padding:20px 22px;margin-bottom:26px}
+.rec-tag{display:inline-block;background:var(--acc);color:#0B0D11;font-weight:700;
+  font-size:11px;letter-spacing:.5px;padding:3px 10px;border-radius:999px;margin-bottom:10px}
+.rec h2{margin:0 0 4px;font-size:21px}
+.rec .price{font-size:30px;font-weight:700;color:#fff;letter-spacing:-1px}
+.rec .price small{font-size:14px;font-weight:400;color:var(--tx2);letter-spacing:0}
+.rec p{margin:10px 0 0;color:var(--tx2);font-size:14px;max-width:70ch}
+
+/* filters */
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:12px 14px;margin-bottom:24px;position:sticky;top:0;z-index:20;
+  backdrop-filter:blur(8px)}
+.filters select,.filters input{background:var(--panel2);border:1px solid var(--line);
+  color:var(--tx);border-radius:8px;padding:7px 10px;font-size:13px;font-family:inherit}
+.filters input{flex:1;min-width:150px}
+.chk{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--tx2);cursor:pointer;
+  background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:7px 11px}
+.chk input{accent-color:var(--acc);margin:0}
+#count{color:var(--tx3);font-size:13px;margin-inline-start:auto}
+
+/* sections */
+.sec{margin:34px 0 14px;display:flex;align-items:baseline;gap:10px}
+.sec h3{margin:0;font-size:17px}
+.sec span{color:var(--tx3);font-size:13px}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:16px 17px;transition:border-color .15s,transform .15s}
+.card:hover{border-color:#3A4354;transform:translateY(-2px)}
+.card.out{opacity:.5}
+.card.st-rej{opacity:.42;border-style:dashed}
+.card.st-buy{border-color:var(--ok);box-shadow:0 0 0 1px rgba(34,197,94,.25)}
+
+.c-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.c-model{font-size:17px;font-weight:600;letter-spacing:-.2px}
+.c-brand{color:var(--tx3);font-size:12px;margin-top:2px}
+.badge{font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px;white-space:nowrap}
+.b-qled{background:rgba(168,85,247,.18);color:#D8B4FE}
+.b-led{background:rgba(107,114,128,.2);color:#B9C0CC}
+.b-nano{background:rgba(56,189,248,.16);color:#7DD3FC}
+
+.c-price{margin:13px 0 3px;font-size:27px;font-weight:700;letter-spacing:-1px}
+.c-price small{font-size:13px;font-weight:400;color:var(--tx2);letter-spacing:0}
+.c-where{color:var(--tx2);font-size:13px}
+.c-where b{color:var(--tx)}
+
+.trend{display:inline-flex;align-items:center;gap:4px;font-size:12px;
+  padding:2px 7px;border-radius:6px;margin-inline-start:8px;vertical-align:middle}
+.t-down{background:rgba(34,197,94,.15);color:#86EFAC}
+.t-up{background:rgba(239,68,68,.15);color:#FCA5A5}
+.t-flat{background:rgba(107,114,128,.18);color:var(--tx2)}
+
+.facts{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0}
+.fact{font-size:11.5px;padding:3px 8px;border-radius:6px;background:var(--panel2);
+  border:1px solid var(--line);color:var(--tx2)}
+.fact.ok{border-color:rgba(34,197,94,.35);color:#86EFAC}
+.fact.warn{border-color:rgba(245,158,11,.35);color:#FCD34D}
+.fact.bad{border-color:rgba(239,68,68,.35);color:#FCA5A5}
+
+.offers{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+.offers summary{cursor:pointer;color:var(--tx2);font-size:12.5px;list-style:none;user-select:none}
+.offers summary::-webkit-details-marker{display:none}
+.offers summary:hover{color:var(--tx)}
+.otbl{width:100%;border-collapse:collapse;margin-top:9px;font-size:12.5px}
+.otbl td{padding:5px 4px;border-bottom:1px solid var(--line);color:var(--tx2)}
+.otbl tr:last-child td{border-bottom:none}
+.otbl td:first-child{color:var(--tx)}
+.otbl td:last-child{text-align:left;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tag-off{color:#86EFAC;font-size:10.5px;margin-inline-start:5px}
+.tag-unk{color:var(--tx3);font-size:10.5px;margin-inline-start:5px}
+.tag-chain{color:#7DD3FC;font-size:10.5px;margin-inline-start:5px;
+  border:1px solid rgba(56,189,248,.4);border-radius:4px;padding:0 4px}
+
+.note{margin-top:11px;font-size:12.5px;color:var(--tx3);line-height:1.5}
+
+.acts{display:flex;gap:6px;margin-top:13px}
+.acts button{flex:1;background:var(--panel2);border:1px solid var(--line);color:var(--tx2);
+  border-radius:7px;padding:6px;font-size:12px;cursor:pointer;font-family:inherit;transition:.12s}
+.acts button:hover{color:var(--tx);border-color:#3A4354}
+.acts button.on{background:var(--acc);border-color:var(--acc);color:#0B0D11;font-weight:600}
+.acts a{flex:1;text-align:center;background:var(--panel2);border:1px solid var(--line);
+  color:var(--tx2);border-radius:7px;padding:6px;font-size:12px;text-decoration:none;transition:.12s}
+.acts a:hover{color:var(--acc);border-color:var(--acc)}
+
+footer{margin-top:50px;padding-top:20px;border-top:1px solid var(--line);
+  color:var(--tx3);font-size:12.5px;line-height:1.8}
+footer b{color:var(--tx2)}
+.empty{color:var(--tx3);text-align:center;padding:40px;font-size:14px}
+@media(max-width:600px){.grid{grid-template-columns:1fr}h1{font-size:21px}.rec .price{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>מעקב טלוויזיות 55&quot;</h1>
+  <div class="sub">
+    Samsung / LG · תקציב <b>עד 2,000 ₪</b> · מבצעי ראש השנה 2026 ·
+    עודכן <b id="upd">5 בספטמבר 2026</b>
+  </div>
+  <div class="pills" id="pills"></div>
+</header>
+
+<div class="rec">
+  <span class="rec-tag">ההמלצה עכשיו</span>
+  <h2>Samsung QE55Q7F <span style="font-size:14px;color:#98A2B3;font-weight:400">QLED 4K</span></h2>
+  <div class="price">1,637 ₪ <small>ב־חשמל נטו · יבואן רשמי · משלוח חינם</small></div>
+  <p>
+    ה־QLED הזול ביותר עם <b style="color:#86EFAC">ציון יבואן רשמי מפורש</b>, ונכנס לתקציב
+    עם 363 ₪ עודף. יש הצעה ב־1,632 (מבט אלקטריק) בלי ציון יבואן, כלומר 5 ₪ הפרש תמורת
+    אחריות לא ברורה. לא שווה.
+    שים לב: ה־QE55Q60D מהרשימה המקורית עומד על <b>2,099 ₪</b>, מעל התקציב, בעוד ה־Q7F
+    שמעליו בסדרה זול ב־462 ₪.
+  </p>
+  <p style="margin-top:14px;padding-top:13px;border-top:1px solid rgba(168,85,247,.25)">
+    <b style="color:#7DD3FC">היריב האמיתי: LG 55QNED70A6A ב־1,833 ₪</b> בסיטי דיל, יבואן רשמי.
+    QNED הוא שכבה 2 בבריף (Quantum Dot ועוד NanoCell), כלומר איכות צבע מעל ה־QLED הבסיסי.
+    עולה 196 ₪ יותר מה־Q7F. אם אתה מוכן להוסיף את זה, זו כנראה התמונה הכי טובה שתקבל בתקציב.
+  </p>
+  <p style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(168,85,247,.25)">
+    <b style="color:#E8EBF0">אם אתה מוכן למתוח את התקציב עד הסוף:</b>
+    <b>QE55Q8F ב־1,994 ₪</b> בהום אלקטריק, יבואן רשמי, 6 ₪ מתחת לתקרה. זה 120Hz מול
+    60Hz ומעבד Q4 AI. <b style="color:#FCD34D">אבל</b> שאר היבואנים הרשמיים מוכרים אותו
+    ב־2,184-2,190, כלומר ההצעה הזו נמוכה ב־190 ₪ מכולם. תאמת מלאי ואחריות בטלפון לפני
+    שאתה סוגר. לצפייה בסדרות וסרטים בערב, 120Hz כמעט לא ישנה, ולכן ה־Q7F עדיין הבחירה
+    ההגיונית.
+  </p>
+</div>
+
+<div class="filters">
+  <select id="fBrand"><option value="">כל המותגים</option><option>Samsung</option><option>LG</option></select>
+  <select id="fTech"><option value="">כל הטכנולוגיות</option><option>QLED</option><option>Neo QLED</option><option>QNED</option><option>NanoCell</option><option>Crystal UHD</option><option>LED</option></select>
+  <label class="chk"><input type="checkbox" id="fBudget" checked> בתקציב בלבד</label>
+  <label class="chk"><input type="checkbox" id="fOfficial"> יבואן רשמי בלבד</label>
+  <input id="fSearch" placeholder="חיפוש דגם או חנות...">
+  <span id="count"></span>
+</div>
+
+<div id="out"></div>
+
+<footer>
+  <b>איך לקרוא את זה.</b> המחיר הוא הזול ביותר שנמצא בזאפ, כולל משלוח.
+  התקנה כמעט אף פעם לא כלולה (במחסני חשמל: 179 ₪ בתוספת מתקן).<br>
+  <b>יבואן רשמי</b> מסומן רק כשההצעה אומרת את זה במפורש. &quot;לא צוין&quot; זה לא &quot;מקביל&quot;, זה פשוט לא ידוע. לברר לפני קנייה.<br>
+  <b>הנחת אמת מול מבצע מדומה</b> נקבעת רק לפי היסטוריית המחירים שנצברת כאן, לא לפי &quot;מחיר קודם&quot; מחוק שחנות מציגה.<br>
+  <b>הסטטוסים שאתה מסמן</b> (מועמד / נפסל / נקנה) נשמרים בדפדפן הזה בלבד.<br>
+  <b>תג &quot;רשת&quot;</b> מסמן הצעה שנבדקה ישירות באתר הרשת (מחסני חשמל / KSP / באג), ולא רק דרך זאפ.<br>
+  מקורות: זאפ · מחסני חשמל (payngo) · KSP (דרך <code>/mob/cat/</code>). <b>א.ל.מ ואיבורי לא מחזיקים את הדגמים האלה</b> באתרים שלהם.
+  סריקה הבאה מומלצת בעוד 3-4 ימים.
+</footer>
+
+</div>
+
+<script>
+const SCAN = '2026-09-05';
+
+const DATA = [
+ {id:'qe55q7f', model:'QE55Q7F', brand:'Samsung', tech:'QLED', tier:1, zapId:940993,
+  note:'סדרת F (2025). Vision AI, 100% Quantum Dot, מעבד Crystal 4K, רענון 60Hz. ' +
+       'הדגם הכי משתלם בסריקה: QLED אמיתי, יבואן רשמי, ובתוך התקציב.',
+  hist:[{d:'2026-09-05',min:1632}],
+  stores:[
+   {name:'מבט אלקטריק', price:1632, ship:0, official:null, days:7},
+   {name:'חשמל נטו',    price:1637, ship:0, official:true,  days:7},
+   {name:'סיטי דיל',    price:1643, ship:0, official:true,  days:5},
+   {name:'אלקטריק שופ', price:1649, ship:0, official:null, days:7},
+   {name:'אי זון',      price:1650, ship:0, official:null, days:7},
+   {name:'סמארט טו ביי',price:1750, ship:0, official:null, days:7},
+   {name:'דיילי סייל',  price:1759, ship:0, official:null, days:7},
+   {name:'מחסני חשמל',  price:1759, ship:0, official:true,  days:null, chain:true},
+   {name:'סלון חללית',  price:1790, ship:0, official:null, days:7},
+   {name:'סל-טק',       price:1800, ship:0, official:null, days:7}
+  ]},
+
+ {id:'qe55q6f', model:'QE55Q6F', brand:'Samsung', tech:'QLED', tier:1, zapId:994416,
+  note:'סדרת F, מדרגה מתחת ל-Q7F. יקר ב-58 ₪ מה-Q7F שמעליו בסדרה, כלומר אין סיבה לבחור בו. ' +
+       'יבואן רשמי בהום אלקטריק ב-1,694, רק 4 ₪ מעל הזול. באג מוכר ב-2,150, פער של 460 ₪.',
+  hist:[{d:'2026-09-05',min:1690}],
+  stores:[
+   {name:'אי זון',        price:1690, ship:0, official:null, days:7},
+   {name:'D9Shop',        price:1690, ship:0, official:null, days:7},
+   {name:'חשמל נטו',      price:1691, ship:0, official:null, days:7},
+   {name:'הום אלקטריק',   price:1694, ship:0, official:true, days:7},
+   {name:'Virtual Shops', price:1699, ship:0, official:null, days:7},
+   {name:'סיטי דיל',      price:1699, ship:0, official:null, days:7},
+   {name:'אספקה מיידית',  price:1700, ship:0, official:null, days:7},
+   {name:'סלון חללית',    price:1790, ship:0, official:null, days:7},
+   {name:'באג',           price:2150, ship:0, official:null, days:7}
+  ]},
+
+ {id:'qe55q8f', model:'QE55Q8F', brand:'Samsung', tech:'QLED', tier:1, zapId:1252750,
+  note:'ה-QLED העליון בסדרת F, ונכנס לתקציב בקושי. ' +
+       'מול ה-Q7F: רענון עד 120Hz (מול 60Hz), מעבד Q4 AI (מול Crystal 4K), Color Booster Pro. ' +
+       '⚠ שים לב לפער: שאר היבואנים הרשמיים מוכרים ב-2,184-2,190, והום אלקטריק ב-1,994. ' +
+       'פער של 190 ₪ מתחת לשאר הרשמיים. לאמת מלאי ואחריות מול החנות לפני קנייה.',
+  hist:[{d:'2026-09-05',min:1895}],
+  storeCount:31,
+  stores:[
+   {name:'מבט אלקטריק',   price:1895, ship:0, official:null, days:7},
+   {name:'אי זון',        price:1900, ship:0, official:null, days:7},
+   {name:'הום אלקטריק',   price:1994, ship:0, official:true, days:7},
+   {name:'דרגון אלקטריק', price:1998, ship:0, official:null, days:7},
+   {name:'Me-Electric',   price:2090, ship:0, official:null, days:7},
+   {name:'חשמל נטו',      price:2184, ship:0, official:true, days:7},
+   {name:'סיטי דיל',      price:2185, ship:0, official:true, days:7},
+   {name:'סופר אלקטריק',  price:2190, ship:0, official:true, days:7},
+   {name:'בטר שופ',       price:2249, ship:0, official:null, days:7},
+   {name:'מחסני חשמל',    price:2269, ship:0, official:true, days:null, chain:true},
+   {name:'KSP',           price:2269, ship:0, official:null, days:null, chain:true}
+  ]},
+
+ {id:'lg55qned70a6a', model:'55QNED70A6A', brand:'LG', tech:'QNED', tier:2, zapId:1253600,
+  note:'⭐ ההפתעה של הסריקה. QNED הוא שכבה 2 בבריף, וחשבתי שהיא מחוץ לתקציב כי בדקתי רק ' +
+       'Neo QLED של סמסונג (2,378+). ה-QNED של LG נכנס בנוחות: 1,833 בסיטי דיל עם יבואן רשמי. ' +
+       'QNED = Quantum Dot + NanoCell, כלומר צבע טוב יותר מ-NanoCell רגיל. ' +
+       'זמין גם ב-KSP ב-1,849 וב-באג ב-1,849.',
+  hist:[{d:'2026-09-05',min:1833}],
+  storeCount:22,
+  stores:[
+   {name:'סיטי דיל',           price:1833, ship:0, official:true,  days:7},
+   {name:'בטר שופ',            price:1835, ship:0, official:null, days:7},
+   {name:'וואלה שופס',         price:1849, ship:0, official:true,  days:7},
+   {name:'KSP',                price:1849, ship:0, official:null, days:null, chain:true},
+   {name:'באג',                price:1849, ship:0, official:null, days:7, chain:true},
+   {name:'עולם הקולנוע והחשמל',price:1849, ship:0, official:null, days:7},
+   {name:'דיילי סייל',         price:1849, ship:0, official:null, days:7},
+   {name:'פירסט פרייס',        price:1890, ship:0, official:null, days:7},
+   {name:'אי זון',             price:1900, ship:0, official:null, days:7}
+  ]},
+
+ {id:'qe55qn70f', model:'QE55QN70F', brand:'Samsung', tech:'Neo QLED', tier:2, zapId:1254528,
+  note:'ה-Neo QLED של סמסונג. 2,378 ₪, כלומר 378 ₪ מעל התקציב. מחסני חשמל: 2,638. ' +
+       'לפי הבריף, שכבה 2 רק אם נכנסת לתקציב. הוא לא נכנס, אבל ה-QNED של LG כן. ' +
+       'במעקב למקרה שירד במבצעי החג.',
+  hist:[{d:'2026-09-05',min:2378}],
+  storeCount:19,
+  stores:[
+   {name:'D9Shop',       price:2378, ship:0, official:null, days:7},
+   {name:'מבט אלקטריק',  price:2379, ship:0, official:null, days:7},
+   {name:'סלון חללית',   price:2390, ship:0, official:null, days:7},
+   {name:'אי זון',       price:2405, ship:0, official:null, days:7},
+   {name:'סיטי דיל',     price:2439, ship:0, official:true, days:7},
+   {name:'סל-טק',        price:2448, ship:0, official:null, days:7},
+   {name:'הסיטונאי',     price:2490, ship:0, official:null, days:7}
+  ]},
+
+ {id:'qe55qn80f', model:'QE55QN80F', brand:'Samsung', tech:'Neo QLED', tier:2, zapId:null,
+  note:'Neo QLED מדרגה מעל. 3,078 ₪, יותר מ-50% מעל התקציב. ' +
+       'נסרק כדי לסגור את הסדרה. מחוץ לתמונה, לא לחזור אליו.',
+  hist:[{d:'2026-09-05',min:3078}],
+  storeCount:19,
+  stores:[
+   {name:'מבט אלקטריק',  price:3078, ship:0, official:null, days:7},
+   {name:'אי זון',       price:3083, ship:0, official:null, days:7},
+   {name:'סיטי דיל',     price:3085, ship:0, official:true, days:7},
+   {name:'סופר אלקטריק', price:3090, ship:0, official:true, days:7}
+  ]},
+
+ {id:'qe55q60d', model:'QE55Q60D', brand:'Samsung', tech:'QLED', tier:1, zapId:1223409,
+  note:'הדגם מהרשימה המקורית. הדור הקודם, ועכשיו מעל התקציב: 2,099 ₪ ורק 5 חנויות. ' +
+       'בספטמבר נמצא ב-1,795-1,990, כלומר המחיר עלה. הוחלף על ידי סדרת F הזולה יותר.',
+  hist:[{d:'2026-09-05',min:2099}],
+  stores:[
+   {name:'אלקטריק שופ',  price:2099, ship:0, official:null, days:5},
+   {name:'פירסט פרייס',  price:2100, ship:0, official:null, days:5},
+   {name:'D9Shop',       price:2218, ship:0, official:null, days:7},
+   {name:'buy-buy.co.il',price:2290, ship:0, official:null, days:7}
+  ]},
+
+ {id:'lg55nano80a6a', model:'55NANO80A6A', brand:'LG', tech:'NanoCell', tier:1, zapId:null,
+  note:'ה-NanoCell הזול ביותר ב-55 אינץ, ב-19 חנויות. יקר ב-54 ₪ מה-Q7F. ' +
+       'פירוט חנויות טרם נסרק לעומק, ייסרק בריצה הבאה.',
+  hist:[{d:'2026-09-05',min:1686}],
+  storeCount:19,
+  stores:[{name:'—', price:1686, ship:0, official:null, days:null, placeholder:true}]},
+
+ {id:'lg55nano776ra', model:'55NANO776RA', brand:'LG', tech:'NanoCell', tier:1, zapId:null,
+  note:'NanoCell, 7 חנויות בלבד. יקר מה-NANO80 ומה-Q7F, כלומר לא אטרקטיבי כרגע.',
+  hist:[{d:'2026-09-05',min:1785}],
+  storeCount:7,
+  stores:[{name:'—', price:1785, ship:0, official:null, days:null, placeholder:true}]},
+
+ {id:'lg55nano81t6a', model:'55NANO81T6A', brand:'LG', tech:'NanoCell', tier:1, zapId:null,
+  note:'NanoCell, 9 חנויות. הגבוה מבין שלושת ה-NanoCell שנמצאו בתקציב.',
+  hist:[{d:'2026-09-05',min:1877}],
+  storeCount:9,
+  stores:[{name:'—', price:1877, ship:0, official:null, days:null, placeholder:true}]},
+
+ {id:'ue55u8000f', model:'UE55U8000F', brand:'Samsung', tech:'Crystal UHD', tier:3, zapId:1252739,
+  note:'החלופה הזולה מהבריף. 30 חנויות. מחסני חשמל מוכרים ב-1,500 עם אחריות סמסונג ישראל, ' +
+       'ושם יש "הגש הצעה" שמתחיל ב-1,425. חסרון: איסוף עצמי בלבד, והתקנה 179 ₪ בנפרד. ' +
+       'הזול (BayPo, 1,377) בלי ציון יבואן. הפרש מול הרשמי: 123 ₪ בלבד.',
+  hist:[{d:'2026-09-05',min:1377}],
+  stores:[
+   {name:'BayPo',             price:1377, ship:0, official:null, days:7},
+   {name:'סל-טק',             price:1384, ship:0, official:null, days:7},
+   {name:'Virtual Shops',     price:1390, ship:0, official:null, days:7},
+   {name:'טיים טו באי',       price:1390, ship:0, official:null, days:7},
+   {name:'סיטי דיל',          price:1479, ship:0, official:null, days:7},
+   {name:'מחסני חשמל',        price:1500, ship:0, official:true, days:null, offer:1425},
+   {name:'רשת ביג אלקטריק',   price:1500, ship:0, official:null, days:7},
+   {name:'אי זון',            price:1500, ship:0, official:null, days:7},
+   {name:'מבט אלקטריק',       price:1540, ship:0, official:null, days:7},
+   {name:'עולם הקולנוע והחשמל',price:1548, ship:149, official:null, days:7}
+  ]},
+
+ {id:'lg55ua7300', model:'55UA73006LA', brand:'LG', tech:'LED', tier:3, zapId:1254949,
+  note:'ה-LED הזול של LG, 25 חנויות ותחרות צפופה (1,484-1,500 אצל שמונה חנויות). ' +
+       'זול ב-153 ₪ מה-Q7F, אבל בלי QLED. באג ב-1,629.',
+  hist:[{d:'2026-09-05',min:1484}],
+  stores:[
+   {name:'D9Shop',            price:1484, ship:0, official:null, days:7},
+   {name:'סל-טק',             price:1484, ship:0, official:null, days:7},
+   {name:'חשמל נטו',          price:1485, ship:0, official:null, days:7},
+   {name:'פירסט פרייס',       price:1490, ship:0, official:null, days:7},
+   {name:'עולם הקולנוע והחשמל',price:1495, ship:0, official:null, days:7},
+   {name:'וואלה שופס',        price:1495, ship:0, official:null, days:7},
+   {name:'KSP',               price:1495, ship:0, official:null, days:null, chain:true},
+   {name:'אי זון',            price:1500, ship:0, official:null, days:7},
+   {name:'אלקטריק שופ',       price:1500, ship:0, official:null, days:7},
+   {name:'באג',               price:1629, ship:0, official:null, days:7}
+  ]},
+
+ {id:'lg55ua8500', model:'55UA85006LA', brand:'LG', tech:'LED', tier:3, zapId:1254948,
+  note:'LED, 19 חנויות. יקר ב-253 ₪ מה-UA7300 ועדיין LED, בעוד ה-Q7F QLED עולה רק 100 ₪ יותר. ' +
+       'הבחירה החלשה בטבלה.',
+  hist:[{d:'2026-09-05',min:1737}],
+  stores:[
+   {name:'אלקטריק שופ', price:1737, ship:0, official:null, days:7},
+   {name:'סיטי דיל',    price:1742, ship:0, official:null, days:7},
+   {name:'באג',         price:1749, ship:0, official:null, days:7},
+   {name:'וואלה שופס',  price:1749, ship:0, official:null, days:7},
+   {name:'חשמל לכולם',  price:1824, ship:0, official:null, days:7},
+   {name:'סנסנטר',      price:1925, ship:0, official:null, days:7}
+  ]}
+];
+
+const BUDGET = 2000;
+const nis = n => n.toLocaleString('he-IL');
+const total = s => s.price + (s.ship||0);
+const best  = d => d.stores.slice().sort((a,b)=>total(a)-total(b))[0];
+const bestOfficial = d => d.stores.filter(s=>s.official===true).sort((a,b)=>total(a)-total(b))[0];
+
+function trendOf(d){
+  if(!d.hist || d.hist.length<2) return {cls:'t-flat', txt:'ריצה ראשונה'};
+  const cur=d.hist[d.hist.length-1].min, prev=d.hist[d.hist.length-2].min;
+  const diff=cur-prev;
+  if(Math.abs(diff)/prev < 0.02) return {cls:'t-flat', txt:'יציב'};
+  return diff<0 ? {cls:'t-down', txt:'▼ '+nis(Math.abs(diff))+' ₪'}
+                : {cls:'t-up',   txt:'▲ '+nis(diff)+' ₪'};
+}
+
+function techBadge(t){
+  if(t==='QLED') return 'b-qled';
+  if(t==='NanoCell') return 'b-nano';
+  return 'b-led';
+}
+
+const KEY='tvsearch.status.';
+const getStatus = id => { try{return localStorage.getItem(KEY+id)||'';}catch(e){return '';} };
+const setStatus = (id,v) => { try{ v?localStorage.setItem(KEY+id,v):localStorage.removeItem(KEY+id); }catch(e){} };
+
+function card(d){
+  const b=best(d), off=bestOfficial(d), t=trendOf(d);
+  const inBudget = total(b) <= BUDGET;
+  const st = getStatus(d.id);
+  const hasOfficial = d.stores.some(s=>s.official===true);
+
+  const nStores = d.storeCount || d.stores.length;
+  const isPh = d.stores[0] && d.stores[0].placeholder;
+
+  const facts = [];
+  if(hasOfficial) facts.push(`<span class="fact ok">יבואן רשמי מ-${nis(total(off))} ₪</span>`);
+  else facts.push('<span class="fact warn">יבואן לא צוין — לברר</span>');
+  facts.push(`<span class="fact">${nStores} הצעות</span>`);
+  if(b.ship) facts.push(`<span class="fact warn">+${nis(b.ship)} ₪ משלוח</span>`);
+  else facts.push('<span class="fact">משלוח חינם</span>');
+  facts.push('<span class="fact">התקנה לא כלולה</span>');
+  const offerStore = d.stores.find(s=>s.offer);
+  if(offerStore) facts.push(`<span class="fact ok">הגש הצעה מ-${nis(offerStore.offer)} ₪</span>`);
+  if(!inBudget) facts.push('<span class="fact bad">מעל התקציב</span>');
+
+  const rows = d.stores.map(s=>{
+    const tag = (s.official===true ? '<span class="tag-off">רשמי</span>'
+              : '<span class="tag-unk">?</span>')
+              + (s.chain ? '<span class="tag-chain">רשת</span>' : '');
+    const shipTxt = s.ship ? ` <span style="color:#FCD34D">+${nis(s.ship)}</span>` : '';
+    const offTxt  = s.offer ? `<br><span style="color:#86EFAC;font-size:11px">הגש הצעה: ${nis(s.offer)} ₪</span>` : '';
+    return `<tr><td>${s.name}${tag}${offTxt}</td><td>${nis(s.price)} ₪${shipTxt}</td></tr>`;
+  }).join('');
+
+  const zapLink = d.zapId
+    ? `<a href="https://www.zap.co.il/model.aspx?modelid=${d.zapId}" target="_blank" rel="noopener">זאפ ←</a>`
+    : `<a href="https://www.zap.co.il/search.aspx?keyword=${encodeURIComponent(d.model)}" target="_blank" rel="noopener">זאפ ←</a>`;
+
+  return `<div class="card ${inBudget?'':'out'} ${st?('st-'+st):''}"
+      data-id="${d.id}" data-brand="${d.brand}" data-tech="${d.tech}"
+      data-budget="${inBudget?1:0}" data-official="${hasOfficial?1:0}"
+      data-search="${(d.model+' '+d.brand+' '+d.tech+' '+d.stores.map(s=>s.name).join(' ')).toLowerCase()}">
+    <div class="c-top">
+      <div><div class="c-model">${d.model}</div><div class="c-brand">${d.brand}</div></div>
+      <span class="badge ${techBadge(d.tech)}">${d.tech}</span>
+    </div>
+    <div class="c-price">${nis(total(b))} ₪ <small>הזול</small>
+      <span class="trend ${t.cls}">${t.txt}</span></div>
+    <div class="c-where">${isPh
+      ? `הזול מבין <b>${nStores}</b> חנויות בזאפ`
+      : `ב־<b>${b.name}</b>`}</div>
+    <div class="facts">${facts.join('')}</div>
+    <div class="note">${d.note}</div>
+    ${isPh ? '' : `<details class="offers"><summary>${
+      d.stores.length===1 ? 'ההצעה המלאה' : 'כל '+d.stores.length+' ההצעות'
+    }</summary><table class="otbl">${rows}</table></details>`}
+    <div class="acts">
+      <button data-act="cand" class="${st==='cand'?'on':''}">מועמד</button>
+      <button data-act="rej"  class="${st==='rej'?'on':''}">נפסל</button>
+      <button data-act="buy"  class="${st==='buy'?'on':''}">נקנה</button>
+      ${zapLink}
+    </div>
+  </div>`;
+}
+
+const SECTIONS = [
+  {tier:1, title:'QLED / NanoCell', sub:'היעד המרכזי'},
+  {tier:2, title:'Neo QLED / QNED', sub:'רק אם נכנס לתקציב'},
+  {tier:3, title:'LED / Crystal UHD', sub:'חלופה מקובלת'}
+];
+
+function render(){
+  const fb=fBrand.value, ft=fTech.value, onlyBudget=fBudget.checked,
+        onlyOff=fOfficial.checked, q=fSearch.value.trim().toLowerCase();
+
+  let shown=0, html='';
+  SECTIONS.forEach(sec=>{
+    const items = DATA.filter(d=>{
+      if(d.tier!==sec.tier) return false;
+      if(fb && d.brand!==fb) return false;
+      if(ft && d.tech!==ft) return false;
+      const b=best(d);
+      if(onlyBudget && total(b)>BUDGET) return false;
+      if(onlyOff && !d.stores.some(s=>s.official===true)) return false;
+      if(q){
+        const hay=(d.model+' '+d.brand+' '+d.tech+' '+d.stores.map(s=>s.name).join(' ')).toLowerCase();
+        if(!hay.includes(q)) return false;
+      }
+      return true;
+    }).sort((a,b)=>total(best(a))-total(best(b)));
+
+    if(!items.length) return;
+    shown+=items.length;
+    html+=`<div class="sec"><h3>${sec.title}</h3><span>${sec.sub} · ${items.length}</span></div>
+           <div class="grid">${items.map(card).join('')}</div>`;
+  });
+
+  out.innerHTML = html || '<div class="empty">אין דגמים שעונים על הסינון.</div>';
+  count.textContent = shown+' דגמים';
+}
+
+function pills(){
+  const inB = DATA.filter(d=>total(best(d))<=BUDGET);
+  const off = DATA.filter(d=>d.stores.some(s=>s.official===true));
+  const cheapest = DATA.slice().sort((a,b)=>total(best(a))-total(best(b)))[0];
+  const offers = DATA.reduce((n,d)=>n+(d.storeCount||d.stores.length),0);
+  pillsEl.innerHTML = [
+    `<span class="pill"><b>${DATA.length}</b> דגמים</span>`,
+    `<span class="pill"><b>${offers}</b> הצעות</span>`,
+    `<span class="pill good"><b>${inB.length}</b> בתקציב</span>`,
+    `<span class="pill ${off.length?'good':'bad'}"><b>${off.length}</b> עם יבואן רשמי מצוין</span>`,
+    `<span class="pill">הזול: <b>${nis(total(best(cheapest)))} ₪</b> · ${cheapest.model}</span>`
+  ].join('');
+}
+
+const pillsEl=document.getElementById('pills');
+const out=document.getElementById('out');
+const count=document.getElementById('count');
+const fBrand=document.getElementById('fBrand'), fTech=document.getElementById('fTech'),
+      fBudget=document.getElementById('fBudget'), fOfficial=document.getElementById('fOfficial'),
+      fSearch=document.getElementById('fSearch');
+
+[fBrand,fTech,fBudget,fOfficial].forEach(el=>el.addEventListener('change',render));
+fSearch.addEventListener('input',render);
+
+out.addEventListener('click',e=>{
+  const btn=e.target.closest('button[data-act]'); if(!btn) return;
+  const cardEl=btn.closest('.card'), id=cardEl.dataset.id, act=btn.dataset.act;
+  setStatus(id, getStatus(id)===act ? '' : act);
+  render();
+});
+
+pills();
+render();
+</script>
+</body>
+</html>
