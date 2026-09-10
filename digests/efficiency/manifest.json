@@ -1,4 +1,5 @@
 [
+  { "title": "Efficiency Audit — 10.09.2026", "headline": "learning-log ו-decisions חצו את התקרה בו-זמנית (learning-log פי 1.6, הכי גדול שנמדד) — Session Start טיפס ל-28.5K, ארכוב אוטומטי החזיר ל-18.4K + תוקן Fable 5→5.1 (ביקורת 9)", "date": "10 בספטמבר 2026", "file": "2026-09-10.html" },
   { "title": "Efficiency Audit — 28.08.2026", "headline": "learning-log ו-decisions חצו את התקרה בו-זמנית — ארכוב אוטומטי לשני קבצים + Session Start עלה ל-22.9K (feedback-system.md בלי תקרה) + תיקון תמחור Sonnet 5 (ביקורת 8)", "date": "28 באוגוסט 2026", "file": "2026-08-28.html" },
   { "title": "Efficiency Audit — 13.08.2026", "headline": "מפתח Figma API נחשף בטקסט גלוי ב-settings.local.json + כפילות claude-mem/M-memory + מיטל עדיין בלי scheduled task (ביקורת 7)", "date": "13 באוגוסט 2026", "file": "2026-08-13.html" },
   { "title": "Efficiency Audit — 06.08.2026", "headline": "learning-log/decisions חצו את התקרה בפעם השלישית תוך פחות משבועיים — ארכוב אוטומטי + פער scheduled task למיטל + Focus view חדש (ביקורת 6)", "date": "6 באוגוסט 2026", "file": "2026-08-06.html" },
