@@ -173,6 +173,7 @@ footer b{color:var(--tx2)}
   <select id="fTech"><option value="">כל הטכנולוגיות</option><option>QLED</option><option>Neo QLED</option><option>QNED</option><option>NanoCell</option><option>Crystal UHD</option><option>LED</option></select>
   <label class="chk"><input type="checkbox" id="fBudget" checked> בתקציב בלבד</label>
   <label class="chk"><input type="checkbox" id="fOfficial"> יבואן רשמי בלבד</label>
+  <label class="chk"><input type="checkbox" id="fChain"> רשתות בלבד</label>
   <input id="fSearch" placeholder="חיפוש דגם או חנות...">
   <span id="count"></span>
 </div>
@@ -254,7 +255,9 @@ const DATA = [
   note:'⭐ ההפתעה של הסריקה. QNED הוא שכבה 2 בבריף, וחשבתי שהיא מחוץ לתקציב כי בדקתי רק ' +
        'Neo QLED של סמסונג (2,378+). ה-QNED של LG נכנס בנוחות: 1,833 בסיטי דיל עם יבואן רשמי. ' +
        'QNED = Quantum Dot + NanoCell, כלומר צבע טוב יותר מ-NanoCell רגיל. ' +
-       'זמין גם ב-KSP ב-1,849 וב-באג ב-1,849.',
+       '⭐ הדגם היחיד שבו הרשתות כמעט לא גובות פרמיה: 1,849 ב-KSP, במחסני חשמל ובבאג, ' +
+       'כלומר 16 ₪ בלבד מעל החנות הקטנה הזולה. אם אתה נוטה ל-QNED, קנה ברשת. ' +
+       'מחסני חשמל מציגים "מחיר רגיל" 2,604, מספר מנופח שלא קיים בשוק.',
   hist:[{d:'2026-09-05',min:1833},{d:'2026-09-07',min:1832},{d:'2026-09-09',min:1832},{d:'2026-09-10',min:1832}],
   storeCount:22,
   stores:[
@@ -263,6 +266,7 @@ const DATA = [
    {name:'סיטי דיל',           price:1833, ship:0, official:true,  days:7},
    {name:'דיילי סייל',         price:1849, ship:0, official:null, days:7},
    {name:'באג',                price:1849, ship:0, official:null, days:7, chain:true},
+   {name:'מחסני חשמל',         price:1849, ship:0, official:true,  days:null, chain:true},
    {name:'KSP',                price:1849, ship:0, official:null, days:null, chain:true},
    {name:'עולם הקולנוע והחשמל',price:1849, ship:0, official:null, days:7},
    {name:'פירסט פרייס',        price:1890, ship:0, official:null, days:7}
@@ -304,11 +308,19 @@ const DATA = [
   ]},
 
  {id:'lg55nano80a6a', model:'55NANO80A6A', brand:'LG', tech:'NanoCell', tier:1, zapId:null,
-  note:'ה-NanoCell הזול ביותר ב-55 אינץ, ב-19 חנויות. יקר ב-54 ₪ מה-Q7F. ' +
-       'פירוט חנויות טרם נסרק לעומק, ייסרק בריצה הבאה.',
+  note:'ה-NanoCell הזול ביותר ב-55 אינץ, ב-19 חנויות. יקר ב-55 ₪ מה-Q7F ועל טכנולוגיה נחותה יותר. ' +
+       'במחסני חשמל 1,763 עם יבואן רשמי, פרמיה של 77 ₪ מעל הזול בזאפ. ' +
+       'לא באמת מתחרה: ה-QNED70 עולה 69 ₪ יותר ונותן Quantum Dot בנוסף.',
   hist:[{d:'2026-09-05',min:1686},{d:'2026-09-07',min:1686},{d:'2026-09-09',min:1686},{d:'2026-09-10',min:1686}],
   storeCount:19,
-  stores:[{name:'—', price:1686, ship:0, official:null, days:null, placeholder:true}]},
+  stores:[
+   {name:'הזול בזאפ',    price:1686, ship:0, official:null, days:7},
+   {name:'החשמל לצרכן',  price:1688, ship:0, official:null, days:7},
+   {name:'אלקטריק שופ',  price:1700, ship:0, official:null, days:7},
+   {name:'מחסני חשמל',   price:1763, ship:0, official:true,  days:null, chain:true},
+   {name:'אי זון',       price:1789, ship:0, official:null, days:7},
+   {name:'באג',          price:1799, ship:0, official:null, days:7, chain:true}
+  ]},
 
  {id:'lg55nano776ra', model:'55NANO776RA', brand:'LG', tech:'NanoCell', tier:1, zapId:null,
   note:'NanoCell, 7 חנויות בלבד. יקר מה-NANO80 ומה-Q7F, כלומר לא אטרקטיבי כרגע.',
@@ -376,6 +388,9 @@ const best  = d => d.stores.filter(s=>!s.surplus).sort((a,b)=>total(a)-total(b))
 const bestOfficial = d => d.stores.filter(s=>s.official===true && !s.surplus)
                                   .sort((a,b)=>total(a)-total(b))[0];
 const bestSurplus  = d => d.stores.filter(s=>s.surplus).sort((a,b)=>total(a)-total(b))[0];
+const bestChain    = d => d.stores.filter(s=>s.chain && !s.surplus)
+                                  .sort((a,b)=>total(a)-total(b))[0];
+const hasChain     = d => d.stores.some(s=>s.chain && !s.surplus);
 
 function trendOf(d){
   if(!d.hist || d.hist.length<2) return {cls:'t-flat', txt:'ריצה ראשונה'};
@@ -396,16 +411,25 @@ const KEY='tvsearch.status.';
 const getStatus = id => { try{return localStorage.getItem(KEY+id)||'';}catch(e){return '';} };
 const setStatus = (id,v) => { try{ v?localStorage.setItem(KEY+id,v):localStorage.removeItem(KEY+id); }catch(e){} };
 
-function card(d){
-  const b=best(d), off=bestOfficial(d), t=trendOf(d);
+function card(d, chainMode){
+  // במצב "רשתות בלבד" הכרטיס מציג את מחיר הרשת הזולה, לא את הזול בשוק
+  const b = chainMode ? bestChain(d) : best(d);
+  const off=bestOfficial(d), t=trendOf(d);
   const inBudget = total(b) <= BUDGET;
+  const market = best(d);
+  const premium = chainMode ? total(b) - total(market) : 0;
   const st = getStatus(d.id);
   const hasOfficial = d.stores.some(s=>s.official===true);
 
   const nStores = d.storeCount || d.stores.length;
-  const isPh = d.stores[0] && d.stores[0].placeholder;
+  const isPh = (d.stores[0] && d.stores[0].placeholder) && !chainMode;
 
   const facts = [];
+  if(chainMode){
+    facts.push(premium > 0
+      ? `<span class="fact ${premium<=50?'ok':'warn'}">פרמיית רשת +${nis(premium)} ₪ מול השוק</span>`
+      : '<span class="fact ok">הרשת היא גם הזולה בשוק</span>');
+  }
   if(hasOfficial) facts.push(`<span class="fact ok">יבואן רשמי מ-${nis(total(off))} ₪</span>`);
   else facts.push('<span class="fact warn">יבואן לא צוין — לברר</span>');
   facts.push(`<span class="fact">${nStores} הצעות</span>`);
@@ -418,7 +442,8 @@ function card(d){
   if(sur) facts.push(`<span class="fact warn">עודפים מ-${nis(total(sur))} ₪ · אחריות שנה</span>`);
   if(!inBudget) facts.push('<span class="fact bad">מעל התקציב</span>');
 
-  const rows = d.stores.map(s=>{
+  const rowSrc = chainMode ? d.stores.filter(s=>s.chain) : d.stores;
+  const rows = rowSrc.map(s=>{
     const tag = (s.official===true ? '<span class="tag-off">רשמי</span>'
               : '<span class="tag-unk">?</span>')
               + (s.chain ? '<span class="tag-chain">רשת</span>' : '')
@@ -440,15 +465,16 @@ function card(d){
       <div><div class="c-model">${d.model}</div><div class="c-brand">${d.brand}</div></div>
       <span class="badge ${techBadge(d.tech)}">${d.tech}</span>
     </div>
-    <div class="c-price">${nis(total(b))} ₪ <small>הזול</small>
-      <span class="trend ${t.cls}">${t.txt}</span></div>
-    <div class="c-where">${isPh
-      ? `הזול מבין <b>${nStores}</b> חנויות בזאפ`
-      : `ב־<b>${b.name}</b>`}</div>
+    <div class="c-price">${nis(total(b))} ₪ <small>${chainMode?'ברשת':'הזול'}</small>
+      ${chainMode ? '' : `<span class="trend ${t.cls}">${t.txt}</span>`}</div>
+    <div class="c-where">${chainMode
+      ? `ב־<b>${b.name}</b> · בשוק: ${nis(total(market))} ₪`
+      : (isPh ? `הזול מבין <b>${nStores}</b> חנויות בזאפ` : `ב־<b>${b.name}</b>`)}</div>
     <div class="facts">${facts.join('')}</div>
     <div class="note">${d.note}</div>
     ${isPh ? '' : `<details class="offers"><summary>${
-      d.stores.length===1 ? 'ההצעה המלאה' : 'כל '+d.stores.length+' ההצעות'
+      chainMode ? (rowSrc.length===1 ? 'הצעת הרשת' : rowSrc.length+' הצעות רשת')
+                : (d.stores.length===1 ? 'ההצעה המלאה' : 'כל '+d.stores.length+' ההצעות')
     }</summary><table class="otbl">${rows}</table></details>`}
     <div class="acts">
       <button data-act="cand" class="${st==='cand'?'on':''}">מועמד</button>
@@ -467,7 +493,11 @@ const SECTIONS = [
 
 function render(){
   const fb=fBrand.value, ft=fTech.value, onlyBudget=fBudget.checked,
-        onlyOff=fOfficial.checked, q=fSearch.value.trim().toLowerCase();
+        onlyOff=fOfficial.checked, onlyChain=fChain.checked,
+        q=fSearch.value.trim().toLowerCase();
+
+  // במצב רשתות, המחיר שקובע סינון ומיון הוא מחיר הרשת
+  const px = d => total(onlyChain ? bestChain(d) : best(d));
 
   let shown=0, html='';
   SECTIONS.forEach(sec=>{
@@ -475,24 +505,26 @@ function render(){
       if(d.tier!==sec.tier) return false;
       if(fb && d.brand!==fb) return false;
       if(ft && d.tech!==ft) return false;
-      const b=best(d);
-      if(onlyBudget && total(b)>BUDGET) return false;
-      if(onlyOff && !d.stores.some(s=>s.official===true)) return false;
+      if(onlyChain && !hasChain(d)) return false;
+      if(onlyBudget && px(d)>BUDGET) return false;
+      if(onlyOff && !d.stores.some(s=>s.official===true && !s.surplus)) return false;
       if(q){
         const hay=(d.model+' '+d.brand+' '+d.tech+' '+d.stores.map(s=>s.name).join(' ')).toLowerCase();
         if(!hay.includes(q)) return false;
       }
       return true;
-    }).sort((a,b)=>total(best(a))-total(best(b)));
+    }).sort((a,b)=>px(a)-px(b));
 
     if(!items.length) return;
     shown+=items.length;
     html+=`<div class="sec"><h3>${sec.title}</h3><span>${sec.sub} · ${items.length}</span></div>
-           <div class="grid">${items.map(card).join('')}</div>`;
+           <div class="grid">${items.map(d=>card(d,onlyChain)).join('')}</div>`;
   });
 
-  out.innerHTML = html || '<div class="empty">אין דגמים שעונים על הסינון.</div>';
-  count.textContent = shown+' דגמים';
+  out.innerHTML = html || (onlyChain
+    ? '<div class="empty">אף רשת לא מחזיקה דגם שעונה על הסינון.<br>א.ל.מ ואיבורי לא מוכרים אף אחד מהדגמים האלה ב-55 אינץ.</div>'
+    : '<div class="empty">אין דגמים שעונים על הסינון.</div>');
+  count.textContent = shown+' דגמים'+(onlyChain?' ברשתות':'');
 }
 
 function pills(){
@@ -514,9 +546,10 @@ const out=document.getElementById('out');
 const count=document.getElementById('count');
 const fBrand=document.getElementById('fBrand'), fTech=document.getElementById('fTech'),
       fBudget=document.getElementById('fBudget'), fOfficial=document.getElementById('fOfficial'),
+      fChain=document.getElementById('fChain'),
       fSearch=document.getElementById('fSearch');
 
-[fBrand,fTech,fBudget,fOfficial].forEach(el=>el.addEventListener('change',render));
+[fBrand,fTech,fBudget,fOfficial,fChain].forEach(el=>el.addEventListener('change',render));
 fSearch.addEventListener('input',render);
 
 out.addEventListener('click',e=>{
