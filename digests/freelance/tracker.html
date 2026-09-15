@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>טרקר פרילנס · Orbit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F3F0; --surface:#FFFFFF; --border:#E8E3DC; --text:#111111;
+    --text-muted:#6B6B6B; --accent:#0066CC; --card-hover:#F0EDE8;
+    --green:#22A06B; --amber:#E1A211; --blue:#3B82F6; --grey:#9A9A9A; --red:#DC3545; --purple:#7C3AED;
+  }
+  [data-theme="dark"]{
+    --bg:#141414; --surface:#1E1E1E; --border:#2E2E2E; --text:#F0F0F0;
+    --text-muted:#9A9A9A; --accent:#4D9FFF; --card-hover:#242424;
+    --green:#34D08C; --amber:#F0C040; --blue:#5BA0F2; --grey:#6B6B6B; --red:#F0616F; --purple:#A78BFA;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Rubik',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;
+    transition:background .2s,color .2s}
+  header{display:flex;align-items:center;justify-content:space-between;padding:22px 32px;
+    border-bottom:1px solid var(--border)}
+  .logo{font-size:22px;font-weight:700;letter-spacing:-.5px}
+  .logo span{color:var(--accent)}
+  .head-right{display:flex;align-items:center;gap:14px}
+  .back{font-size:13px;color:var(--text-muted);text-decoration:none}
+  .back:hover{color:var(--accent)}
+  .theme-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:7px 11px;
+    cursor:pointer;font-size:17px;line-height:1;color:var(--text)}
+  .theme-btn:hover{background:var(--card-hover)}
+  main{max-width:1000px;margin:0 auto;padding:28px 24px 64px}
+
+  /* מטרה */
+  .goal{background:var(--surface);border:1px solid var(--border);border-inline-start:5px solid var(--red);
+    border-radius:16px;padding:22px 24px;margin-bottom:26px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .goal-label{font-size:12px;font-weight:600;color:var(--red);text-transform:uppercase;
+    letter-spacing:.08em;margin-bottom:12px}
+  .goal-stats{display:flex;gap:26px;flex-wrap:wrap}
+  .gstat{min-width:110px}
+  .gstat-num{font-size:26px;font-weight:700;line-height:1}
+  .gstat-lbl{font-size:12.5px;color:var(--text-muted);margin-top:5px}
+  .gstat input{width:120px;font-family:inherit;font-size:22px;font-weight:700;background:transparent;
+    border:none;border-bottom:1px dashed var(--border);color:var(--text);text-align:right;padding:2px 0}
+  .gstat input:focus{outline:none;border-bottom-color:var(--accent)}
+
+  .section-label{font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;
+    letter-spacing:.08em;margin:0 2px 12px;display:flex;align-items:center;gap:8px}
+  .hint{font-size:11.5px;font-weight:400;color:var(--text-muted);text-transform:none;letter-spacing:0}
+
+  /* ערוצים */
+  .chan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:30px}
+  .chan{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:15px 16px;
+    box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;flex-direction:column;gap:8px}
+  .chan-top{display:flex;align-items:center;gap:8px}
+  .chan-name{font-size:14.5px;font-weight:600;line-height:1.3}
+  .tier{font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;margin-inline-start:auto;white-space:nowrap}
+  .tier.t1{background:rgba(34,160,107,.14);color:var(--green)}
+  .tier.t2{background:rgba(59,130,246,.14);color:var(--blue)}
+  .tier.t3{background:rgba(124,58,237,.14);color:var(--purple)}
+  .chan-note{font-size:12px;color:var(--text-muted);line-height:1.5;flex:1}
+  .chan-status{font-size:11.5px;font-weight:600;border:1px solid var(--border);border-radius:8px;
+    padding:5px 9px;cursor:pointer;background:var(--bg);color:var(--text);align-self:flex-start}
+  .chan-status:hover{background:var(--card-hover)}
+  .st-0{color:var(--grey)} .st-1{color:var(--amber)} .st-2{color:var(--green)}
+
+  /* פייפליין */
+  .add-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;background:var(--surface);
+    border:1px solid var(--border);border-radius:13px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .add-row input,.add-row select{font-family:inherit;font-size:13px;padding:8px 10px;border-radius:8px;
+    border:1px solid var(--border);background:var(--bg);color:var(--text)}
+  .add-row input:focus,.add-row select:focus{outline:none;border-color:var(--accent)}
+  .in-src{flex:1;min-width:120px} .in-name{flex:1.3;min-width:140px} .in-svc{flex:1.2;min-width:120px}
+  .in-val{width:100px}
+  .btn{font-family:inherit;font-size:13px;font-weight:600;border:none;border-radius:8px;padding:8px 16px;
+    cursor:pointer;background:var(--accent);color:#fff}
+  .btn:hover{opacity:.9}
+
+  table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);
+    border-radius:13px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  th{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;
+    text-align:right;padding:11px 14px;border-bottom:1px solid var(--border);background:var(--bg)}
+  td{font-size:13.5px;padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
+  tr:last-child td{border-bottom:none}
+  .lead-name{font-weight:600}
+  .lead-sub{font-size:11.5px;color:var(--text-muted)}
+  .badge{font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:20px;border:none;cursor:pointer;
+    font-family:inherit}
+  .b-lead{background:rgba(154,154,154,.16);color:var(--grey)}
+  .b-contact{background:rgba(59,130,246,.16);color:var(--blue)}
+  .b-proposal{background:rgba(225,162,17,.16);color:var(--amber)}
+  .b-won{background:rgba(34,160,107,.16);color:var(--green)}
+  .b-lost{background:rgba(220,53,69,.14);color:var(--red)}
+  .del{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:15px;padding:2px 6px;border-radius:6px}
+  .del:hover{background:rgba(220,53,69,.12);color:var(--red)}
+  .empty{text-align:center;color:var(--text-muted);font-size:13.5px;padding:26px}
+
+  footer{text-align:center;font-size:12px;color:var(--text-muted);margin-top:38px;line-height:1.7}
+  .mail{font-size:12.5px;color:var(--text-muted);margin-top:6px}
+  .mail b{color:var(--text)}
+
+  @media (max-width:640px){
+    .chan-grid{grid-template-columns:1fr}
+    header{padding:14px 18px} main{padding:22px 14px 48px}
+    .col-hide{display:none}
+    .goal-stats{gap:18px}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo">פרילנס<span>.</span></div>
+    <div class="head-right">
+      <a class="back" href="https://orben12-byte.github.io/Hub/">← Orbit</a>
+      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="מצב כהה">🌙</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- מטרה -->
+    <div class="goal">
+      <div class="goal-label">🔴 מילוי פער ההכנסה · פרילנס</div>
+      <div class="goal-stats">
+        <div class="gstat">
+          <div><input id="target" type="number" placeholder="0" oninput="saveTarget()"> ₪</div>
+          <div class="gstat-lbl">יעד חודשי לפער</div>
+        </div>
+        <div class="gstat">
+          <div class="gstat-num" id="wonSum" style="color:var(--green)">0 ₪</div>
+          <div class="gstat-lbl">נסגר (זכייה)</div>
+        </div>
+        <div class="gstat">
+          <div class="gstat-num" id="pipeSum" style="color:var(--amber)">0 ₪</div>
+          <div class="gstat-lbl">בפייפליין (פתוח)</div>
+        </div>
+        <div class="gstat">
+          <div class="gstat-num" id="leadCount">0</div>
+          <div class="gstat-lbl">לידים פעילים</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ערוצים -->
+    <div class="section-label">🗺️ ערוצים <span class="hint">· לחיצה על הסטטוס מחליפה: לא התחיל → בהקמה → פעיל</span></div>
+    <div class="chan-grid" id="chanGrid"></div>
+
+    <!-- פייפליין -->
+    <div class="section-label">💼 פייפליין — לידים ועבודות</div>
+    <div class="add-row">
+      <input class="in-src"  id="nSrc"  placeholder="ערוץ / מקור (למשל: קבוצת פייסבוק)">
+      <input class="in-name" id="nName" placeholder="שם / איש קשר">
+      <input class="in-svc"  id="nSvc"  placeholder="שירות (Figma / UX / לוגו…)">
+      <input class="in-val"  id="nVal"  type="number" placeholder="₪">
+      <button class="btn" onclick="addLead()">+ הוסף ליד</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>ליד</th>
+          <th class="col-hide">שירות</th>
+          <th>שווי</th>
+          <th>סטטוס</th>
+          <th class="col-hide">תאריך</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="leadBody"></tbody>
+    </table>
+
+    <footer>
+      טרקר פרילנס · נשמר מקומית בדפדפן · חלק ממהלך החירום
+      <div class="mail">מייל רשמי לפרילנס: <b id="mailAddr">orbensenior@proton.me</b> <span style="color:var(--amber)">(להקים)</span></div>
+    </footer>
+  </main>
+
+  <script>
+    // ---- ערוצים (ברירת מחדל מהמפה הדורגה) ----
+    const CHANNELS = [
+      {id:'network', name:'רשת חמה — הפניות', tier:1, note:'הכי ממיר — (פי 3-5, סוגר תוך 11 יום). בוגרי ויצו, Shnorkel, קולגות. "אני פתוח לפרילנס, מכיר מישהו שצריך?". זהירות עם המעסיק הנוכחי.'},
+      {id:'outreach', name:'אאוטריץ\' אקטיבי', tier:1, note:'פנייה יזומה לעסק מקומי: בעיה ספציפית + דוגמה. מהיר יותר מלחכות שיפנו. לא רק פלייר פסיבי.'},
+      {id:'figma',  name:'שיעורי / ייעוץ Figma', tier:1, note:'הכי מהיר לכסף. יש לך הוכחה. לינקדאין + קבוצות + MyTeacher. אפס עמלה. לא צריך אתר.'},
+      {id:'fbgroups',name:'קבוצות פייסבוק (דרושים/מעצבים)', tier:1, note:'לידים ישירים, לקוחות בעברית, בלי עמלת פלטפורמה.'},
+      {id:'xplace', name:'XPlace (אקספלייס)', tier:1, note:'פלטפורמת פרילנס ישראלית, לקוחות מקומיים.'},
+      {id:'upwork', name:'Upwork', tier:2, note:'בריפים אמיתיים של מוצר, שעתי/ריטיינר. הכי מתאים ל-UX. צריך פרופיל חזק.'},
+      {id:'fiverr', name:'Fiverr Pro', tier:2, note:'"גיגים" מוגדרים (wireframes, מסך ב-Figma). ישראל-פרנדלי.'},
+      {id:'boards', name:'Twine / Contra / UI-UX Jobs Board', tier:2, note:'לוחות משרות פרילנס וחוזה.'},
+      {id:'toptal', name:'Toptal', tier:2, note:'שכר גבוה, סינון "טופ 3%". בהמשך, לא עכשיו.'},
+      {id:'studios',name:'פנייה ישירה לסטודיואים / שילוט', tier:3, note:'הנישה שלך (wayfinding). איטי, מבוסס קשרים. Behance כתיק + אאוטריץ\' ישיר.'},
+      {id:'obs',    name:'אתר OBS (מנוע לידים)', tier:3, note:'עדיין לא מוכן לקבל לקוחות. כשיהיה — לכוון אליו את כל הערוצים.'}
+    ];
+    const ST = ['לא התחיל','בהקמה','פעיל'];
+
+    // ---- אחסון ----
+    const K_LEADS='freelance-leads', K_CHAN='freelance-chan', K_TGT='freelance-target';
+    function load(k,def){try{const v=localStorage.getItem(k);return v?JSON.parse(v):def}catch(e){return def}}
+    function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+
+    let leads = load(K_LEADS, []);
+    let chanStatus = load(K_CHAN, {});
+
+    // ---- ערוצים render ----
+    function renderChannels(){
+      const g=document.getElementById('chanGrid'); g.innerHTML='';
+      CHANNELS.forEach(c=>{
+        const s = chanStatus[c.id] ?? 0;
+        const el=document.createElement('div'); el.className='chan';
+        el.innerHTML=`<div class="chan-top"><span class="chan-name">${c.name}</span>`+
+          `<span class="tier t${c.tier}">שכבה ${c.tier}</span></div>`+
+          `<div class="chan-note">${c.note}</div>`+
+          `<button class="chan-status st-${s}" onclick="cycleChan('${c.id}')">● ${ST[s]}</button>`;
+        g.appendChild(el);
+      });
+    }
+    function cycleChan(id){ chanStatus[id]=((chanStatus[id]??0)+1)%3; save(K_CHAN,chanStatus); renderChannels(); }
+
+    // ---- לידים ----
+    const FLOW=['lead','contact','proposal','won','lost'];
+    const FLOWLBL={lead:'ליד',contact:'פנייה',proposal:'הצעה',won:'נסגר ✓',lost:'הפסד'};
+    const FLOWCLS={lead:'b-lead',contact:'b-contact',proposal:'b-proposal',won:'b-won',lost:'b-lost'};
+
+    function addLead(){
+      const src=document.getElementById('nSrc').value.trim();
+      const name=document.getElementById('nName').value.trim();
+      const svc=document.getElementById('nSvc').value.trim();
+      const val=parseInt(document.getElementById('nVal').value)||0;
+      if(!name && !src){ return; }
+      leads.unshift({id:Date.now(),src,name:name||'(ללא שם)',svc,val,status:'lead',
+        date:new Date().toISOString().slice(0,10)});
+      save(K_LEADS,leads);
+      ['nSrc','nName','nSvc','nVal'].forEach(i=>document.getElementById(i).value='');
+      renderLeads();
+    }
+    function cycleStatus(id){
+      const l=leads.find(x=>x.id===id); if(!l)return;
+      l.status=FLOW[(FLOW.indexOf(l.status)+1)%FLOW.length]; save(K_LEADS,leads); renderLeads();
+    }
+    function delLead(id){ leads=leads.filter(x=>x.id!==id); save(K_LEADS,leads); renderLeads(); }
+
+    function renderLeads(){
+      const b=document.getElementById('leadBody'); b.innerHTML='';
+      if(!leads.length){
+        b.innerHTML='<tr><td colspan="6" class="empty">אין עדיין לידים. הוסף את הראשון למעלה ☝️</td></tr>';
+      } else {
+        leads.forEach(l=>{
+          const tr=document.createElement('tr');
+          tr.innerHTML=
+            `<td><div class="lead-name">${esc(l.name)}</div><div class="lead-sub">${esc(l.src||'')}</div></td>`+
+            `<td class="col-hide">${esc(l.svc||'—')}</td>`+
+            `<td>${l.val?l.val.toLocaleString()+' ₪':'—'}</td>`+
+            `<td><button class="badge ${FLOWCLS[l.status]}" onclick="cycleStatus(${l.id})">${FLOWLBL[l.status]}</button></td>`+
+            `<td class="col-hide">${l.date}</td>`+
+            `<td><button class="del" onclick="delLead(${l.id})" aria-label="מחק">✕</button></td>`;
+          b.appendChild(tr);
+        });
+      }
+      // summaries
+      const won=leads.filter(l=>l.status==='won').reduce((s,l)=>s+(l.val||0),0);
+      const pipe=leads.filter(l=>['lead','contact','proposal'].includes(l.status)).reduce((s,l)=>s+(l.val||0),0);
+      const active=leads.filter(l=>['lead','contact','proposal'].includes(l.status)).length;
+      document.getElementById('wonSum').textContent=won.toLocaleString()+' ₪';
+      document.getElementById('pipeSum').textContent=pipe.toLocaleString()+' ₪';
+      document.getElementById('leadCount').textContent=active;
+    }
+    function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+
+    // ---- יעד ----
+    function saveTarget(){ save(K_TGT, document.getElementById('target').value); }
+    document.getElementById('target').value = load(K_TGT,'') || '';
+
+    // ---- theme ----
+    function applyTheme(t){document.documentElement.setAttribute('data-theme',t);
+      document.getElementById('themeBtn').textContent=t==='dark'?'☀️':'🌙';}
+    function toggleTheme(){const c=document.documentElement.getAttribute('data-theme');
+      const n=c==='dark'?'light':'dark';applyTheme(n);try{localStorage.setItem('orbit-theme',n)}catch(e){}}
+    (function(){let t;try{t=localStorage.getItem('orbit-theme')}catch(e){}
+      if(!t)t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';applyTheme(t)})();
+
+    renderChannels(); renderLeads();
+  </script>
+</body>
+</html>
