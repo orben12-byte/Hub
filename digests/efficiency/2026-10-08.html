@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Efficiency Audit — 08.10.2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0E0E10; --surface:#1A1A1E; --surface-2:#232328; --border:#2E2E34;
+      --text:#F0F0F0; --muted:#9A9A9A; --accent:#F472B6; --accent-deep:#DB2777;
+      --green:#34D399; --amber:#FBBF24; --red:#F87171;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Rubik',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+    main{max-width:760px;margin:0 auto;padding:40px 22px 70px;}
+    .back{font-size:13px;font-weight:600;color:var(--accent);text-decoration:none;}
+    .eyebrow{display:inline-flex;align-items:center;gap:7px;margin-top:22px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);}
+    .eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent-deep);}
+    h1{font-size:30px;font-weight:700;margin:10px 0 6px;letter-spacing:-0.5px;}
+    .date{font-size:14px;color:var(--muted);margin-bottom:6px;}
+    .verdict{display:inline-block;margin-top:14px;background:rgba(251,191,36,0.12);color:var(--amber);border:1px solid rgba(251,191,36,0.3);font-weight:600;font-size:14px;padding:8px 16px;border-radius:999px;}
+
+    .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:30px 0 36px;}
+    .metric{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;}
+    .metric-label{font-size:12px;color:var(--muted);margin-bottom:8px;}
+    .metric-val{font-size:26px;font-weight:700;letter-spacing:-0.5px;}
+    .metric-val small{font-size:13px;font-weight:500;color:var(--muted);}
+    .metric-delta{font-size:12px;font-weight:600;margin-top:4px;color:var(--green);}
+
+    .section-label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:34px 0 14px;}
+
+    .finding{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:14px;border-inline-start:3px solid var(--border);}
+    .finding.good{border-inline-start-color:var(--green);}
+    .finding.warn{border-inline-start-color:var(--amber);}
+    .finding.bad{border-inline-start-color:var(--red);}
+    .f-head{display:flex;align-items:center;gap:9px;font-size:16px;font-weight:600;margin-bottom:4px;flex-wrap:wrap;}
+    .f-axis{font-size:11px;font-weight:600;color:var(--muted);background:var(--surface-2);padding:2px 9px;border-radius:6px;}
+    .f-body{font-size:14.5px;color:#D8D8D8;margin-top:8px;}
+    .f-action{font-size:14px;font-weight:600;margin-top:10px;color:var(--text);}
+    .f-action span{color:var(--accent);}
+    code{direction:ltr;unicode-bidi:isolate;}
+
+    table{width:100%;border-collapse:collapse;margin:8px 0 30px;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+    th,td{text-align:right;padding:12px 16px;font-size:14px;border-bottom:1px solid var(--border);}
+    th{background:var(--surface-2);font-weight:600;color:var(--muted);font-size:12px;letter-spacing:.04em;}
+    tr:last-child td{border-bottom:none;}
+
+    .steps{counter-reset:s;list-style:none;}
+    .steps li{counter-increment:s;position:relative;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px 16px 18px;padding-inline-start:54px;margin-bottom:10px;font-size:15px;}
+    .steps li::before{content:counter(s);position:absolute;inset-inline-start:16px;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;background:var(--accent-deep);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;}
+    .foot{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);font-size:12.5px;color:var(--muted);}
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="../../">← Orbit</a>
+    <div class="eyebrow">Efficiency Audit</div>
+    <h1>ייעול שבועי של המערכת</h1>
+    <div class="date">8 באוקטובר 2026 · Efficiency Agent</div>
+    <div class="verdict">🟡 3 הזדמנויות ייעול</div>
+
+    <div class="metrics">
+      <div class="metric"><div class="metric-label">Session Start (8 קבצים)</div><div class="metric-val">97K <small>bytes</small></div><div class="metric-delta">יציב מול שבוע שעבר</div></div>
+      <div class="metric"><div class="metric-label">learning-log</div><div class="metric-val">24.1K <small>bytes</small></div><div class="metric-delta">↓ מ-25.2K (ערך אחד לארכיון)</div></div>
+      <div class="metric"><div class="metric-label">MCP שלא מתחברים</div><div class="metric-val">3 <small>שרתים</small></div><div class="metric-delta" style="color:var(--amber)">30 שניות timeout כל אחד</div></div>
+    </div>
+
+    <div class="section-label">ממצאים (4)</div>
+
+    <div class="finding warn">
+      <div class="f-head">🟡 3 שרתי MCP נכשלים בפתיחת סשן <span class="f-axis">כלים והגדרות</span></div>
+      <div class="f-body">בריצה הזו <code>figma</code>, <code>elevenlabs</code> ו-<code>markitdown</code> לא התחברו (timeout של 30 שניות). שרת ה-figma המקומי (ב-<code>.mcp.json</code> של הפרויקט) כפול: ה-plugin הרשמי של Figma כבר מותקן. והוא גם מחזיק מפתח API בטקסט גלוי.</div>
+      <div class="f-action">מה לעשות עכשיו: <span>למחוק את <code>figma</code> מ-<code>.mcp.json</code> ולהשאיר את ה-plugin הרשמי. את elevenlabs ו-markitdown להסיר אם לא השתמשת בהם החודש.</span></div>
+    </div>
+
+    <div class="finding warn">
+      <div class="f-head">🟡 יותר מ-100 skills נטענים בכל סשן. יש פקודה שמודדת את זה <span class="f-axis">חוץ · טוקנים</span></div>
+      <div class="f-body">ב-Claude Code יש עכשיו <code>/skill-doctor</code>. הפקודה מראה אילו skills טעונים ולא משמשים, וכמה context כל אחד עולה. אצלך נטענים יותר מ-100 תיאורי skills בכל פתיחה: interaction-design (כ-37), figma (14), design (9), critique (9) ו-resume. רובם לא קשורים לעבודה ב-the-system-v9.</div>
+      <div class="f-action">מה לעשות עכשיו: <span>להריץ <code>/skill-doctor</code> פעם אחת, ולכבות לפרויקט הזה את ה-plugins שיוצאים "לא בשימוש".</span></div>
+    </div>
+
+    <div class="finding warn">
+      <div class="f-head">🟡 שני הצעדים משבוע שעבר עדיין פתוחים <span class="f-axis">שיטת עבודה</span></div>
+      <div class="f-body">CLAUDE.md לא השתנה, ו-4 החוקים המחייבים (RTL, תהליך UI, פרטי קשר, label+תוכן) עדיין רק בארכיון. השבוע נכתב ערך אחד בלבד, והוא נכתב במקום הנכון. כלומר החוקים הם הדחוף מבין השניים.</div>
+      <div class="f-action">מה לעשות עכשיו: <span>לאשר אילו מ-4 החוקים בתוקף, ולהחזיר אותם ל-feedback-system בלי תאריך בכותרת.</span></div>
+    </div>
+
+    <div class="finding good">
+      <div class="f-head">🟢 ארכוב אוטומטי: learning-log חזר מתחת לתקרה <span class="f-axis">טוקנים / context</span></div>
+      <div class="f-body">learning-log עמד על 25.2K. ערך אחד (22.9, "כתבתי לאור בקו"ח דברים שלא אימתתי") עבר ל-<code>learning-log-archive-2026-09.md</code>, ושם יש עכשיו 15 ערכים. ספירה לפני ואחרי: 31 = 31. feedback-system (24.9K) ו-decisions (17.2K) מתחת לתקרה. לוח המודלים עדיין נכון (Opus 5.5 / Sonnet 5.5), בלי שינוי מחיר.</div>
+    </div>
+
+    <div class="section-label">סיכום צירים</div>
+    <table>
+      <tr><th>ציר</th><th>מצב</th></tr>
+      <tr><td>🪙 טוקנים / context</td><td>🟡 ארכוב טופל · יותר מ-100 skills נטענים</td></tr>
+      <tr><td>⚙️ שיטת עבודה</td><td>🟡 החוקים עדיין בארכיון</td></tr>
+      <tr><td>🧠 בחירת מודל</td><td>🟢 Opus 5.5, הלוח נכון</td></tr>
+      <tr><td>🔧 כלים והגדרות</td><td>🟡 3 MCP נכשלים, figma כפול</td></tr>
+      <tr><td>🌐 מה חדש בחוץ</td><td>🟡 <code>/skill-doctor</code></td></tr>
+    </table>
+
+    <div class="section-label">3 הצעדים המשתלמים</div>
+    <ol class="steps">
+      <li><strong>למחוק את figma מ-.mcp.json</strong>: פחות המתנה בפתיחה, ובלי כפילות מול ה-plugin.</li>
+      <li><strong>להריץ <code>/skill-doctor</code></strong> ולכבות plugins שלא בשימוש.</li>
+      <li><strong>להחזיר את 4 החוקים</strong> לקובץ החי.</li>
+    </ol>
+    <div class="foot">דוח אוטומטי · Efficiency Agent רץ כל יום חמישי · מדווח רק כשיש ייעול חדש ושווה.</div>
+  </main>
+</body>
+</html>
