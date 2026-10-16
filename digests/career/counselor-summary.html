@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}</style>
+<title>מסלולי הסבה למפגש</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap">
+<style>
+/* layout: Orbit language (Rubik, warm paper, blue accent). Hero verdict, then path cards, then electrician deep-dive, then checklist for the meeting */
+:root{
+  --bg:#F5F3F0; --card:#FFFFFF; --line:#E8E3DC; --ink:#1A1A1A; --muted:#6B6560; --soft:#EFEBE5;
+  --accent:#0066CC; --accent-soft:#E6F0FA; --live:#E8A400; --live-soft:#FDF4DC;
+  --ok:#1E7A4F; --warn:#A86B00; --gap:#B23A2C;
+  --font:"Rubik", "Segoe UI", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141414; --card:#1E1E1E; --line:#2E2E2E; --ink:#F0EEEB; --muted:#A39D96; --soft:#262626;
+  --accent:#4D9FFF; --accent-soft:#16263A; --live:#F2B92E; --live-soft:#2E2610;
+  --ok:#5CC28F; --warn:#E3AE48; --gap:#F08A7B; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141414; --card:#1E1E1E; --line:#2E2E2E; --ink:#F0EEEB; --muted:#A39D96; --soft:#262626;
+  --accent:#4D9FFF; --accent-soft:#16263A; --live:#F2B92E; --live-soft:#2E2610;
+  --ok:#5CC28F; --warn:#E3AE48; --gap:#F08A7B; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--ink); font-family:var(--font); font-size:16px; line-height:1.6;
+  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); padding-block:28px 48px}
+main{max-width:920px; margin:0 auto; display:grid; gap:36px}
+h1,h2,h3{margin:0; text-wrap:balance; font-weight:700}
+h1{font-size:clamp(1.9rem, 5vw, 2.6rem); line-height:1.15}
+h2{font-size:1.3rem} h3{font-size:1.02rem}
+p{margin:0}
+.muted{color:var(--muted)} .small{font-size:.85rem}
+.eyebrow{font-size:.78rem; font-weight:500; letter-spacing:.04em; color:var(--muted)}
+section{display:grid; gap:14px; min-width:0}
+.card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px}
+
+/* hero */
+.hero{display:grid; gap:16px; background:var(--card); border:1px solid var(--line); border-radius:20px; padding:24px}
+.hero .bolt{display:inline-grid; place-items:center; width:44px; height:44px; border-radius:12px; background:var(--live-soft); color:var(--live)}
+.quote{font-size:1.1rem; color:var(--muted); border-inline-start:3px solid var(--live); padding-inline-start:12px}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:999px; background:var(--soft); font-size:.88rem; font-weight:500}
+.chip .d{width:8px; height:8px; border-radius:50%}
+
+/* tags */
+.legend{display:flex; flex-wrap:wrap; gap:6px 14px}
+.t{display:inline-block; font-size:.7rem; font-weight:500; padding:1px 7px; border-radius:5px; white-space:nowrap; vertical-align:middle}
+.t.f{background:color-mix(in srgb, var(--ok) 14%, transparent); color:var(--ok)}
+.t.g{background:color-mix(in srgb, var(--warn) 16%, transparent); color:var(--warn)}
+.t.x{background:color-mix(in srgb, var(--gap) 14%, transparent); color:var(--gap)}
+
+/* next steps */
+.next{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px; counter-reset:n}
+.next .card{display:grid; gap:4px; counter-increment:n}
+.next .card::before{content:counter(n); display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:var(--accent); color:var(--card); font-weight:700; font-size:.9rem}
+
+/* path cards */
+.paths{display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:12px}
+.path{display:grid; gap:12px; align-content:start}
+.path.pick{border:2px solid var(--live); background:linear-gradient(var(--live-soft), var(--live-soft)) top/100% 54px no-repeat, var(--card)}
+.path header{display:flex; justify-content:space-between; align-items:baseline; gap:8px}
+.badge{font-size:.72rem; font-weight:700; color:var(--live); background:var(--card); border:1px solid var(--live); border-radius:999px; padding:1px 8px}
+.bar{height:8px; border-radius:4px; background:var(--soft); overflow:hidden}
+.bar i{display:block; height:100%; background:var(--accent); border-radius:4px}
+.path.pick .bar i{background:var(--live)}
+dl{margin:0; display:grid; gap:8px}
+dl div{display:grid; grid-template-columns:92px 1fr; gap:8px; font-size:.9rem}
+dt{color:var(--muted)} dd{margin:0; min-width:0}
+.num{font-variant-numeric:tabular-nums; font-weight:700}
+.dim .path{opacity:.92}
+
+/* admission checklist */
+.checks{display:grid; gap:10px}
+.check{display:grid; grid-template-columns:28px 1fr; gap:10px; align-items:start}
+.check .ic{width:28px; height:28px; border-radius:8px; display:grid; place-items:center; font-weight:700; font-size:.85rem}
+.ic.ok{background:color-mix(in srgb, var(--ok) 15%, transparent); color:var(--ok)}
+.ic.mid{background:color-mix(in srgb, var(--warn) 18%, transparent); color:var(--warn)}
+.ic.no{background:color-mix(in srgb, var(--gap) 15%, transparent); color:var(--gap)}
+
+/* timeline */
+.timeline{display:grid; grid-template-columns:repeat(4, 1fr); gap:0; position:relative; margin-top:6px}
+.timeline::before{content:""; position:absolute; top:13px; inset-inline:12.5%; height:3px; background:var(--line)}
+.step{display:grid; justify-items:center; text-align:center; gap:6px; position:relative; padding:0 4px}
+.step .dot{width:28px; height:28px; border-radius:50%; background:var(--card); border:3px solid var(--accent); z-index:1}
+.step.money .dot{border-color:var(--live); background:var(--live)}
+.step b{font-size:.92rem} .step span{font-size:.8rem; color:var(--muted)}
+@media (max-width:520px){
+  .timeline{grid-template-columns:1fr; gap:14px}
+  .timeline::before{top:14px; bottom:14px; inset-inline-start:13px; inset-inline-end:auto; width:3px; height:auto}
+  .step{grid-template-columns:28px 1fr; justify-items:start; text-align:start; column-gap:12px}
+  .step .dot{grid-row:span 2}
+}
+
+/* diagnosis table */
+.scroll{overflow-x:auto; border:1px solid var(--line); border-radius:16px; background:var(--card)}
+table{border-collapse:collapse; width:100%; min-width:600px; font-size:.9rem}
+th,td{padding:12px 14px; text-align:start; vertical-align:top; border-bottom:1px solid var(--line)}
+th{font-weight:500; color:var(--muted); background:var(--soft)} tr:last-child td{border-bottom:0}
+.callout{background:var(--accent-soft); border-radius:14px; padding:14px 16px; display:grid; gap:4px}
+
+/* meeting checklist */
+.qs{display:grid; gap:8px}
+.q{display:grid; grid-template-columns:24px 1fr; gap:12px; align-items:start; padding:12px 14px; background:var(--card); border:1px solid var(--line); border-radius:12px; cursor:pointer}
+.q input{width:20px; height:20px; margin:2px 0 0; accent-color:var(--accent)}
+.q:has(input:checked){opacity:.55} .q:has(input:checked) span{text-decoration:line-through}
+.q:focus-within{outline:2px solid var(--accent); outline-offset:2px}
+
+.sources{font-size:.8rem; color:var(--muted); line-height:1.9}
+.sources a{color:var(--accent); text-decoration:none} .sources a:hover{text-decoration:underline}
+@media (prefers-reduced-motion:no-preference){.q{transition:opacity .2s}}
+</style>
+</head>
+<body>
+
+<main dir="rtl" lang="he">
+
+<section class="hero" aria-labelledby="h1">
+  <div style="display:flex; gap:14px; align-items:center">
+    <span class="bolt" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"/></svg></span>
+    <div>
+      <p class="eyebrow">סיכום למפגש עם היועצת · 16.10.2026</p>
+      <h1 id="h1">הכיוון: חשמלאי מוסמך</h1>
+    </div>
+  </div>
+  <p class="quote">"זה מקצוע שלא יכול להיעלם, כמו אינסטלטור, נגר או גנן."</p>
+  <div class="chips">
+    <span class="chip"><span class="d" style="background:var(--ok)"></span>תנאי קבלה: כנראה עומד</span>
+    <span class="chip"><span class="d" style="background:var(--accent)"></span>ערבים, פעמיים בשבוע</span>
+    <span class="chip"><span class="d" style="background:var(--live)"></span>מרוויחים כבר אחרי הקורס</span>
+    <span class="chip"><span class="d" style="background:var(--warn)"></span>~5 שנים עד רישיון מלא</span>
+  </div>
+  <div class="legend small muted">
+    <span><span class="t f">עובדה</span> עם מקור</span>
+    <span><span class="t g">הערכה</span> שיפוט, לא נתון</span>
+    <span><span class="t x">חסר</span> צריך לברר</span>
+  </div>
+</section>
+
+<section aria-labelledby="h-next">
+  <h2 id="h-next">3 דברים לסגור עכשיו</h2>
+  <div class="next">
+    <div class="card"><h3>לברר אבחון</h3><p class="small muted">לשאול את המכללה איזה אבחון היא מקבלת, ורק אחר כך לשלם</p></div>
+    <div class="card"><h3>מבחן התאמה</h3><p class="small muted">לבדוק עם היועצת התאמה לחשמלאי לפני התחייבות לשנתיים</p></div>
+    <div class="card"><h3>מחיר ומועד</h3><p class="small muted">שיחה לכרמל בטיחות ולאורט קריית ביאליק</p></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-paths">
+  <div style="display:grid; gap:4px">
+    <h2 id="h-paths">המסלולים שבדקתי</h2>
+    <p class="small muted">משרות = כותרות אמיתיות בעמוד הראשון של Drushim, חיפה והקריות ברדיוס 30 ק"מ, 16.10.2026. ספירה של יום אחד.</p>
+  </div>
+  <div class="paths">
+    <article class="card path pick">
+      <header><h3>חשמלאי מוסמך</h3><span class="badge">הבחירה שלי</span></header>
+      <div><div class="bar" role="img" aria-label="17 משרות"><i style="width:71%"></i></div><p class="small"><span class="num">17</span> משרות <span class="t f">עובדה</span></p></div>
+      <dl>
+        <div><dt>שכר כניסה</dt><dd>~11.5K, מוסמך ~15K <span class="t g">מקור חלש</span></dd></div>
+        <div><dt>הכשרה</dt><dd>850 שעות, ערבים, 1.5–2 שנים</dd></div>
+        <div><dt>עמידות ל-AI</dt><dd>גבוהה <span class="t g">הערכה</span></dd></div>
+      </dl>
+    </article>
+    <article class="card path">
+      <header><h3>טכנאי מיזוג וקירור</h3></header>
+      <div><div class="bar" role="img" aria-label="6 משרות"><i style="width:25%"></i></div><p class="small"><span class="num">6</span> משרות <span class="t f">עובדה</span></p></div>
+      <dl>
+        <div><dt>שכר כניסה</dt><dd><span class="t x">חסר</span></dd></div>
+        <div><dt>הכשרה</dt><dd>6–8 חודשים, בחיפה</dd></div>
+        <div><dt>עמידות ל-AI</dt><dd>גבוהה <span class="t g">הערכה</span></dd></div>
+      </dl>
+    </article>
+    <article class="card path">
+      <header><h3>CNC, כוון ומפעיל</h3></header>
+      <div><div class="bar" role="img" aria-label="כ-24 משרות"><i style="width:100%"></i></div><p class="small"><span class="num">~24</span> משרות <span class="t f">עובדה</span></p></div>
+      <dl>
+        <div><dt>שכר כניסה</dt><dd>תכנת ~13K <span class="t g">דיווחי משתמשים</span></dd></div>
+        <div><dt>הכשרה</dt><dd>3–6 חודשים, חיפה וכרמיאל</dd></div>
+        <div><dt>עמידות ל-AI</dt><dd>בינונית <span class="t g">הערכה</span></dd></div>
+      </dl>
+    </article>
+    <article class="card path">
+      <header><h3>IT, תמיכה טכנית</h3></header>
+      <div><div class="bar" role="img" aria-label="16 משרות ללא ניסיון"><i style="width:67%"></i></div><p class="small"><span class="num">16</span> ללא ניסיון, כמעט כולן מוקד <span class="t f">עובדה</span></p></div>
+      <dl>
+        <div><dt>שכר כניסה</dt><dd>45 ₪ לשעה ≈ 8.2K <span class="t f">מודעה</span></dd></div>
+        <div><dt>הכשרה</dt><dd>400 שעות, ג'ון ברייס חיפה</dd></div>
+        <div><dt>עמידות ל-AI</dt><dd>נמוכה במוקד <span class="t g">הערכה</span></dd></div>
+      </dl>
+    </article>
+  </div>
+  <p class="small muted">עוד שני כיוונים שלא נבדקו עם נתונים: מעצב מוצר בתעשייה בצפון (בלי הסבה), ופיתוח הדרכה ולומדות. רקע: שירות התעסוקה מדווח על 1.5–2 משרות פנויות לכל דורש עבודה בקרב מפעילי מכונות, ועל ביקוש גבוה לבעלי מלאכה בתעשייה ובבנייה <span class="t f">הכנסת, ינואר 2026</span>.</p>
+</section>
+
+<section aria-labelledby="h-admit">
+  <h2 id="h-admit">חשמלאי: האם אני יכול להתקבל?</h2>
+  <div class="card checks">
+    <div class="check"><span class="ic ok" aria-hidden="true">✓</span><div><b>12 שנות לימוד</b> <span class="t f">עובדה</span><p class="small muted">תנאי בכל המכללות שבדקתי. לוודא שיש לי תעודה.</p></div></div>
+    <div class="check"><span class="ic mid" aria-hidden="true">!</span><div><b>מבחן כניסה במתמטיקה</b>, ברמת 12 שנות לימוד <span class="t f">עובדה</span><p class="small muted">אורט בראודה ואורט קריית ביאליק. בבראודה יש גם ועדת קבלה. כאן צריך להתכונן.</p></div></div>
+    <div class="check"><span class="ic ok" aria-hidden="true">✓</span><div><b>ערב, פעמיים בשבוע</b> <span class="t f">עובדה</span><p class="small muted">כרמל בטיחות חיפה: 17:00–21:00. מסלול בוקר לא מצאתי <span class="t x">חסר</span></p></div></div>
+    <div class="check"><span class="ic ok" aria-hidden="true">✓</span><div><b>התאמות בלימודים ובבחינות, בלי תשלום</b> <span class="t f">עובדה</span><p class="small muted">כולל בבחינת הכניסה. צריך אבחון ממאבחן מוכר, ומגישים עד 45 יום לפני פתיחת הקורס.</p></div></div>
+    <div class="check"><span class="ic no" aria-hidden="true">?</span><div><b>מחיר</b> <span class="t x">חסר</span><p class="small muted">7–17 אלף ₪ לפי אתרי השוואה. המכללות בחיפה לא מפרסמות.</p></div></div>
+  </div>
+  <h3 style="margin-top:6px">הדרך לרישיון מלא <span class="t f">מכללת אתגר</span></h3>
+  <div class="card">
+    <div class="timeline">
+      <div class="step"><span class="dot"></span><b>קורס + בחינות</b><span>1.5–2 שנים</span></div>
+      <div class="step money"><span class="dot"></span><b>חשמלאי עוזר</b><span>מיד, כבר מרוויחים</span></div>
+      <div class="step"><span class="dot"></span><b>חשמלאי מעשי</b><span>אחרי שנה</span></div>
+      <div class="step"><span class="dot"></span><b>חשמלאי מוסמך</b><span>אחרי עוד שנתיים</span></div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-diag">
+  <h2 id="h-diag">איפה עושים אבחון בצפון</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>איפה</th><th>למי</th><th>מחיר</th><th>זמן</th></tr></thead>
+    <tbody>
+      <tr><td><b>יה"ל, אוניברסיטת חיפה</b><br><span class="small muted">אבחון מת"ל</span></td><td>גיל 16–35, <b>מועמדים או סטודנטים בהשכלה גבוהה</b> <span class="t f">עובדה</span><br><span class="small muted">קורס חשמלאי הוא לא השכלה גבוהה. צריך לברר אם אני מתאים <span class="t x">חסר</span></span></td><td class="num">1,884 ₪</td><td>3 מפגשים</td></tr>
+      <tr><td><b>מאבחן פרטי בחיפה</b><br><span class="small muted">אבחון דידקטי</span></td><td>כל הגילים</td><td class="num">600–1,850 ₪</td><td>~6 שעות</td></tr>
+      <tr><td><b>אבחון ישן מהילדות</b><br><span class="small muted">אם יש לי כזה</span></td><td>תקף רק אם המכללה מאשרת</td><td class="num">0 ₪</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small muted">מחיר יה"ל מהאתר שלהם. טווח המחירים הפרטי הוא "מחירון מומלץ" של B144 <span class="t g">מקור חלש</span>. להרשמה ליה"ל: ממלאים שאלונים מהאתר ושולחים בדואר, והמזכירות חוזרת לתאם. הטלפון של הפקולטה לחינוך: 04-8249022.</p>
+  <div class="callout">
+    <b>לפני שמשלמים</b>
+    <p class="small">החוק דורש אבחון "ממאבחן מוכר". לשאול את המכללה איזה אבחון היא מקבלת, ולשאול את היועצת אם שירות התעסוקה מממן אבחון.</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-q">
+  <h2 id="h-q">שאלות ליועצת</h2>
+  <p class="small muted">אפשר לסמן במהלך הפגישה. הסימון נשמר רק בדפדפן הזה.</p>
+  <div class="qs">
+    <label class="q" for="q1"><input type="checkbox" id="q1"><span>אני זכאי ל<b>שובר הכשרה</b> כשאני עובד כמעצב? התנאי: "לא עובד, או עובד בעבודה שלא דורשת הכשרה".</span></label>
+    <label class="q" for="q2"><input type="checkbox" id="q2"><span>יש <b>מבחני התאמה מקצועית</b>? אני רוצה לבדוק התאמה לפני שאני מתחייב לשנתיים.</span></label>
+    <label class="q" for="q3"><input type="checkbox" id="q3"><span>איזה <b>אבחון לקות למידה</b> מוכר להכשרה מקצועית, והאם יש מימון?</span></label>
+    <label class="q" for="q4"><input type="checkbox" id="q4"><span>יש <b>נתוני שכר רשמיים</b> לחשמלאים בצפון?</span></label>
+    <label class="q" for="q5"><input type="checkbox" id="q5"><span>אפשר לבדוק את המקצוע לפני שנרשמים, למשל <b>יום אחד עם חשמלאי בשטח</b>?</span></label>
+    <label class="q" for="q6"><input type="checkbox" id="q6"><span>יש <b>קורס בוקר</b> דרך שירות התעסוקה, ואם כן, מה זה אומר לעבודה שלי?</span></label>
+  </div>
+</section>
+
+<section aria-labelledby="h-src">
+  <h2 id="h-src" style="font-size:1rem">מקורות</h2>
+  <p class="sources">
+    <a href="https://www.drushim.co.il/">Drushim</a> (ספירה 16.10.2026) ·
+    <a href="https://fs.knesset.gov.il/25/Committees/25_cs_mmm_10933105.pdf">הכנסת, מרכז המחקר והמידע</a> ·
+    <a href="https://www.kolzchut.org.il/he/%D7%AA%D7%95%D7%9B%D7%A0%D7%99%D7%AA_%D7%A9%D7%95%D7%91%D7%A8%D7%99%D7%9D_%D7%9C%D7%94%D7%9B%D7%A9%D7%A8%D7%94_%D7%9E%D7%A7%D7%A6%D7%95%D7%A2%D7%99%D7%AA">כל זכות: שוברים</a> ·
+    <a href="https://www.kolzchut.org.il/he/%D7%94%D7%AA%D7%90%D7%9E%D7%95%D7%AA_%D7%A0%D7%92%D7%99%D7%A9%D7%95%D7%AA_%D7%90%D7%99%D7%A9%D7%99%D7%AA_%D7%9C%D7%90%D7%A0%D7%A9%D7%99%D7%9D_%D7%A2%D7%9D_%D7%9E%D7%95%D7%92%D7%91%D7%9C%D7%95%D7%AA_%D7%91%D7%9E%D7%95%D7%A1%D7%93%D7%95%D7%AA_%D7%9C%D7%94%D7%9B%D7%A9%D7%A8%D7%94_%D7%9E%D7%A7%D7%A6%D7%95%D7%A2%D7%99%D7%AA">כל זכות: התאמות</a> ·
+    <a href="https://yahel.edu.haifa.ac.il/Diagnosis">יה"ל, אוניברסיטת חיפה</a> ·
+    <a href="https://www.b144.co.il/%D7%90%D7%91%D7%97%D7%95%D7%9F-%D7%93%D7%99%D7%93%D7%A7%D7%98%D7%99/%D7%97%D7%99%D7%A4%D7%94/">B144: אבחון דידקטי בחיפה</a> ·
+    <a href="https://www.bizportal.co.il/career/news/article/20039756">Bizportal</a> ·
+    <a href="https://etgar.org.il/%D7%A8%D7%99%D7%A9%D7%99%D7%95%D7%9F-%D7%97%D7%A9%D7%9E%D7%9C%D7%90%D7%99-%D7%9E%D7%95%D7%A1%D7%9E%D7%9A/">מכללת אתגר</a> ·
+    <a href="https://carmelsafety.co.il/all-courses/%D7%A7%D7%95%D7%A8%D7%A1-%D7%97%D7%A9%D7%9E%D7%9C%D7%90%D7%99-%D7%9E%D7%95%D7%A1%D7%9E%D7%9A/">כרמל בטיחות</a> ·
+    <a href="https://www.study.co.il/P44976/">אורט בראודה</a> ·
+    <a href="https://www.study.co.il/P42286/">אורט קריית ביאליק</a> ·
+    <a href="https://www.study.co.il/P46211/">ג'ון ברייס חיפה</a> ·
+    <a href="https://www.alljobs.co.il/User/SalaryCompound/position/?JobCategoryID=1301">AllJobs</a>
+  </p>
+</section>
+</main>
+
+<script>
+document.querySelectorAll('.q input').forEach(function(cb){
+  try{ cb.checked = localStorage.getItem('cs-'+cb.id)==='1'; }catch(e){}
+  cb.addEventListener('change', function(){ try{ localStorage.setItem('cs-'+cb.id, cb.checked?'1':'0'); }catch(e){} });
+});
+</script>
+</body>
+</html>
