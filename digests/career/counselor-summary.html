@@ -99,6 +99,13 @@ dt{color:var(--muted)} dd{margin:0; min-width:0}
 table{border-collapse:collapse; width:100%; min-width:600px; font-size:.9rem}
 th,td{padding:12px 14px; text-align:start; vertical-align:top; border-bottom:1px solid var(--line)}
 th{font-weight:500; color:var(--muted); background:var(--soft)} tr:last-child td{border-bottom:0}
+@media (max-width:560px){
+  .scroll table{min-width:0} .scroll thead{display:none}
+  .scroll tr{display:grid; grid-template-columns:1fr 1fr; gap:4px 12px; padding:14px; border-bottom:1px solid var(--line)}
+  .scroll tr:last-child{border-bottom:0}
+  .scroll td{border:0; padding:0} .scroll td:first-child,.scroll td:nth-child(2){grid-column:1 / -1}
+  .scroll td[data-l]::before{content:attr(data-l); display:block; font-size:.75rem; color:var(--muted)}
+}
 .callout{background:var(--accent-soft); border-radius:14px; padding:14px 16px; display:grid; gap:4px}
 
 /* meeting checklist */
@@ -219,9 +226,9 @@ th{font-weight:500; color:var(--muted); background:var(--soft)} tr:last-child td
   <div class="scroll"><table>
     <thead><tr><th>איפה</th><th>למי</th><th>מחיר</th><th>זמן</th></tr></thead>
     <tbody>
-      <tr><td><b>יה"ל, אוניברסיטת חיפה</b><br><span class="small muted">אבחון מת"ל</span></td><td>גיל 16–35, <b>מועמדים או סטודנטים בהשכלה גבוהה</b> <span class="t f">עובדה</span><br><span class="small muted">קורס חשמלאי הוא לא השכלה גבוהה. צריך לברר אם אני מתאים <span class="t x">חסר</span></span></td><td class="num">1,884 ₪</td><td>3 מפגשים</td></tr>
-      <tr><td><b>מאבחן פרטי בחיפה</b><br><span class="small muted">אבחון דידקטי</span></td><td>כל הגילים</td><td class="num">600–1,850 ₪</td><td>~6 שעות</td></tr>
-      <tr><td><b>אבחון ישן מהילדות</b><br><span class="small muted">אם יש לי כזה</span></td><td>תקף רק אם המכללה מאשרת</td><td class="num">0 ₪</td><td>—</td></tr>
+      <tr><td data-l="איפה"><b>יה"ל, אוניברסיטת חיפה</b><br><span class="small muted">אבחון מת"ל</span></td><td data-l="למי">גיל 16–35, <b>מועמדים או סטודנטים בהשכלה גבוהה</b> <span class="t f">עובדה</span><br><span class="small muted">קורס חשמלאי הוא לא השכלה גבוהה. צריך לברר אם אני מתאים <span class="t x">חסר</span></span></td><td data-l="מחיר" class="num">1,884 ₪</td><td data-l="זמן">3 מפגשים</td></tr>
+      <tr><td data-l="איפה"><b>מאבחן פרטי בחיפה</b><br><span class="small muted">אבחון דידקטי</span></td><td data-l="למי">כל הגילים</td><td data-l="מחיר" class="num">600–1,850 ₪</td><td data-l="זמן">~6 שעות</td></tr>
+      <tr><td data-l="איפה"><b>אבחון ישן מהילדות</b><br><span class="small muted">אם יש לי כזה</span></td><td data-l="למי">תקף רק אם המכללה מאשרת</td><td data-l="מחיר" class="num">0 ₪</td><td data-l="זמן">—</td></tr>
     </tbody>
   </table></div>
   <p class="small muted">מחיר יה"ל מהאתר שלהם. טווח המחירים הפרטי הוא "מחירון מומלץ" של B144 <span class="t g">מקור חלש</span>. להרשמה ליה"ל: ממלאים שאלונים מהאתר ושולחים בדואר, והמזכירות חוזרת לתאם. הטלפון של הפקולטה לחינוך: 04-8249022.</p>
