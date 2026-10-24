@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekly AI Digest — 23.10.2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif; background: #f5f5f5; color: #111827; max-width: 600px; margin: 0 auto; padding: 32px 16px; line-height: 1.6; direction: rtl; text-align: right; }
+  .header { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 16px; padding: 28px 24px 24px; margin-bottom: 16px; text-align: right; direction: rtl; }
+  .header-eyebrow { font-size: 11px; font-weight: 600; color: #9ca3af; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+  .header h1 { font-size: 26px; font-weight: 700; color: #111827; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .header .date { font-size: 13px; color: #6b7280; margin-bottom: 8px; }
+  .header-meta { display: inline-block; font-size: 11px; color: #9ca3af; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 999px; padding: 3px 10px; margin-top: 4px; }
+  .tldr { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px 20px 12px; margin-bottom: 16px; direction: rtl; text-align: right; }
+  .tldr-title { font-size: 10px; font-weight: 700; color: #9ca3af; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; display: block; }
+  .tldr-row { padding: 10px 0; border-bottom: 1px solid #f3f4f6; direction: rtl; text-align: right; }
+  .tldr-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .tldr-label { display: block; font-size: 10px; font-weight: 600; color: #9ca3af; margin-bottom: 3px; text-align: right; letter-spacing: 0.5px; }
+  .tldr-text { display: block; font-size: 13px; color: #374151; text-align: right; line-height: 1.5; }
+  .section { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; margin-bottom: 16px; direction: rtl; text-align: right; }
+  .section-header { display: block; margin-bottom: 16px; direction: rtl; text-align: right; }
+  .section-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 999px; letter-spacing: 0.3px; }
+  .badge-dev { background: #f3f0ff; color: #7c3aed; }
+  .badge-design { background: #eff6ff; color: #2563eb; }
+  .badge-cool { background: #f0fdf4; color: #15803d; }
+  .badge-tool { background: #fffbeb; color: #d97706; }
+  .item { padding: 14px 0; border-bottom: 1px solid #f3f4f6; direction: rtl; text-align: right; }
+  .item:last-child { border-bottom: none; padding-bottom: 0; }
+  .item-hero { padding: 14px; border-radius: 10px; border-bottom: none; margin-bottom: 12px; }
+  .section-dev .item-hero { background: #f5f3ff; border: 2px solid #ddd6fe; }
+  .section-design .item-hero { background: #eff6ff; border: 2px solid #bfdbfe; }
+  .section-cool .item-hero { background: #f0fdf4; border: 2px solid #bbf7d0; }
+  .section-tool .item-hero { background: #fffbeb; border: 2px solid #fde68a; }
+  .item-hero .item-title { font-size: 15px; }
+  .tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 999px; margin-bottom: 6px; letter-spacing: 0.3px; }
+  .tag-now { background: #fff7ed; color: #c2410c; }
+  .tag-fyi { background: #eff6ff; color: #1d4ed8; }
+  .tag-future { background: #faf5ff; color: #7c3aed; }
+  .item-title { font-size: 14px; font-weight: 600; color: #111827; text-align: right; margin-bottom: 3px; line-height: 1.4; }
+  .item-source { font-size: 11px; color: #9ca3af; margin-bottom: 6px; text-align: right; }
+  .item-source a { color: #6b7280; text-decoration: none; }
+  .item-summary { font-size: 13px; color: #6b7280; text-align: right; line-height: 1.6; }
+  .footer { text-align: center; margin-top: 8px; font-size: 11px; color: #d1d5db; padding: 16px 0; direction: rtl; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">Weekly AI Digest</div>
+  <h1>📡 מה קרה השבוע ב-AI</h1>
+  <div class="date">שבוע של 23 באוקטובר 2026 &nbsp;·&nbsp; 23.10.2026</div>
+  <div class="header-meta">5 פריטים &nbsp;·&nbsp; ~2 דק' קריאה</div>
+</div>
+
+<div class="tldr">
+  <span class="tldr-title">השבוע בשניה</span>
+  <div class="tldr-row">
+    <span class="tldr-label">🔥 הכי חשוב</span>
+    <span class="tldr-text">Claude Code 2.1.304 (סביב 20.10) — הגדרה מודרכת של auto mode ביותר פלטפורמות, ובקרות חדשות ל-Code Review.</span>
+  </div>
+  <div class="tldr-row">
+    <span class="tldr-label">🤯 הכי מגניב</span>
+    <span class="tldr-text">GPT-6.1 Sol — לפי סיכומי השבוע, קרוב לביצועי Astra במחיר נמוך יותר. התאריך לא ברור בין המקורות.</span>
+  </div>
+  <div class="tldr-row">
+    <span class="tldr-label">🛠 כדאי לנסות</span>
+    <span class="tldr-text">השבוע אין כלי חדש שעבר את הבדיקה נגד הדיגסטים הקודמים, אז מדלגים.</span>
+  </div>
+</div>
+
+<div class="section section-dev">
+  <div class="section-header">
+    <span class="section-badge badge-dev">AI בפיתוח ובנייה</span>
+  </div>
+
+  <div class="item item-hero">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">Claude Code 2.1.304 — הגדרה מודרכת של auto mode ובקרות חדשות ל-Code Review</div>
+    <div class="item-source">Anthropic · <a href="https://releasebot.io/updates/anthropic">releasebot.io</a></div>
+    <div class="item-summary">גרסה 2.1.304 (סביב 20.10) מוסיפה הגדרה מודרכת של auto mode ביותר פלטפורמות, בדיקות אבטחה לסשנים של Managed Agents, ובקרות חדשות ל-Code Review. מקור יחיד, כדאי לאמת מול ה-changelog לפני שמסתמכים.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-fyi">👀 שווה לדעת</span>
+    <div class="item-title">Claude Duet — סוכן שפועל ביוזמתו, בתור המתנה</div>
+    <div class="item-source">Anthropic · <a href="https://releasebot.io/updates/anthropic">releasebot.io</a></div>
+    <div class="item-summary">תצוגה מקדימה מ-21.10. נפתחת בהרשמה לרשימת המתנה, ותחילה למנויי Pro ו-Max בארה"ב. אין עדיין פרטי יכולות ממקור ראשוני.</div>
+  </div>
+</div>
+
+<div class="section section-cool">
+  <div class="section-header">
+    <span class="section-badge badge-cool">חדש ומגניב</span>
+  </div>
+
+  <div class="item item-hero">
+    <span class="tag tag-now">⚡ עכשיו</span>
+    <div class="item-title">Sonnet 5.5 — מודל הביניים של משפחת 5.5 יצא</div>
+    <div class="item-source">Anthropic · <a href="https://www.microcenter.com/site/mc-news/article/this-week-in-ai-oct-2-2026.aspx">microcenter.com</a></div>
+    <div class="item-summary">הדיגסט של 25.9 הזכיר שהוא בדרך. עכשיו הוא מופיע כזמין. הטענה על כ-30% מהירות ו-30% זול יותר מגיעה מסיכום צד שלישי, לא מההכרזה. התאריך משתנה בין המקורות (סוף ספטמבר עד תחילת אוקטובר).</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-fyi">👀 שווה לדעת</span>
+    <div class="item-title">GPT-6.1 Sol — קרוב ל-Astra, במחיר נמוך יותר</div>
+    <div class="item-source">OpenAI · <a href="https://www.microcenter.com/site/mc-news/article/this-week-in-ai-oct-2-2026.aspx">microcenter.com</a></div>
+    <div class="item-summary">שדרוג ל-Sol מהדיגסט של 25.9. לפי סיכום השבוע, קרוב לביצועי Astra במחיר נמוך יותר. תאריך השחרור לא ברור מהמקורות, כדאי לבדוק מול OpenAI.</div>
+  </div>
+
+  <div class="item">
+    <span class="tag tag-fyi">👀 שווה לדעת</span>
+    <div class="item-title">Anthropic לקראת הנפקה — רודשואו מתוכנן ל-9.11</div>
+    <div class="item-source">Motley Fool · <a href="https://fool.com/investing/2026/10/22/why-anthropic-is-racing-to-ipo-while-openai-waits">fool.com</a></div>
+    <div class="item-summary">לא כלי, אבל רלוונטי למי שעוקב אחרי Anthropic. מדווח על טיוטת מסמך עם הפסד נטו של כ-80.7 מיליארד דולר בחצי הראשון של 2026 על הכנסות של 16.3 מיליארד. המספרים מדיווח עיתונאי, לא ממסמך רשמי.</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-badge badge-design">עיצוב וכלים</span>
+  </div>
+  <div class="item-summary">אין השבוע פריט חדש ב-Figma או בכלי שעומד במבחן. מה שעלה בחיפוש (סוכן Figma, Motion, Weave) כבר מופיע בדיגסטים של 9.10 וה-19.9, או שהתאריך שלו לא ברור. לכן הסקציות האלה לא מולאו.</div>
+</div>
+
+<div class="footer">
+  נוצר אוטומטית ע"י הסוכנים של אור &nbsp;·&nbsp; Weekly AI Digest &nbsp;·&nbsp; 23.10.2026
+</div>
+
+</body>
+</html>
