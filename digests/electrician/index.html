@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>דפי שיחה · חשמל · Orbit</title>
+<title>הנדסאי חשמל · דפי שיחה · Orbit</title>
+<meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -132,7 +133,7 @@
 </head>
 <body>
   <header>
-    <div class="logo">חשמל<span>.</span></div>
+    <div class="logo">הנדסאי חשמל<span>.</span></div>
     <div class="head-right">
       <a class="back" href="https://orben12-byte.github.io/Hub/">← Orbit</a>
       <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="מצב כהה">
@@ -147,226 +148,129 @@
         <svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8.1 9.5a16 16 0 0 0 6 6l1.1-1.1a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/></svg>
         איך פותחים
       </div>
-      <p class="say">"שלום, אני מתעניין בקורס חשמלאי מוסמך. אני עובד במשרה מלאה, אז אני מחפש לימודי ערב. יש לי שש שאלות קצרות."</p>
+      <p class="say">"שלום, אני מתעניין בלימודי הנדסאי חשמל בערב. אני עובד במשרה מלאה. יש לי כמה שאלות קצרות."</p>
       <p class="note">אותן שאלות, באותו סדר, בכל שיחה. אחרת אי אפשר להשוות. התשובות נשמרות בדפדפן הזה.</p>
     </div>
 
     <div class="flag">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5M12 16h.01"/></svg>
-      <div><b>שאלה 6 היא זו שקובעת.</b> בלי גוף מפנה אין שובר, ובלי שובר הקורס עולה 16 אלף ₪ מהכיס
-      במקום בערך 1,200 ₪. אם מחזור 1.12.2026 אמיתי, השובר צריך להיות מוגש לפני שהקורס מתחיל.</div>
+      <div><b>לפני השיחה: לבדוק בבגרות.</b> בגיל 30–35 תנאי הקבלה הוא מתמטיקה 3 יחידות עם ציון 55 ומעלה,
+      או מבחן המתמטיקה של המכינה. אנגלית לא נדרשת בגיל הזה.</div>
     </div>
 
-    <div class="tabs" role="tablist">
-      <button class="tab" role="tab" id="tab-a" aria-selected="true" onclick="pick('a')">חשמלאי מוסמך</button>
-      <button class="tab" role="tab" id="tab-b" aria-selected="false" onclick="pick('b')">מהנדס / הנדסאי</button>
+    <div class="section-label">4 שיחות · לפי זמן נסיעה</div>
+
+    <div class="inst">
+      <div class="inst-top">
+        <span class="inst-n">1</span>
+        <div>
+          <div class="inst-name">אתגר חיפה</div>
+          <div class="inst-where">שלמה בן יוסף 6, חיפה</div>
+        </div>
+        <label class="inst-done"><input type="checkbox" data-done="1">התקשרתי</label>
+      </div>
+      <div class="calls">
+        <a class="call" href="tel:*6929">*6929</a>
+        <a class="call alt" href="https://www.etgar.org.il/cncpt/%D7%94%D7%A0%D7%93%D7%A1%D7%90%D7%99-%D7%97%D7%A9%D7%9E%D7%9C/" target="_blank" rel="noopener">דף המסלול</a>
+      </div>
+      <div class="known"><b>ידוע:</b> ראשון, שני, חמישי 17:00–21:00 · מהבית 27 דק' באוטובוס, 22 ברכב · חזרה ב-21:00: בבית ב-21:30</div>
+      <div class="answers" data-inst="1"></div>
     </div>
 
-    <!-- ============ TAB A: חשמלאי מוסמך ============ -->
-    <section id="pane-a">
-      <div class="section-label">3 שיחות</div>
-
-      <div class="inst">
-        <div class="inst-top">
-          <span class="inst-n">1</span>
-          <div>
-            <div class="inst-name">כרמל בטיחות</div>
-            <div class="inst-where">בעלי מלאכה 26, חיפה</div>
-          </div>
-          <label class="inst-done"><input type="checkbox" data-done="a1">התקשרתי</label>
+    <div class="inst">
+      <div class="inst-top">
+        <span class="inst-n">2</span>
+        <div>
+          <div class="inst-name">המכללה למינהל, חיפה</div>
+          <div class="inst-where">האשלג 3, צ'ק פוסט</div>
         </div>
-        <div class="calls">
-          <a class="call" href="tel:048403408">04-8403408</a>
-          <a class="call alt" href="tel:*6932">*6932</a>
-          <a class="call alt" href="mailto:info@carmelsafety.co.il">מייל</a>
-        </div>
-        <div class="known"><b>ידוע:</b> 850 שעות · ערב 17:00–21:00 · <b>15,930 ₪</b> · מחזור אפשרי 1.12.2026 (לאמת)</div>
-        <div class="answers" data-inst="a1"></div>
+        <label class="inst-done"><input type="checkbox" data-done="2">התקשרתי</label>
       </div>
-
-      <div class="inst">
-        <div class="inst-top">
-          <span class="inst-n">2</span>
-          <div>
-            <div class="inst-name">אורט בראודה</div>
-            <div class="inst-where">כרמיאל · הטכנולוגית</div>
-          </div>
-          <label class="inst-done"><input type="checkbox" data-done="a2">התקשרתי</label>
-        </div>
-        <div class="calls">
-          <a class="call" href="tel:049901785">04-9901785</a>
-          <a class="call alt" href="tel:1700506272">1-700-50-62-72</a>
-          <a class="call alt" href="https://wa.me/972522716856">וואטסאפ</a>
-        </div>
-        <div class="known"><b>ידוע:</b> 850 שעות · כ-12 חודשים · 15,800 ₪ (מ-study.co.il, לא מהמוסד) · הקורס היחיד מסוגו בצפון לפי האתר שלהם</div>
-        <div class="answers" data-inst="a2"></div>
+      <div class="calls">
+        <a class="call" href="tel:0732481333">073-2481333</a>
+        <a class="call alt" href="https://www.college.org.il/field_of_study/%D7%91%D7%99%D7%AA-%D7%94%D7%A1%D7%A4%D7%A8-%D7%94%D7%90%D7%A8%D7%A6%D7%99-%D7%9C%D7%94%D7%A0%D7%93%D7%A1%D7%90%D7%99%D7%9D/%D7%9C%D7%99%D7%9E%D7%95%D7%93%D7%99-%D7%94%D7%A0%D7%93%D7%A1%D7%90%D7%99-%D7%97%D7%A9%D7%9E%D7%9C/" target="_blank" rel="noopener">דף המסלול</a>
       </div>
+      <div class="known"><b>ידוע:</b> ערב + שישי · מהבית 29 דק' באוטובוס, 22 ברכב · חזרה ב-21:00: בבית ב-21:30</div>
+      <div class="answers" data-inst="2"></div>
+    </div>
 
-      <div class="inst">
-        <div class="inst-top">
-          <span class="inst-n">3</span>
-          <div>
-            <div class="inst-name">אורט קריית ביאליק</div>
-            <div class="inst-where">הקריות</div>
-          </div>
-          <label class="inst-done"><input type="checkbox" data-done="a3">התקשרתי</label>
+    <div class="inst">
+      <div class="inst-top">
+        <span class="inst-n">3</span>
+        <div>
+          <div class="inst-name">עתיד חיפה</div>
+          <div class="inst-where">המוסכים 24, צ'ק פוסט</div>
         </div>
-        <div class="calls">
-          <a class="call" href="tel:048490091">04-8490091</a>
-          <a class="call alt" href="https://wa.me/972559741414">וואטסאפ</a>
+        <label class="inst-done"><input type="checkbox" data-done="3">התקשרתי</label>
+      </div>
+      <div class="calls">
+        <a class="call" href="tel:*9088">*9088</a>
+      </div>
+      <div class="known"><b>ידוע:</b> ערב + שישי (לא אומת) · מהבית 29 דק' באוטובוס, 24 ברכב · חזרה ב-21:00: בבית ב-21:30</div>
+      <div class="answers" data-inst="3"></div>
+    </div>
+
+    <div class="inst">
+      <div class="inst-top">
+        <span class="inst-n">4</span>
+        <div>
+          <div class="inst-name">אורט קריית ביאליק</div>
+          <div class="inst-where">ניר עם 3, קריית ביאליק</div>
         </div>
-        <div class="known"><b>ידוע:</b> מבחן מתמטיקה ברמת י״ב בכניסה · מחיר ולוח זמנים לא פורסמו</div>
-        <div class="answers" data-inst="a3"></div>
+        <label class="inst-done"><input type="checkbox" data-done="4">התקשרתי</label>
       </div>
-
-      <div class="section-label">6 השאלות</div>
-      <div class="qs">
-        <div class="q"><span class="q-n">1</span><div class="q-b"><b>מחיר.</b> מה שכר הלימוד הסופי, כולל אגרת בחינות, ומה לא כלול?</div></div>
-        <div class="q"><span class="q-n">2</span><div class="q-b"><b>לוח זמנים.</b> כמה ערבים בשבוע, באילו שעות, וכמה חודשים זה לוקח בפועל?</div></div>
-        <div class="q"><span class="q-n">3</span><div class="q-b"><b>850 או 1,080 שעות.</b> איזה מסלול זה, ומה ההבדל ברישיון בסוף?<em>יוצאים לאותן בחינות של משרד העבודה?</em></div></div>
-        <div class="q"><span class="q-n">4</span><div class="q-b"><b>הצלחה.</b> איזה אחוז מהתלמידים עובר את בחינות משרד העבודה בפעם הראשונה?</div></div>
-        <div class="q"><span class="q-n">5</span><div class="q-b"><b>מחזור הבא.</b> מתי נפתח, ועד מתי אפשר להירשם?</div></div>
-        <div class="q key"><span class="q-n">6</span><div class="q-b"><b>שובר.</b> אתם עובדים עם שוברי משרד העבודה? מי הגוף המפנה, ומה אתם צריכים ממני כדי להגיש?</div></div>
-        <div class="q"><span class="q-n">7</span><div class="q-b">אם יש זמן: <b>התאמות לדיסלקציה</b> בבחינות — הארכת זמן, הקראה.<em>לפי הנוהל צריך לבקש 45 יום לפני תחילת הקורס.</em></div></div>
+      <div class="calls">
+        <a class="call" href="tel:048490091">04-8490091</a>
+        <a class="call alt" href="https://wa.me/972559741414">וואטסאפ</a>
+        <a class="call alt" href="https://c.ort.org.il/kiryat-bialik/course/%D7%97%D7%A9%D7%9E%D7%9C-%D7%94%D7%A0%D7%93%D7%A1%D7%90%D7%99%D7%9D/" target="_blank" rel="noopener">דף המסלול</a>
       </div>
+      <div class="known"><b>ידוע:</b> שלוחה 1 · ערב + שישי · מהבית 40 דק' באוטובוס, 26 ברכב · חזרה ב-21:00: בבית ב-21:42</div>
+      <div class="answers" data-inst="4"></div>
+    </div>
 
-      <div class="after">
-        <div class="goal-label">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-          אחרי השיחות
-        </div>
-        אם מחזור 1.12 אמיתי, נשארו פחות מ-5 שבועות. השובר מוגש <b>לפני</b> תחילת הקורס, ורק דרך גוף מפנה.<br>
-        הצעד הבא: לשאול את היועצת אם התוכנית שלה יכולה להפנות לשובר. אם לא, שירות התעסוקה.<br>
-        מוקד השוברים: <a href="tel:1599500818">1599-500-818</a>
+    <div class="section-label">12 השאלות</div>
+    <div class="qs">
+      <div class="q key"><span class="q-n">1</span><div class="q-b"><b>מחזור הבא.</b> מתי נפתח המחזור הבא בחיפה?</div></div>
+      <div class="q"><span class="q-n">2</span><div class="q-b">אפשר להצטרף למחזור שכבר התחיל?</div></div>
+      <div class="q"><span class="q-n">3</span><div class="q-b"><b>לוח זמנים.</b> אילו ימים ושעות, וכמה שנים בסך הכל?<em>לשאול גם: באיזו שעה נגמר השיעור האחרון?</em></div></div>
+      <div class="q key"><span class="q-n">4</span><div class="q-b"><b>קבלה.</b> אני בן 33. מספיק מתמטיקה 3 יחידות עם ציון 55?</div></div>
+      <div class="q"><span class="q-n">5</span><div class="q-b">אם אין לי את זה, מתי יש מבחן מתמטיקה של המכינה?</div></div>
+      <div class="q"><span class="q-n">6</span><div class="q-b"><b>מחיר.</b> כמה עולה שנת לימודים?</div></div>
+      <div class="q key"><span class="q-n">7</span><div class="q-b"><b>שובר.</b> אתם יכולים להפנות אותי לשובר של משרד העבודה (מה"ט)?</div></div>
+      <div class="q"><span class="q-n">8</span><div class="q-b">יש לכם מלגות או הנחות משלכם?</div></div>
+      <div class="q"><span class="q-n">9</span><div class="q-b">כמה אחוזים עוברים את בחינות הגמר של מה"ט?</div></div>
+      <div class="q"><span class="q-n">10</span><div class="q-b">מה יש לתלמידים עם <b>דיסלקציה וקשב</b>?</div></div>
+      <div class="q"><span class="q-n">11</span><div class="q-b">אתם עוזרים למצוא עבודה ראשונה או סטאז'?</div></div>
+      <div class="q"><span class="q-n">12</span><div class="q-b">אפשר לבוא לראות את המעבדות?</div></div>
+    </div>
+
+    <div class="after">
+      <div class="goal-label">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        אחרי השיחות
       </div>
-    </section>
-
-    <!-- ============ TAB B: מהנדס / הנדסאי ============ -->
-    <section id="pane-b" class="hidden">
-      <div class="section-label">ההבדל, לפני שמתקשרים</div>
-      <table class="cmp">
-        <thead><tr><th></th><th>הנדסאי חשמל (מה"ט)</th><th>מהנדס חשמל (B.Sc)</th></tr></thead>
-        <tbody>
-          <tr><th>משך</th><td>7 סמסטרים בוקר+ערב משולב (4 ביום בלבד)</td><td>4 שנים, 160 נק"ז</td></tr>
-          <tr><th>מתי לומדים</th><td>אחה"צ/ערב — מיועד למי שעובד</td><td>יום, מלא. אין מסלול ערב בצפון</td></tr>
-          <tr><th>תנאי קבלה</th><td>מתמטיקה 3 יח' ב-80, או 4–5 יח' ב-60, או מכינה. <b>אין פסיכומטרי</b></td><td>פסיכומטרי <b>550</b> + בגרות 70 בלי בונוסים + פיזיקה 3 יח'</td></tr>
-          <tr><th>מה מקבלים</th><td>דיפלומת הנדסאי, פנקס ההנדסאים</td><td>תואר ראשון, פנקס המהנדסים</td></tr>
-        </tbody>
-      </table>
-
-      <div class="flag" style="margin-top:18px">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5M12 16h.01"/></svg>
-        <div><b>הנדסאי אינו דלת אחורית לתואר.</b> בבראודה האקדמית בעל דיפלומת הנדסאי עדיין צריך
-        פסיכומטרי 550 וממוצע משוקלל 85, והפטור במחלקה לחשמל הוא 7.5 נק"ז מתוך 160.
-        לכן המסלול היחיד שמסתדר עם משרה מלאה הוא הנדסאי.</div>
-      </div>
-
-      <div class="section-label">3 שיחות</div>
-
-      <div class="inst">
-        <div class="inst-top">
-          <span class="inst-n">1</span>
-          <div>
-            <div class="inst-name">אורט בראודה הטכנולוגית</div>
-            <div class="inst-where">הנדסאי חשמל · כרמיאל</div>
-          </div>
-          <label class="inst-done"><input type="checkbox" data-done="b1">התקשרתי</label>
-        </div>
-        <div class="calls">
-          <a class="call" href="tel:049901785">04-9901785</a>
-          <a class="call alt" href="tel:1700506272">1-700-50-62-72</a>
-          <a class="call alt" href="mailto:handasai@admin.ort.org.il">מייל</a>
-        </div>
-        <div class="known"><b>ידוע:</b> 7 סמסטרים במסלול בוקר+ערב · 4 סמסטרים ביום בלבד</div>
-        <div class="answers" data-inst="b1"></div>
-      </div>
-
-      <div class="inst">
-        <div class="inst-top">
-          <span class="inst-n">2</span>
-          <div>
-            <div class="inst-name">אורט קריית ביאליק</div>
-            <div class="inst-where">הנדסאי חשמל · הקריות</div>
-          </div>
-          <label class="inst-done"><input type="checkbox" data-done="b2">התקשרתי</label>
-        </div>
-        <div class="calls">
-          <a class="call" href="tel:048490091">04-8490091</a>
-          <a class="call alt" href="https://wa.me/972559741414">וואטסאפ</a>
-        </div>
-        <div class="known"><b>ידוע:</b> כ-3 שנים · פעמיים בשבוע אחה"צ/ערב + שישי בבוקר</div>
-        <div class="answers" data-inst="b2"></div>
-      </div>
-
-      <div class="inst">
-        <div class="inst-top">
-          <span class="inst-n">3</span>
-          <div>
-            <div class="inst-name">בראודה האקדמית</div>
-            <div class="inst-where">B.Sc הנדסת חשמל · סנונית 51, כרמיאל</div>
-          </div>
-          <label class="inst-done"><input type="checkbox" data-done="b3">התקשרתי</label>
-        </div>
-        <div class="calls">
-          <a class="call" href="tel:*9099">*9099</a>
-          <a class="call alt" href="tel:049901742">04-9901742</a>
-          <a class="call alt" href="mailto:rishum@braude.ac.il">rishum@braude.ac.il</a>
-        </div>
-        <div class="known"><b>ידוע:</b> פסיכומטרי 550 לתשפ"ז · 4 שנים, יום מלא · מכינה קדם-אקדמית למי שלא עומד בתנאים</div>
-        <div class="answers" data-inst="b3"></div>
-      </div>
-
-      <div class="section-label">6 השאלות (לשתי השיחות הראשונות)</div>
-      <div class="qs">
-        <div class="q"><span class="q-n">1</span><div class="q-b"><b>לוח זמנים.</b> אילו ימים ושעות, וכמה סמסטרים בפועל? אפשר לעמוד בזה עם משרה מלאה?</div></div>
-        <div class="q"><span class="q-n">2</span><div class="q-b"><b>קבלה.</b> אני בלי בגרות מתמטיקה ברמה הנדרשת — צריך מכינה? כמה זמן, מה המחיר, מתי נפתחת?</div></div>
-        <div class="q key"><span class="q-n">3</span><div class="q-b"><b>רישיון חשמל.</b> הנדסאי חשמל נותן חשמלאי מוסמך, או רק דרגת "חשמלאי הנדסאי" אחרי 3 שנות ניסיון?<em>זו השאלה שמכריעה בין שני הדפים.</em></div></div>
-        <div class="q"><span class="q-n">4</span><div class="q-b"><b>מחיר.</b> שכר לימוד לכל הדיפלומה כולל אגרות ובחינות מה"ט. מה מה"ט מסבסד?</div></div>
-        <div class="q"><span class="q-n">5</span><div class="q-b"><b>שובר.</b> שובר משרד העבודה תקף להנדסאי חשמל, או רק לקורסי הכשרה? מי הגוף המפנה?</div></div>
-        <div class="q"><span class="q-n">6</span><div class="q-b"><b>מחזור הבא.</b> מתי נפתח, ועד מתי אפשר להירשם?</div></div>
-        <div class="q"><span class="q-n">7</span><div class="q-b">אם יש זמן: <b>התאמות לדיסלקציה</b> בבחינות מה"ט — לבקש 45 יום מראש.</div></div>
-      </div>
-
-      <div class="section-label">3 שאלות לשיחה האקדמית</div>
-      <div class="qs">
-        <div class="q"><span class="q-n">1</span><div class="q-b">מה סף הקבלה <b>המעודכן</b> להנדסת חשמל ואלקטרוניקה, ומה המכינה הקדם-אקדמית מחליפה?</div></div>
-        <div class="q"><span class="q-n">2</span><div class="q-b">כמה נק"ז פטור עם דיפלומת הנדסאי חשמל, ועדיין צריך פסיכומטרי?</div></div>
-        <div class="q"><span class="q-n">3</span><div class="q-b">יש מסלול חלקי או אחה"צ, או יום מלא בלבד?</div></div>
-      </div>
-
-      <div class="after">
-        <div class="goal-label">
-          <svg viewBox="0 0 24 24"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
-          איך זה מתחבר לדף הראשון
-        </div>
-        <b>חשמלאי מוסמך:</b> 850 שעות, כ-12 חודשים, 15,930 ₪, עובדים בסוף 2027.<br>
-        <b>הנדסאי חשמל:</b> כ-3.5 שנים, תעודה גבוהה יותר. אבל אם הוא לא נותן רישיון חשמלאי, צריך את הקורס הקצר בכל מקרה.<br>
-        שאלה 3 אומרת אם אלה שני מסלולים או מסלול אחד ארוך.
-      </div>
-    </section>
+      <b>שובר מה"ט:</b> הנדסת חשמל בדרגה א' (90%). עד 3 שוברים במסלול, אחד לכל שנה, עם תקרה לכל שובר. מגישים רק דרך גוף מפנה.<br>
+      מוקד השוברים: <a href="tel:1599500818">1599-500-818</a>
+    </div>
   </main>
 
   <footer>
-    מספרים ונתונים: carmelsafety.co.il (דף קשר + דף הקורס) · c.ort.org.il/braude/contacts ו-/course/electrician-course ·
-    c.ort.org.il/braude/course/חשמל-הנדסאים · c.ort.org.il/kiryat-bialik · w3.braude.ac.il/intrested ו-/department/elec/bsc-elec ·
-    study.co.il (מחיר בראודה, לא מהמוסד).<br>
-    פערים: מחיר ההנדסאי לא מפורסם · סף הקבלה האקדמי משתנה משנה לשנה · 1.12.2026 הוא תאריך מתוך בוחר תאריכים, לא כתוב "מועד פתיחה" · הטכניון לא נבדק (יום מלא, סף גבוה בהרבה).<br>
-    עודכן 29 באוקטובר 2026.
+    מקורות: etgar.org.il · college.org.il · c.ort.org.il/kiryat-bialik · נוהל שוברי משרד העבודה 2026 (labor-shovarim.co.il, נספח ג').
+    זמני נסיעה: Google Maps, יום ראשון, הלוך ב-16:00 וחזור ב-21:00.<br>
+    פערים: מחירים ומועדי פתיחה לא פורסמו · לוח הזמנים של עתיד לא אומת · התקרה המדויקת של השובר לשנה לא ברורה.
+    עודכן 31 באוקטובר 2026.
   </footer>
 
 <script>
-  const QS = {
-    a: ['מחיר סופי','ערבים / חודשים','850 או 1,080','אחוז מעבר','מחזור הבא','שובר + גוף מפנה','תחושה 1–5'],
-    b: ['ימים / סמסטרים','מכינה: זמן+מחיר','חשמלאי מוסמך?','מחיר סופי','שובר + גוף מפנה','מחזור הבא','תחושה 1–5']
-  };
+  const QS = ['מחזור הבא','להצטרף באמצע?','ימים / שעות / שנים','3 יח׳ + 55 מספיק?','מבחן מכינה','מחיר לשנה','שובר מה"ט','מלגות / הנחות','אחוז מעבר','דיסלקציה / קשב','עבודה / סטאז׳','לראות מעבדות','תחושה 1–5'];
   function load(k,def){try{const v=localStorage.getItem(k);return v===null?def:JSON.parse(v)}catch(e){return def}}
   function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 
-  // build the answer fields for every institution card
+  // build the answer fields for every college card
   document.querySelectorAll('.answers').forEach(box=>{
-    const inst = box.dataset.inst;               // e.g. "a2" -> tab "a", card 2
-    QS[inst[0]].forEach((label,i)=>{
-      const key = 'el-'+inst+'-'+i;
+    const inst = box.dataset.inst;
+    QS.forEach((label,i)=>{
+      const key = 'hn-'+inst+'-'+i;
       const row = document.createElement('div');
       row.className = 'ans';
       const lab = document.createElement('span');
@@ -379,20 +283,10 @@
   });
 
   document.querySelectorAll('[data-done]').forEach(cb=>{
-    const key = 'el-done-'+cb.dataset.done;
+    const key = 'hn-done-'+cb.dataset.done;
     cb.checked = load(key,false);
     cb.addEventListener('change',()=>save(key,cb.checked));
   });
-
-  function pick(t){
-    ['a','b'].forEach(x=>{
-      document.getElementById('pane-'+x).classList.toggle('hidden', x!==t);
-      document.getElementById('tab-'+x).setAttribute('aria-selected', String(x===t));
-    });
-    save('el-tab',t);
-    window.scrollTo({top:0,behavior:'smooth'});
-  }
-  pick(load('el-tab','a'));
 
   // ---- theme ----
   const MOON='M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z';
