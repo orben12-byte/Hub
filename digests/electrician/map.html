@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מפת מכללות · הנדסאי חשמל · Orbit</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap">
+<script>try{const t=localStorage.getItem('orbit-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<style>
+/* Layout: schematic map of Haifa Bay on top, colleges as a ranked list below (sorted by bus time). */
+:root{
+  --bg:#F5F3F0; --surface:#FFFFFF; --fg:#1C1B19; --muted:#6B6760; --line:#E2DED7;
+  --sea:#DCE8F3; --sea-ink:#7A9CBF; --accent:#0066CC; --unsure:#9A948A;
+  --font:'Rubik', 'Segoe UI', Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#151513; --surface:#1F1E1B; --fg:#EDEAE4; --muted:#A39E95; --line:#34322E;
+  --sea:#1B2A38; --sea-ink:#6F93B8; --accent:#5AA2F0; --unsure:#7D786F; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#151513; --surface:#1F1E1B; --fg:#EDEAE4; --muted:#A39E95; --line:#34322E;
+  --sea:#1B2A38; --sea-ink:#6F93B8; --accent:#5AA2F0; --unsure:#7D786F; color-scheme:dark }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.55;direction:rtl;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 40px}
+.wrap{max-width:760px;margin:0 auto;display:grid;gap:20px}
+.nav{display:flex;gap:16px;font-size:13px}
+.nav a{color:var(--muted);text-decoration:none}
+.nav a:hover{color:var(--accent)}
+h1{font-size:1.6rem;margin:0;text-wrap:balance;font-weight:700}
+.sub{color:var(--muted);margin:4px 0 0}
+.map{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px;overflow:hidden}
+.map svg{display:block;width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:14px;color:var(--muted);font-size:.85rem;padding:4px 8px 6px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+ol{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+li{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:8px}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.name{font-weight:700;font-size:1.05rem}
+.badge{font-size:.75rem;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 8px;margin-inline-start:6px;font-weight:400}
+.times{display:flex;gap:16px;font-variant-numeric:tabular-nums}
+.t{display:flex;align-items:baseline;gap:4px}
+.t b{font-size:1.35rem}
+.t small{color:var(--muted)}
+.meta{color:var(--muted);font-size:.9rem;display:flex;flex-wrap:wrap;gap:4px 14px}
+.links{display:flex;gap:10px;flex-wrap:wrap}
+.links a{color:var(--accent);text-decoration:none;font-size:.9rem;border:1px solid var(--line);border-radius:8px;padding:4px 10px}
+.links a:hover,.links a:focus-visible{border-color:var(--accent);outline:none}
+.note{color:var(--muted);font-size:.85rem;margin:0}
+.back{font-size:.9rem;border-top:1px solid var(--line);padding-top:8px;font-variant-numeric:tabular-nums}
+.num{font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav"><a href="https://orben12-byte.github.io/Hub/">← Orbit</a><a href="./">← דפי שיחה</a></nav>
+  <header>
+    <h1>מכללות להנדסאי חשמל באזור חיפה</h1>
+    <p class="sub">הלוך: יציאה מהבית ב-16:00. חזור: יציאה מהמכללה ב-21:00. יום ראשון, מסודר לפי זמן באוטובוס.</p>
+  </header>
+
+  <div class="map" aria-label="מפה סכמטית של מפרץ חיפה עם המכללות">
+    <svg id="map" role="img"></svg>
+    <div class="legend">
+      <span><i class="dot" style="background:var(--accent)"></i>מכללה, הנדסאי חשמל אומת באתר שלה</span>
+      <span><i class="dot" style="background:var(--unsure)"></i>לא אומת</span>
+    </div>
+  </div>
+
+  <ol id="list"></ol>
+
+  <p class="note">הזמנים מ-Google Maps, יום ראשון 1.11.2026: הלוך ביציאה ב-16:00, חזור ביציאה ב-21:00 (שעת "בבית" לפי האוטובוס הראשון שמגיע). המפה סכמטית: המיקומים לפי קואורדינטות, וקו החוף משורטט בקירוב. קישורי המסלול יוצאים מהמיקום הנוכחי של הטלפון.</p>
+</div>
+
+<script>
+const colleges = [
+  // back = leaving at 21:00: car minutes, bus minutes, arrival home by bus
+  {name:'אתגר חיפה', lat:32.7887209, lon:35.0311961, car:22, bus:27, back:{car:14, bus:27, home:'21:30'}, addr:'שלמה בן יוסף 6', when:'ראשון, שני, חמישי 17:00–21:00', phone:'6929*', ok:true},
+  {name:'המכללה למינהל', lat:32.7916776, lon:35.0367897, car:22, bus:29, back:{car:16, bus:25, home:'21:30'}, addr:'האשלג 3, צ׳ק פוסט', when:'ערב + שישי', phone:'073-2481333', ok:true},
+  {name:'עתיד חיפה', lat:32.7935521, lon:35.042579, car:24, bus:29, back:{car:18, bus:27, home:'21:30'}, addr:'המוסכים 24, צ׳ק פוסט', when:'ערב + שישי (לא אומת)', phone:'9088*', ok:true},
+  {name:'הנדסאים בטכניון', lat:32.7762407, lon:35.0289846, car:28, bus:35, back:{car:18, bus:41, home:'21:41', note:'שני אוטובוסים'}, addr:'קריית הטכניון', when:'מסלול ערב לא אומת', phone:'—', ok:false},
+  {name:'אורט קריית ביאליק', lat:32.8133186, lon:35.0755435, car:26, bus:40, back:{car:18, bus:33, home:'21:42'}, addr:'ניר עם 3', when:'ערב + שישי', phone:'04-8490091 שלוחה 1', ok:true},
+].sort((a,b)=>a.bus-b.bus||a.car-b.car);
+
+// Rough Haifa Bay coastline (lat, lon), south to north. shortcut: hand-approximated, only for orientation.
+const coast = [[32.765,34.955],[32.80,34.957],[32.818,34.96],[32.828,34.963],[32.834,34.976],[32.829,34.99],[32.822,35.005],[32.814,35.02],[32.806,35.035],[32.812,35.05],[32.826,35.059],[32.846,35.067],[32.862,35.071]];
+
+const lat0 = 32.81, kx = Math.cos(lat0*Math.PI/180);
+const W = 700, H = 420, pad = 40;
+const bounds = {minLon:34.95, maxLon:35.09, minLat:32.765, maxLat:32.86};
+const sx = (W-2*pad)/((bounds.maxLon-bounds.minLon)*kx), sy = (H-2*pad)/(bounds.maxLat-bounds.minLat), s = Math.min(sx,sy);
+const X = lon => pad + (lon-bounds.minLon)*kx*s;
+const Y = lat => pad + (bounds.maxLat-lat)*s;
+const NS = 'http://www.w3.org/2000/svg';
+const svg = document.getElementById('map');
+const h = Math.ceil(Y(bounds.minLat)+pad);
+svg.setAttribute('viewBox', `0 0 ${W} ${h}`);
+function el(tag, attrs, text){ const e=document.createElementNS(NS,tag); for(const k in attrs) e.setAttribute(k,attrs[k]); if(text!=null) e.textContent=text; svg.appendChild(e); return e; }
+
+// sea = area west/north of the coastline
+const pts = coast.map(([la,lo])=>`${X(lo).toFixed(1)},${Y(la).toFixed(1)}`);
+el('polygon',{points:[...pts, `${X(bounds.maxLon)},0`, `0,0`, `0,${h}`, `${X(coast[0][1])},${h}`].join(' '), style:'fill:var(--sea)'});
+el('polyline',{points:pts.join(' '), style:'fill:none;stroke:var(--sea-ink);stroke-width:1.5'});
+el('text',{x:X(34.962), y:Y(32.795), 'text-anchor':'middle', style:'fill:var(--sea-ink);font-size:14px;font-family:var(--font)'},'הים התיכון');
+el('text',{x:X(35.035), y:Y(32.835), 'text-anchor':'middle', style:'fill:var(--sea-ink);font-size:14px;font-family:var(--font)'},'מפרץ חיפה');
+
+// scale bar: 2 km
+const kmPerDegLon = 111.32*kx, bar = 2/kmPerDegLon*kx*s;
+const bx = W-pad-bar, by = h-18;
+el('line',{x1:bx,y1:by,x2:bx+bar,y2:by, style:'stroke:var(--muted);stroke-width:2'});
+el('text',{x:bx+bar/2,y:by-6,'text-anchor':'middle',style:'fill:var(--muted);font-size:12px;font-family:var(--font)'},'2 ק״מ');
+
+function marker(p, color, label, sub, dy){
+  el('circle',{cx:X(p.lon),cy:Y(p.lat),r:7,style:`fill:${color};stroke:var(--surface);stroke-width:2`});
+  el('text',{x:X(p.lon)+11,y:Y(p.lat)+dy,'text-anchor':'start',style:'fill:var(--fg);font-size:13px;font-weight:600;font-family:var(--font)'},label);
+  if(sub) el('text',{x:X(p.lon)+11,y:Y(p.lat)+dy+15,'text-anchor':'start',style:'fill:var(--muted);font-size:12px;font-family:var(--font)'},sub);
+}
+// label offsets keep the three Check Post colleges from overlapping
+const dy = {'אתגר חיפה':22,'המכללה למינהל':-20,'עתיד חיפה':-2,'הנדסאים בטכניון':10,'אורט קריית ביאליק':5};
+for(const c of colleges) marker(c, c.ok?'var(--accent)':'var(--unsure)', c.name, `אוטובוס ${c.bus} · רכב ${c.car} דק׳`, dy[c.name]??4);
+
+// list; no origin in the links, so Google Maps starts from the phone's location
+const gm = (c, mode) => `https://www.google.com/maps/dir/?api=1&destination=${c.lat},${c.lon}&travelmode=${mode}`;
+document.getElementById('list').innerHTML = colleges.map(c=>`
+  <li>
+    <div class="top">
+      <span class="name">${c.name}${c.ok?'':'<span class="badge">לא אומת</span>'}</span>
+      <div class="times">
+        <span class="t"><b>${c.bus}</b><small>דק׳ באוטובוס</small></span>
+        <span class="t"><b>${c.car}</b><small>דק׳ ברכב</small></span>
+      </div>
+    </div>
+    <div class="back">חזרה ב-21:00: <b>בבית ב-${c.back.home}</b> באוטובוס (${c.back.bus} דק׳${c.back.note?', '+c.back.note:''}) · ${c.back.car} דק׳ ברכב</div>
+    <div class="meta"><span>${c.addr}</span><span>${c.when}</span><span class="num">${c.phone}</span></div>
+    <div class="links"><a href="${gm(c,'transit')}" target="_blank" rel="noopener">מסלול אוטובוס</a><a href="${gm(c,'driving')}" target="_blank" rel="noopener">מסלול ברכב</a></div>
+  </li>`).join('');
+</script>
+</body>
+</html>
