@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>השוואה · 3 מכללות · Orbit</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F3F0; --surface:#FFFFFF; --border:#E8E3DC; --text:#111111;
+    --text-muted:#6B6B6B; --accent:#0066CC; --card-hover:#F0EDE8;
+    --green:#22A06B; --amber:#E1A211; --red:#DC3545; --purple:#7C3AED;
+  }
+  [data-theme="dark"]{
+    --bg:#141414; --surface:#1E1E1E; --border:#2E2E2E; --text:#F0F0F0;
+    --text-muted:#9A9A9A; --accent:#4D9FFF; --card-hover:#242424;
+    --green:#34D08C; --amber:#F0C040; --red:#F0616F; --purple:#A78BFA;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Rubik',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;
+    transition:background .2s,color .2s}
+  svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;
+    stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+  header{display:flex;align-items:center;justify-content:space-between;padding:22px 32px;
+    border-bottom:1px solid var(--border)}
+  .logo{font-size:22px;font-weight:700;letter-spacing:-.5px}
+  .logo span{color:var(--accent)}
+  .head-right{display:flex;align-items:center;gap:14px}
+  .back{font-size:13px;color:var(--text-muted);text-decoration:none}
+  .back:hover{color:var(--accent)}
+  .theme-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:7px 11px;
+    cursor:pointer;font-size:15px;line-height:1;color:var(--text);display:flex;align-items:center}
+  .theme-btn:hover{background:var(--card-hover)}
+  main{max-width:860px;margin:0 auto;padding:24px 20px 72px}
+
+  .goal{background:var(--surface);border:1px solid var(--border);border-inline-start:5px solid var(--accent);
+    border-radius:16px;padding:20px 22px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .goal-label{font-size:12px;font-weight:600;color:var(--accent);letter-spacing:.06em;
+    text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+  .goal h1{font-size:19px;font-weight:700;line-height:1.45;margin-bottom:9px}
+  .goal p{font-size:14.5px;line-height:1.7;color:var(--text)}
+  .goal p+p{margin-top:9px}
+  .goal .muted{color:var(--text-muted);font-size:13.5px}
+  .goal ol{margin:9px 16px 0;font-size:14.5px;line-height:1.7}
+  .goal ol li{margin-bottom:5px}
+  .goal b{font-weight:600}
+
+  .pick{background:rgba(34,160,107,.1);border:1px solid rgba(34,160,107,.33);border-radius:13px;
+    padding:15px 18px;margin-bottom:22px;font-size:14px;line-height:1.7}
+  .pick b{font-weight:600}
+  .pick .t{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--green);
+    text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+
+  .section-label{font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;
+    letter-spacing:.08em;margin:28px 2px 12px;display:flex;align-items:center;gap:8px}
+  .section-label em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:400}
+
+  /* side by side matrix */
+  .mx{background:var(--surface);border:1px solid var(--border);border-radius:16px;
+    overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .mx-row{display:grid;grid-template-columns:124px repeat(3,1fr);border-bottom:1px solid var(--border)}
+  .mx-row:last-child{border-bottom:none}
+  .mx-row.head{background:var(--bg)}
+  .mx-row>div{padding:11px 12px;font-size:13.5px;line-height:1.55;min-width:0;
+    border-inline-start:1px solid var(--border);overflow-wrap:anywhere}
+  .mx-row>div:first-child{border-inline-start:none}
+  .mx-q{font-size:12px!important;color:var(--text-muted);font-weight:600}
+  .mx-row.head>div{font-size:13.5px;font-weight:700}
+  .mx-row.head .sub{display:block;font-size:11.5px;font-weight:400;color:var(--text-muted);margin-top:2px}
+  .mx-row.tie>div:not(:first-child){color:var(--text-muted)}
+  .win{color:var(--green);font-weight:600}
+  .warn{color:var(--amber);font-weight:600}
+  .bad{color:var(--red);font-weight:600}
+  .empty{color:var(--text-muted);opacity:.5}
+  .tag{display:inline-block;font-size:10.5px;font-weight:600;padding:2px 6px;border-radius:5px;
+    background:var(--bg);border:1px solid var(--border);color:var(--text-muted);margin-inline-start:5px}
+
+  .nodata{padding:16px 18px;font-size:13.5px;line-height:1.65;color:var(--text-muted)}
+  .nodata b{color:var(--text);font-weight:600}
+
+  .after{background:var(--surface);border:1px solid var(--border);border-inline-start:5px solid var(--amber);
+    border-radius:16px;padding:18px 20px;margin-top:26px;font-size:14px;line-height:1.7}
+  .after .goal-label{color:var(--amber)}
+  .after a{color:var(--accent);text-decoration:none;font-weight:600}
+  footer{max-width:860px;margin:0 auto;padding:0 20px 50px;font-size:11.5px;color:var(--text-muted);
+    line-height:1.7}
+
+  @media(max-width:700px){
+    header{padding:16px 18px}
+    main{padding:18px 15px 60px}
+    .mx-row{grid-template-columns:repeat(3,1fr)}
+    .mx-row>div{padding:9px 10px;font-size:12.5px}
+    .mx-q{grid-column:1 / -1;background:var(--bg);border-bottom:1px solid var(--border)}
+    .mx-row>div:nth-child(2){border-inline-start:none}
+    .mx-row.head .mx-q{display:none}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo">השוואה<span>.</span></div>
+    <div class="head-right">
+      <a class="back" href="index.html">← דפי השיחה</a>
+      <a class="back" href="https://orben12-byte.github.io/Hub/">Orbit</a>
+      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="מצב כהה">
+        <svg id="themeIcon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div class="goal">
+      <div class="goal-label">
+        <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 4-5"/></svg>
+        ההכרעה
+      </div>
+      <h1>הנסיעה לא מכריעה. שלושתן בצ'ק פוסט.</h1>
+      <p>אתגר, המכללה למינהל ועתיד יושבות באותו אזור, במרחק <b>620 מ' עד 1.2 ק"מ</b> אחת מהשנייה.
+      מהעבודה בהתשבי: <b>11 עד 12 דקות ברכב, 7.3 עד 8.1 ק"מ</b>. אותו זמן, אותו דלק, אותו אוטובוס.
+      ההבדל בין המכללה הקרובה לרחוקה הוא דקה אחת.</p>
+      <p><b>מה כן מכריע:</b></p>
+      <ol>
+        <li><b>שישי.</b> באתגר לומדים ראשון, שני וחמישי 17:00–21:00, ושישי חופשי. בלמינהל ובעתיד לומדים ערב + שישי בבוקר.</li>
+        <li><b>מחזור.</b> המחזור של אתגר בחיפה נפתח ב-18.10.2026, כלומר הוא רץ כבר שבועיים.</li>
+        <li><b>מחיר ואחוז מעבר.</b> שני המספרים האלה הם מה שאספת בטלפון. הם בטבלה למטה.</li>
+      </ol>
+    </div>
+
+    <div class="pick">
+      <div class="t">
+        <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+        ההמלצה, לפי מה שמאומת
+      </div>
+      <b>המכללה למינהל</b> היא ברירת המחדל. היא היחידה שמפרסמת גם לוח זמנים וגם מה מקבלים בסוף: פנקס ההנדסאים
+      ותעודת חשמלאי מוסמך עד 630 אמפר.<br>
+      <b>אתגר</b> עוקפת אותה רק בתנאי אחד: שאפשר להצטרף למחזור שכבר רץ, ושישי חופשי שווה לך יותר מהערב השלישי.<br>
+      <b>עתיד</b> לא מפרסמת לוח זמנים ולא מחיר. זה בעצמו נתון.
+    </div>
+
+    <div class="section-label">
+      נסיעות · מאומת <em>Google Maps ו-OSRM, 1–3.11.2026</em>
+    </div>
+    <div class="mx">
+      <div class="mx-row head">
+        <div class="mx-q"></div>
+        <div>אתגר<span class="sub">בן יוסף 6</span></div>
+        <div>למינהל<span class="sub">האשלג 3</span></div>
+        <div>עתיד<span class="sub">המוסכים 24</span></div>
+      </div>
+      <div class="mx-row tie">
+        <div class="mx-q">מהעבודה, רכב</div>
+        <div><b>11 דק'</b><br>7.3 ק"מ</div>
+        <div><b>12 דק'</b><br>7.9 ק"מ</div>
+        <div><b>12 דק'</b><br>8.1 ק"מ</div>
+      </div>
+      <div class="mx-row tie">
+        <div class="mx-q">חזרה הביתה ב-21:00</div>
+        <div>14 דק' רכב<br>27 דק' אוטובוס</div>
+        <div>16 דק' רכב<br>25 דק' אוטובוס</div>
+        <div>18 דק' רכב<br>27 דק' אוטובוס</div>
+      </div>
+      <div class="mx-row tie">
+        <div class="mx-q">בבית בשעה</div>
+        <div>21:30</div>
+        <div>21:30</div>
+        <div>21:30</div>
+      </div>
+      <div class="mx-row tie">
+        <div class="mx-q">נסיעות לחודש<span class="tag">הערכה</span></div>
+        <div>~220 ק"מ<br>~145 ₪ דלק</div>
+        <div>~230 ק"מ<br>~150 ₪ דלק</div>
+        <div>~235 ק"מ<br>~155 ₪ דלק</div>
+      </div>
+      <div class="mx-row">
+        <div class="mx-q">ימים בשבוע</div>
+        <div class="win">3 ערבים<br>שישי חופשי</div>
+        <div>2 ערבים<br>+ שישי בוקר</div>
+        <div>2 ערבים<br>+ שישי <span class="tag">לא אומת</span></div>
+      </div>
+      <div class="mx-row">
+        <div class="mx-q">מחזור</div>
+        <div class="warn">נפתח 18.10.2026<br>כבר רץ</div>
+        <div>לא פורסם</div>
+        <div>לא פורסם</div>
+      </div>
+      <div class="mx-row">
+        <div class="mx-q">משך</div>
+        <div>2,165 שעות<br>כ-3 שנים</div>
+        <div>6 סמסטרים</div>
+        <div>כ-3 שנים <span class="tag">חלש</span></div>
+      </div>
+    </div>
+    <p class="nodata">על 3 שנים, הנסיעה עצמה היא בערך <b>5,200 ₪</b> בדלק. זהה בשלושתן, ולכן לא מכריעה.
+    אוטובוס יוצא דומה: כ-26 נסיעות בחודש.</p>
+
+    <div class="section-label">
+      התשובות שלך מהטלפון <em>נשמרות בדפדפן הזה בלבד</em>
+    </div>
+    <div class="mx" id="mine"></div>
+
+    <div class="section-label">מחיר נטו, אחרי שובר מה"ט</div>
+    <div class="mx" id="money"></div>
+
+    <div class="after">
+      <div class="goal-label">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5M12 16h.01"/></svg>
+        מה שחסר כדי להכריע
+      </div>
+      <b>אורט קריית ביאליק יצאה מהרשימה:</b> 26 דק' ברכב ו-40 באוטובוס, הכי רחוקה, ולא מפרסמת את ההקלה לגילאי 30–35.<br>
+      <b>שתי שאלות שעוד פתוחות:</b> אפשר להצטרף למחזור של אתגר שרץ מ-18.10, ומתי המחזור הבא בלמינהל.<br>
+      מוקד שוברי משרד העבודה: <a href="tel:1599500818">1599-500-818</a>
+    </div>
+  </main>
+
+  <footer>
+    זמני רכב מהעבודה: OSRM, נסיעה חופשית, 3.11.2026. בשעת העומס להוסיף כ-50%.
+    חזרה הביתה וזמני האוטובוס: Google Maps, יום ראשון 1.11.2026, יציאה ב-21:00.
+    מרחק בין המכללות: קואורדינטות.<br>
+    הערכות: דלק 0.65 ₪ לק"מ, 13 ימי לימוד בחודש. תקרת השובר לשנה לא אומתה, ולכן מוצגים 6,000 ו-9,000 ₪.<br>
+    פערים: מחירים ומועדי פתיחה לא פורסמו באתרים · לוח הזמנים של עתיד לא אומת · אחוזי מעבר של מה"ט לא פורסמו.
+  </footer>
+
+<script>
+  const QS = ['מחזור הבא','להצטרף באמצע?','ימים / שעות / שנים','3 יח׳ + 55 מספיק?','מבחן מכינה','מחיר לשנה','שובר מה"ט','מלגות / הנחות','אחוז מעבר','דיסלקציה / קשב','עבודה / סטאז׳','לראות מעבדות','תחושה 1–5'];
+  // the three colleges Or is choosing between. inst ids match index.html
+  const COLS = [{id:'1',name:'אתגר'},{id:'2',name:'למינהל'},{id:'3',name:'עתיד'}];
+  const PRICE_Q = 5; // 'מחיר לשנה'
+
+  function load(k,def){try{const v=localStorage.getItem(k);return v===null?def:JSON.parse(v)}catch(e){return def}}
+  const ans = (inst,i) => (load('hn-'+inst+'-'+i,'')+'').trim();
+
+  function row(cells, cls){
+    const r = document.createElement('div');
+    r.className = 'mx-row' + (cls?' '+cls:'');
+    cells.forEach((c,i)=>{
+      const d = document.createElement('div');
+      if(i===0) d.className = 'mx-q';
+      if(c && c.html){ d.innerHTML = c.html; } else { d.textContent = c; }
+      if(i>0 && !c){ d.textContent = '—'; d.classList.add('empty'); }
+      r.appendChild(d);
+    });
+    return r;
+  }
+
+  // ---- your answers, side by side ----
+  const mine = document.getElementById('mine');
+  const head = row([''].concat(COLS.map(c=>c.name)), 'head');
+  mine.appendChild(head);
+  let filled = 0;
+  QS.forEach((label,i)=>{
+    const vals = COLS.map(c=>ans(c.id,i));
+    filled += vals.filter(Boolean).length;
+    mine.appendChild(row([label].concat(vals)));
+  });
+  if(filled === 0){
+    mine.innerHTML = '<div class="nodata"><b>אין כאן תשובות שמורות.</b> הן נשמרות בדפדפן שבו מילאת אותן, ' +
+      'ורק באותו דפדפן. אם מילאת בטלפון, תפתח את הדף הזה בטלפון. ' +
+      'אפשר גם למלא עכשיו ב<a href="index.html" style="color:var(--accent)">דפי השיחה</a>, והטבלה תתמלא כאן.</div>';
+  }
+
+  // ---- price math from the price answers ----
+  // shortcut: takes the first number in the free text. upgrade if a college quotes two prices in one line.
+  function num(s){
+    const m = (s||'').replace(/,/g,'').match(/\d[\d.]*/);
+    if(!m) return null;
+    const n = parseFloat(m[0]);
+    return isFinite(n) && n > 0 ? n : null;
+  }
+  const money = document.getElementById('money');
+  const prices = COLS.map(c=>num(ans(c.id,PRICE_Q)));
+  if(prices.every(p=>p===null)){
+    money.innerHTML = '<div class="nodata">ברגע שיהיה מחיר לשנה באחת התשובות, החישוב כאן ימלא את עצמו: ' +
+      '<b>שנה × 3</b>, פחות שובר של 90% עם תקרה, והתוצאה לחודש.</div>';
+  } else {
+    const fmt = n => n===null ? '' : Math.round(n).toLocaleString('he-IL') + ' ₪';
+    money.appendChild(row([''].concat(COLS.map(c=>c.name)), 'head'));
+    money.appendChild(row(['לשנה'].concat(prices.map(fmt))));
+    money.appendChild(row(['3 שנים'].concat(prices.map(p=>fmt(p===null?null:p*3)))));
+    [6000,9000].forEach(cap=>{
+      const net = p => p===null ? null : Math.max(0, p - Math.min(p*0.9, cap)) * 3;
+      money.appendChild(row([{html:'נטו, תקרה '+cap.toLocaleString('he-IL')+'<span class="tag">הערכה</span>'}]
+        .concat(prices.map(p=>fmt(net(p))))));
+    });
+    const perMonth = p => p===null ? null : Math.max(0, p - Math.min(p*0.9, 9000)) / 12;
+    money.appendChild(row(['לחודש, תקרה 9,000'].concat(prices.map(p=>fmt(perMonth(p))))));
+  }
+
+  // ---- theme ----
+  const MOON='M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z';
+  const SUN='M12 3v2M12 19v2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M3 12h2M19 12h2M5.6 18.4L7 17M17 7l1.4-1.4';
+  function applyTheme(t){document.documentElement.setAttribute('data-theme',t);
+    const i=document.getElementById('themeIcon');
+    i.innerHTML = t==='dark'
+      ? '<circle cx="12" cy="12" r="4"/><path d="'+SUN+'"/>'
+      : '<path d="'+MOON+'"/>';}
+  function toggleTheme(){const c=document.documentElement.getAttribute('data-theme');
+    const n=c==='dark'?'light':'dark';applyTheme(n);try{localStorage.setItem('orbit-theme',n)}catch(e){}}
+  (function(){let t;try{t=localStorage.getItem('orbit-theme')}catch(e){}
+    if(!t)t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';applyTheme(t)})();
+</script>
+</body>
+</html>
