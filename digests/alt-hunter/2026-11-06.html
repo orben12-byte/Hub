@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔍 Alt Hunter — 6 November 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #2c2f35;
+      color: #c8ccd4;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      direction: ltr;
+      min-height: 100vh;
+      padding: 32px 16px 64px;
+    }
+
+    .container { max-width: 720px; margin: 0 auto; }
+
+    .header {
+      padding-bottom: 24px;
+      border-bottom: 1px solid #3a3d44;
+      margin-bottom: 32px;
+    }
+
+    .header-meta {
+      font-size: 11px;
+      color: #6a6d75;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #e07070;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .header .tagline {
+      font-size: 13px;
+      color: #6a6d75;
+      font-style: italic;
+    }
+
+    .stats-bar {
+      display: flex;
+      margin-bottom: 32px;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #252830;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 14px 16px;
+      border-right: 1px solid #3a3d44;
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-val {
+      font-size: 20px;
+      font-weight: 700;
+      color: #e07070;
+      display: block;
+    }
+
+    .stat-key {
+      font-size: 10px;
+      color: #6a6d75;
+      display: block;
+      margin-top: 3px;
+      letter-spacing: 0.08em;
+    }
+
+    .section { margin-bottom: 28px; }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #70a070;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: #3a3d44;
+    }
+
+    .item {
+      background-color: #252830;
+      border: 1px solid #3a3d44;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 8px;
+    }
+
+    .item-key {
+      font-size: 10px;
+      font-weight: 600;
+      color: #6a6d75;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .item-val {
+      font-size: 13px;
+      color: #c8ccd4;
+      line-height: 1.7;
+    }
+
+    .item-val a { color: #70a070; text-decoration: none; }
+    .item-val a:hover { text-decoration: underline; }
+
+    .item-val ul { margin: 8px 0 0 20px; }
+    .item-val li { margin-bottom: 6px; }
+
+    .item-val strong {
+      color: #d8dce4;
+      font-weight: 600;
+    }
+
+    .item.highlight {
+      border-color: #70a07040;
+      background-color: #1e2a1e;
+    }
+    .item.highlight .item-key { color: #70a070; }
+
+    .item.warn {
+      border-color: #e0707050;
+      background-color: #2a1e1e;
+    }
+    .item.warn .item-key { color: #e07070; }
+
+    .item.dim {
+      border-color: #32353c;
+      background-color: #222428;
+    }
+
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid #3a3d44;
+      text-align: center;
+      font-size: 11px;
+      color: #6a6d75;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <div class="header-meta">AUTOMATED WEEKLY SCAN · COVERS OCT 23 – NOV 6</div>
+      <h1>🔍 Alternative Hunter</h1>
+      <div class="tagline">Free alternatives to Claude Pro — November 6, 2026</div>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <span class="stat-val">STAY</span>
+        <span class="stat-key">ON CLAUDE PRO</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">0</span>
+        <span class="stat-key">NEW CONTENDERS</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">6</span>
+        <span class="stat-key">OLLAMA RELEASES</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🔥 WHAT'S NEW (OCT 23 – NOV 6)</div>
+      <div class="item highlight">
+        <span class="item-key">OLLAMA v0.40.10 – v0.40.15 (OCT 23 – NOV 3)</span>
+        <div class="item-val">
+          <ul>
+            <li><strong>LFM3 family</strong> (Liquid AI), v0.40.12: small chat, vision, audio and decision models. Chat models, not agents</li>
+            <li><strong>Nemotron 3.5 Bolt E4B</strong>, v0.40.10: vision + language, 128K context. About 6–8GB, tight for 8GB</li>
+            <li>v0.40.14: <code>ollama launch claude</code> applies the model's output token limit (cloud models)</li>
+            <li>v0.40.11 / v0.40.15: speech on macOS, decision models d3, MiMo V2.6 (9B). Not agents</li>
+          </ul>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-key">OPEN WEBUI v0.12.4 – v0.13.0 (OCT 25 – NOV 3)</span>
+        <div class="item-val">
+          v0.13.0 adds a tabbed workspace with a browser tab and terminal desktop. Team and admin features. Docker requirement still not checked.
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-key">CLAUDE CODE 2.1.308 – 2.1.318 (OCT 22 – NOV 4)</span>
+        <div class="item-val">
+          <ul>
+            <li>Usage-limit wording changed to "5-hour limit". Startup faster for Pro</li>
+            <li>Fast mode on Opus 4.8 deprecated, removed Nov 30. Move to Opus 5.5 to keep the speed</li>
+            <li>No change to Pro pricing or eligibility. No free or local option added</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">🎯 FILTER RESULTS</div>
+      <div class="item highlight">
+        <span class="item-key">OLLAMA + CLAUDE CODE + GEMMA 4 12B — BACKUP, UNCHANGED</span>
+        <div class="item-val">F1 ✅ · F2 ✅ · F3 ✅ · F4 ✅ ~7.6GB · Ollama now 0.40.15</div>
+      </div>
+      <div class="item warn">
+        <span class="item-key">LFM3 (1.7B–2B) — REJECTED</span>
+        <div class="item-val">F1 fails: small chat model, not a coding agent. Fits 8GB easily, but that is not enough.</div>
+      </div>
+      <div class="item dim">
+        <span class="item-key">NEMOTRON 3.5 BOLT E4B — NOT TESTED</span>
+        <div class="item-val">Vision + language. Size estimate 6–8GB, sources disagree. Agent ability not checked. Watch next week.</div>
+      </div>
+      <div class="item dim">
+        <span class="item-key">OPEN WEBUI v0.13.x — NOT RELEVANT</span>
+        <div class="item-val">Team and admin features. Docker not checked, so F1 unknown.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">✅ VERDICT</div>
+      <div class="item">
+        <div class="item-val">
+          <strong>Stay on Claude Pro.</strong> No action needed. If you run the local backup, update to Ollama 0.40.15 (includes the launch-claude token-limit fix). No change to the local models list.
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Alternative Hunter · automated scan · 6 November 2026<br>
+      Sources: Ollama releases · Open WebUI releases · Claude Code changelog · Nemotron 3.5 Bolt E4B · LFM3 overview<br>
+      Version dates come from GitHub pages that show day and month only; the year was inferred. Model sizes come from secondary guides.
+    </div>
+
+  </div>
+</body>
+</html>
