@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>סיכום חודשי — אוקטובר 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f4ede4; --bg-alt: #ede4d8; --accent: #c45e2a;
+    --ink: #1c1208; --ink-mid: #6b5040; --ink-light: #b8956a;
+    --dark-bg: #1c1208; --dark-ink: #f4ede4; --card-bg: #ede4d8;
+  }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Rubik', sans-serif;
+    direction: rtl; text-align: right; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; padding: 0 24px 80px; }
+  .header { padding: 56px 0 32px; border-bottom: 2px solid var(--accent); margin-bottom: 40px; }
+  .header-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+  .header-title { font-size: clamp(3.8rem, 14vw, 6.5rem); font-weight: 900; line-height: 0.88; color: var(--ink); letter-spacing: -3px; margin-bottom: 24px; }
+  .header-sentence { font-size: 17px; font-style: italic; color: var(--ink-mid); line-height: 1.6; max-width: 540px; }
+  .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--accent); border-radius: 6px; overflow: hidden; margin-bottom: 56px; }
+  .stat-cell { background: var(--bg); padding: 22px 12px; text-align: center; }
+  .stat-number { font-size: clamp(2rem, 7vw, 3rem); font-weight: 900; color: var(--accent); line-height: 1; letter-spacing: -1px; display: block; }
+  .stat-label { font-size: clamp(9px, 2vw, 11px); font-weight: 600; color: var(--ink-light); text-transform: uppercase; letter-spacing: 1px; margin-top: 7px; display: block; line-height: 1.4; }
+  .section { margin-bottom: 52px; }
+  .section-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--bg-alt); }
+  .project-list { display: flex; flex-direction: column; gap: 10px; }
+  .project-card { background: var(--card-bg); border-radius: 6px; padding: 20px 22px; border-right: 4px solid var(--accent); }
+  .project-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 12px; }
+  .project-name { font-size: 17px; font-weight: 700; color: var(--ink); }
+  .project-badge { font-size: 10px; font-weight: 700; color: var(--accent); background: var(--bg); border: 1.5px solid var(--accent); border-radius: 20px; padding: 3px 10px; white-space: nowrap; flex-shrink: 0; letter-spacing: 0.5px; }
+  .project-desc { font-size: 14px; color: var(--ink-mid); line-height: 1.6; }
+  .team-note { background: var(--card-bg); border-radius: 6px; padding: 18px 20px; font-size: 14px; color: var(--ink-mid); line-height: 1.7; }
+  .team-note strong { color: var(--ink); }
+  .rule-list { display: flex; flex-direction: column; gap: 12px; }
+  .rule-box { border-right: 4px solid var(--accent); padding: 16px 20px; background: var(--card-bg); border-radius: 0 6px 6px 0; }
+  .rule-box-tag { font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; }
+  .rule-box-text { font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.4; margin-bottom: 5px; }
+  .rule-box-sub { font-size: 13px; color: var(--ink-mid); line-height: 1.6; }
+  .footer-block { background: var(--dark-bg); border-radius: 8px; padding: 36px 32px 40px; margin-top: 56px; }
+  .footer-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 16px; }
+  .footer-title { font-size: clamp(1.6rem, 5vw, 2.2rem); font-weight: 900; color: var(--dark-ink); margin-bottom: 14px; line-height: 1.2; letter-spacing: -0.5px; }
+  .footer-text { font-size: 15px; color: rgba(244,237,228,0.65); line-height: 1.75; margin-bottom: 24px; }
+  .footer-items { display: flex; flex-direction: column; gap: 10px; }
+  .footer-item { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: rgba(244,237,228,0.80); line-height: 1.5; }
+  .footer-dot { width: 6px; height: 6px; min-width: 6px; border-radius: 50%; background: var(--accent); margin-top: 8px; flex-shrink: 0; }
+  .colophon { text-align: center; padding: 28px 0 0; font-size: 11px; color: var(--ink-light); letter-spacing: 1.5px; }
+  @media (max-width: 480px) {
+    .stats-bar  { grid-template-columns: repeat(2, 1fr); }
+    .container  { padding: 0 16px 60px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="header">
+    <div class="header-eyebrow">סיכום חודשי · ABC-TOM System</div>
+    <h1 class="header-title">אוקטובר 2026</h1>
+    <p class="header-sentence">החודש שבו ההסבה עברה מתחושת בטן להחלטה כתובה, וכמעט בכל בדיקה התברר שהנתון שקיבלנו קודם היה חלקי או שגוי.</p>
+  </header>
+
+  <div class="stats-bar">
+    <div class="stat-cell">
+      <span class="stat-number">6</span>
+      <span class="stat-label">פרויקטים<br>פעילים</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-number">0</span>
+      <span class="stat-label">סוכנים<br>חדשים</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-number">8</span>
+      <span class="stat-label">עדכוני<br>פורטפוליו ו-OBS</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-number">5</span>
+      <span class="stat-label">כללים<br>נרשמו</span>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-label">פרויקטים</div>
+    <div class="project-list">
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-name">הסבה מקצועית: הנדסאי חשמל</div>
+          <div class="project-badge">החלטה 31.10</div>
+        </div>
+        <div class="project-desc">מחשמלאי מוסמך עברנו למסלול הנדסאי חשמל. ביקוש בחיפה: 18 מתוך 36 מודעות מתאימות. נבדקו 4 מכללות ברשימה (אתגר, המכללה למינהל, עתיד, אורט קריית ביאליק). הטכניון בצד. נותר: לבחור מכללה, לסגור שובר מימון, ולבצע שיחות לפי דף השאלות.</div>
+      </div>
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-name">חיפוש עבודה (Or)</div>
+          <div class="project-badge">career-ops</div>
+        </div>
+        <div class="project-desc">career-ops הותקן ב-18.10 והוזנו בו קורות החיים וכלל הפרופיל. הוגשו Yotpo ו-Rubrik. Wix ו-Altius נסגרו לפני שהוגשו, ולכן נקבע כלל: משרה ב-70% ומעלה נבדקת ומוגשת תוך 3 עד 5 ימים.</div>
+      </div>
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-name">פורטפוליו 2026</div>
+          <div class="project-badge">נדחף</div>
+        </div>
+        <div class="project-desc">נבנו שלושה קייסים חדשים: DIGI.TAZ, Life Hero ו-נתיב (סקשן מערכת העיצוב). הקופי נכתב מחדש כך שהעמודים יציגו עובדות ולא יטענו טענות. הפורטפוליו סגור לעת עתה.</div>
+      </div>
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-name">פרילנס: מילוי פער ההכנסה</div>
+          <div class="project-badge">ממתין לאישור</div>
+        </div>
+        <div class="project-desc">נפתחו חשבונות Upwork ו-Fiverr עם שני שירותים (לוגו, דף נחיתה בעברית). נסרקו 35 עבודות עיצוב ב-Upwork. Fiverr ממתין לאימות זהות וטופס מס, וב-Upwork מחכים לאישור השירותים.</div>
+      </div>
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-name">סטודיו OBS (אתר)</div>
+          <div class="project-badge">עודכן</div>
+        </div>
+        <div class="project-desc">נפתח מייל פרילנס ייעודי והוחלף בפוטר האתר. הניסוחים עברו סבב, והבא בתור הוא מייל ואינסטגרם.</div>
+      </div>
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-name">Tempo (לשעבר שני)</div>
+          <div class="project-badge">שבוע ניסוי</div>
+        </div>
+        <div class="project-desc">Tempo הוא כעת הפנקס של הפרויקטים. הכלל שנקבע: לשאול בצ'אט "מה המצב?" ולעדכן דרכו, ולא לפתוח דשבורדים.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">הצוות גדל</div>
+    <div class="team-note">
+      <strong>לא נוצרו סוכנים חדשים באוקטובר.</strong>
+      שני סוכנים קיימים עודכנו: efficiency-agent (22.10) ו-job-search-agent (25.10). בדיקת קבצי A-agents לפי תאריך יצירה לא מצאה אחרים.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">מה למדנו</div>
+    <div class="rule-list">
+      <div class="rule-box">
+        <div class="rule-box-tag">עבודה · 10.10</div>
+        <div class="rule-box-text">כשקשה להתקדם, משנים את צורת העבודה ולא מוסיפים פיצ'ר</div>
+        <div class="rule-box-sub">הסשן שבו אור התלונן על עומס התפצל ל-5 חזיתות וקירות טקסט. התיקון: דבר אחד בכל פעם, צעד זעיר, והחלטות כלחיצה ולא כקריאה.</div>
+      </div>
+      <div class="rule-box">
+        <div class="rule-box-tag">מחקר · 16.10</div>
+        <div class="rule-box-text">תחקיר בלי מקור הוא ניחוש. כל טענה מסומנת: עובדה, הערכה או חסר</div>
+        <div class="rule-box-sub">ספירת מודעות נעשית בעצמנו ולא מצוטטת. מודעה אחת איננה שוק. כשמגלים טעות בסבב קודם, אומרים אותה בגלוי.</div>
+      </div>
+      <div class="rule-box">
+        <div class="rule-box-tag">עיצוב · 17.10</div>
+        <div class="rule-box-text">טווחי מספרים בעברית עוטפים ב-bdi dir="ltr" ונבדקים בתצוגת טלפון</div>
+        <div class="rule-box-sub">בתצוגת טלפון "9–10K" הופיע כ-"10K–9~". בבדיקת קוד זה לא נראה, ולכן הבדיקה נעשית בתצוגה האמיתית.</div>
+      </div>
+      <div class="rule-box">
+        <div class="rule-box-tag">זכויות · 28.10</div>
+        <div class="rule-box-text">בזכויות ומימון בודקים את הנוהל הרשמי עם תאריך התחולה שלו</div>
+        <div class="rule-box-sub">הסבר שניתן לפי מקור משני אמר שהשובר חסום והקורס מוגבל ל-12 חודשים. הנוהל הרשמי מ-16.2.2026 אומר אחרת: שכר עד 75% מהממוצע, וקורס עד 24 חודשים.</div>
+      </div>
+      <div class="rule-box">
+        <div class="rule-box-tag">דרושים · 31.10</div>
+        <div class="rule-box-text">ספירת מודעות קוראת רק את גוף המודעה, ותנאי קבלה בודקים בדף המכללה</div>
+        <div class="rule-box-sub">התגית "הנדסאי חשמל" שמופיעה בכל מודעה ניפחה את הספירה מ-18 ל-36. מכללות מציעות הקלות לגילאי 30–35, ולכן כל תנאי נבדק מול הגיל של Or.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-block">
+    <div class="footer-label">לחודש הבא — נובמבר 2026</div>
+    <div class="footer-title">להפוך את ההסבה להחלטה עם פעולות</div>
+    <div class="footer-text">ההחלטה על הנדסאי חשמל נסגרה, והפתוח הוא איך מגיעים אליה: מכללה, שובר ומימון. במקביל, פרילנס וחיפוש העבודה ממשיכים בקצב של משרה אחת בכל פעם.</div>
+    <div class="footer-items">
+      <div class="footer-item">
+        <div class="footer-dot"></div>
+        <span>לבחור מכללה אחת מתוך 4 ברשימה, ולקבוע איזו מהן מתאימה לערבים ולנסיעה (דף המפה ב-handasai-map.html).</span>
+      </div>
+      <div class="footer-item">
+        <div class="footer-dot"></div>
+        <span>לבדוק את תנאי שובר משרד העבודה להנדסאי חשמל לפי הנוהל הרשמי, לא לפי מקורות משניים.</span>
+      </div>
+      <div class="footer-item">
+        <div class="footer-dot"></div>
+        <span>לבצע את שיחות המכללות לפי דף השאלות (handasai-calls.md). בכל שיחה שאלה אחת לשורה.</span>
+      </div>
+      <div class="footer-item">
+        <div class="footer-dot"></div>
+        <span>פרילנס: להשלים אימות זהות וטופס מס ב-Fiverr, ולחכות לאישור השירותים ב-Upwork.</span>
+      </div>
+      <div class="footer-item">
+        <div class="footer-dot"></div>
+        <span>חיפוש עבודה: כל משרה ב-70% ומעלה נבדקת ומוגשת תוך 3 עד 5 ימים מהסריקה.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="colophon">ABC-TOM System v9 · Or Ben · נובמבר 2026</div>
+
+</div>
+</body>
+</html>
