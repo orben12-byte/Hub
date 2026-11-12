@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Efficiency Audit — 12.11.2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0E0E10; --surface:#1A1A1E; --surface-2:#232328; --border:#2E2E34;
+      --text:#F0F0F0; --muted:#9A9A9A; --accent:#F472B6; --accent-deep:#DB2777;
+      --green:#34D399; --amber:#FBBF24; --red:#F87171;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Rubik',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+    main{max-width:760px;margin:0 auto;padding:40px 22px 70px;}
+    .back{font-size:13px;font-weight:600;color:var(--accent);text-decoration:none;}
+    .eyebrow{display:inline-flex;align-items:center;gap:7px;margin-top:22px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);}
+    .eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent-deep);}
+    h1{font-size:30px;font-weight:700;margin:10px 0 6px;letter-spacing:-0.5px;}
+    .date{font-size:14px;color:var(--muted);margin-bottom:6px;}
+    .verdict{display:inline-block;margin-top:14px;background:rgba(251,191,36,0.12);color:var(--amber);border:1px solid rgba(251,191,36,0.3);font-weight:600;font-size:14px;padding:8px 16px;border-radius:999px;}
+
+    .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:30px 0 36px;}
+    .metric{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;}
+    .metric-label{font-size:12px;color:var(--muted);margin-bottom:8px;}
+    .metric-val{font-size:26px;font-weight:700;letter-spacing:-0.5px;}
+    .metric-val small{font-size:13px;font-weight:500;color:var(--muted);}
+    .metric-delta{font-size:12px;font-weight:600;margin-top:4px;color:var(--green);}
+
+    .section-label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:34px 0 14px;}
+
+    .finding{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:14px;border-inline-start:3px solid var(--border);}
+    .finding.good{border-inline-start-color:var(--green);}
+    .finding.warn{border-inline-start-color:var(--amber);}
+    .f-head{display:flex;align-items:center;gap:9px;font-size:16px;font-weight:600;margin-bottom:4px;}
+    .f-axis{font-size:11px;font-weight:600;color:var(--muted);background:var(--surface-2);padding:2px 9px;border-radius:6px;}
+    .f-body{font-size:14.5px;color:#D8D8D8;margin-top:8px;}
+    .f-action{font-size:14px;font-weight:600;margin-top:10px;color:var(--text);}
+    .f-action span{color:var(--accent);}
+
+    table{width:100%;border-collapse:collapse;margin:8px 0 30px;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+    th,td{text-align:right;padding:12px 16px;font-size:14px;border-bottom:1px solid var(--border);}
+    th{background:var(--surface-2);font-weight:600;color:var(--muted);font-size:12px;letter-spacing:.04em;}
+    tr:last-child td{border-bottom:none;}
+
+    .steps{counter-reset:s;list-style:none;}
+    .steps li{counter-increment:s;position:relative;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px 16px 18px;padding-inline-start:54px;margin-bottom:10px;font-size:15px;}
+    .steps li::before{content:counter(s);position:absolute;inset-inline-start:16px;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;background:var(--accent-deep);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;}
+    .foot{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);font-size:12.5px;color:var(--muted);}
+    a{color:var(--accent);}
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="../../">← Orbit</a>
+
+    <div class="eyebrow">Efficiency Audit</div>
+    <h1>ייעול שבועי של המערכת</h1>
+    <div class="date">12 בנובמבר 2026 · Efficiency Agent</div>
+    <div class="verdict">🟡 יש 2 דברים פתוחים — ארכוב בוצע, מדידת טוקנים ותמחור עדיין לא מאומתים</div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-label">טעינה קבועה (Session Start)</div>
+        <div class="metric-val">~74.5K <small>בייטים</small></div>
+        <div class="metric-delta" style="color:var(--amber)">7 קבצים · לא טוקנים (ראה ממצא 2)</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">learning-log</div>
+        <div class="metric-val">20.0K <small>בייטים</small></div>
+        <div class="metric-delta">↓ מ-25.2K אחרי ארכוב</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">feedback-system</div>
+        <div class="metric-val">23.7K <small>בייטים</small></div>
+        <div class="metric-delta" style="color:var(--amber)">קרוב לתקרה 25K</div>
+      </div>
+    </div>
+
+    <div class="section-label">ממצאים</div>
+
+    <div class="finding good">
+      <div class="f-head"><span class="f-axis">🪙 טוקנים</span> ארכוב אוטומטי בוצע</div>
+      <div class="f-body">learning-log עבר את התקרה (25.2K). 4 ערכים מ-25.09 עברו ל-<code>archive/learning-log-archive-2026-09.md</code> (עכשיו 25 ערכים). ספירה לפני ואחרי: 19+21 = 15+25 = 40. decisions (21.5K) ו-feedback-system (23.7K) מתחת לתקרה, לא נארכבו.</div>
+      <div class="f-action"><span>מה לעשות עכשיו:</span> כלום. טופל.</div>
+    </div>
+
+    <div class="finding warn">
+      <div class="f-head"><span class="f-axis">🪙 טוקנים</span> מדידת Session Start בטוקנים עדיין פתוחה</div>
+      <div class="f-body">מדדתי בייטים בלבד, לא טוקנים. 74.5K בייטים של טקסט עברי לא מתורגמים ישירות לטוקנים. הבסיס מ-30.06 (~18K טוקנים) נמדד בדרך אחרת. לכן אי אפשר לקבוע השבוע אם הטעינה עלתה.</div>
+      <div class="f-action"><span>מה לעשות עכשיו:</span> הרץ <code>/context</code> בסשן הבא ורשום את שורת ה-memory files כאן.</div>
+    </div>
+
+    <div class="finding warn">
+      <div class="f-head"><span class="f-axis">🧠 מודל</span> תמחור המודלים לא מאומת</div>
+      <div class="f-body">חיפוש השבוע החזיר מקורות סותרים. דף אחד (CostBench, 10.10) נותן Haiku 5.5 ב-$0.10/$0.50, Sonnet 5.5 ב-$2/$10, Opus 5.5 ב-$4/$20 ו-Fable 5.1 ב-$10/$50. מקורות אחרים מדברים על מחירי ביניים שהסתיימו. לוח המודלים בקובץ הסוכן לא שונה, כי לא אומת.</div>
+      <div class="f-action"><span>מה לעשות עכשיו:</span> פתח את דף התמחור הרשמי ובדוק את 4 השורות האלה.</div>
+    </div>
+
+    <div class="finding good">
+      <div class="f-head"><span class="f-axis">🌐 בחוץ</span> אין ממצא חדש ומאומת</div>
+      <div class="f-body">חיפוש ה-changelog לא החזיר גרסה אחרונה אחידה. לא נמצא פיצ'ר חדש שחוסך משהו לאור. ממצא אחד למעקב בלבד, לא נבדק: הגבלת פלט דרך <code>CLAUDE_CODE_MAX_OUTPUT_TOKENS</code>.</div>
+    </div>
+
+    <div class="section-label">סיכום לפי ציר</div>
+    <table>
+      <tr><th>ציר</th><th>מצב</th></tr>
+      <tr><td>🪙 טוקנים / context</td><td>🟡 ארכוב בוצע, מדידה פתוחה</td></tr>
+      <tr><td>⚙️ שיטת עבודה</td><td>🟢 לא נבדק לעומק השבוע</td></tr>
+      <tr><td>🧠 בחירת מודל</td><td>🟡 תמחור לא מאומת</td></tr>
+      <tr><td>🔧 כלים והגדרות</td><td>🟢 לא נבדק השבוע</td></tr>
+      <tr><td>🌐 מה חדש בחוץ</td><td>🟢 אין ממצא מאומת</td></tr>
+    </table>
+
+    <div class="section-label">3 הצעדים הראשונים</div>
+    <ol class="steps">
+      <li>הרץ <code>/context</code> בסשן הבא ורשום את מספר ה-memory files.</li>
+      <li>בדוק 4 מחירי מודלים מול דף התמחור הרשמי: <a href="https://platform.claude.com/docs/en/about-claude/pricing">platform.claude.com/docs/en/about-claude/pricing</a></li>
+      <li>feedback-system.md (23.7K) קרוב לתקרה. אם יעבור 25K בריצה הבאה, הוא ייארכב.</li>
+    </ol>
+
+    <div class="foot">
+      Efficiency Agent · ריצה שבועית אוטומטית (יום חמישי) · מקורות: <a href="https://code.claude.com/docs/en/changelog">Claude Code changelog</a>
+    </div>
+  </main>
+</body>
+</html>
